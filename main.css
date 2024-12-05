@@ -6,7 +6,7 @@ body {
 .kotak_ungu{
     height: 10px;
     width: 100%;
-    background-color: #BF00FF;
+    background-color: #8100B3;
 }
 
 nav {
@@ -14,8 +14,8 @@ nav {
     background-color: #1E1E1E;
     display: flex;
     gap: 50px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     font-size: 20px;
     padding-left: 20px;
     position: relative;
@@ -25,11 +25,19 @@ nav {
 nav p {
     margin: 0px;
 }
+nav p:hover{
+    background-color: grey;
+    gap: 50px;
+    
+}
+
+#logo{
+    height: 70px;
+}
 
 button {
-    background-color: #BF00FF;
+    background-color: #8100B3;
     color: white;
-    border: 2px solid white;
     border-radius: 5px;
     font-size: 18px;
     padding: 5px;
@@ -44,6 +52,8 @@ button {
     right: 25px;
     align-items: center;
 }
+
+/*Gambar*/
 .search-container{
     width: 100%;
     height: 200px;
@@ -57,8 +67,16 @@ button {
     height: 500px;
     width: 100%;
     margin: -40px 0px 0px 0px;
+    z-index: 0;
 }
-
+.search-container .blackBox {
+    height: 500px;
+    width: 100%;
+    background-color: black;
+    z-index: 1;
+    position: absolute;
+    opacity: 25%;
+}
 .search_bar {
     position: absolute;
     z-index: 2;
@@ -72,12 +90,131 @@ input {
     cursor:text;
     width: 400px;
 }
-
 .icon_search {
     position: absolute;
     height: 20px;
     width: 20px;
     z-index: 2;
     left: 17px;
-    top: 13px;
+    top: 93px;
+}
+#slogan {
+    color: white;
+}
+
+/* TOP 10 TRENDING ARTIST */
+.trending-artist{
+    margin: 20px;
+}
+h3 {
+    color: #d592ef;
+}
+.gambar-artist img {
+    width: 150px;
+    height: 150px;
+    border: 5px solid #8100B3;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+/* TOP 10 TRENDING SONG */
+.trending-song{
+    margin: 20px;
+    margin-top: 50px;
+}
+.gambar-album img{
+    width: 150px;
+    height: 150px;
+    border: 5px solid #8100B3;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+/* HOT NEWS */
+.hot-news{
+    margin: 20px;
+    margin-top: 50px;
+}
+.grid-news{
+    display: grid;
+    /* gap: 10px; */
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    grid-template-areas: 
+        'news1 news2'
+        'news1 news3'
+        'news4 news3'
+    ;
+}
+.news {
+    background-color: #8100B3;
+}
+.news.besar {
+    height: 250px;
+    width: 100%;
+    border-radius: 10px;
+    padding-bottom: 10px;
+}
+.news.kecil {
+    height: 125px;
+    width: 100%;
+    border-radius: 10px;
+}
+.news h2 {
+    padding-right: 20px;
+    margin-bottom: 0px;
+    color: white;
+    font-weight: bold;
+}
+.news p{
+    margin-top: 0px;
+    color: white;
+    font-family: serif;
+    padding-right: 20px;
+    text-align: justify;
+}
+.news.besar img{
+    height: 220px;
+    margin: 20px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.news.kecil img{
+    height: 90px;
+    margin: 20px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+/* gambar news 1 */
+.news.besar.ke1{
+    display: grid;
+    grid-template-areas: 
+        'gambar judul'
+        'gambar keterangan'
+    ;
+}
+/* gambar news 2 */
+.news.kecil.ke2{
+    display: grid;
+    grid-template-areas: 
+        'gambar judul'
+        'gambar keterangan'
+    ;
+}
+/* gambar news 3 */
+.news.besar.ke3{
+    display: grid;
+    grid-template-areas: 
+        'gambar judul'
+        'gambar keterangan'
+    ;
+}
+/* gambar news 4 */
+.news.kecil.ke4{
+    display: grid;
+    grid-template-areas: 
+        'gambar judul'
+        'gambar keterangan'
+    ;
 }
