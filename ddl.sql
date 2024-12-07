@@ -8,9 +8,22 @@ CREATE TABLE Pengguna (
     role rolePengguna NOT NULL DEFAULT 'pengguna'
 );
 
+CREATE TABLE Negara(
+	idNegara SERIAL PRIMARY KEY,
+	namaNegara VARCHAR(255)
+);
+
+CREATE TABLE Kota(
+	idKota SERIAL PRIMARY KEY,
+	namaKota VARCHAR(255),
+	idNegara INT REFERENCES Negara(idNegara) ON DELETE CASCADE,
+);
+
 CREATE TABLE Lokasi(
     idLokasi SERIAL PRIMARY KEY,
-    namaLokasi VARCHAR(255) NOT NULL
+    namaLokasi VARCHAR(255) NOT NULL,
+	alamatLokasi TEXT,
+	idKota INT REFERENCES Kota(idKota) ON DELETE CASCADE
 );
 
 CREATE TABLE Artis (
