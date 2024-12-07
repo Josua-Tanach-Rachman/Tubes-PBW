@@ -35,7 +35,7 @@ public class JdbcAlbumRepository implements AlbumRepository {
 
     @Override
     public void deleteById(int idAlbum) {
-        String sql = "DELETE FROM album WHERE idAlbum = ?";
+        String sql = "DELETE FROM album WHERE idalbum = ?";
         jdbcTemplate.update(sql, idAlbum);
     }
 
