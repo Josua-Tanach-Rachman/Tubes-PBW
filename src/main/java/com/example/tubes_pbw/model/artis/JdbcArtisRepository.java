@@ -29,8 +29,20 @@ public class JdbcArtisRepository implements ArtisRepository {
 
     @Override
     public Iterable<Artis> findByIdArtis(int idArtis) {
-        String sql = "SELECT * FROM Artis WHERE idartis = ?";
+        String sql = "SELECT * FROM artis WHERE idartis = ?";
         return jdbcTemplate.query(sql, this::mapRowToArtis, idArtis);
+    }
+
+    @Override
+    public void save(String namaArtis) {
+        String sql = "INSERT INTO artis (namaartis) VALUES (?)";
+        jdbcTemplate.update(sql, namaArtis);
+    }
+
+    @Override
+    public void deleteById(int idArtis) {
+        String sql = "DELETE FROM artis WHERE idartis = ?";
+        jdbcTemplate.update(sql, idArtis);
     }
 
     private Artis mapRowToArtis(ResultSet resultSet, int rowNum) throws SQLException {

@@ -22,4 +22,12 @@ public class ArtisService {
     public Iterable<Artis> findByIdArtis(int idArtis) {
         return artisRepository.findByIdArtis(idArtis);
     }
+
+    public void save(String namaArtis) {
+        artisRepository.save(namaArtis);
+    }
+
+    public void deleteById(int idArtis) {
+        artisRepository.deleteById(idArtis);
+    }
 }
