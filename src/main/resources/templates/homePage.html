@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/homePage.css}">
+</head>
+<header>
+    <div class="kotak_ungu"></div>
+    <nav>
+        <img src="@{/assets/icon.png}" alt="" id="logo">
+        <p id="setlist">SETLIST</p>
+        <P id="artist">ARTIST</P>
+        <P id="concert">CONCERT</P>
+        <P id="news">NEWS</P>
+
+        <div class="button-container">
+            <button type="submit" class="button setlist">+SET LIST</button>
+            <button type="submit" class="button login">LOG IN</button>
+        </div>
+    </nav>
+</header>
+<body>
+    <div class="search-container">
+        <img src="" alt="" class="background-search">
+        <div class="blackBox"></div>
+        <div class="search_bar">
+            <form action="">
+                <h1 id="slogan">Set Your Playlist, Set Your Mood</h1>
+                <input type="text" placeholder="Search for artist, concert, news, ...">
+            </form>
+            <div>
+                <img src="assets/search.png" alt="" class="icon_search">
+            </div>
+        </div>
+    </div>
+
+    <!-- Top 10 Trending Artist -->
+    <h3>TOP 10 TRENDING ARTIST</h3>
+    <div class="trending-artist">
+        <div class="gambar-artist">
+            <img th:src="@{/assets/topArtist/logo1.png}" alt="Artist 1">
+            <img th:src="@{/assets/topArtist/logo2.png}" alt="Artist 2">
+            <img th:src="@{/assets/topArtist/logo3.png}" alt="Artist 3">
+            <img th:src="@{/assets/topArtist/logo4.png}" alt="Artist 4">
+            <img th:src="@{/assets/topArtist/logo5.png}" alt="Artist 5">
+            <img th:src="@{/assets/topArtist/logo6.png}" alt="Artist 6">
+            <img th:src="@{/assets/topArtist/logo7.png}" alt="Artist 7">
+            <img th:src="@{/assets/topArtist/logo8.png}" alt="Artist 8">
+            <img th:src="@{/assets/topArtist/logo9.png}" alt="Artist 9">
+            <img th:src="@{/assets/topArtist/logo10.png}" alt="Artist 10">
+        </div>
+    </div>
+    
+
+    <!-- Top 10 Trenging Song -->
+    <h3>TOP 10 TRENDING SONG</h3>
+    <div class="trending-song">
+        <div class="gambar-album">
+            <img th:src="@{/assets/topSongs/album1.webp}" alt="Album 1">
+            <img th:src="@{/assets/topSongs/album2.webp}" alt="Album 2">
+            <img th:src="@{/assets/topSongs/album3.webp}" alt="Album 3">
+            <img th:src="@{/assets/topSongs/album4.webp}" alt="Album 4">
+            <img th:src="@{/assets/topSongs/album5.webp}" alt="Album 5">
+            <img th:src="@{/assets/topSongs/album5.webp}" alt="Album 5">
+            <img th:src="@{/assets/topSongs/album4.webp}" alt="Album 4">
+            <img th:src="@{/assets/topSongs/album3.webp}" alt="Album 3">
+            <img th:src="@{/assets/topSongs/album2.webp}" alt="Album 2">
+            <img th:src="@{/assets/topSongs/album1.webp}" alt="Album 1">
+        </div>
+    </div>
+
+    <div class="hot-news">
+        <h3>HOT NEWS!</h3>
+        <div class="grid-news">
+            <div class="news besar ke1" style="grid-area: news1;">
+                <img th:src="@{/assets/adeleNews.webp}" alt="Adele Performs in Vegas" style="grid-area: gambar;">
+                <h2 style="grid-area: judul;">Adele Performs in Vegas</h2>
+                <p style="grid-area: keterangan;">
+                    British superstar Adele cried on Saturday night as she played her 100th and final show in Las Vegas.
+                    She has spent the past two years playing a weekend residency at the 4,000-capacity Caesars Palace.
+                </p>
+            </div>
+    
+            <div class="news kecil ke2" style="grid-area: news2;">
+                <img th:src="@{/assets/lanyNews.jpg}" alt="LANY has arrived in Manila!" style="grid-area: gambar;">
+                <h2 style="grid-area: judul;">LANY has arrived in Manila!</h2>
+                <p style="grid-area: keterangan;">
+                    On Instagram Stories early Friday morning, the American band posted a photo of Paul Klein and Jake Gloss at the Ninoy Aquino International Airport being interviewed by the media.
+                </p>
+            </div>
+            
+            <div class="news besar ke3" style="grid-area: news3;">
+                <img th:src="@{/assets/troyeNews.jpg}" alt="Troye Sivan's New Album" style="grid-area: gambar;">
+                <h2 style="grid-area: judul;">Troye Sivan's New Album</h2>
+                <p style="grid-area: keterangan;">
+                    His new album, Something to Give Each Other, gets specific about aspects of queer life that don't often get a mainstream platform.
+                </p>
+            </div>
+    
+            <div class="news kecil ke4" style="grid-area: news4;">
+                <img th:src="@{/assets/camilaNews.webp}" alt="Camila Cabello Performance at MTV VMAs" style="grid-area: gambar;">
+                <h2 style="grid-area: judul;">Camila Cabello Performance at MTV VMAs</h2>
+                <p style="grid-area: keterangan;">
+                    The singer did a dramatic performance during which she sang into a camera and later smashed a laptop.
+                </p>
+            </div>
+        </div>
+    </div>    
+</body>
+<footer>
+
+</footer>
+</html>
