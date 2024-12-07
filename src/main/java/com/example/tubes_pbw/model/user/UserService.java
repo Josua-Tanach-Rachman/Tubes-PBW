@@ -1,4 +1,4 @@
-package com.example.tubes_pbw.user;
+package com.example.tubes_pbw.model.user;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.example.tubes_pbw.user;
+package com.example.tubes_pbw.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

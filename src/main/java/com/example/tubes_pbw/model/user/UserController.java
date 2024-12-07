@@ -1,4 +1,4 @@
-package com.example.tubes_pbw.user;
+package com.example.tubes_pbw.model.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

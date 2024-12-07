@@ -1,4 +1,4 @@
-package com.example.tubes_pbw.user;
+package com.example.tubes_pbw.model.user;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
