@@ -3,7 +3,8 @@ package com.example.tubes_pbw.model.album;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class AlbumService {
@@ -11,8 +12,13 @@ public class AlbumService {
     @Autowired
     private AlbumRepository albumRepository;
 
-    public Optional<Album> findById(int idAlbum) {
-        return albumRepository.findById(idAlbum);
+    public List<Album> findByNamaAlbum(String namaAlbum) {
+        Iterable<Album> it = albumRepository.findByNamaAlbum(namaAlbum);
+        List<Album> list = new ArrayList<>();
+        for(Album a: it){
+            list.add(a);
+        }
+        return list;
     }
 
     public Iterable<Album> findAll() {
