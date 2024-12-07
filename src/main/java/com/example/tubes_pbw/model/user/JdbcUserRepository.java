@@ -16,12 +16,12 @@ public class JdbcUserRepository implements UserRepository {
 
 
     public void save(User user) throws Exception{
-        String sql = "INSERT INTO users (username, password, name, role) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.getName(), user.getRole());
+        String sql = "INSERT INTO pengguna (username, password, nama, role) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.getNama(), user.getRole());
     }
 
     public Optional<User> findByUsername(String username) {
-        String sql = "SELECT * FROM users WHERE username = ?";
+        String sql = "SELECT * FROM pengguna WHERE username = ?";
         List<User> results = jdbcTemplate.query(sql, this::mapRowToUser, username);
         return results.size() == 0 ? Optional.empty() : Optional.of(results.get(0));
     }
@@ -30,8 +30,7 @@ public class JdbcUserRepository implements UserRepository {
         return new User(
             resultSet.getString("username"),
             resultSet.getString("password"),
-            resultSet.getString("password"),
-            resultSet.getString("name"),
+            resultSet.getString("nama"),
             resultSet.getString("role")
         );
     }
