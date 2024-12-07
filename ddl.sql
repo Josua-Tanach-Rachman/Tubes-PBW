@@ -34,7 +34,6 @@ CREATE TABLE Artis (
 CREATE TABLE Album(
     idAlbum SERIAL PRIMARY KEY,
     namaAlbum VARCHAR(255) NOT NULL,
-    idArtis INT REFERENCES Artis(idArtis) ON DELETE CASCADE,
     release_date DATE
 );
 
@@ -60,9 +59,7 @@ CREATE TABLE Lagu_Artis(
 CREATE TABLE Setlist(
     idSetlist SERIAL PRIMARY KEY,
     namaSetlist VARCHAR(255) NOT NULL,
-    idArtis INT REFERENCES Artis(idArtis),
     tanggal TIMESTAMP,
-    description TEXT,
     idLokasi INT REFERENCES Lokasi(idLokasi),
     urlBukti VARCHAR(255)
 );
@@ -70,6 +67,7 @@ CREATE TABLE Setlist(
 CREATE TABLE Setlist_lagu(
     idSetlist INT REFERENCES Setlist(idSetlist) ON DELETE CASCADE,
     idLagu INT REFERENCES Lagu(idLagu) ON DELETE CASCADE,
+	idArtis INT REFERENCES Artis(idArtis),
     trackNumber INT,
     PRIMARY KEY (idSetlist, idLagu)
 );
