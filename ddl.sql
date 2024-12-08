@@ -42,6 +42,16 @@ CREATE TABLE Artis (
     idImage INT REFERENCES Images(id) ON DELETE CASCADE
 );
 
+CREATE VIEW Artis_Gambar AS
+	SELECT 
+		a.idArtis,
+		a.namaArtis,
+		i.imageData
+	FROM
+		Artis a
+	JOIN 
+	    Images i ON a.idImage = i.id;
+
 CREATE TABLE Album(
     idAlbum SERIAL PRIMARY KEY,
     namaAlbum VARCHAR(255) NOT NULL,
