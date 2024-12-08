@@ -6,6 +6,6 @@ public interface ArtisRepository {
     Optional<Artis> findByNamaArtis(String namaArtis);
     Iterable<Artis> findByFilterNamaArtis(String namaArtis);
     Iterable<Artis> findByIdArtis(int idArtis);
-    void save(String namaArtis);
+    void save(String namaArtis, int idImage);
     void deleteById(int idArtis);
 }

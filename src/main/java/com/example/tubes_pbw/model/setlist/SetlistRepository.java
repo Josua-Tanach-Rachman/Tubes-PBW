@@ -7,5 +7,5 @@ public interface SetlistRepository {
     Optional<Setlist> findByIdSetlist(int idSetlist);
     Iterable<Setlist> findByNamaSetlist(String namaSetlist);
     Iterable<Setlist> findByLokasi(int idLokasi);
-    int save(String namaSetlist, LocalDate tanggal, int idLokasi, String urlBukti);
+    int save(String namaSetlist, LocalDate tanggal, int idLokasi, String urlBukti, int idImage);
 }

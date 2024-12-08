@@ -11,4 +11,5 @@ public class Album {
     private int idAlbum;
     private String namaAlbum;
     private LocalDate releaseDate;
+    private int idImage;
 }
