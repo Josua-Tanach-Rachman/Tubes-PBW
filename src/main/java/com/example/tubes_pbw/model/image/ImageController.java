@@ -24,9 +24,9 @@ public class ImageController {
         return "upload";
     }
     @PostMapping("/upload")
-    public String uploadImage(@RequestParam("file") MultipartFile file, Model model) {
+    public String uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("kategori") String kategori, Model model) {
         try {
-            String message = imageService.uploadImage(file);
+            String message = imageService.uploadImage(file, kategori);
             model.addAttribute("message", message);
             return "upload";
         } catch (IOException e) {

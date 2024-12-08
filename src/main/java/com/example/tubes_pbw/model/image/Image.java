@@ -13,6 +13,7 @@ public class Image {
     private String name;
 
     private String type;
+    private String kategori;
 
     private byte[] imageData;
 }

@@ -15,20 +15,21 @@ public class JdbcImageRepository implements ImageRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    private static final String INSERT_IMAGE_SQL = "INSERT INTO images (name, type, imagedata) VALUES (?, ?, ?)";
+    private static final String INSERT_IMAGE_SQL = "INSERT INTO images (name, type, kategori, imagedata) VALUES (?, ?, ?, ?)";
     private static final String FIND_BY_NAME_SQL = "SELECT * FROM images WHERE name = ?";
 
     public Image mapRowToImage(ResultSet rs, int rowNum) throws SQLException {
         return new Image(
             rs.getLong("id"), 
             rs.getString("name"), 
-            rs.getString("type"), 
+            rs.getString("type"),
+            rs.getString("kategori"),
             rs.getBytes("imageData")
         );
     }
 
     public void save(Image image) {
-        jdbcTemplate.update(INSERT_IMAGE_SQL, image.getName(), image.getType(), image.getImageData());
+        jdbcTemplate.update(INSERT_IMAGE_SQL, image.getName(), image.getType(), image.getKategori(), image.getImageData());
     }
 
     public Optional<Image> findByName(String name) {

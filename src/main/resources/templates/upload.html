@@ -8,6 +8,14 @@
     
     <form th:action="@{/images/upload}" method="post" enctype="multipart/form-data">
         <input type="file" name="file" required />
+        <br>
+        <label for="kategori">Kategori:</label>
+        <select name="kategori" id="kategori">
+            <option value="bukti">Bukti</option>
+            <option value="artis">Artis</option>
+            <option value="lagu">Lagu</option>
+            <option value="setlist">Setlist</option>
+        </select>
         <button type="submit">Upload</button>
     </form>
 
