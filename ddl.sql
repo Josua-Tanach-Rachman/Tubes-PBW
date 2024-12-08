@@ -1,8 +1,17 @@
 CREATE TYPE rolePengguna AS ENUM ('admin', 'pengguna');
 
+CREATE TABLE Images (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    type VARCHAR(255) NOT NULL,
+    imageData BYTEA NOT NULL
+);
+
+
 CREATE TABLE Pengguna (
     idPengguna SERIAL PRIMARY KEY,
     username VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
     password VARCHAR(255) NOT NULL,
     nama VARCHAR(255) NOT NULL,
     role rolePengguna NOT NULL DEFAULT 'pengguna'
@@ -28,13 +37,15 @@ CREATE TABLE Lokasi(
 
 CREATE TABLE Artis (
     idArtis SERIAL PRIMARY KEY,
-    namaArtis VARCHAR(255) NOT NULL
+    namaArtis VARCHAR(255) NOT NULL,
+    idImage INT REFERENCES Images(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Album(
     idAlbum SERIAL PRIMARY KEY,
     namaAlbum VARCHAR(255) NOT NULL,
-    release_date DATE
+    release_date DATE,
+    idImage INT REFERENCES Images(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Album_Artis(
@@ -47,7 +58,8 @@ CREATE TABLE Lagu(
     idLagu SERIAL PRIMARY KEY,
     idAlbum INT REFERENCES Album(idAlbum) ON DELETE CASCADE,
     namaLagu VARCHAR(255) NOT NULL,
-    duration INT
+    duration INT,
+    idImage INT REFERENCES Images(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Lagu_Artis(
@@ -61,7 +73,8 @@ CREATE TABLE Setlist(
     namaSetlist VARCHAR(255) NOT NULL,
     tanggal TIMESTAMP,
     idLokasi INT REFERENCES Lokasi(idLokasi),
-    urlBukti VARCHAR(255)
+    urlBukti VARCHAR(255),
+    idImage INT REFERENCES Images(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Setlist_lagu(
@@ -90,18 +103,11 @@ CREATE TABLE News(
     idNews SERIAL PRIMARY KEY,
     headlineNews TEXT,
     isiNews TEXT,
-    urlGambar VARCHAR(255)
+    idImage INT REFERENCES Images(id) ON DELETE CASCADE
 );
 
 CREATE TABLE History_Perubahan(
     idHistory SERIAL PRIMARY KEY,
     idPengguna INT REFERENCES Pengguna(idPengguna),
     idKomentar INT REFERENCES Komentar(idKomentar)
-);
-
-CREATE TABLE Images (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    type VARCHAR(255) NOT NULL,
-    imageData BYTEA NOT NULL
 );
