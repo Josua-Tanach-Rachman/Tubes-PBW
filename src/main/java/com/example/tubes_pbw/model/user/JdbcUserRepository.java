@@ -14,12 +14,20 @@ public class JdbcUserRepository implements UserRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-
-    public void save(User user) throws Exception{
-        String sql = "INSERT INTO pengguna (username, password, nama, role) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.getNama(), user.getRole());
+    @Override
+    public int save(User user) throws Exception{
+        String sql = "INSERT INTO pengguna (username, password, nama, role, email) VALUES (?, ?, ?, ?, ?)";
+        int idUser = jdbcTemplate.queryForObject(sql, Integer.class, user.getUsername(), user.getPassword(), user.getNama(), user.getRole(),user.getEmail());
+        return idUser;
     }
 
+    @Override
+    public int updateUser(int idPengguna, String nama, String username, String password, String email) {
+        String sql = "UPDATE Pengguna SET nama = ?, username = ?, password = ?, email = ? WHERE idPengguna = ?";
+        return jdbcTemplate.update(sql, nama, username, password, email, idPengguna);
+    }
+
+    @Override
     public Optional<User> findByUsername(String username) {
         String sql = "SELECT * FROM pengguna WHERE username = ?";
         List<User> results = jdbcTemplate.query(sql, this::mapRowToUser, username);
@@ -31,7 +39,8 @@ public class JdbcUserRepository implements UserRepository {
             resultSet.getString("username"),
             resultSet.getString("password"),
             resultSet.getString("nama"),
-            resultSet.getString("role")
+            resultSet.getString("role"),
+            resultSet.getString("email")
         );
     }
 

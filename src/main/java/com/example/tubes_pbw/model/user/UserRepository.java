@@ -4,4 +4,6 @@ import java.util.Optional;
 
 public interface UserRepository {
     Optional<User> findByUsername(String username);
+    int save(User user) throws Exception;
+    int updateUser(int idPengguna, String nama, String username, String password, String email);
 } 

@@ -33,11 +33,15 @@ public class User {
     @NotNull
     @Size(min=4, max=60)
     private String confirmpassword;
+
+    @NotBlank
+    private String email;
     
-    public User(String username,String password, String nama, String role) {
+    public User(String username,String password, String nama, String role, String email) {
         this.username = username;
         this.password = password;
         this.nama = nama;
         this.role = role;
+        this.email = email;
     }
 }
