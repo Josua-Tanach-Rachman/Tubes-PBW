@@ -28,7 +28,8 @@ CREATE TABLE Lokasi(
 
 CREATE TABLE Artis (
     idArtis SERIAL PRIMARY KEY,
-    namaArtis VARCHAR(255) NOT NULL
+    namaArtis VARCHAR(255) NOT NULL,
+    urlGambarArtis VARCHAR(255)
 );
 
 CREATE TABLE Album(
@@ -47,7 +48,8 @@ CREATE TABLE Lagu(
     idLagu SERIAL PRIMARY KEY,
     idAlbum INT REFERENCES Album(idAlbum) ON DELETE CASCADE,
     namaLagu VARCHAR(255) NOT NULL,
-    duration INT
+    duration INT,
+    urlGambarLagu VARCHAR(255)
 );
 
 CREATE TABLE Lagu_Artis(
