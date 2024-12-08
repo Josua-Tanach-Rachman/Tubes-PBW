@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Image</title>
+</head>
+<body>
+    <h1>Upload Image</h1>
+    
+    <form th:action="@{/images/upload}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required />
+        <button type="submit">Upload</button>
+    </form>
+
+    <div th:if="${message != null}">
+        <p th:text="${message}"></p>
+    </div>
+
+    <a href="/images/download">Go to download page</a>
+</body>
+</html>

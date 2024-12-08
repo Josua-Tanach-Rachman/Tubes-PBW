@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download Image</title>
+</head>
+<body>
+    <h1>Download Image</h1>
+
+    <!-- Error Message Display -->
+    <div th:if="${error}" style="color: red;">
+        <p th:text="${error}"></p>
+    </div>
+
+    <form method="post" action="/images/download">
+        <label for="imageName">Enter Image Name:</label>
+        <input type="text" id="imageName" name="imageName" required />
+        <button type="submit">Download</button>
+    </form>
+
+    <a href="/images/upload">Go to upload page</a>
+</body>
+</html>

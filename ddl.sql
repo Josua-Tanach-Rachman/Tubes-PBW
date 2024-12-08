@@ -97,4 +97,11 @@ CREATE TABLE History_Perubahan(
     idHistory SERIAL PRIMARY KEY,
     idPengguna INT REFERENCES Pengguna(idPengguna),
     idKomentar INT REFERENCES Komentar(idKomentar)
-)
+);
+
+CREATE TABLE Images (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    type VARCHAR(255) NOT NULL,
+    imageData BYTEA NOT NULL
+);
