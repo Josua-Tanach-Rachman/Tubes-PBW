@@ -4,6 +4,7 @@ CREATE TABLE Images (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     type VARCHAR(255) NOT NULL,
+	kategori VARCHAR(255),
     imageData BYTEA NOT NULL
 );
 
