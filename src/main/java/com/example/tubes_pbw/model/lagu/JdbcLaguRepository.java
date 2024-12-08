@@ -35,9 +35,9 @@ public class JdbcLaguRepository implements LaguRepository {
     }
 
     @Override
-    public int save(int idAlbum, String namaLagu, int duration) {
-        String sql = "INSERT INTO lagu (idalbum, namalagu, duration) VALUES (?, ?, ?) RETURNING idlagu";
-        int idLagu = jdbcTemplate.queryForObject(sql,Integer.class, idAlbum, namaLagu, duration);
+    public int save(int idAlbum, String namaLagu, int duration, int idImage) {
+        String sql = "INSERT INTO lagu (idalbum, namalagu, duration, idimage) VALUES (?, ?, ?, ?) RETURNING idlagu";
+        int idLagu = jdbcTemplate.queryForObject(sql,Integer.class, idAlbum, namaLagu, duration, idImage);
         return idLagu;
     }
 
@@ -46,7 +46,8 @@ public class JdbcLaguRepository implements LaguRepository {
             resultSet.getInt("idlagu"),
             resultSet.getInt("idalbum"),
             resultSet.getString("namalagu"),
-            resultSet.getInt("duration")
+            resultSet.getInt("duration"),
+            resultSet.getInt("idImage")
         );
     }
 }

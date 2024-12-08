@@ -24,7 +24,7 @@ public class SetlistService {
         return setlistRepository.findByLokasi(idLokasi);
     }
 
-    public void save(String namaSetlist, LocalDate tanggal, int idLokasi, String urlBukti) {
-        setlistRepository.save(namaSetlist,tanggal,idLokasi,urlBukti);
+    public void save(String namaSetlist, LocalDate tanggal, int idLokasi, String urlBukti, int idImage) {
+        setlistRepository.save(namaSetlist,tanggal,idLokasi,urlBukti, idImage);
     }
 }

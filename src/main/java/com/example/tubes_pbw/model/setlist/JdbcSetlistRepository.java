@@ -36,9 +36,9 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
 
     @Override
-    public int save(String namaSetlist, LocalDate tanggal, int idLokasi, String urlBukti) {
-        String sql = "INSERT INTO setlist (namasetlist, tanggal, description, idlokasi, urlbukti) VALUES (?, ?, ?, ?, ?) RETURNING idsetlist";
-        int idSetlist = jdbcTemplate.queryForObject(sql,Integer.class, namaSetlist, tanggal, idLokasi, urlBukti);
+    public int save(String namaSetlist, LocalDate tanggal, int idLokasi, String urlBukti, int idImage) {
+        String sql = "INSERT INTO setlist (namasetlist, tanggal, description, idlokasi, urlbukti, idImage) VALUES (?, ?, ?, ?, ?, ?) RETURNING idsetlist";
+        int idSetlist = jdbcTemplate.queryForObject(sql,Integer.class, namaSetlist, tanggal, idLokasi, urlBukti, idImage);
         return idSetlist;
     }
 
@@ -48,7 +48,8 @@ public class JdbcSetlistRepository implements SetlistRepository {
             resultSet.getString("namasetlist"),
             resultSet.getTimestamp("tanggal").toLocalDateTime(),
             resultSet.getInt("idlokasi"),
-            resultSet.getString("urlbukti")
+            resultSet.getString("urlbukti"),
+            resultSet.getInt("idImage")
         );
     }
 }
