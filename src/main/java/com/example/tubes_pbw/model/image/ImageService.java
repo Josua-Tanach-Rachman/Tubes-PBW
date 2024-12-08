@@ -13,10 +13,11 @@ public class ImageService {
 
     private final JdbcImageRepository jdbcImageRepository;
 
-    public String uploadImage(MultipartFile imageFile) throws IOException {
+    public String uploadImage(MultipartFile imageFile, String kategori) throws IOException {
         Image imageToSave = new Image();
         imageToSave.setName(imageFile.getOriginalFilename());
         imageToSave.setType(imageFile.getContentType());
+        imageToSave.setKategori(kategori);
         imageToSave.setImageData(imageFile.getBytes());
 
         jdbcImageRepository.save(imageToSave);
