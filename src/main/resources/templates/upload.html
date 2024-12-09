@@ -6,7 +6,7 @@
 <body>
     <h1>Upload Image</h1>
     
-    <form th:action="@{/images/upload}" method="post" enctype="multipart/form-data">
+    <!-- <form th:action="@{/images/upload}" method="post" enctype="multipart/form-data">
         <input type="file" name="file" required />
         <br>
         <label for="kategori">Kategori:</label>
@@ -17,11 +17,23 @@
             <option value="setlist">Setlist</option>
         </select>
         <button type="submit">Upload</button>
-    </form>
+    </form> -->
 
     <div th:if="${message != null}">
         <p th:text="${message}"></p>
     </div>
+
+    <form th:action="@{/api/uploads/images}" method="post" enctype="multipart/form-data">
+        <label for="file">Choose an image to upload:</label>
+        <input type="file" name="file" id="file" required />
+        <select name="kategori" id="kategori">
+            <option value="bukti">Bukti</option>
+            <option value="artis">Artis</option>
+            <option value="lagu">Lagu</option>
+            <option value="setlist">Setlist</option>
+        </select>
+        <button type="submit">Upload Image</button>
+    </form>
 
     <a href="/images/download">Go to download page</a>
 </body>

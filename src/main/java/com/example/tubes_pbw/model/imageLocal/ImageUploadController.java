@@ -29,8 +29,8 @@ public class ImageUploadController {
     @Value("${file.upload-dir}")
     private String uploadDir;
 
-    @PostMapping("/images/{subDir}")
-    public ResponseEntity<String> uploadImage(@PathVariable("subDir") String subDir, @RequestParam("file") MultipartFile file) {
+    @PostMapping("/images")
+    public ResponseEntity<String> uploadImage(@RequestParam("kategori") String subDir, @RequestParam("file") MultipartFile file) {
         try {
             String filePath = saveImage(subDir, file);
             return ResponseEntity.ok("Image uploaded successfully: " + filePath);
@@ -49,7 +49,8 @@ public class ImageUploadController {
         Path filePath = uploadPath.resolve(fileName);
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-        return filePath.toString();
+        // return filePath.toString();
+        return "/" + subDir + "/" + fileName;
     }
 
     @GetMapping("/images/{subDir}/{filename}")
