@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <script th:src="@{/js/login.js}" defer></script>
+</head>
+<body>
+    <header>
+        <div class="kotak_ungu"></div>
+    </header>
+    <div class="background">
+        <img src="assetsLogin/background.jpg" alt="">
+        <div class="blackBox"></div>
+    </div>
+    <div class="login-bar-container">
+        <div class="white-box"></div>
+        <div class="component">
+            <h1>LOG IN</h1>
+            <div class="username">
+                <input type="text" placeholder="Type your username">
+                <img src="assetsLogin/user.png" alt="">
+            </div>
+            <div class="password">
+                <input type="password" placeholder="Type your password" id="password">
+                <img src="assetsLogin/lock.svg" alt="" class="lock">
+                <img src="assetsLogin/password_not_see.png" alt="" class="eye">
+                <img src="assetsLogin/password_see.png" alt="" class="eye-see">
+
+            </div>
+            <div class="remember-pass">
+                <input type="checkbox" id="checkBox">
+                <label for="checkBox" name="checkBox" id="labelCheckBox">Remember password?</label>
+            </div>
+            <div class="button">
+                <button type="submit" id="buttonLogin">LOG IN</button>
+            </div>
+            <div class="register">
+                <span>Don't have an account?</span>
+                <a href="">Register Now</a>
+            </div>
+        </div>
+    </div>
+</body>
+<footer>
+
+</footer>
+</html>
