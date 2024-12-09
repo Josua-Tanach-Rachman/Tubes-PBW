@@ -40,7 +40,7 @@ body {
 .white-box{
     display: flex;
     width: 400px;
-    height: 400px;
+    height: 500px;
     background-color: white;
     position: relative;
     opacity: 70%;
@@ -103,7 +103,6 @@ h1 {
     position: absolute;
     visibility: hidden;
 }
-
 /* Remember Pass Check */
 .remember-pass{
     display: flex;
@@ -114,7 +113,6 @@ h1 {
 input#checkBox {
     width: 30px;
 }
-
 /* BUTTON */
 #buttonLogin{
     background-color: #8100B3;
@@ -123,13 +121,9 @@ input#checkBox {
     width: 330px;
     border-radius: 10px;
     margin-top: 20px;
+    margin-left: 10px;
 }
-
-/* Resgister */
-.register span{
-    margin-right: 5px;
-}
-.register a {
-    font-weight: bold;
-    color: #4f006e;
+.input_container{
+    display: flex;
+    justify-content: center;
 }

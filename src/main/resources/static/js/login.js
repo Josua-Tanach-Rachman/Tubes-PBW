@@ -1,18 +1,17 @@
-let eye_not_see = document.getElementsByClassName("eye")[0];
-let eye_see = document.getElementsByClassName("eye-see")[0];
-let password = document.getElementById("password");
+document.querySelectorAll('.password').forEach(passwordDiv => {
+    const eye_not_see = passwordDiv.querySelector('.eye');
+    const eye_see = passwordDiv.querySelector('.eye-see');
+    const passwordInput = passwordDiv.querySelector('input');
 
-eye_not_see.addEventListener('click', showPass);
-eye_see.addEventListener('click', hidePass);
+    eye_not_see.addEventListener('click', () => {
+        passwordInput.type = "text";
+        eye_not_see.style.visibility = 'hidden';
+        eye_see.style.visibility = 'visible';
+    });
 
-function showPass (even){
-    eye_not_see.style.visibility = 'hidden';
-    eye_see.style.visibility = 'visible'
-    password.type = "text"
-}
-
-function hidePass (even){
-    eye_not_see.style.visibility = 'visible';
-    eye_see.style.visibility = 'hidden'
-    password.type = "password"
-}
+    eye_see.addEventListener('click', () => {
+        passwordInput.type = "password";
+        eye_see.style.visibility = 'hidden';
+        eye_not_see.style.visibility = 'visible';
+    });
+});
