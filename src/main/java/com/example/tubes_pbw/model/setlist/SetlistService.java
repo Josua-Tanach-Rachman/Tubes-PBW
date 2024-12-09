@@ -20,11 +20,11 @@ public class SetlistService {
         return setlistRepository.findByNamaSetlist(namaSetlist);
     }
 
-    public Iterable<Setlist> findByLokasi(int idLokasi) {
-        return setlistRepository.findByLokasi(idLokasi);
+    public Iterable<Setlist> findByShow(int idShow) {
+        return setlistRepository.findByShow(idShow);
     }
 
-    public void save(String namaSetlist, LocalDate tanggal, int idLokasi, String urlBukti, int idImage) {
-        setlistRepository.save(namaSetlist,tanggal,idLokasi,urlBukti, idImage);
+    public void save(String namaSetlist, LocalDate tanggal, int idShow, String urlBukti) {
+        setlistRepository.save(namaSetlist,tanggal,idShow,urlBukti);
     }
 }

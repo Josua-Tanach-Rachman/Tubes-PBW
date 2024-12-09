@@ -6,5 +6,5 @@ public interface LaguRepository {
     Optional<Lagu> findByIdLagu(int idLagu);
     Iterable<Lagu> findByIdAlbum(int idAlbum);
     Iterable<Lagu> findByNamaLagu(String namaLagu);
-    int save(int idAlbum, String namaLagu, int duration, int idImage);
+    int save(int idAlbum, String namaLagu, int duration, String urlGambarLagu);
 }

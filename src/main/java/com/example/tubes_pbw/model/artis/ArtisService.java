@@ -23,8 +23,8 @@ public class ArtisService {
         return artisRepository.findByIdArtis(idArtis);
     }
 
-    public void save(String namaArtis, int idImage) {
-        artisRepository.save(namaArtis, idImage);
+    public void save(String namaArtis, String urlGambarArtis) {
+        artisRepository.save(namaArtis, urlGambarArtis);
     }
 
     public void deleteById(int idArtis) {

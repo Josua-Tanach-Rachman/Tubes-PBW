@@ -30,26 +30,25 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
 
     @Override
-    public Iterable<Setlist> findByLokasi(int idLokasi) {
-        String sql = "SELECT * FROM setlist WHERE idlokasi = ?";
-        return jdbcTemplate.query(sql, this::mapRowToSetlist, idLokasi);
+    public Iterable<Setlist> findByShow(int idShow) {
+        String sql = "SELECT * FROM setlist WHERE idshow = ?";
+        return jdbcTemplate.query(sql, this::mapRowToSetlist, idShow);
     }
 
     @Override
-    public int save(String namaSetlist, LocalDate tanggal, int idLokasi, String urlBukti, int idImage) {
-        String sql = "INSERT INTO setlist (namasetlist, tanggal, description, idlokasi, urlbukti, idImage) VALUES (?, ?, ?, ?, ?, ?) RETURNING idsetlist";
-        int idSetlist = jdbcTemplate.queryForObject(sql,Integer.class, namaSetlist, tanggal, idLokasi, urlBukti, idImage);
+    public int save(String namaSetlist, LocalDate tanggal, int idShow, String urlBukti) {
+        String sql = "INSERT INTO setlist (namasetlist, tanggal, description, idshow, urlbukti) VALUES (?, ?, ?, ?, ?, ?) RETURNING idsetlist";
+        int idSetlist = jdbcTemplate.queryForObject(sql,Integer.class, namaSetlist, tanggal, idShow, urlBukti);
         return idSetlist;
     }
 
     private Setlist mapRowToSetlist(ResultSet resultSet, int rowNum) throws SQLException {
         return new Setlist(
-            resultSet.getInt("idsetlist"),
-            resultSet.getString("namasetlist"),
+            resultSet.getInt("idSetlist"),
+            resultSet.getString("namaSetlist"),
             resultSet.getTimestamp("tanggal").toLocalDateTime(),
-            resultSet.getInt("idlokasi"),
-            resultSet.getString("urlbukti"),
-            resultSet.getInt("idImage")
+            resultSet.getString("urlBukti"),
+            resultSet.getInt("idShow")
         );
     }
 }

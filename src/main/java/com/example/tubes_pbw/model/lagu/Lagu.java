@@ -16,5 +16,5 @@ public class Lagu {
     private String namaLagu;
     
     private int duration;
-    private int idImage;
+    private String urlGambarLagu;
 }

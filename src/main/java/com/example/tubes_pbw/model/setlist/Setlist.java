@@ -13,7 +13,6 @@ public class Setlist {
     private String namaSetlist;
     
     private java.time.LocalDateTime tanggal;
-    private int idLokasi;
     private String urlBukti;
-    private int idImage;
+    private int idShow;
 }

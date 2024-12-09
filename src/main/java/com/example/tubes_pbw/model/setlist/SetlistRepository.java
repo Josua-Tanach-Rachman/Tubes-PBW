@@ -6,6 +6,6 @@ import java.util.Optional;
 public interface SetlistRepository {
     Optional<Setlist> findByIdSetlist(int idSetlist);
     Iterable<Setlist> findByNamaSetlist(String namaSetlist);
-    Iterable<Setlist> findByLokasi(int idLokasi);
-    int save(String namaSetlist, LocalDate tanggal, int idLokasi, String urlBukti, int idImage);
+    Iterable<Setlist> findByShow(int idShow);
+    int save(String namaSetlist, LocalDate tanggal, int idShow, String urlBukti);
 }

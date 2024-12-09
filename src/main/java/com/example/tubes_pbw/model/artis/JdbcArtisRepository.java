@@ -34,9 +34,10 @@ public class JdbcArtisRepository implements ArtisRepository {
     }
 
     @Override
-    public void save(String namaArtis, int idImage) {
-        String sql = "INSERT INTO artis (namaartis, idimage) VALUES (?,?)";
-        jdbcTemplate.update(sql, namaArtis, idImage);
+    public int save(String namaArtis, String urlGambarArtis) {
+        String sql = "INSERT INTO artis (namaartis, urlGambarArtis) VALUES (?,?) RETURNING idartis";
+        int idArtis = jdbcTemplate.queryForObject(sql, Integer.class, namaArtis, urlGambarArtis);
+        return idArtis;
     }
 
     @Override
@@ -49,7 +50,7 @@ public class JdbcArtisRepository implements ArtisRepository {
         return new Artis(
             resultSet.getInt("idArtis"),
             resultSet.getString("namaArtis"),
-            resultSet.getInt("idImage")
+            resultSet.getString("urlGambarArtis")
         );
     }
 }
