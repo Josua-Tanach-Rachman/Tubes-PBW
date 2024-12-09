@@ -13,5 +13,5 @@ public class Artis {
     @NotBlank
     String namaArtis;
 
-    int idImage;
+    String urlGambarArtis;
 }
