@@ -1,0 +1,201 @@
+body {
+    margin: 0px;
+    background-color: black;
+    overflow: hidden;
+}
+
+.kotak_ungu{
+    height: 10px;
+    width: 100%;
+    background-color: #8100B3;
+    z-index: 3;
+}
+
+.background{
+    position: relative;
+}
+
+.background img {
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+}
+
+.blackBox {
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    z-index: 2;
+    position: absolute;
+    opacity: 25%;
+}
+
+/* login container */
+.login-bar-container{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+.white-box{
+    display: flex;
+    width: 500px;
+    height: 500px;
+    background-color: white;
+    position: relative;
+    opacity: 70%;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+}
+.component {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 4;
+}
+.component input {
+    background-color: white;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 10px;
+    opacity: 100%;
+    width: 220px;
+    padding-left: 15px;
+    color: black;
+}
+.component input::placeholder{
+    color: rgb(174, 173, 173);
+}
+h1 {
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+.logo-tulisan{
+    width: 300px;
+    margin-bottom: 15px;
+}
+.input-label{
+    display: grid;
+    gap: 10px;
+}
+/* GRID setiap div */
+.name{
+    display: grid;
+    width: 400px;
+    grid-template-columns: 150px 300px;
+    grid-template-areas: 'name inputName';
+}
+.email{
+    display: grid;
+    width: 400px;
+    grid-template-columns: 150px 300px;
+    grid-template-areas: 'email inputEmail';
+}
+.username{
+    display: grid;
+    width: 400px;
+    grid-template-columns: 150px 300px;
+    grid-template-areas: 'username inputUsername';
+}
+.password{
+    display: grid;
+    width: 400px;
+    grid-template-columns: 150px 300px;
+    grid-template-areas: 'password inputPassword';
+    position: relative;
+}
+.re-password{
+    display: grid;
+    width: 400px;
+    grid-template-columns: 150px 300px;
+    grid-template-areas: 'repeat inputRepeat';
+    position: relative;
+}
+
+/* Label */
+label{
+    background-color: #4f006e;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+/* Gambar mata */
+.eye {
+    right: 20px;
+    width: 28px;
+    height: 20px;
+    top: 10px;
+    position: absolute;
+    cursor: pointer;
+}
+.eye-see{
+    right: 20px;
+    width: 28px;
+    height: 15px;
+    top: 12px;
+    position: absolute;
+    visibility: hidden;
+    cursor: pointer;
+}
+.eye2 {
+    right: 20px;
+    width: 28px;
+    height: 20px;
+    top: 10px;
+    position: absolute;
+    cursor: pointer;
+}
+.eye-see2{
+    right: 20px;
+    width: 28px;
+    height: 15px;
+    top: 12px;
+    position: absolute;
+    visibility: hidden;
+    cursor: pointer;
+}
+
+/* Remember Pass Check */
+.remember-pass{
+    display: flex;
+    justify-content: flex-start;
+    width: 330px;
+    position: relative;
+}
+input#checkBox {
+    width: 30px;
+}
+
+/* Warn */
+.warn{
+    padding-left: 15px;
+    color: #bd1515;
+    visibility: hidden;
+}
+
+/* BUTTON */
+#buttonRegister{
+    background-color: #8100B3;
+    padding: 10px;
+    color: white;
+    width: 400px;
+    border-radius: 10px;
+}
+
+/* Resgister */
+.register span{
+    margin-right: 5px;
+}
+.register a {
+    font-weight: bold;
+    color: #4f006e;
+}

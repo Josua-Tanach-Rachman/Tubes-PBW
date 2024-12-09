@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moodify</title>
+    <link rel="icon" href="assetsRegister/logo_tanpa_tulisan.png" type="image/png">
+    <link rel="stylesheet" href="register.css">
+    <script src="login.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="kotak_ungu"></div>
+    </header>
+    <div class="background">
+        <img src="assetsRegister/background.jpg" alt="">
+        <div class="blackBox"></div>
+    </div>
+    <div class="login-bar-container">
+        <div class="white-box"></div>
+        <div class="component">
+            <h1>WELCOME TO</h1>
+            <img src="assetsRegister/logo_tulisan.png" alt="" class="logo-tulisan">
+            <div class="input-label">
+                <div class="name">
+                    <label for="input-name" style="grid-area: name;">Full name:</label>
+                    <input type="text" placeholder="Type your full name" id="input-name" style="grid-area: inputName;" required>
+                </div>
+                <div class="email">
+                    <label for="input-email" style="grid-area: email;">Email:</label>
+                    <input type="text" placeholder="Type your email" id="input-email" style="grid-area: inputEmail;" required>
+                </div>
+                <div class="username">
+                    <label for="input-username" style="grid-area: username;">Username:</label>
+                    <input type="text" placeholder="Type your username" id="input-username" style="grid-area: inputUsername;" required>
+                </div>
+                <div class="password">
+                    <label for="input-password" style="grid-area: password;">Password: </label>
+                    <input type="password" placeholder="Type your password" id="input-password" style="grid-area: inputPassword;" required>
+                    <img src="assetsRegister/password_not_see.png" alt="" class="eye">
+                    <img src="assetsRegister/password_see.png" alt="" class="eye-see">
+                </div>
+                <div class="re-password">
+                    <label for="input-re-password" style="grid-area: repeat;">Confirm password: </label>
+                    <input type="password" placeholder="Type your password" id="input-re-password" style="grid-area: inputRepeat;" required>
+                    <img src="assetsRegister/password_not_see.png" alt="" class="eye2">
+                    <img src="assetsRegister/password_see.png" alt="" class="eye-see2">
+                </div>
+                <div class="warn">
+                    <span id="warn-text">Your password didn't match</span>
+                </div>
+            </div>
+            <div class="button">
+                <button type="submit" id="buttonRegister">SIGN UP</button>
+            </div>
+            <div class="login">
+                <span>Already have an account? <a href=""> Log in</a></span>
+            </div>
+        </div>
+    </div>
+</body>
+<footer>
+
+</footer>
+</html>
