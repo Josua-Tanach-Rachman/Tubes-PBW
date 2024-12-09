@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -28,18 +29,18 @@ public class ImageUploadController {
     @Value("${file.upload-dir}")
     private String uploadDir;
 
-    @PostMapping("/images")
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
+    @PostMapping("/images/{subDir}")
+    public ResponseEntity<String> uploadImage(@PathVariable("subDir") String subDir, @RequestParam("file") MultipartFile file) {
         try {
-            String filePath = saveImage(file);
+            String filePath = saveImage(subDir, file);
             return ResponseEntity.ok("Image uploaded successfully: " + filePath);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading image");
         }
     }
 
-    private String saveImage(MultipartFile file) throws IOException {
-        Path uploadPath = Paths.get(uploadDir);
+    private String saveImage(String subDir, MultipartFile file) throws IOException {
+        Path uploadPath = Paths.get(uploadDir, subDir);
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
@@ -51,21 +52,21 @@ public class ImageUploadController {
         return filePath.toString();
     }
 
-    @GetMapping("/images/{filename}")
-public ResponseEntity<Resource> getImage(@PathVariable String filename) {
-    try {
-        Path filePath = Paths.get(uploadDir).resolve(filename);
-        Resource resource = new UrlResource(filePath.toUri());
-        
-        if (resource.exists()) {
-            return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG)
-                    .body(resource);
-        } else {
-            return ResponseEntity.notFound().build();
+    @GetMapping("/images/{subDir}/{filename}")
+    public ResponseEntity<Resource> getImage(@PathVariable String subDir, @PathVariable String filename) {
+        try {
+            Path filePath = Paths.get(uploadDir, subDir).resolve(filename);
+            Resource resource = new UrlResource(filePath.toUri());
+            
+            if (resource.exists()) {
+                return ResponseEntity.ok()
+                        .contentType(MediaType.IMAGE_JPEG)
+                        .body(resource);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (MalformedURLException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-    } catch (MalformedURLException e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
-}
 }
