@@ -35,19 +35,19 @@ public class JdbcLaguRepository implements LaguRepository {
     }
 
     @Override
-    public int save(int idAlbum, String namaLagu, int duration, int idImage) {
-        String sql = "INSERT INTO lagu (idalbum, namalagu, duration, idimage) VALUES (?, ?, ?, ?) RETURNING idlagu";
-        int idLagu = jdbcTemplate.queryForObject(sql,Integer.class, idAlbum, namaLagu, duration, idImage);
+    public int save(int idAlbum, String namaLagu, int duration, String urlGambarLagu) {
+        String sql = "INSERT INTO lagu (idalbum, namalagu, duration, urlgambarlagu) VALUES (?, ?, ?, ?) RETURNING idlagu";
+        int idLagu = jdbcTemplate.queryForObject(sql,Integer.class, idAlbum, namaLagu, duration, urlGambarLagu);
         return idLagu;
     }
 
     private Lagu mapRowToLagu(ResultSet resultSet, int rowNum) throws SQLException {
         return new Lagu(
-            resultSet.getInt("idlagu"),
-            resultSet.getInt("idalbum"),
-            resultSet.getString("namalagu"),
+            resultSet.getInt("idLagu"),
+            resultSet.getInt("idAlbum"),
+            resultSet.getString("namaLagu"),
             resultSet.getInt("duration"),
-            resultSet.getInt("idImage")
+            resultSet.getString("urlGambarLagu")
         );
     }
 }

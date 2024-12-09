@@ -23,7 +23,7 @@ public class LaguService {
         return laguRepository.findByNamaLagu(namaLagu);
     }
 
-    public int save(int idAlbum, String namaLagu, int duration, int idImage) {
-        return laguRepository.save(idAlbum,namaLagu,duration, idImage);
+    public int save(int idAlbum, String namaLagu, int duration, String urlGambarLagu) {
+        return laguRepository.save(idAlbum,namaLagu,duration, urlGambarLagu);
     }
 }
