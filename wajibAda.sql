@@ -36,16 +36,14 @@ CREATE TABLE Show(
 CREATE TABLE Artis (
     idArtis SERIAL PRIMARY KEY,
     namaArtis VARCHAR(255) NOT NULL,
-    urlGambarArtis VARCHAR(255) NOT NULL,
-    type VARCHAR(255) NOT NULL
+    urlGambarArtis VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Album(
     idAlbum SERIAL PRIMARY KEY,
     namaAlbum VARCHAR(255) NOT NULL,
     release_date DATE,
-	urlGambarAlbum VARCHAR(255) NOT NULL,
-    type VARCHAR(255) NOT NULL
+	urlGambarAlbum VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Lagu(
@@ -53,8 +51,7 @@ CREATE TABLE Lagu(
     idAlbum INT REFERENCES Album(idAlbum) ON DELETE CASCADE,
     namaLagu VARCHAR(255) NOT NULL,
     duration INT,
-    urlGambarLagu VARCHAR(255) NOT NULL,
-    type VARCHAR(255) NOT NULL
+    urlGambarLagu VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Setlist(
