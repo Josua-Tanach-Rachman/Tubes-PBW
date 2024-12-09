@@ -30,7 +30,6 @@ body {
     opacity: 25%;
 }
 
-/* login container */
 .login-bar-container{
     display: flex;
     width: 100vw;
@@ -65,7 +64,11 @@ body {
     opacity: 100%;
     width: 270px;
     padding-left: 50px;
-    color: black;
+    border: none;
+}
+.component input:focus {
+    outline: none;
+    border: none;
 }
 .component input::placeholder{
     color: rgb(174, 173, 173);
@@ -75,19 +78,21 @@ h1 {
 }
 .username, .password {
     position: relative;
+    gap: 10px;
+    padding: 10px;
 }
 .username img, .password img.lock {
     width: 25px;
     height: 25px;
     position: absolute;
-    left: 15px;
-    top: 7px;
+    left: 18px;
+    top: 16px;
 }
 .eye {
     right: 20px;
     width: 28px;
     height: 20px;
-    top: 10px;
+    top: 17px;
     position: absolute;
 }
 .eye-see{
