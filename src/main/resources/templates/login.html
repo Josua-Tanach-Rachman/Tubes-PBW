@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <script th:src="@{/js/login.js}" defer></script>
+</head>
+<body>
+    <header>
+        <div class="kotak_ungu"></div>
+    </header>
+    <div class="background">
+        <img th:src="@{/assets/background.jpg}" alt="Background">
+        <div class="blackBox"></div>
+    </div>
+    <div class="login-bar-container">
+        <div class="white-box"></div>
+        <div class="component">
+            <h1>LOG IN</h1>
+            <div>
+                <form action="login" method="POST">
+                    <div class="username">
+                        <input type="text" placeholder="Type your username" name="username">
+                        <img th:src="@{/assets/user.png}" alt="User Icon">
+                    </div>
+                    <div class="password">
+                        <input type="password" placeholder="Type your password" id="password" name="password">
+                        <img th:src="@{/assets/lock.svg}" alt="Lock Icon" class="lock">
+                        <img th:src="@{/assets/password_not_see.png}" alt="Hide Password" class="eye">
+                        <img th:src="@{/assets/password_see.png}" alt="Show Password" class="eye-see">
+                    </div>
+                    <div class="remember-pass">
+                        <input type="checkbox" id="checkBox">
+                        <label for="checkBox" name="checkBox" id="labelCheckBox">Remember password?</label>
+                    </div>
+                    <div class="button">
+                        <button type="submit" id="buttonLogin">LOG IN</button>
+                    </div>
+                </form>
+            </div>
+            <div class="register">
+                <span>Don't have an account?</span>
+                <a th:href="@{/register}">Register Now</a>
+            </div>
+        </div>
+    </div>  
+</body>
+<footer>
+</footer>
+</html>

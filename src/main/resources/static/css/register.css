@@ -1,0 +1,129 @@
+body {
+    margin: 0px;
+    background-color: black;
+    overflow: hidden;
+}
+
+.kotak_ungu{
+    height: 10px;
+    width: 100%;
+    background-color: #8100B3;
+    z-index: 3;
+}
+
+.background{
+    position: relative;
+}
+
+.background img {
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+}
+
+.blackBox {
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    z-index: 2;
+    position: absolute;
+    opacity: 25%;
+}
+
+.login-bar-container{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+.white-box{
+    display: flex;
+    width: 400px;
+    height: 500px;
+    background-color: white;
+    position: relative;
+    opacity: 70%;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+}
+.component {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 4;
+}
+.component input {
+    background-color: white;
+    border-radius: 30px;
+    padding: 10px;
+    opacity: 100%;
+    width: 270px;
+    padding-left: 50px;
+    border: none;
+}
+.component input:focus {
+    outline: none;
+    border: none;
+}
+.component input::placeholder{
+    color: rgb(174, 173, 173);
+}
+h1 {
+    margin-bottom: 25px;
+}
+.username, .password {
+    position: relative;
+    gap: 10px;
+    padding: 10px;
+}
+.username img, .password img.lock {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: 18px;
+    top: 16px;
+}
+.eye {
+    right: 20px;
+    width: 28px;
+    height: 20px;
+    top: 17px;
+    position: absolute;
+}
+.eye-see{
+    right: 20px;
+    width: 28px;
+    height: 15px;
+    top: 20px;
+    position: absolute;
+    visibility: hidden;
+}
+/* Remember Pass Check */
+.remember-pass{
+    display: flex;
+    justify-content: flex-start;
+    width: 330px;
+    position: relative;
+}
+input#checkBox {
+    width: 30px;
+}
+/* BUTTON */
+#buttonLogin{
+    background-color: #8100B3;
+    padding: 10px;
+    color: white;
+    width: 330px;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+.input_container{
+    display: flex;
+    justify-content: center;
+}

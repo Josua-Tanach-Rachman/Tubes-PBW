@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+    <script th:src="@{/js/login.js}" defer></script>
+</head>
+<body>
+    <header>
+        <div class="kotak_ungu"></div>
+    </header>
+    <div class="background">
+        <img th:src="@{/assets/background.jpg}" alt="Background">
+        <div class="blackBox"></div>
+    </div>
+    <div class="login-bar-container">
+        <div class="white-box"></div>
+        <div class="component">
+            <h1>Register</h1>
+            <div class="input_container">
+                <form action="register" method="POST">
+                    <div class="username">
+                        <input type="text" placeholder="Type your username" name="username">
+                        <img th:src="@{/assets/user.png}" alt="User Icon">
+                    </div>
+                    <div class="username">
+                        <img th:src="@{/assets/nameIcon.png}" alt="User Icon">
+                        <input type="text" placeholder="Type your name" name="nama">
+                    </div>
+                    <div class="username">
+                        <img th:src="@{/assets/iconEmail.png}" alt="User Icon">
+                        <input type="email" placeholder="Type your email" name="email">
+                    </div>
+                    <div class="password">
+                        <input type="password" placeholder="Type your password" name="password">
+                        <img th:src="@{/assets/lock.svg}" alt="Lock Icon" class="lock">
+                        <img th:src="@{/assets/password_not_see.png}" alt="Hide Password" class="eye">
+                        <img th:src="@{/assets/password_see.png}" alt="Show Password" class="eye-see">
+                    </div>
+                    <div class="password">
+                        <input type="password" placeholder="Retype your password" name="password">
+                        <img th:src="@{/assets/lock.svg}" alt="Lock Icon" class="lock">
+                        <img th:src="@{/assets/password_not_see.png}" alt="Hide Password" class="eye">
+                        <img th:src="@{/assets/password_see.png}" alt="Show Password" class="eye-see">
+                    </div>
+                    <input type="hidden" name="role" id="" value="pengguna">
+                    <div>
+                        <button type="submit" id="buttonLogin">REGISTER</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>  
+</body>
+<footer>
+</footer>
+</html>
