@@ -25,8 +25,8 @@ public class AlbumService {
         return albumRepository.findAll();
     }
 
-    public void save(String namaAlbum, String releaseDate, int idImage) {
-        albumRepository.save(namaAlbum, releaseDate, idImage);
+    public void save(String namaAlbum, String releaseDate, String urlGambarAlbum) {
+        albumRepository.save(namaAlbum, releaseDate, urlGambarAlbum);
     }
 
     public void deleteById(int idAlbum) {

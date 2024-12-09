@@ -26,9 +26,10 @@ public class JdbcAlbumRepository implements AlbumRepository {
     }
 
     @Override
-    public void save(String namaAlbum, String releaseDate, int idImage) {
-        String sql = "INSERT INTO album (namaalbum, release_date, idimage) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, namaAlbum, releaseDate, idImage);
+    public int save(String namaAlbum, String releaseDate, String urlGambarAlbum) {
+        String sql = "INSERT INTO album (namaalbum, release_date, urlGambarAlbum) VALUES (?, ?, ?)";
+        int idAlbum = jdbcTemplate.queryForObject(sql,Integer.class, namaAlbum, releaseDate, urlGambarAlbum);
+        return idAlbum;
     }
 
     @Override
@@ -42,7 +43,7 @@ public class JdbcAlbumRepository implements AlbumRepository {
                 rs.getInt("idAlbum"),
                 rs.getString("namaAlbum"),
                 rs.getDate("release_date").toLocalDate(),
-                rs.getInt("idImage")
+                rs.getString("urlGambarAlbum")
         );
     }
 }
