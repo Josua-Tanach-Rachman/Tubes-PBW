@@ -18,12 +18,14 @@
     <div class="login-bar-container">
         <div class="white-box"></div>
         <div class="component">
+            <p th:if="${error}" th:text="${error}"></p>
             <h1>Register</h1>
             <div class="input_container">
-                <form action="register" method="POST">
+                <form action="/register" method="POST" th:object="${user}">
                     <div class="username">
                         <input type="text" placeholder="Type your username" name="username">
                         <img th:src="@{/assets/user.png}" alt="User Icon">
+                        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
                     </div>
                     <div class="username">
                         <img th:src="@{/assets/nameIcon.png}" alt="User Icon">
@@ -38,14 +40,15 @@
                         <img th:src="@{/assets/lock.svg}" alt="Lock Icon" class="lock">
                         <img th:src="@{/assets/password_not_see.png}" alt="Hide Password" class="eye">
                         <img th:src="@{/assets/password_see.png}" alt="Show Password" class="eye-see">
+                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                     </div>
                     <div class="password">
-                        <input type="password" placeholder="Retype your password" name="password">
+                        <input type="password" placeholder="Retype your password" name="confirmpassword">
                         <img th:src="@{/assets/lock.svg}" alt="Lock Icon" class="lock">
                         <img th:src="@{/assets/password_not_see.png}" alt="Hide Password" class="eye">
                         <img th:src="@{/assets/password_see.png}" alt="Show Password" class="eye-see">
                     </div>
-                    <input type="hidden" name="role" id="" value="pengguna">
+                    <!-- <input type="hidden" name="role" id="" value="pengguna"> -->
                     <div>
                         <button type="submit" id="buttonLogin">REGISTER</button>
                     </div>
