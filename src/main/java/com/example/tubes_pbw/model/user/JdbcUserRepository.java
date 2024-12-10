@@ -16,9 +16,9 @@ public class JdbcUserRepository implements UserRepository {
 
     @Override
     public int save(User user) throws Exception{
-        String sql = "INSERT INTO pengguna (username, password, nama, role, email) VALUES (?, ?, ?, ?, ?)";
-        int idUser = jdbcTemplate.queryForObject(sql, Integer.class, user.getUsername(), user.getPassword(), user.getNama(), user.getRole(),user.getEmail());
-        return idUser;
+        String sql = "INSERT INTO pengguna (username, password, nama, email) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql ,user.getUsername(),user.getPassword(),user.getNama(),user.getEmail());
+        return 0;
     }
 
     @Override
