@@ -69,6 +69,7 @@ public class UserController {
             return "register";
         }
         boolean status = userService.register(user);
+        model.addAttribute("error",user);
         if(status){
             return "redirect:/results";
         }

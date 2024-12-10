@@ -12,9 +12,6 @@ import jakarta.validation.constraints.NotNull;
 @NoArgsConstructor
 public class User {
 
-    @NotBlank
-    int idPengguna;
-
     @NotNull
     @Size(min=4, max=30)
     private String username;
@@ -27,7 +24,6 @@ public class User {
     @Size(min=4, max=50)
     private String nama;
     
-    @NotBlank
     private String role;
 
     @NotNull
