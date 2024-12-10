@@ -84,4 +84,10 @@ public class UserController {
         session.invalidate();
         return "redirect:/";
     }
+
+    //test mapping ke page setlist
+    @GetMapping("/setlist")
+    public String setlist(){
+        return "setlist";
+    }
 }

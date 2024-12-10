@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" th:href="@{/css/homePage.css}">
+    <link rel="stylesheet" th:href="@{/css/setlist.css}">
 </head>
 <header>
     <div class="kotak_ungu"></div>
     <nav>
         <img src="@{/assets/icon.png}" alt="" id="logo">
-        <p id="setlist"><a href="setlist">SETLIST</a></p>
-        <p id="artist"><a href="setlist">ARTIST</a></p>
-        <p id="concert"><a href="setlist">CONCERT</a></p>
-        <p id="news"><a href="setlist">NEWS</a></p>
+        <p id="setlist"><a href="">SETLIST</a></p>
+        <P id="artist">ARTIST</P>
+        <P id="concert">CONCERT</P>
+        <P id="news">NEWS</P>
 
         <div class="button-container">
             <button type="submit" class="button setlist">+SET LIST</button>
@@ -24,12 +24,14 @@
     </nav>
 </header>
 <body>
+
     <div class="search-container">
         <img src="" alt="" class="background-search">
         <div class="blackBox"></div>
+        <h1>Setlists</h1>
         <div class="search_bar">
             <form action="">
-                <h1 id="slogan">Set Your Playlist, Set Your Mood</h1>
+                <!-- <h1 id="slogan">Set Your Playlist, Set Your Mood</h1> -->
                 <input type="text" placeholder="Search for artist, concert, news, ...">
             </form>
             <div>
@@ -38,12 +40,37 @@
         </div>
     </div>
 
+    <div class="setlist-container">
+        <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Items List</title>
+</head>
+<body>
+    <h1 id="setlist-header">Top Setlists</h1>
+    <ol>
+        <li class="setlist-item" th:each="item : ${results}">
+            <a href="#"><strong th:text="${item.name}">Setlist Name</strong></a> 
+            <span th:text="${item.lokasis}">lokasi</span>
+        </li>
+            
+        <li class="setlist-item" >
+            <a href=""><strong>Setlist Test</strong></a>
+            <br>
+            <span>lokasi</span>
+        </li>
+    </ol>
+</body>
+</html>
+
+    </div>
+
     <!-- Top 10 Trending Artist -->
-    <h3>TOP 10 TRENDING ARTIST</h3>
+    <!-- <h3>TOP 10 TRENDING ARTIST</h3>
     <div class="trending-artist">
         <div class="gambar-artist">
             <img th:each="artis : ${listArtis}" th:src="@{'api/uploads/images' + ${artis.urlGambarArtis}}" alt="Artist Image">
-            <!-- <img th:src="@{/assets/topArtist/logo1.png}" alt="Artist 1">
+            <img th:src="@{/assets/topArtist/logo1.png}" alt="Artist 1">
             <img th:src="@{/assets/topArtist/logo2.png}" alt="Artist 2">
             <img th:src="@{/assets/topArtist/logo3.png}" alt="Artist 3">
             <img th:src="@{/assets/topArtist/logo4.png}" alt="Artist 4">
@@ -52,13 +79,13 @@
             <img th:src="@{/assets/topArtist/logo7.png}" alt="Artist 7">
             <img th:src="@{/assets/topArtist/logo8.png}" alt="Artist 8">
             <img th:src="@{/assets/topArtist/logo9.png}" alt="Artist 9">
-            <img th:src="@{/assets/topArtist/logo10.png}" alt="Artist 10"> -->
+            <img th:src="@{/assets/topArtist/logo10.png}" alt="Artist 10">
         </div>
-    </div>
+    </div> -->
     
 
     <!-- Top 10 Trenging Song -->
-    <h3>TOP 10 TRENDING SONG</h3>
+    <!-- <h3>TOP 10 TRENDING SONG</h3>
     <div class="trending-song">
         <div class="gambar-album">
             <img th:src="@{/assets/topSongs/album1.webp}" alt="Album 1">
@@ -72,8 +99,8 @@
             <img th:src="@{/assets/topSongs/album2.webp}" alt="Album 2">
             <img th:src="@{/assets/topSongs/album1.webp}" alt="Album 1">
         </div>
-    </div>
-
+    </div> -->
+<!-- 
     <div class="hot-news">
         <h3>HOT NEWS!</h3>
         <div class="grid-news">
@@ -110,7 +137,7 @@
                 </p>
             </div>
         </div>
-    </div>    
+    </div>     -->
 </body>
 <footer>
 

@@ -25,6 +25,14 @@ nav {
 nav p {
     margin: 0px;
 }
+
+#setlist{
+    background-color: #8100B3;
+    display: inline-block; 
+    padding: 10px;
+    margin: 0; 
+}
+
 nav p:hover{
     background-color: grey;
     gap: 50px;
@@ -35,6 +43,7 @@ a{
     color: white;
     text-decoration: none;
 }
+
 
 #logo{
     height: 70px;
@@ -59,18 +68,23 @@ button {
 }
 
 /*Gambar*/
+.search-container h1{
+    color: white;
+    margin: 50px;
+}
 .search-container{
     width: 100%;
-    height: 200px;
+    height: 150px;
     overflow: hidden;
     display: flex;
+    /* flex-direction: row-reverse; */
     position: relative;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
 }
 .search-container img.background-search {
     height: 500px;
-    width: 100%;
+    /* width: 100%; */
     margin: -40px 0px 0px 0px;
     z-index: 0;
 }
@@ -86,6 +100,8 @@ button {
     position: absolute;
     z-index: 2;
     display: flex;
+    align-items: center;
+    right: 5%;
 }
 input {
     background-color: white;
@@ -94,14 +110,15 @@ input {
     border-radius: 30px;
     cursor:text;
     width: 400px;
+    margin: 20px;
 }
 .icon_search {
     position: absolute;
     height: 20px;
     width: 20px;
     z-index: 2;
-    left: 17px;
-    top: 93px;
+    left: 7%;
+    top: 40%;
 }
 #slogan {
     color: white;
@@ -225,4 +242,28 @@ h3 {
         'gambar judul'
         'gambar keterangan'
     ;
+} 
+
+/* Container Setlist */
+.setlist-container{
+    margin: auto;
+    width: 70%;
+    height: auto;
+    background-color: #8100B3;  
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.setlist-item{
+    font-size: 24px;
+    color: white;
+}
+
+.setlist-item span {
+    font-size: 20px;
+}
+
+#setlist-header{
+    color: white;
+    margin-top: 5px;
 }
