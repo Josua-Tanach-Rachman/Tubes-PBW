@@ -17,9 +17,12 @@
 
         <div class="button-container">
             <button type="submit" class="button setlist">+SET LIST</button>
-            <form action="/login" method="GET">
+            <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
+                <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
+            </form>
+            <form action="/login" method="GET" th:if="${!isUserLoggedIn}">
                 <button type="submit" class="button login">LOG IN</button>
-            </form>            
+            </form>       
         </div>
     </nav>
 </header>

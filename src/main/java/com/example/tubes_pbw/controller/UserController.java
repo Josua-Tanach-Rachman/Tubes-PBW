@@ -31,7 +31,7 @@ public class UserController {
         if(session.getAttribute("role").equals("user")){
             return "redirect:/public";
         }
-        return "redirect:/dashboard";
+        return "redirect:/";
     }
 
     @PostMapping("/login")
