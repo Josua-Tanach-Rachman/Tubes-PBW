@@ -1,8 +1,7 @@
 CREATE TYPE rolePengguna AS ENUM ('admin', 'pengguna');
 
 CREATE TABLE Pengguna (
-    idPengguna SERIAL PRIMARY KEY,
-    username VARCHAR(255),
+    username VARCHAR(255) PRIMARY KEY,
     email VARCHAR(255) UNIQUE,
     password VARCHAR(255) NOT NULL,
     nama VARCHAR(255) NOT NULL,
@@ -36,16 +35,15 @@ CREATE TABLE Show(
 CREATE TABLE Artis (
     idArtis SERIAL PRIMARY KEY,
     namaArtis VARCHAR(255) NOT NULL,
-    urlGambarArtis VARCHAR(255) NOT NULL,
-    type VARCHAR(255) NOT NULL
+    urlGambarArtis VARCHAR(255)
 );
 
 CREATE TABLE Album(
     idAlbum SERIAL PRIMARY KEY,
     namaAlbum VARCHAR(255) NOT NULL,
     release_date DATE,
-	urlGambarAlbum VARCHAR(255) NOT NULL,
-    type VARCHAR(255) NOT NULL
+	idArtis INT REFERENCES Artis(idArtis),
+	urlGambarAlbum VARCHAR(255)
 );
 
 CREATE TABLE Lagu(
@@ -53,8 +51,8 @@ CREATE TABLE Lagu(
     idAlbum INT REFERENCES Album(idAlbum) ON DELETE CASCADE,
     namaLagu VARCHAR(255) NOT NULL,
     duration INT,
-    urlGambarLagu VARCHAR(255) NOT NULL,
-    type VARCHAR(255) NOT NULL
+	idArtis INT REFERENCES Artis(idArtis),
+    urlGambarLagu VARCHAR(255)
 );
 
 CREATE TABLE Setlist(
@@ -87,7 +85,7 @@ CREATE TABLE Setlist_lagu(
 
 CREATE TABLE Komentar(
     idKomentar SERIAL PRIMARY KEY,
-    idPengguna INT REFERENCES Pengguna(idPengguna),
+    username VARCHAR(255) REFERENCES Pengguna(username),
     idSetlist INT REFERENCES Setlist(idSetlist),
     komentar TEXT NOT NULL,
     tanggal TIMESTAMP DEFAULT CURRENT_TIMESTAMP
