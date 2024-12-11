@@ -31,19 +31,18 @@ nav p {
   #artist:hover,
   #concert:hover,
   #news:hover {
-    background-color: grey;
+    background-color: #8100B3;
 }
 
 #logo{
     height: 70px;
 }
 
-#home a {
+a {
     text-decoration: none;
     color: white;
 }
-
-#setlist{
+#setlist a{
     color: #8100B3;
 }
 

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>artist</title>
+    <link rel="stylesheet" th:href="@{/css/artist.css}">
+</head>
+<header>
+    <div class="kotak_ungu"></div>
+    <nav>
+        <img src="@{/assets/icon.png}" alt="" id="logo">
+        <P id="home"><a th:href="@{/login}">HOME</a></P>
+        <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
+        <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
+        <P id="concert">CONCERT</P>
+        <P id="news">NEWS</P>
+    </nav>
+</header>
+<body>
+    <h1 id="judul">Discover Your Favorite Artist</h1>
+    <div class="artist-setlists">
+        <h1>Artist Setlists</h1>
+        <h3>Top artists by concertgoers</h3>
+        <ul class="artist-list">
+            <li>
+                <a href="#">Metallica</a>
+                <span class="setlists">2143 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 90%;"></div>
+                </div>
+                <span class="popularity-count">46861</span>
+            </li>
+            <li>
+                <a href="#">Foo Fighters</a>
+                <span class="setlists">1567 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 70%;"></div>
+                </div>
+                <span class="popularity-count">36499</span>
+            </li>
+            <li>
+                <a href="#">Iron Maiden</a>
+                <span class="setlists">2600 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 65%;"></div>
+                </div>
+                <span class="popularity-count">32688</span>
+            </li>
+            <li>
+                <a href="#">Red Hot Chili Peppers</a>
+                <span class="setlists">1906 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 60%;"></div>
+                </div>
+                <span class="popularity-count">30879</span>
+            </li>
+            <li>
+                <a href="#">Red Hot Chili Peppers</a>
+                <span class="setlists">1906 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 60%;"></div>
+                </div>
+                <span class="popularity-count">30879</span>
+            </li>
+        </ul>
+        <p class="last-updated">Last updated: 28 minutes ago</p>
+    </div>
+
+    <div class="container">
+        <div class="column">
+            <h2>Popular Artists</h2>
+            <ul>
+                <li><a href="#">Taylor Swift</a> - 1094 setlists</li>
+                <li><a href="#">Sam Fender</a> - 360 setlists</li>
+                <li><a href="#">Paul McCartney</a> - 1056 setlists</li>
+                <li><a href="#">Slipknot</a> - 1355 setlists</li>
+                <li><a href="#">Fontaines D.C.</a> - 591 setlists</li>
+                <li><a href="#">Zach Bryan</a> - 223 setlists</li>
+                <li><a href="#">Iron Maiden</a> - 2600 setlists</li>
+                <li><a href="#">The Killers</a> - 1326 setlists</li>
+                <li><a href="#">Billie Eilish</a> - 438 setlists</li>
+                <li><a href="#">Vampire Weekend</a> - 702 setlists</li>
+            </ul>
+            <p class="last-updated">Last updated: about 10 hours ago</p>
+        </div>
+        <div class="column">
+            <h2>Artists by Setlists</h2>
+            <ul>
+                <li><a href="#">New York Philharmonic</a> - 13684 setlists</li>
+                <li><a href="#">The Beach Boys</a> - 7428 setlists</li>
+                <li><a href="#">B.B. King</a> - 7226 setlists</li>
+                <li><a href="#">The Wiggles</a> - 6336 setlists</li>
+                <li><a href="#">Ray Charles</a> - 4724 setlists</li>
+                <li><a href="#">Willie Nelson</a> - 4705 setlists</li>
+                <li><a href="#">Blue Öyster Cult</a> - 4553 setlists</li>
+                <li><a href="#">Johnny Cash</a> - 4367 setlists</li>
+                <li><a href="#">Cheap Trick</a> - 4267 setlists</li>
+                <li><a href="#">Frank Sinatra</a> - 4215 setlists</li>
+            </ul>
+            <p class="last-updated">Last updated: about an hour ago</p>
+        </div>
+    </div>
+</body>
+</html>

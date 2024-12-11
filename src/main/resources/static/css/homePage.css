@@ -30,7 +30,16 @@ nav p {
   #artist:hover,
   #concert:hover,
   #news:hover {
-    background-color: grey;
+    background-color: #8100B3;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+#home a{
+    color: #8100B3;
 }
 
 #logo{
@@ -222,13 +231,4 @@ h3 {
         'gambar judul'
         'gambar keterangan'
     ;
-}
-
-a {
-    text-decoration: none;
-    color: white;
-}
-
-#home a{
-    color: #8100B3;
 }
