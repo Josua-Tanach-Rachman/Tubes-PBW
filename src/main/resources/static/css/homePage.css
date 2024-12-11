@@ -25,10 +25,12 @@ nav {
 nav p {
     margin: 0px;
 }
-nav p:hover{
+
+#setlist:hover,
+  #artist:hover,
+  #concert:hover,
+  #news:hover {
     background-color: grey;
-    gap: 50px;
-    
 }
 
 #logo{
@@ -220,4 +222,13 @@ h3 {
         'gambar judul'
         'gambar keterangan'
     ;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+#home a{
+    color: #8100B3;
 }
