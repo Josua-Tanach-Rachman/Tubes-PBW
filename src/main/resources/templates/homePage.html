@@ -10,7 +10,7 @@
     <div class="kotak_ungu"></div>
     <nav>
         <img src="@{/assets/icon.png}" alt="" id="logo">
-        <P id="home"><a th:href="@{/login}">HOME</a></P>
+        <P id="home"><a th:href="@{/}">HOME</a></P>
         <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
         <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
         <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
@@ -65,7 +65,8 @@
     <h3>TOP 10 TRENDING SONG</h3>
     <div class="trending-song">
         <div class="gambar-album">
-            <img th:src="@{/assets/topSongs/album1.webp}" alt="Album 1">
+            <img th:each="Album : ${listAlbum}" th:src="@{'api/uploads/images' + ${Album.urlGambarAlbum}}" alt="Albumt Image">
+            <!-- <img th:src="@{/assets/topSongs/album1.webp}" alt="Album 1">
             <img th:src="@{/assets/topSongs/album2.webp}" alt="Album 2">
             <img th:src="@{/assets/topSongs/album3.webp}" alt="Album 3">
             <img th:src="@{/assets/topSongs/album4.webp}" alt="Album 4">
@@ -74,7 +75,7 @@
             <img th:src="@{/assets/topSongs/album4.webp}" alt="Album 4">
             <img th:src="@{/assets/topSongs/album3.webp}" alt="Album 3">
             <img th:src="@{/assets/topSongs/album2.webp}" alt="Album 2">
-            <img th:src="@{/assets/topSongs/album1.webp}" alt="Album 1">
+            <img th:src="@{/assets/topSongs/album1.webp}" alt="Album 1"> -->
         </div>
     </div>
 

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.example.tubes_pbw.model.album.Album;
+import com.example.tubes_pbw.model.album.AlbumService;
 import com.example.tubes_pbw.model.artis.Artis;
 import com.example.tubes_pbw.model.artis.ArtisService;
 
@@ -14,10 +16,15 @@ import jakarta.servlet.http.HttpSession;
 public class HomeController {
     @Autowired
     ArtisService artisService;
+    @Autowired
+    AlbumService albumService;
     @GetMapping("/")
     public String showHome(Model model, HttpSession session){
         Iterable<Artis> listArtis = artisService.findByFilterNamaArtis("");
         model.addAttribute("listArtis", listArtis);
+
+        Iterable<Album> listAlbum = albumService.findAll();
+        model.addAttribute("listAlbum", listAlbum);
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);
         }
