@@ -95,4 +95,9 @@ public class UserController {
     public String artist(User user){
         return "artist";
     }
+
+    @GetMapping("/concert")
+    public String concert(User user){
+        return "concert";
+    }
 }
