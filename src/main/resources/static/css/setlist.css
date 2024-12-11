@@ -1,0 +1,114 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    background-color: black;
+}
+
+.kotak_ungu{
+    height: 10px;
+    width: 100%;
+    background-color: #8100B3;
+}
+
+nav {
+    color: white;
+    background-color: #1E1E1E;
+    display: flex;
+    gap: 50px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 20px;
+    padding-left: 20px;
+    position: relative;
+    align-items: center;
+}
+
+nav p {
+    margin: 0px;
+}
+#home:hover,
+  #artist:hover,
+  #concert:hover,
+  #news:hover {
+    background-color: grey;
+}
+
+#logo{
+    height: 70px;
+}
+
+#home a {
+    text-decoration: none;
+    color: white;
+}
+
+#setlist{
+    color: #8100B3;
+}
+
+/* Setlist Container */
+.setlist-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 30px 20px;
+}
+
+.setlist-container h1 {
+    font-size: 32px;
+    color: #fff;
+    text-align: center;
+    text-shadow: 2px 2px #444;
+}
+
+.setlist-container h3 {
+    font-size: 24px;
+    color: #8100B3;
+    border-bottom: 2px solid #8100B3;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+.topsetlist, .popularsetlist{
+    background-color: rgb(197, 197, 197);
+    border-radius: 20px;
+    width: 700px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* List Styles */
+ul.listsetlist {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+ul.listsetlist li {
+    display: flex;
+    justify-content: space-between;
+    background: #252525;
+    padding: 10px 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    color: #ddd;
+}
+
+ul.listsetlist li:hover {
+    background-color: #444;
+}
+
+ul.listsetlist a {
+    text-decoration: none;
+    color: #8100B3;
+    font-weight: bold;
+}
+
+ul.listsetlist a:hover {
+    text-decoration: underline;
+    color: #a64dff;
+}
