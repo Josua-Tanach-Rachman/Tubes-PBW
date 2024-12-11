@@ -90,4 +90,9 @@ public class UserController {
     public String setlist(User user){
         return "setlist";
     }
+
+    @GetMapping("/artist")
+    public String artist(User user){
+        return "artist";
+    }
 }
