@@ -85,4 +85,14 @@ public class UserController {
         session.invalidate();
         return "redirect:/";
     }
+
+    @GetMapping("/setlist")
+    public String setlist(User user){
+        return "setlist";
+    }
+
+    @GetMapping("/artist")
+    public String artist(User user){
+        return "artist";
+    }
 }

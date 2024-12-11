@@ -25,10 +25,21 @@ nav {
 nav p {
     margin: 0px;
 }
-nav p:hover{
-    background-color: grey;
-    gap: 50px;
-    
+
+#setlist:hover,
+  #artist:hover,
+  #concert:hover,
+  #news:hover {
+    background-color: #8100B3;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+#home a{
+    color: #8100B3;
 }
 
 #logo{
