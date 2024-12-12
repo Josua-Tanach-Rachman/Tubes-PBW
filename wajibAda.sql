@@ -29,7 +29,8 @@ CREATE TABLE Lokasi(
 CREATE TABLE Show(
     idShow SERIAL PRIMARY KEY,
     namaShow VARCHAR(255),
-    idLokasi INT REFERENCES Lokasi(idLokasi)
+    idLokasi INT REFERENCES Lokasi(idLokasi),
+    urlGambarShow VARCHAR(255)
 );
 
 CREATE TABLE Artis (
