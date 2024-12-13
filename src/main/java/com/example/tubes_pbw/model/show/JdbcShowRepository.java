@@ -38,7 +38,8 @@ public class JdbcShowRepository implements ShowRepository{
         return new Show(
             resultSet.getInt("idShow"),
             resultSet.getString("namaShow"),
-            resultSet.getInt("idLokasi")
+            resultSet.getInt("idLokasi"),
+            resultSet.getString("urlGambarShow")
         );
     }
 }
