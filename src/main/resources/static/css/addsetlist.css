@@ -1,0 +1,152 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    background-color: black;
+    color: white; /* Adjust text color for readability */
+}
+
+.kotak_ungu {
+    height: 10px;
+    width: 100%;
+    background-color: #8100B3; /* Retain purple bar */
+}
+
+nav {
+    color: white;
+    background-color: #1E1E1E; /* Dark background for the navbar */
+    display: flex;
+    gap: 50px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 20px;
+    padding-left: 20px;
+    position: relative;
+    align-items: center;
+}
+
+nav p {
+    margin: 0px;
+}
+
+#home:hover,
+#setlist:hover,
+#concert:hover,
+#news:hover,
+#artist:hover {
+    background-color: #8100B3; /* Purple hover effect for nav items */
+}
+
+#logo {
+    height: 70px;
+}
+
+button {
+    background-color: #8100B3;
+    color: white;
+    border-radius: 5px;
+    font-size: 18px;
+    padding: 5px;
+}
+
+.button-container{
+    position: absolute;
+    gap: 30px;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-end;
+    right: 25px;
+    align-items: center;
+    /*top: 5%;*/
+}
+
+a {
+    text-decoration: none;
+    color: white; /* Default link color to white */
+}
+
+.addsetlist-container {
+    margin: 50px auto;
+    background: #1E1E1E; /* Match navbar's dark theme */
+    border: 1px solid #8100B3; /* Purple border for accent */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Softer shadow for dark theme */
+    width: 800px;
+    color: white; /* Ensure text is readable */
+}
+
+.addsetlist-container h1 {
+    font-size: 30px;
+    color: #8100B3; /* Highlight headings in purple */
+    margin-bottom: 10px;
+}
+
+.addsetlist-container h3 {
+    font-size: 18px;
+    color: white; /* Sub-heading remains white */
+    margin-bottom: 20px;
+    border-bottom: 1px solid #8100B3; /* Purple divider */
+    padding-bottom: 10px;
+}
+
+.setlist-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group label {
+    font-size: 16px;
+    color: white;
+}
+
+.form-group input {
+    background-color: #333;
+    color: white;
+    border: 1px solid #8100B3;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.form-group input::placeholder {
+    color: #ccc;
+}
+
+.form-group button {
+    align-self: flex-start;
+    background-color: #8100B3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.form-group button:hover {
+    background-color: #9a00d4;
+}
+
+.form-group input[type="time"] {
+    background-color: #333; /* Warna latar belakang gelap */
+    color: white; /* Warna teks putih */
+    border: 1px solid #8100B3; /* Border ungu */
+    border-radius: 5px; /* Sudut border melengkung */
+    padding: 10px; /* Padding internal */
+    font-size: 14px; /* Ukuran font */
+}
+
+.form-group input[type="time"]::placeholder {
+    color: #ccc; /* Warna placeholder abu-abu terang */
+}

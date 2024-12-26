@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>artist</title>
+    <link rel="stylesheet" th:href="@{/css/searchPage.css}">
+</head>
+<header>
+    <div class="kotak_ungu"></div>
+    <nav>
+        <img src="@{/assets/icon.png}" alt="" id="logo">
+        <P id="home"><a th:href="@{/}">HOME</a></P>
+        <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
+        <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
+        <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
+        <P id="news">NEWS</P>
+
+        <div class="button-container">
+            <button type="submit" class="button setlist"><a th:href="@{/addsetlist}">+SET LIST</a></button>
+            <!-- <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
+                <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
+            </form>
+            <form action="/login" method="GET" th:if="${!isUserLoggedIn}">
+                <button type="submit" class="button login">LOG IN</button>
+            </form> -->
+        </div>
+    </nav>
+</header>
+
+<body>
+    <!--        Search Bar and Header Text-->
+    <div class="search-container">
+        <h1 id="slogan">Discover Anything</h1>
+        <img src="" alt="" class="background-search">
+        <div class="blackBox"></div>
+        <!-- <div class="search_bar">
+            <form action="">
+                <input type="text" placeholder="Search for Artists...">
+            </form>
+            <div>
+                <img src="assets/search.png" alt="" class="icon_search">
+            </div>
+        </div> -->
+    </div>
+    <div class="artist-setlists">
+        <h1>Related Setlists</h1>
+        <h3>Top setlist of your search</h3>
+        <ul class="artist-list">
+            <li>
+                <a href="#">Metallica</a>
+                <span class="setlists">2143 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 90%;"></div>
+                </div>
+                <span class="popularity-count">46861</span>
+            </li>
+            <li>
+                <a href="#">Foo Fighters</a>
+                <span class="setlists">1567 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 70%;"></div>
+                </div>
+                <span class="popularity-count">36499</span>
+            </li>
+            <li>
+                <a href="#">Iron Maiden</a>
+                <span class="setlists">2600 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 65%;"></div>
+                </div>
+                <span class="popularity-count">32688</span>
+            </li>
+            <li>
+                <a href="#">Red Hot Chili Peppers</a>
+                <span class="setlists">1906 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 60%;"></div>
+                </div>
+                <span class="popularity-count">30879</span>
+            </li>
+            <li>
+                <a href="#">Red Hot Chili Peppers</a>
+                <span class="setlists">1906 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 60%;"></div>
+                </div>
+                <span class="popularity-count">30879</span>
+            </li>
+        </ul>
+        <p class="last-updated">Last updated: 28 minutes ago</p>
+    </div>
+    <div class="artist-setlists">
+        <h1>Related Artist</h1>
+        <h3>Top artists of your search</h3>
+        <ul class="artist-list">
+            <li>
+                <a href="#">Metallica</a>
+                <span class="setlists">2143 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 90%;"></div>
+                </div>
+                <span class="popularity-count">46861</span>
+            </li>
+            <li>
+                <a href="#">Foo Fighters</a>
+                <span class="setlists">1567 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 70%;"></div>
+                </div>
+                <span class="popularity-count">36499</span>
+            </li>
+            <li>
+                <a href="#">Iron Maiden</a>
+                <span class="setlists">2600 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 65%;"></div>
+                </div>
+                <span class="popularity-count">32688</span>
+            </li>
+            <li>
+                <a href="#">Red Hot Chili Peppers</a>
+                <span class="setlists">1906 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 60%;"></div>
+                </div>
+                <span class="popularity-count">30879</span>
+            </li>
+            <li>
+                <a href="#">Red Hot Chili Peppers</a>
+                <span class="setlists">1906 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 60%;"></div>
+                </div>
+                <span class="popularity-count">30879</span>
+            </li>
+        </ul>
+        <p class="last-updated">Last updated: 28 minutes ago</p>
+    </div>
+    <div class="artist-setlists">
+        <h1>Related Concert</h1>
+        <h3>Top concert of your search</h3>
+        <ul class="artist-list">
+            <li>
+                <a href="#">Metallica</a>
+                <span class="setlists">2143 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 90%;"></div>
+                </div>
+                <span class="popularity-count">46861</span>
+            </li>
+            <li>
+                <a href="#">Foo Fighters</a>
+                <span class="setlists">1567 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 70%;"></div>
+                </div>
+                <span class="popularity-count">36499</span>
+            </li>
+            <li>
+                <a href="#">Iron Maiden</a>
+                <span class="setlists">2600 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 65%;"></div>
+                </div>
+                <span class="popularity-count">32688</span>
+            </li>
+            <li>
+                <a href="#">Red Hot Chili Peppers</a>
+                <span class="setlists">1906 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 60%;"></div>
+                </div>
+                <span class="popularity-count">30879</span>
+            </li>
+            <li>
+                <a href="#">Red Hot Chili Peppers</a>
+                <span class="setlists">1906 setlists</span>
+                <div class="popularity-bar">
+                    <div class="filled-bar" style="width: 60%;"></div>
+                </div>
+                <span class="popularity-count">30879</span>
+            </li>
+        </ul>
+        <p class="last-updated">Last updated: 28 minutes ago</p>
+    </div>
+</body>
+</html>

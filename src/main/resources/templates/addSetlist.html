@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>artist</title>
+    <link rel="stylesheet" th:href="@{/css/addsetlist.css}">
+</head>
+<header>
+    <div class="kotak_ungu"></div>
+    <nav>
+        <img src="@{/assets/icon.png}" alt="" id="logo">
+        <P id="home"><a th:href="@{/}">HOME</a></P>
+        <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
+        <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
+        <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
+        <P id="news">NEWS</P>
+
+        <div class="button-container">
+            <!-- <button type="submit" class="button setlist">+SET LIST</button> -->
+           <!-- <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
+               <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
+           </form>
+            <form action="/login" method="GET" th:if="${!isUserLoggedIn}">
+                <button type="submit" class="button login">LOG IN</button>
+            </form> -->
+        </div>
+    </nav>
+</header>
+<body>
+    <div class="addsetlist-container">
+        <h1>Add New Setlist</h1>
+        <h3>Enter details of the new setlist</h3>
+        <form class="setlist-form" action="#" method="POST">
+            <div class="form-group">
+                <label for="artist-name">Artist Name:</label>
+                <input type="text" id="artist-name" name="artist-name" required placeholder="Enter artist name">
+            </div>
+            <div class="form-group">
+                <label for="venue">Add Venue:</label>
+                <input type="text" id="number-setlists" name="venue" required placeholder="Enter venue name">
+            </div>
+            <div class="form-group">
+                <label for="date">Add Date:</label>
+                <input type="date" id="popularity" name="date" required placeholder="Enter date">
+            </div>
+            <div class="form-group">
+                <label for="time">Add Time:</label>
+                <input type="time" id="popularity" name="time" required placeholder="Enter time">
+            </div>
+            <div class="form-group">
+                <button type="submit">Add Setlist</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
