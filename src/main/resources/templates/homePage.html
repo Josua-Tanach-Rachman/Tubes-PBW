@@ -17,7 +17,7 @@
         <P id="news">NEWS</P>
 
         <div class="button-container">
-            <button type="submit" class="button setlist">+SET LIST</button>
+            <button type="submit" class="button setlist"><a th:href="@{/addsetlist}">+SET LIST</a></button>
             <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
                 <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
             </form>
@@ -32,9 +32,9 @@
         <img src="" alt="" class="background-search">
         <div class="blackBox"></div>
         <div class="search_bar">
-            <form action="">
+            <form action="/search" method="GET">
                 <h1 id="slogan">Set Your Playlist, Set Your Mood</h1>
-                <input type="text" placeholder="Search for artist, concert, news, ...">
+                <input name="keyword" type="text" placeholder="Search for artist, concert, news, ...">
             </form>
             <div>
                 <img src="assets/search.png" alt="" class="icon_search">

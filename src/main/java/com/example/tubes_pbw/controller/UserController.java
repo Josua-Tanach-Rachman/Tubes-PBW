@@ -100,4 +100,14 @@ public class UserController {
     public String concert(User user){
         return "concert";
     }
+
+    @GetMapping("/addsetlist")
+    public String addsetlist(User user){
+        return "addSetlist";
+    }
+
+    @GetMapping("/search")
+    public String searchAll(@RequestParam String keyword ,User user){
+        return "searchPage";
+    }
 }

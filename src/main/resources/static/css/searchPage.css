@@ -32,7 +32,8 @@ nav p {
 #home:hover,
 #artist:hover,
 #concert:hover,
-#news:hover {
+#news:hover,
+#setlist:hover {
     background-color: #8100B3; /* Purple hover effect for nav items */
 }
 
@@ -62,10 +63,6 @@ button {
 a {
     text-decoration: none;
     color: white; /* Default link color to white */
-}
-
-#setlist a {
-    color: #8100B3; /* Highlight artist links in purple */
 }
 
 .artist-setlists {
