@@ -19,6 +19,98 @@ const mockData = {
     }
 };
 
+let arrayArtis = [];
+let arrayNegara = [];
+let arrayKota = [];
+let arrayLokasi = [];
+
+fetch('/add/setlist/artist')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); 
+    })
+    .then(data => {
+        data.forEach(function(artis) {
+            arrayArtis.push(artis.namaArtis);
+        });
+        console.log(arrayArtis);
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    }
+);
+
+fetch('/add/setlist/negara')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); 
+    })
+    .then(data => {
+        data.forEach(function(negara) {
+            arrayNegara.push(negara.namaNegara);
+        });
+        console.log(arrayNegara);
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    }
+);
+
+function fetchKota(namaNegara) {
+    fetch(`/add/setlist/kota?namaNegara=${namaNegara}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); 
+        })
+        .then(data => {
+            currentSuggestions = [];
+            arrayKota = [];
+            data.forEach(function(kota) {
+                arrayKota.push(kota.namaKota);
+                console.log(kota);
+            });
+            console.log(arrayKota);
+            currentSuggestions = arrayKota;
+            console.log(currentSuggestions);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    );
+}
+
+function fetchLokasi(namaKota) {
+    fetch(`/add/setlist/lokasi?namaKota=${namaKota}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); 
+        })
+        .then(data => {
+            currentSuggestions = [];
+            arrayLokasi = [];
+            data.forEach(function(lokasi) {
+                arrayLokasi.push(lokasi.namaLokasi);
+                console.log(lokasi);
+            });
+            console.log(arrayLokasi);
+            currentSuggestions = arrayLokasi;
+            console.log(currentSuggestions);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    );
+}
+
+
 // DOM Elements
 const form = document.getElementById('setlistForm');
 const artistInput = document.getElementById('artist-name');
@@ -48,7 +140,7 @@ searchInput.addEventListener('input', handleSearch);
 form.addEventListener('submit', handleSubmit);
 
 // Functions
-function openPopup(field) {
+async function openPopup(field) {
     activeField = field;
     popup.style.display = 'block';
     overlay.style.display = 'block';
@@ -61,12 +153,14 @@ function openPopup(field) {
         case 'artist':
             popupTitle.textContent = 'Select Artist';
             searchInput.placeholder = 'Search artists...';
-            currentSuggestions = mockData.artists;
+            currentSuggestions = arrayArtis;
+            // currentSuggestions = mockData.artists;
             break;
         case 'country':
             popupTitle.textContent = 'Select Country';
             searchInput.placeholder = 'Search countries...';
-            currentSuggestions = Object.keys(mockData.locations);
+            currentSuggestions = arrayNegara;
+            // currentSuggestions = Object.keys(mockData.locations);
             break;
         case 'city':
             if (!selectedCountry) {
@@ -76,7 +170,8 @@ function openPopup(field) {
             }
             popupTitle.textContent = 'Select City';
             searchInput.placeholder = 'Search cities...';
-            currentSuggestions = Object.keys(mockData.locations[selectedCountry]);
+            currentSuggestions = arrayKota;
+            // currentSuggestions = Object.keys(mockData.locations[selectedCountry]);
             break;
         case 'venue':
             if (!selectedCountry || !selectedCity) {
@@ -86,7 +181,8 @@ function openPopup(field) {
             }
             popupTitle.textContent = 'Select Venue';
             searchInput.placeholder = 'Search venues...';
-            currentSuggestions = mockData.locations[selectedCountry][selectedCity];
+            currentSuggestions = arrayLokasi;
+            // currentSuggestions = mockData.locations[selectedCountry][selectedCity];
             break;
     }
     
@@ -100,13 +196,13 @@ function handleSearch(e) {
     
     switch(activeField) {
         case 'artist':
-            searchList = mockData.artists;
+            searchList = arrayArtis;
             break;
         case 'country':
-            searchList = Object.keys(mockData.locations);
+            searchList = arrayNegara;
             break;
         case 'city':
-            searchList = Object.keys(mockData.locations[selectedCountry]);
+            searchList = arrayKota;
             break;
         case 'venue':
             searchList = mockData.locations[selectedCountry][selectedCity];
@@ -145,12 +241,16 @@ function selectSuggestion(value) {
             cityInput.value = '';
             venueInput.value = '';
             selectedCity = '';
+            console.log("sudah select country");
+            fetchKota(selectedCountry);
             break;
         case 'city':
             cityInput.value = value;
             selectedCity = value;
             // Reset venue
             venueInput.value = '';
+            console.log("sudah select kota");
+            fetchLokasi(selectedCity);
             break;
         case 'venue':
             venueInput.value = value;
@@ -186,6 +286,7 @@ function handleSubmit(e) {
 }
 
 function validateForm() {
+    console.log(artistInput.value);
     if (!artistInput.value) {
         alert('Please select an artist');
         return false;
