@@ -232,3 +232,87 @@ h3 {
         'gambar keterangan'
     ;
 }
+
+#header_popular_concert{
+    margin: 20px;
+    margin-top: 50px;
+}
+
+.trending-artist {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+    background-color: black;
+    padding: 0px;
+}
+
+.carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 95%;
+    overflow: hidden;
+}
+
+.carousel-container {
+    display: flex;
+    gap: 10px;
+    transition: transform 0.2s ease-in-out;
+    scroll-behavior: smooth;
+    width: 100%;
+    justify-content: flex-start; /* Mulai dari kiri */
+}
+
+.carousel-item {
+    flex-shrink: 0;
+    background: #8100B3;
+    border-radius: 8px;
+    text-align: center;
+    padding: 10px;
+}
+
+.carousel-item img {
+    width: 180px;
+    height: 200px;
+    border-radius: 8px;
+
+}
+
+.carousel-item p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+button.prev-btn, button.next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+
+.carousel-item {
+    margin-right: 10px; /* Jarak antar item */
+    box-sizing: border-box;
+}
+
+.carousel-item:last-child {
+    margin-right: 0;
+}

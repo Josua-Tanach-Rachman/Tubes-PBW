@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/css/homePage.css}">
+    <script th:src="@{/js/slideShow.js}" defer></script>
 </head>
 <header>
     <div class="kotak_ungu"></div>
@@ -29,7 +30,7 @@
 </header>
 <body>
     <div class="search-container">
-        <img src="" alt="" class="background-search">
+        <img src="assets/background_search_main.png" alt="" class="background-search">
         <div class="blackBox"></div>
         <div class="search_bar">
             <form action="/search" method="GET">
@@ -43,30 +44,108 @@
     </div>
 
     <!-- Top 10 Trending Artist -->
-    <h3>TOP 10 TRENDING ARTIST</h3>
-    <div class="trending-artist">
-        <div class="gambar-artist">
-            <img th:each="artis : ${listArtis}" th:src="@{'api/uploads/images' + ${artis.urlGambarArtis}}" alt="Artist Image">
-<!--            <img th:src="@{/assets/topArtist/logo1.png}" alt="Artist 1">-->
-<!--            <img th:src="@{/assets/topArtist/logo2.png}" alt="Artist 2">-->
-<!--            <img th:src="@{/assets/topArtist/logo3.png}" alt="Artist 3">-->
-<!--            <img th:src="@{/assets/topArtist/logo4.png}" alt="Artist 4">-->
-<!--            <img th:src="@{/assets/topArtist/logo5.png}" alt="Artist 5">-->
-<!--            <img th:src="@{/assets/topArtist/logo6.png}" alt="Artist 6">-->
-<!--            <img th:src="@{/assets/topArtist/logo7.png}" alt="Artist 7">-->
-<!--            <img th:src="@{/assets/topArtist/logo8.png}" alt="Artist 8">-->
-<!--            <img th:src="@{/assets/topArtist/logo9.png}" alt="Artist 9">-->
-<!--            <img th:src="@{/assets/topArtist/logo10.png}" alt="Artist 10">-->
-        </div>
+    <h3 id="header_popular_concert">RECOMMENDED ARTIST</h3>
+    <div>
+
     </div>
     
+    <!--<div class="trending-artist">
+        <div class="gambar-artist">
+            <img th:each="artis : ${listArtis}" th:src="@{'api/uploads/images' + ${artis.urlGambarArtis}}" alt="Artist Image">
+            <img th:src="@{/assets/topArtist/logo1.png}" alt="Artist 1">
+            <img th:src="@{/assets/topArtist/logo2.png}" alt="Artist 2">
+            <img th:src="@{/assets/topArtist/logo3.png}" alt="Artist 3">
+            <img th:src="@{/assets/topArtist/logo4.png}" alt="Artist 4">
+            <img th:src="@{/assets/topArtist/logo5.png}" alt="Artist 5">
+            <img th:src="@{/assets/topArtist/logo6.png}" alt="Artist 6">
+            <img th:src="@{/assets/topArtist/logo7.png}" alt="Artist 7">
+            <img th:src="@{/assets/topArtist/logo8.png}" alt="Artist 8">
+            <img th:src="@{/assets/topArtist/logo9.png}" alt="Artist 9">
+            <img th:src="@{/assets/topArtist/logo10.png}" alt="Artist 10">
+        </div>
+    </div> -->
 
-    <!-- Top 10 Trenging Song -->
+    <div class="trending-artist">
+        <div class="carousel">
+            <!-- Tombol untuk berpindah ke slide sebelumnya -->
+            <button class="prev-btn" aria-label="Previous slide">❮</button>
+            
+            <!-- Kontainer untuk item carousel -->
+            <div class="carousel-container">
+                <div class="carousel-item">
+                    <img th:src="@{/assets/topArtist/logo1.png}" alt="Artist 1">
+                    <p>Artist 1</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/topArtist/logo2.png" alt="Artist 2">
+                    <p>Artist 2</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/topArtist/logo3.png" alt="Artist 3">
+                    <p>Artist 3</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/topArtist/logo4.png" alt="Artist 4">
+                    <p>Artist 4</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/topArtist/logo5.png" alt="Artist 5">
+                    <p>Artist 5</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/topArtist/logo6.png" alt="Artist 6">
+                    <p>Artist 6</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/topArtist/logo7.png" alt="Artist 7">
+                    <p>Artist 7</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/topArtist/logo8.png" alt="Artist 8">
+                    <p>Artist 8</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/topArtist/logo9.png" alt="Artist 9">
+                    <p>Artist 9</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/topArtist/logo10.png" alt="Artist 10">
+                    <p>Artist 10</p>
+                </div>
+                <div class="carousel-item">
+                    <img th:src="@{/assets/topArtist/logo1.png}" alt="Artist 1">
+                    <p>Artist 1</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/topArtist/logo2.png" alt="Artist 2">
+                    <p>Artist 2</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/topArtist/logo3.png" alt="Artist 3">
+                    <p>Artist 3</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/topArtist/logo4.png" alt="Artist 4">
+                    <p>Artist 4</p>
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/topArtist/logo5.png" alt="Artist 5">
+                    <p>Artist 5</p>
+                </div>
+            </div>
+    
+            <!-- Tombol untuk berpindah ke slide berikutnya -->
+            <button class="next-btn" aria-label="Next slide">❯</button>
+        </div>
+    </div>    
+
+
+    <!-- Top 10 Trenging Song
     <h3>TOP 10 TRENDING SONG</h3>
     <div class="trending-song">
         <div class="gambar-album">
             <img th:each="Album : ${listAlbum}" th:src="@{'api/uploads/images' + ${Album.urlGambarAlbum}}" alt="Albumt Image">
-            <!-- <img th:src="@{/assets/topSongs/album1.webp}" alt="Album 1">
+            <img th:src="@{/assets/topSongs/album1.webp}" alt="Album 1">
             <img th:src="@{/assets/topSongs/album2.webp}" alt="Album 2">
             <img th:src="@{/assets/topSongs/album3.webp}" alt="Album 3">
             <img th:src="@{/assets/topSongs/album4.webp}" alt="Album 4">
@@ -75,9 +154,9 @@
             <img th:src="@{/assets/topSongs/album4.webp}" alt="Album 4">
             <img th:src="@{/assets/topSongs/album3.webp}" alt="Album 3">
             <img th:src="@{/assets/topSongs/album2.webp}" alt="Album 2">
-            <img th:src="@{/assets/topSongs/album1.webp}" alt="Album 1"> -->
+            <img th:src="@{/assets/topSongs/album1.webp}" alt="Album 1">
         </div>
-    </div>
+    </div> -->
 
     <div class="hot-news">
         <h3>HOT NEWS!</h3>
