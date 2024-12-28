@@ -202,55 +202,55 @@ INSERT INTO Show (namaShow, idLokasi) VALUES
 
 -- Insert into Artis
 INSERT INTO Artis (namaArtis, urlGambarArtis) VALUES
-('Artist 1', '/images/artist1.jpg'), ('Artist 2', '/images/artist2.jpg'), 
-('Artist 3', '/images/artist3.jpg'), ('Artist 4', '/images/artist4.jpg'), 
-('Artist 5', '/images/artist5.jpg'), ('Artist 6', '/images/artist6.jpg'), 
-('Artist 7', '/images/artist7.jpg'), ('Artist 8', '/images/artist8.jpg'), 
-('Artist 9', '/images/artist9.jpg'), ('Artist 10', '/images/artist10.jpg'),
-('Artist 11', '/images/artist11.jpg'), ('Artist 12', '/images/artist12.jpg'), 
-('Artist 13', '/images/artist13.jpg'), ('Artist 14', '/images/artist14.jpg'), 
-('Artist 15', '/images/artist15.jpg'), ('Artist 16', '/images/artist16.jpg'), 
-('Artist 17', '/images/artist17.jpg'), ('Artist 18', '/images/artist18.jpg'),
-('Artist 19', '/images/artist19.jpg'), ('Artist 20', '/images/artist20.jpg');
+('Shawn Mendes', '/assets/topArtist/shawnMendes.png'), ('Selena Gomez', '/assets/topArtist/selena.png'), 
+('Abel Makkonen', '/assets/topArtist/abel.png'), ('Halsey', '/assets/topArtist/halsey.png'), 
+('Billie Eilish', '/assets/topArtist/billie.png'), ('Justin Bieber', '/assets/topArtist/justin.png'), 
+('Ariana Grande', '/assets/topArtist/ariana.png'), ('Ed Sheeran', '/assets/topArtist/edsheeran.png'), 
+('Dua Lipa', '/assets/topArtist/dualipa.png'), ('BTS', '/assets/topArtist/bts.png'),
+('Calum Scott', '/assets/topArtist/calumscott.png'), ('Adele', '/assets/topArtist/adele.png'), 
+('Alan Walker', '/assets/topArtist/alanwalker.jpg'), ('Lauv', '/assets/topArtist/lauv.jpeg'), 
+('James Arthur', '/assets/topArtist/jamesarthur.png'), ('Bruno Mars', '/assets/topArtist/brunomars.jpeg'), 
+('Troye Sivan', '/assets/topArtist/troyesivan.jpg'), ('Taylor Swift', '/assets/topArtist/taylorswift.png'),
+('Sam Smith', '/assets/topArtist/samsmith.jpg'), ('Jamie Miller', '/assets/topArtist/jamie miller.jpeg');
 
 -- Insert into Album
 INSERT INTO Album (namaAlbum, release_date, idArtis, urlGambarAlbum) VALUES
-('Album 1', '2022-01-01', 1, '/images/album1.jpg'), ('Album 2', '2022-02-01', 2, '/images/album2.jpg'),
-('Album 3', '2022-03-01', 3, '/images/album3.jpg'), ('Album 4', '2022-04-01', 4, '/images/album4.jpg'),
-('Album 5', '2022-05-01', 5, '/images/album5.jpg'), ('Album 6', '2022-06-01', 6, '/images/album6.jpg'),
-('Album 7', '2022-07-01', 7, '/images/album7.jpg'), ('Album 8', '2022-08-01', 8, '/images/album8.jpg'),
-('Album 9', '2022-09-01', 9, '/images/album9.jpg'), ('Album 10', '2022-10-01', 10, '/images/album10.jpg'),
-('Album 11', '2022-11-01', 11, '/images/album11.jpg'), ('Album 12', '2022-12-01', 12, '/images/album12.jpg'),
-('Album 13', '2023-01-01', 13, '/images/album13.jpg'), ('Album 14', '2023-02-01', 14, '/images/album14.jpg'),
-('Album 15', '2023-03-01', 15, '/images/album15.jpg'), ('Album 16', '2023-04-01', 16, '/images/album16.jpg'),
-('Album 17', '2023-05-01', 17, '/images/album17.jpg'), ('Album 18', '2023-06-01', 18, '/images/album18.jpg'),
-('Album 19', '2023-07-01', 19, '/images/album19.jpg'), ('Album 20', '2023-08-01', 20, '/images/album20.jpg');
+('Album 1', '2022-01-01', 1, '/images/album1.jpg'), ('Album 2', '2022-02-01', 2, '/assets/topArtist/logo1.png'),
+('Album 3', '2022-03-01', 3, '/images/album3.jpg'), ('Album 4', '2022-04-01', 4, '/assets/topArtist/logo1.png'),
+('Album 5', '2022-05-01', 5, '/images/album5.jpg'), ('Album 6', '2022-06-01', 6, '/assets/topArtist/logo1.png'),
+('Album 7', '2022-07-01', 7, '/images/album7.jpg'), ('Album 8', '2022-08-01', 8, '/assets/topArtist/logo1.png'),
+('Album 9', '2022-09-01', 9, '/images/album9.jpg'), ('Album 10', '2022-10-01', 10, '/assets/topArtist/logo1.png'),
+('Album 11', '2022-11-01', 11, '/images/album11.jpg'), ('Album 12', '2022-12-01', 12, '/assets/topArtist/logo1.png'),
+('Album 13', '2023-01-01', 13, '/images/album13.jpg'), ('Album 14', '2023-02-01', 14, '/assets/topArtist/logo1.png'),
+('Album 15', '2023-03-01', 15, '/images/album15.jpg'), ('Album 16', '2023-04-01', 16, '/assets/topArtist/logo1.png'),
+('Album 17', '2023-05-01', 17, '/images/album17.jpg'), ('Album 18', '2023-06-01', 18, '/assets/topArtist/logo1.png'),
+('Album 19', '2023-07-01', 19, '/images/album19.jpg'), ('Album 20', '2023-08-01', 20, '/assets/topArtist/logo1.png');
 
 -- Insert into Lagu
 INSERT INTO Lagu (idAlbum, namaLagu, duration, idArtis, urlGambarLagu) VALUES
-(1, 'Song 1', 180, 1, '/images/song1.jpg'), (2, 'Song 2', 190, 2, '/images/song2.jpg'),
-(3, 'Song 3', 200, 3, '/images/song3.jpg'), (4, 'Song 4', 210, 4, '/images/song4.jpg'),
-(5, 'Song 5', 220, 5, '/images/song5.jpg'), (6, 'Song 6', 230, 6, '/images/song6.jpg'),
-(7, 'Song 7', 240, 7, '/images/song7.jpg'), (8, 'Song 8', 250, 8, '/images/song8.jpg'),
-(9, 'Song 9', 260, 9, '/images/song9.jpg'), (10, 'Song 10', 270, 10, '/images/song10.jpg'),
-(11, 'Song 11', 280, 11, '/images/song11.jpg'), (12, 'Song 12', 290, 12, '/images/song12.jpg'),
-(13, 'Song 13', 300, 13, '/images/song13.jpg'), (14, 'Song 14', 310, 14, '/images/song14.jpg'),
-(15, 'Song 15', 320, 15, '/images/song15.jpg'), (16, 'Song 16', 330, 16, '/images/song16.jpg'),
-(17, 'Song 17', 340, 17, '/images/song17.jpg'), (18, 'Song 18', 350, 18, '/images/song18.jpg'),
-(19, 'Song 19', 360, 19, '/images/song19.jpg'), (20, 'Song 20', 370, 20, '/images/song20.jpg');
+(1, 'Song 1', 180, 1, '/images/song1.jpg'), (2, 'Song 2', 190, 2, '/assets/topArtist/logo1.png'),
+(3, 'Song 3', 200, 3, '/images/song3.jpg'), (4, 'Song 4', 210, 4, '/assets/topArtist/logo1.png'),
+(5, 'Song 5', 220, 5, '/images/song5.jpg'), (6, 'Song 6', 230, 6, '/assets/topArtist/logo1.png'),
+(7, 'Song 7', 240, 7, '/images/song7.jpg'), (8, 'Song 8', 250, 8, '/assets/topArtist/logo1.png'),
+(9, 'Song 9', 260, 9, '/images/song9.jpg'), (10, 'Song 10', 270, 10, '/assets/topArtist/logo1.png'),
+(11, 'Song 11', 280, 11, '/images/song11.jpg'), (12, 'Song 12', 290, 12, '/assets/topArtist/logo1.png'),
+(13, 'Song 13', 300, 13, '/images/song13.jpg'), (14, 'Song 14', 310, 14, '/assets/topArtist/logo1.png'),
+(15, 'Song 15', 320, 15, '/images/song15.jpg'), (16, 'Song 16', 330, 16, '/assets/topArtist/logo1.png'),
+(17, 'Song 17', 340, 17, '/images/song17.jpg'), (18, 'Song 18', 350, 18, '/assets/topArtist/logo1.png'),
+(19, 'Song 19', 360, 19, '/images/song19.jpg'), (20, 'Song 20', 370, 20, '/assets/topArtist/logo1.png');
 
 -- Insert into Setlist
 INSERT INTO Setlist (namaSetlist, tanggal, urlBukti, idShow) VALUES
-('Setlist 1', '2022-01-01 20:00:00', '/images/setlist1.jpg', 1), ('Setlist 2', '2022-02-01 20:00:00', '/images/setlist2.jpg', 2),
-('Setlist 3', '2022-03-01 20:00:00', '/images/setlist3.jpg', 3), ('Setlist 4', '2022-04-01 20:00:00', '/images/setlist4.jpg', 4),
-('Setlist 5', '2022-05-01 20:00:00', '/images/setlist5.jpg', 5), ('Setlist 6', '2022-06-01 20:00:00', '/images/setlist6.jpg', 6),
-('Setlist 7', '2022-07-01 20:00:00', '/images/setlist7.jpg', 7), ('Setlist 8', '2022-08-01 20:00:00', '/images/setlist8.jpg', 8),
-('Setlist 9', '2022-09-01 20:00:00', '/images/setlist9.jpg', 9), ('Setlist 10', '2022-10-01 20:00:00', '/images/setlist10.jpg', 10),
-('Setlist 11', '2022-11-01 20:00:00', '/images/setlist11.jpg', 11), ('Setlist 12', '2022-12-01 20:00:00', '/images/setlist12.jpg', 12),
-('Setlist 13', '2023-01-01 20:00:00', '/images/setlist13.jpg', 13), ('Setlist 14', '2023-02-01 20:00:00', '/images/setlist14.jpg', 14),
-('Setlist 15', '2023-03-01 20:00:00', '/images/setlist15.jpg', 15), ('Setlist 16', '2023-04-01 20:00:00', '/images/setlist16.jpg', 16),
-('Setlist 17', '2023-05-01 20:00:00', '/images/setlist17.jpg', 17), ('Setlist 18', '2023-06-01 20:00:00', '/images/setlist18.jpg', 18),
-('Setlist 19', '2023-07-01 20:00:00', '/images/setlist19.jpg', 19), ('Setlist 20', '2023-08-01 20:00:00', '/images/setlist20.jpg', 20);
+('Setlist 1', '2022-01-01 20:00:00', '/images/setlist1.jpg', 1), ('Setlist 2', '2022-02-01 20:00:00', '/assets/topArtist/logo1.png', 2),
+('Setlist 3', '2022-03-01 20:00:00', '/images/setlist3.jpg', 3), ('Setlist 4', '2022-04-01 20:00:00', '/assets/topArtist/logo1.png', 4),
+('Setlist 5', '2022-05-01 20:00:00', '/images/setlist5.jpg', 5), ('Setlist 6', '2022-06-01 20:00:00', '/assets/topArtist/logo1.png', 6),
+('Setlist 7', '2022-07-01 20:00:00', '/images/setlist7.jpg', 7), ('Setlist 8', '2022-08-01 20:00:00', '/assets/topArtist/logo1.png', 8),
+('Setlist 9', '2022-09-01 20:00:00', '/images/setlist9.jpg', 9), ('Setlist 10', '2022-10-01 20:00:00', '/assets/topArtist/logo1.png', 10),
+('Setlist 11', '2022-11-01 20:00:00', '/images/setlist11.jpg', 11), ('Setlist 12', '2022-12-01 20:00:00', '/assets/topArtist/logo1.png', 12),
+('Setlist 13', '2023-01-01 20:00:00', '/images/setlist13.jpg', 13), ('Setlist 14', '2023-02-01 20:00:00', '/assets/topArtist/logo1.png', 14),
+('Setlist 15', '2023-03-01 20:00:00', '/images/setlist15.jpg', 15), ('Setlist 16', '2023-04-01 20:00:00', '/assets/topArtist/logo1.png', 16),
+('Setlist 17', '2023-05-01 20:00:00', '/images/setlist17.jpg', 17), ('Setlist 18', '2023-06-01 20:00:00', '/assets/topArtist/logo1.png', 18),
+('Setlist 19', '2023-07-01 20:00:00', '/images/setlist19.jpg', 19), ('Setlist 20', '2023-08-01 20:00:00', '/assets/topArtist/logo1.png', 20);
 
 -- Insert into Setlist_lagu
 INSERT INTO Setlist_lagu (idSetlist, idLagu, idArtis, trackNumber) VALUES

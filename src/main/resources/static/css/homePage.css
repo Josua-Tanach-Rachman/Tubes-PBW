@@ -316,3 +316,9 @@ button.prev-btn, button.next-btn {
 .carousel-item:last-child {
     margin-right: 0;
 }
+
+.prev-btn:hover, .next-btn:hover {
+    background-color: white;
+    opacity: 0.7;
+    color: #8100B3;
+}
