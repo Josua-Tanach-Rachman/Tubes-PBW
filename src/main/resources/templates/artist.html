@@ -36,8 +36,9 @@
         <img src="" alt="" class="background-search">
         <div class="blackBox"></div>
         <div class="search_bar">
-            <form action="">
-                <input type="text" placeholder="Search for Artists...">
+            <form action="/artist" method="get">
+                <input type="text" placeholder="Search for Artists..." th:value="${filter}" name="filter">
+                <input type="hidden" name="page" th:value="1">
             </form>
             <div>
                 <img src="assets/search.png" alt="" class="icon_search">
@@ -47,49 +48,12 @@
     <div class="artist-setlists">
         <h1>Artist Setlists</h1>
         <h3>Top artists by concertgoers</h3>
-        <ul class="artist-list">
+        <ul class="artist-list" th:each="artis : ${listArtis}">
             <li>
-                <a href="#">Metallica</a>
-                <span class="setlists">2143 setlists</span>
-                <div class="popularity-bar">
-                    <div class="filled-bar" style="width: 90%;"></div>
-                </div>
-                <span class="popularity-count">46861</span>
-            </li>
-            <li>
-                <a href="#">Foo Fighters</a>
-                <span class="setlists">1567 setlists</span>
-                <div class="popularity-bar">
-                    <div class="filled-bar" style="width: 70%;"></div>
-                </div>
-                <span class="popularity-count">36499</span>
-            </li>
-            <li>
-                <a href="#">Iron Maiden</a>
-                <span class="setlists">2600 setlists</span>
-                <div class="popularity-bar">
-                    <div class="filled-bar" style="width: 65%;"></div>
-                </div>
-                <span class="popularity-count">32688</span>
-            </li>
-            <li>
-                <a href="#">Red Hot Chili Peppers</a>
-                <span class="setlists">1906 setlists</span>
-                <div class="popularity-bar">
-                    <div class="filled-bar" style="width: 60%;"></div>
-                </div>
-                <span class="popularity-count">30879</span>
-            </li>
-            <li>
-                <a href="#">Red Hot Chili Peppers</a>
-                <span class="setlists">1906 setlists</span>
-                <div class="popularity-bar">
-                    <div class="filled-bar" style="width: 60%;"></div>
-                </div>
-                <span class="popularity-count">30879</span>
+                <a th:href="@{/artist/{namaArtis}(namaArtis=${artis.namaArtis})}" th:text="${artis.namaArtis}"></a>
             </li>
         </ul>
-        <p class="last-updated">Last updated: 28 minutes ago</p>
+        <th:block th:include="~{/pagination :: pagination}"></th:block>
     </div>
 </body>
 

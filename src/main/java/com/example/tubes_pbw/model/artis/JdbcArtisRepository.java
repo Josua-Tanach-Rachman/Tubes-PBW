@@ -16,20 +16,32 @@ public class JdbcArtisRepository implements ArtisRepository {
 
     @Override
     public Optional<Artis> findByNamaArtis(String namaArtis) {
-        String sql = "SELECT * FROM artis WHERE namaartis = ?";
+        String sql = "SELECT * FROM artis WHERE namaartis = ? ORDER BY namaartis";
         List<Artis> res = jdbcTemplate.query(sql, this::mapRowToArtis, namaArtis);
         return res.isEmpty() ? Optional.empty() : Optional.of(res.get(0));
     }
 
     @Override
     public Iterable<Artis> findByFilterNamaArtis(String namaArtis) {
-        String sql = "SELECT * FROM artis WHERE namaartis ILIKE ?";
+        String sql = "SELECT * FROM artis WHERE namaartis ILIKE ? ORDER BY namaartis";
         return jdbcTemplate.query(sql, this::mapRowToArtis, "%" + namaArtis + "%");
     }
 
     @Override
+    public long countByFilterNamaArtis(String namaArtis) {
+        String sql = "SELECT COUNT(idartis) FROM artis WHERE namaartis ILIKE ?";
+        return jdbcTemplate.queryForObject(sql, Long.class, "%" + namaArtis + "%");
+    }
+
+    @Override
+    public Iterable<Artis> findByFilterNamaArtisWithOffset(String namaArtis, int offset) {
+        String sql = "SELECT * FROM artis WHERE namaartis ILIKE ? ORDER BY namaartis LIMIT 10 OFFSET ?";
+        return jdbcTemplate.query(sql, this::mapRowToArtis, "%" + namaArtis + "%", offset);
+    }
+
+    @Override
     public Iterable<Artis> findByIdArtis(int idArtis) {
-        String sql = "SELECT * FROM artis WHERE idartis = ?";
+        String sql = "SELECT * FROM artis WHERE idartis = ? ORDER BY namaartis";
         return jdbcTemplate.query(sql, this::mapRowToArtis, idArtis);
     }
 

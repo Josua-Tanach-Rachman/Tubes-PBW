@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.tubes_pbw.model.artis.Artis;
+import com.example.tubes_pbw.model.artis.ArtisService;
 import com.example.tubes_pbw.model.user.User;
 import com.example.tubes_pbw.model.user.UserService;
 
@@ -19,6 +21,9 @@ import jakarta.validation.Valid;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ArtisService artisService;
 
     @GetMapping("/login")
     public String loginView(HttpSession session) {
@@ -92,7 +97,22 @@ public class UserController {
     }
 
     @GetMapping("/artist")
-    public String artist(User user){
+    public String artist(
+        @RequestParam(required = false, defaultValue = "1") String page,
+        @RequestParam(required = false, defaultValue = "") String filter, 
+        Model model)
+    {
+        int curPage = Integer.parseInt(page);
+        
+        long count = artisService.countByFilterNamaArtis(filter);
+
+        Iterable<Artis> res = artisService.findByFilterNamaArtisWithOffset(filter, (curPage-1)*10);
+        
+        model.addAttribute("filter",filter);
+        model.addAttribute("listArtis", res);
+        model.addAttribute("kategori", "artist");
+        model.addAttribute("pageCount",Math.ceil((double)count/10));
+        model.addAttribute("currentPage",curPage);
         return "artist";
     }
 

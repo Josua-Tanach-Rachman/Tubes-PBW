@@ -264,3 +264,27 @@ input {
     /*text-align: center;*/
     /*width: 100%;*/
 }
+
+
+/*
+---------------------------------
+*/
+.update-form-grid{
+    display: grid;
+    grid-template-columns: 150px 10px 200px;
+    grid-template-rows: 1fr 1fr;
+}
+
+/*
+---------------------------------
+*/
+ul.pagination-container{
+	display: flex;
+	list-style-type: none;
+}
+
+ul.pagination-container a.disabled{
+	pointer-events: none;
+    color: gray;
+	cursor: not-allowed;
+}
