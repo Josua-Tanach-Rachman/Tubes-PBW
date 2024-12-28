@@ -1,3 +1,24 @@
+-- Drop the custom type if it exists
+DROP TYPE IF EXISTS rolePengguna CASCADE;
+
+-- Drop foreign key constraints and triggers first, if any
+DROP TRIGGER IF EXISTS trigger_save_update ON Setlist;
+DROP TRIGGER IF EXISTS trigger_save_delete ON Setlist;
+
+-- Drop tables using CASCADE to ensure dependent objects are dropped
+DROP TABLE IF EXISTS Setlist_lagu CASCADE;
+DROP TABLE IF EXISTS SetlistHistory CASCADE;
+DROP TABLE IF EXISTS Setlist CASCADE;
+DROP TABLE IF EXISTS Komentar CASCADE;
+DROP TABLE IF EXISTS Lagu CASCADE;
+DROP TABLE IF EXISTS Album CASCADE;
+DROP TABLE IF EXISTS Artis CASCADE;
+DROP TABLE IF EXISTS Show CASCADE;
+DROP TABLE IF EXISTS Lokasi CASCADE;
+DROP TABLE IF EXISTS Kota CASCADE;
+DROP TABLE IF EXISTS Negara CASCADE;
+DROP TABLE IF EXISTS Pengguna CASCADE;
+
 CREATE TYPE rolePengguna AS ENUM ('admin', 'pengguna');
 
 CREATE TABLE Pengguna (
@@ -119,3 +140,135 @@ CREATE TRIGGER trigger_save_delete
 AFTER DELETE ON Setlist
 FOR EACH ROW
 EXECUTE FUNCTION save_delete_to_history();
+
+-- Insert into Pengguna
+INSERT INTO Pengguna (username, email, password, nama, role) VALUES
+('user1', 'user1@example.com', 'password1', 'User One', 'pengguna'),
+('user2', 'user2@example.com', 'password2', 'User Two', 'pengguna'),
+('user3', 'user3@example.com', 'password3', 'User Three', 'pengguna'),
+('user4', 'user4@example.com', 'password4', 'User Four', 'pengguna'),
+('user5', 'user5@example.com', 'password5', 'User Five', 'pengguna'),
+('user6', 'user6@example.com', 'password6', 'User Six', 'pengguna'),
+('user7', 'user7@example.com', 'password7', 'User Seven', 'pengguna'),
+('user8', 'user8@example.com', 'password8', 'User Eight', 'pengguna'),
+('user9', 'user9@example.com', 'password9', 'User Nine', 'pengguna'),
+('user10', 'user10@example.com', 'password10', 'User Ten', 'pengguna'),
+('user11', 'user11@example.com', 'password11', 'User Eleven', 'pengguna'),
+('user12', 'user12@example.com', 'password12', 'User Twelve', 'pengguna'),
+('user13', 'user13@example.com', 'password13', 'User Thirteen', 'pengguna'),
+('user14', 'user14@example.com', 'password14', 'User Fourteen', 'pengguna'),
+('user15', 'user15@example.com', 'password15', 'User Fifteen', 'pengguna'),
+('user16', 'user16@example.com', 'password16', 'User Sixteen', 'pengguna'),
+('user17', 'user17@example.com', 'password17', 'User Seventeen', 'pengguna'),
+('user18', 'user18@example.com', 'password18', 'User Eighteen', 'pengguna'),
+('user19', 'user19@example.com', 'password19', 'User Nineteen', 'pengguna'),
+('user20', 'user20@example.com', 'password20', 'User Twenty', 'pengguna');
+
+-- Insert into Negara
+INSERT INTO Negara (namaNegara) VALUES 
+('Indonesia'), ('United States'), ('Canada'), ('United Kingdom'), ('Australia'),
+('Germany'), ('France'), ('Japan'), ('South Korea'), ('Brazil'),
+('India'), ('China'), ('Russia'), ('Mexico'), ('Italy'),
+('Spain'), ('Argentina'), ('Netherlands'), ('South Africa'), ('Egypt'), ('Turkey');
+
+-- Insert into Kota
+INSERT INTO Kota (namaKota, idNegara) VALUES
+('Jakarta', 1), ('New York', 2), ('Toronto', 3), ('London', 4), ('Sydney', 5),
+('Berlin', 6), ('Paris', 7), ('Tokyo', 8), ('Seoul', 9), ('Sao Paulo', 10),
+('Mumbai', 11), ('Beijing', 12), ('Moscow', 13), ('Mexico City', 14), ('Rome', 15),
+('Madrid', 16), ('Buenos Aires', 17), ('Amsterdam', 18), ('Cape Town', 19), ('Cairo', 20);
+
+-- Insert into Lokasi
+INSERT INTO Lokasi (namaLokasi, alamatLokasi, idKota) VALUES
+('National Stadium', 'Jl. Gelora 1, Jakarta', 1), ('Madison Square Garden', 'New York, NY', 2), 
+('Air Canada Centre', 'Toronto, Canada', 3), ('Wembley Stadium', 'London, UK', 4), 
+('Sydney Opera House', 'Sydney, Australia', 5), ('Olympiastadion', 'Berlin, Germany', 6), 
+('Parc des Princes', 'Paris, France', 7), ('Tokyo Dome', 'Tokyo, Japan', 8), 
+('Seoul World Cup Stadium', 'Seoul, South Korea', 9), ('Morumbi Stadium', 'Sao Paulo, Brazil', 10),
+('Wankhede Stadium', 'Mumbai, India', 11), ('Bird’s Nest Stadium', 'Beijing, China', 12), 
+('Luzhniki Stadium', 'Moscow, Russia', 13), ('Estadio Azteca', 'Mexico City, Mexico', 14), 
+('Coliseum', 'Rome, Italy', 15), ('Camp Nou', 'Barcelona, Spain', 16), 
+('La Bombonera', 'Buenos Aires, Argentina', 17), ('Johan Cruijff Arena', 'Amsterdam, Netherlands', 18),
+('Newlands Cricket Ground', 'Cape Town, South Africa', 19), ('Cairo International Stadium', 'Cairo, Egypt', 20);
+
+-- Insert into Show
+INSERT INTO Show (namaShow, idLokasi) VALUES
+('Rock Concert', 1), ('Pop Show', 2), ('Classical Music Night', 3), ('Football Match', 4), 
+('Musical Show', 5), ('Opera Night', 6), ('Rock Fest', 7), ('Jazz Concert', 8), 
+('K-pop Concert', 9), ('World Cup Final', 10), ('Bollywood Night', 11), 
+('World Track and Field', 12), ('Super Bowl', 13), ('European Football League', 14), 
+('U2 World Tour', 15), ('Latin Concert', 16), ('Carnival Festival', 17), ('Eurovision', 18),
+('SA Rugby Match', 19), ('Africa Music Festival', 20);
+
+-- Insert into Artis
+INSERT INTO Artis (namaArtis, urlGambarArtis) VALUES
+('Artist 1', '/images/artist1.jpg'), ('Artist 2', '/images/artist2.jpg'), 
+('Artist 3', '/images/artist3.jpg'), ('Artist 4', '/images/artist4.jpg'), 
+('Artist 5', '/images/artist5.jpg'), ('Artist 6', '/images/artist6.jpg'), 
+('Artist 7', '/images/artist7.jpg'), ('Artist 8', '/images/artist8.jpg'), 
+('Artist 9', '/images/artist9.jpg'), ('Artist 10', '/images/artist10.jpg'),
+('Artist 11', '/images/artist11.jpg'), ('Artist 12', '/images/artist12.jpg'), 
+('Artist 13', '/images/artist13.jpg'), ('Artist 14', '/images/artist14.jpg'), 
+('Artist 15', '/images/artist15.jpg'), ('Artist 16', '/images/artist16.jpg'), 
+('Artist 17', '/images/artist17.jpg'), ('Artist 18', '/images/artist18.jpg'),
+('Artist 19', '/images/artist19.jpg'), ('Artist 20', '/images/artist20.jpg');
+
+-- Insert into Album
+INSERT INTO Album (namaAlbum, release_date, idArtis, urlGambarAlbum) VALUES
+('Album 1', '2022-01-01', 1, '/images/album1.jpg'), ('Album 2', '2022-02-01', 2, '/images/album2.jpg'),
+('Album 3', '2022-03-01', 3, '/images/album3.jpg'), ('Album 4', '2022-04-01', 4, '/images/album4.jpg'),
+('Album 5', '2022-05-01', 5, '/images/album5.jpg'), ('Album 6', '2022-06-01', 6, '/images/album6.jpg'),
+('Album 7', '2022-07-01', 7, '/images/album7.jpg'), ('Album 8', '2022-08-01', 8, '/images/album8.jpg'),
+('Album 9', '2022-09-01', 9, '/images/album9.jpg'), ('Album 10', '2022-10-01', 10, '/images/album10.jpg'),
+('Album 11', '2022-11-01', 11, '/images/album11.jpg'), ('Album 12', '2022-12-01', 12, '/images/album12.jpg'),
+('Album 13', '2023-01-01', 13, '/images/album13.jpg'), ('Album 14', '2023-02-01', 14, '/images/album14.jpg'),
+('Album 15', '2023-03-01', 15, '/images/album15.jpg'), ('Album 16', '2023-04-01', 16, '/images/album16.jpg'),
+('Album 17', '2023-05-01', 17, '/images/album17.jpg'), ('Album 18', '2023-06-01', 18, '/images/album18.jpg'),
+('Album 19', '2023-07-01', 19, '/images/album19.jpg'), ('Album 20', '2023-08-01', 20, '/images/album20.jpg');
+
+-- Insert into Lagu
+INSERT INTO Lagu (idAlbum, namaLagu, duration, idArtis, urlGambarLagu) VALUES
+(1, 'Song 1', 180, 1, '/images/song1.jpg'), (2, 'Song 2', 190, 2, '/images/song2.jpg'),
+(3, 'Song 3', 200, 3, '/images/song3.jpg'), (4, 'Song 4', 210, 4, '/images/song4.jpg'),
+(5, 'Song 5', 220, 5, '/images/song5.jpg'), (6, 'Song 6', 230, 6, '/images/song6.jpg'),
+(7, 'Song 7', 240, 7, '/images/song7.jpg'), (8, 'Song 8', 250, 8, '/images/song8.jpg'),
+(9, 'Song 9', 260, 9, '/images/song9.jpg'), (10, 'Song 10', 270, 10, '/images/song10.jpg'),
+(11, 'Song 11', 280, 11, '/images/song11.jpg'), (12, 'Song 12', 290, 12, '/images/song12.jpg'),
+(13, 'Song 13', 300, 13, '/images/song13.jpg'), (14, 'Song 14', 310, 14, '/images/song14.jpg'),
+(15, 'Song 15', 320, 15, '/images/song15.jpg'), (16, 'Song 16', 330, 16, '/images/song16.jpg'),
+(17, 'Song 17', 340, 17, '/images/song17.jpg'), (18, 'Song 18', 350, 18, '/images/song18.jpg'),
+(19, 'Song 19', 360, 19, '/images/song19.jpg'), (20, 'Song 20', 370, 20, '/images/song20.jpg');
+
+-- Insert into Setlist
+INSERT INTO Setlist (namaSetlist, tanggal, urlBukti, idShow) VALUES
+('Setlist 1', '2022-01-01 20:00:00', '/images/setlist1.jpg', 1), ('Setlist 2', '2022-02-01 20:00:00', '/images/setlist2.jpg', 2),
+('Setlist 3', '2022-03-01 20:00:00', '/images/setlist3.jpg', 3), ('Setlist 4', '2022-04-01 20:00:00', '/images/setlist4.jpg', 4),
+('Setlist 5', '2022-05-01 20:00:00', '/images/setlist5.jpg', 5), ('Setlist 6', '2022-06-01 20:00:00', '/images/setlist6.jpg', 6),
+('Setlist 7', '2022-07-01 20:00:00', '/images/setlist7.jpg', 7), ('Setlist 8', '2022-08-01 20:00:00', '/images/setlist8.jpg', 8),
+('Setlist 9', '2022-09-01 20:00:00', '/images/setlist9.jpg', 9), ('Setlist 10', '2022-10-01 20:00:00', '/images/setlist10.jpg', 10),
+('Setlist 11', '2022-11-01 20:00:00', '/images/setlist11.jpg', 11), ('Setlist 12', '2022-12-01 20:00:00', '/images/setlist12.jpg', 12),
+('Setlist 13', '2023-01-01 20:00:00', '/images/setlist13.jpg', 13), ('Setlist 14', '2023-02-01 20:00:00', '/images/setlist14.jpg', 14),
+('Setlist 15', '2023-03-01 20:00:00', '/images/setlist15.jpg', 15), ('Setlist 16', '2023-04-01 20:00:00', '/images/setlist16.jpg', 16),
+('Setlist 17', '2023-05-01 20:00:00', '/images/setlist17.jpg', 17), ('Setlist 18', '2023-06-01 20:00:00', '/images/setlist18.jpg', 18),
+('Setlist 19', '2023-07-01 20:00:00', '/images/setlist19.jpg', 19), ('Setlist 20', '2023-08-01 20:00:00', '/images/setlist20.jpg', 20);
+
+-- Insert into Setlist_lagu
+INSERT INTO Setlist_lagu (idSetlist, idLagu, idArtis, trackNumber) VALUES
+(1, 1, 1, 1), (2, 2, 2, 2), (3, 3, 3, 3), (4, 4, 4, 4),
+(5, 5, 5, 5), (6, 6, 6, 6), (7, 7, 7, 7), (8, 8, 8, 8),
+(9, 9, 9, 9), (10, 10, 10, 10), (11, 11, 11, 11), (12, 12, 12, 12),
+(13, 13, 13, 13), (14, 14, 14, 14), (15, 15, 15, 15), (16, 16, 16, 16),
+(17, 17, 17, 17), (18, 18, 18, 18), (19, 19, 19, 19), (20, 20, 20, 20);
+
+-- Insert into Komentar
+INSERT INTO Komentar (username, idSetlist, komentar) VALUES
+('user1', 1, 'Amazing performance!'), ('user2', 2, 'Loved the songs!'), 
+('user3', 3, 'Great setlist!'), ('user4', 4, 'Nice energy on stage!'), 
+('user5', 5, 'Good vibes!'), ('user6', 6, 'Wonderful show!'), 
+('user7', 7, 'Fantastic performance!'), ('user8', 8, 'Enjoyed the concert!'),
+('user9', 9, 'Would love to see again!'), ('user10', 10, 'Great atmosphere!'),
+('user11', 11, 'Beautiful music!'), ('user12', 12, 'Incredible experience!'),
+('user13', 13, 'Amazing band!'), ('user14', 14, 'Fabulous concert!'),
+('user15', 15, 'Great show!'), ('user16', 16, 'Memorable event!'),
+('user17', 17, 'Had a blast!'), ('user18', 18, 'Such an amazing night!'),
+('user19', 19, 'Unforgettable!'), ('user20', 20, 'Awesome concert!');

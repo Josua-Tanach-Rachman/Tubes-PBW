@@ -1,5 +1,7 @@
 package com.example.tubes_pbw.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,10 @@ public class HomeController {
 
         Iterable<Album> listAlbum = albumService.findAll();
         model.addAttribute("listAlbum", listAlbum);
+
+        List<Artis> listArtisTop = artisService.findTopArtisBySetlistLagu();
+        model.addAttribute("listArtisTop", listArtisTop);
+
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);
         }
