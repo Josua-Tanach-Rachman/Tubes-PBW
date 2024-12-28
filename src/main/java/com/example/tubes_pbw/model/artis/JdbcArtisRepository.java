@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -45,6 +46,13 @@ public class JdbcArtisRepository implements ArtisRepository {
         String sql = "DELETE FROM artis WHERE idartis = ?";
         jdbcTemplate.update(sql, idArtis);
     }
+
+    @Override
+    public List<Artis> findTopArtisBySetlistLagu() {
+        String sql = "SELECT a.idartis, a.namaartis, a.urlgambarartis FROM artis a JOIN lagu l ON a.idartis = l.idartis JOIN setlist_lagu sl ON l.idlagu = sl.idlagu GROUP BY a.idartis, a.namaartis, a.urlgambarartis ORDER BY COUNT(sl.idlagu) DESC LIMIT 15";
+        return jdbcTemplate.query(sql, this::mapRowToArtis);
+    }
+
 
     private Artis mapRowToArtis(ResultSet resultSet, int rowNum) throws SQLException {
         return new Artis(
