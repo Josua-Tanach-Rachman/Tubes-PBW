@@ -19,8 +19,8 @@ public class ArtisService {
         return artisRepository.findByFilterNamaArtis(namaArtis);
     }
 
-    public Iterable<Artis> findByFilterNamaArtisWithOffset(String namaArtis,int offset) {
-        return artisRepository.findByFilterNamaArtisWithOffset(namaArtis,offset);
+    public Iterable<Artis> findByFilterNamaArtisWithOffset(String namaArtis,int limit, int offset) {
+        return artisRepository.findByFilterNamaArtisWithOffset(namaArtis,limit,offset);
     }
 
     public long countByFilterNamaArtis(String namaArtis){

@@ -34,9 +34,9 @@ public class JdbcArtisRepository implements ArtisRepository {
     }
 
     @Override
-    public Iterable<Artis> findByFilterNamaArtisWithOffset(String namaArtis, int offset) {
-        String sql = "SELECT * FROM artis WHERE namaartis ILIKE ? ORDER BY namaartis LIMIT 10 OFFSET ?";
-        return jdbcTemplate.query(sql, this::mapRowToArtis, "%" + namaArtis + "%", offset);
+    public Iterable<Artis> findByFilterNamaArtisWithOffset(String namaArtis, int limit, int offset) {
+        String sql = "SELECT * FROM artis WHERE namaartis ILIKE ? ORDER BY namaartis LIMIT ? OFFSET ?";
+        return jdbcTemplate.query(sql, this::mapRowToArtis, "%" + namaArtis + "%", limit, offset);
     }
 
     @Override
