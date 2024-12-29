@@ -111,7 +111,7 @@ public class UserController {
         model.addAttribute("filter",filter);
         model.addAttribute("listArtis", res);
         model.addAttribute("kategori", "artist");
-        model.addAttribute("pageCount",Math.ceil((double)count/10));
+        model.addAttribute("pageCount",(int)Math.ceil((double)count/10));
         model.addAttribute("currentPage",curPage);
         return "artist";
     }
