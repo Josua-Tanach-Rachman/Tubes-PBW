@@ -106,7 +106,7 @@ public class UserController {
         
         long count = artisService.countByFilterNamaArtis(filter);
 
-        Iterable<Artis> res = artisService.findByFilterNamaArtisWithOffset(filter, (curPage-1)*10);
+        Iterable<Artis> res = artisService.findByFilterNamaArtisWithOffset(filter,10, (curPage-1)*10);
         
         model.addAttribute("filter",filter);
         model.addAttribute("listArtis", res);
@@ -127,7 +127,12 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public String searchAll(@RequestParam String keyword ,User user){
+    public String searchAll(@RequestParam(required = false, defaultValue = "") String filter ,User user, Model model){
+        model.addAttribute("filter", filter);
+        Iterable<Artis> res = artisService.findByFilterNamaArtisWithOffset(filter,5, (1-1)*10);
+        model.addAttribute("listArtis", res);
+
+        
         return "searchPage";
     }
 
