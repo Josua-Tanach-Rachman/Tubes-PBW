@@ -11,6 +11,8 @@ import com.example.tubes_pbw.model.album.Album;
 import com.example.tubes_pbw.model.album.AlbumService;
 import com.example.tubes_pbw.model.artis.Artis;
 import com.example.tubes_pbw.model.artis.ArtisService;
+import com.example.tubes_pbw.model.lagu.Lagu;
+import com.example.tubes_pbw.model.lagu.LaguService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -20,6 +22,8 @@ public class HomeController {
     ArtisService artisService;
     @Autowired
     AlbumService albumService;
+    @Autowired
+    LaguService laguService;
     @GetMapping("/")
     public String showHome(Model model, HttpSession session){
         Iterable<Artis> listArtis = artisService.findByFilterNamaArtis("");
@@ -30,6 +34,9 @@ public class HomeController {
 
         List<Artis> listArtisTop = artisService.findTopArtisBySetlistLagu();
         model.addAttribute("listArtisTop", listArtisTop);
+
+        List<Lagu> listSongTop = laguService.findTopSong_slideShow();
+        model.addAttribute("listSongTop", listSongTop);
 
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);

@@ -35,7 +35,7 @@
         <div class="search_bar">
             <form action="/search" method="GET">
                 <h1 id="slogan">Set Your Playlist, Set Your Mood</h1>
-                <input name="keyword" type="text" placeholder="Search for artist, concert, news, ...">
+                <input name="filter" type="text" placeholder="Search for artist, song, album, concert, ...">
             </form>
             <div>
                 <img src="assets/search.png" alt="" class="icon_search">
@@ -44,11 +44,7 @@
     </div>
 
     <!-- Top 10 Trending Artist -->
-    <h3 id="header_popular_concert">RECOMMENDED ARTIST</h3>
-    <div>
-
-    </div>
-
+    <h3 id="header_slideshow">RECOMMENDED ARTIST</h3>
     <div class="trending-artist">
         <div class="carousel">
             <!-- Tombol untuk berpindah ke slide sebelumnya -->
@@ -57,9 +53,7 @@
             <!-- Kontainer untuk item carousel -->
             <div class="carousel-container">
                 <div th:each="artis : ${listArtisTop}" class="carousel-item">
-                    <!-- Menampilkan gambar artis -->
-                    <img th:src="@{${artis.urlGambarArtis}}" alt="Artist Image">
-                    <!-- Menampilkan nama artis -->
+                    <img th:src="@{'api/uploads/images' + ${artis.urlGambarArtis}}" alt="Artist Image">
                     <p th:text="${artis.namaArtis}"></p>
                 </div>
             </div> 
@@ -69,43 +63,26 @@
         </div>
     </div>   
 
-    <div class="hot-news">
-        <h3>HOT NEWS!</h3>
-        <div class="grid-news">
-            <div class="news besar ke1" style="grid-area: news1;">
-                <img th:src="@{/assets/adeleNews.webp}" alt="Adele Performs in Vegas" style="grid-area: gambar;">
-                <h2 style="grid-area: judul;">Adele Performs in Vegas</h2>
-                <p style="grid-area: keterangan;">
-                    British superstar Adele cried on Saturday night as she played her 100th and final show in Las Vegas.
-                    She has spent the past two years playing a weekend residency at the 4,000-capacity Caesars Palace.
-                </p>
-            </div>
+    <h3 id="header_slideshow">RECOMMENDED SONG</h3>
+    <div class="trending-song">
+        <div class="carousel">
+            <!-- Tombol untuk berpindah ke slide sebelumnya -->
+            <button class="prev-btn2" aria-label="Previous slide">❮</button>
     
-            <div class="news kecil ke2" style="grid-area: news2;">
-                <img th:src="@{/assets/lanyNews.jpg}" alt="LANY has arrived in Manila!" style="grid-area: gambar;">
-                <h2 style="grid-area: judul;">LANY has arrived in Manila!</h2>
-                <p style="grid-area: keterangan;">
-                    On Instagram Stories early Friday morning, the American band posted a photo of Paul Klein and Jake Gloss at the Ninoy Aquino International Airport being interviewed by the media.
-                </p>
-            </div>
-            
-            <div class="news besar ke3" style="grid-area: news3;">
-                <img th:src="@{/assets/troyeNews.jpg}" alt="Troye Sivan's New Album" style="grid-area: gambar;">
-                <h2 style="grid-area: judul;">Troye Sivan's New Album</h2>
-                <p style="grid-area: keterangan;">
-                    His new album, Something to Give Each Other, gets specific about aspects of queer life that don't often get a mainstream platform.
-                </p>
-            </div>
+            <!-- Kontainer untuk item carousel -->
+            <div class="carousel-container2">
+                <div th:each="song : ${listSongTop}" class="carousel-item">
+                    <img th:src="@{'api/uploads/images' + ${song.urlGambarLagu}}" alt="Song Image">
+                    <p th:text="${song.namaLagu}"></p>
+                </div>
+            </div> 
     
-            <div class="news kecil ke4" style="grid-area: news4;">
-                <img th:src="@{/assets/camilaNews.webp}" alt="Camila Cabello Performance at MTV VMAs" style="grid-area: gambar;">
-                <h2 style="grid-area: judul;">Camila Cabello Performance at MTV VMAs</h2>
-                <p style="grid-area: keterangan;">
-                    The singer did a dramatic performance during which she sang into a camera and later smashed a laptop.
-                </p>
-            </div>
+            <!-- Tombol untuk berpindah ke slide berikutnya -->
+            <button class="next-btn2" aria-label="Next slide">❯</button>
         </div>
-    </div>    
+    </div>
+
+   
 </body>
 <footer>
 

@@ -41,6 +41,18 @@ public class JdbcLaguRepository implements LaguRepository {
         return idLagu;
     }
 
+    @Override
+    public List<Lagu> findTopSong() {
+        String sql = "SELECT l.idLagu, l.namaLagu, l.duration, l.idAlbum, l.idArtis, l.urlGambarLagu, COUNT(sl.idLagu) AS play_count " +
+                    "FROM lagu l " +
+                    "JOIN Setlist_lagu sl ON l.idLagu = sl.idLagu " +
+                    "GROUP BY l.idLagu, l.namaLagu, l.duration, l.idAlbum, l.idArtis, l.urlGambarLagu " +
+                    "ORDER BY play_count DESC " +
+                    "LIMIT 15";
+        return jdbcTemplate.query(sql, this::mapRowToLagu);
+    }
+
+
     private Lagu mapRowToLagu(ResultSet resultSet, int rowNum) throws SQLException {
         return new Lagu(
             resultSet.getInt("idLagu"),
