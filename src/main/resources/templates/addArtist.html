@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Artist</title>
+    <link rel="stylesheet" th:href="@{/css/addArtist.css}">
+    <script th:src="@{/js/addsetlist.js}" defer></script>
+</head>
+<header>
+    <div class="kotak_ungu"></div>
+    <nav>
+        <img src="@{/assets/icon.png}" alt="" id="logo">
+        <P id="home"><a th:href="@{/}">HOME</a></P>
+        <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
+        <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
+        <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
+        <P id="news">NEWS</P>
+
+        <div class="button-container">
+            <!-- <button type="submit" class="button setlist">+SET LIST</button> -->
+           <!-- <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
+               <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
+           </form>
+            <form action="/login" method="GET" th:if="${!isUserLoggedIn}">
+                <button type="submit" class="button login">LOG IN</button>
+            </form> -->
+        </div>
+    </nav>
+</header>
+<body>
+    <div class="addsetlist-container">
+        <h1>Add New Artist</h1>
+        <h3>Enter details of the new artist</h3>
+        <form id="setlistForm" class="setlist-form" action="/testsetlist" method="POST">
+            <div class="form-group">
+                <label for="artist-name">Artist Name:</label>
+                <input type="text" id="artist-name" name="artist-name" placeholder="input artist name here" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="photos">Photos:</label>
+                <input type="file" id="photos" name="photos" required>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit">Add Artist</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+</body>
+</html>
