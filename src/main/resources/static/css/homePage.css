@@ -13,9 +13,6 @@ nav {
     color: white;
     background-color: #1E1E1E;
     display: flex;
-    gap: 50px;
-    padding-top: 8px;
-    padding-bottom: 8px;
     font-size: 20px;
     padding-left: 20px;
     position: relative;
@@ -24,13 +21,17 @@ nav {
 
 nav p {
     margin: 0px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 #setlist:hover,
   #artist:hover,
   #concert:hover,
-  #news:hover {
+  #song:hover {
     background-color: #8100B3;
+    padding-top: 23.5px;
+    padding-bottom: 23.5px;
 }
 
 a {
