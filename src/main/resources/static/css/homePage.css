@@ -11,7 +11,7 @@ body {
 
 nav {
     color: white;
-    background-color: black;
+    background-color: #1E1E1E;
     display: flex;
     font-size: 20px;
     padding-left: 20px;
@@ -26,9 +26,9 @@ nav p {
 }
 
 #setlist:hover,
-  #artist:hover,
-  #concert:hover,
-  #song:hover {
+#artist:hover,
+#concert:hover,
+#song:hover {
     background-color: #510370;
     padding-top: 23.5px;
     padding-bottom: 23.5px;

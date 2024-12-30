@@ -14,11 +14,8 @@ body {
 
 nav {
     color: white;
-    background-color: #1E1E1E; /* Dark background for the navbar */
+    background-color: #1E1E1E;
     display: flex;
-    gap: 50px;
-    padding-top: 8px;
-    padding-bottom: 8px;
     font-size: 20px;
     padding-left: 20px;
     position: relative;
@@ -27,17 +24,34 @@ nav {
 
 nav p {
     margin: 0px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 #home:hover,
 #artist:hover,
 #concert:hover,
-#news:hover {
-    background-color: #8100B3; /* Purple hover effect for nav items */
+#song:hover {
+    background-color: #510370;
+    padding-top: 23.5px;
+    padding-bottom: 23.5px;
+    text-shadow: 3px 3px 5px black;
+}
+
+#setlist a{
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 0 20px whitesmoke;
+}
+p#setlist {
+    background-color: #8100B3;
+    padding-top: 23.5px;
+    padding-bottom: 23.5px;
 }
 
 #logo {
-    height: 70px;
+    height: 60px;
+    margin-right: 20px;
 }
 
 button {
@@ -62,10 +76,6 @@ button {
 a {
     text-decoration: none;
     color: white; /* Default link color to white */
-}
-
-#setlist a {
-    color: #8100B3; /* Highlight artist links in purple */
 }
 
 .artist-setlists {
