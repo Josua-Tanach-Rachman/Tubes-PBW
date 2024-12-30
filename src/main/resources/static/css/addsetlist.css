@@ -267,3 +267,14 @@ button:hover {
 #suggestions-list li:hover {
     background-color: #9a00d4;
 }
+
+#add {
+    text-align: center;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #8100B3;
+}
+
+#add:hover {
+    background-color: #9a00d4;
+}
