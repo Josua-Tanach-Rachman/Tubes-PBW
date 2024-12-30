@@ -1,14 +1,18 @@
 package com.example.tubes_pbw.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.tubes_pbw.model.artis.Artis;
 import com.example.tubes_pbw.model.artis.ArtisService;
 import com.example.tubes_pbw.model.artis.ArtisSetlistCountDTO;
 import com.example.tubes_pbw.model.user.User;
@@ -142,10 +146,18 @@ public class UserController {
     }
 
 
-    @GetMapping("/artistDetail")
-    public String artistDetail(){
+    // @GetMapping("/artistDetail")
+    // public String artistDetail(){
+    //     return "artistDetail";
+    // }
+
+    @GetMapping("/artist/{namaArtis}-{idArtis}")
+    public String getArtistDetail(@PathVariable String namaArtis, @PathVariable int idArtis, Model model) {
+        List<Artis> artis = artisService.findByIdArtis(idArtis);
+        model.addAttribute("artis", artis.get(0));
         return "artistDetail";
     }
+
 
     @GetMapping("/addArtist")
     public String addArtist(User user){

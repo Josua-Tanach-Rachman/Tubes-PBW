@@ -51,7 +51,7 @@
         <h3>Top artists by setlists</h3>
         <ul class="artist-list" th:each="artis : ${listArtis}">
             <li>
-                <a th:href="@{/artist/{namaArtis}-{idArtis}(namaArtis=${artis.namaArtis}, idArtis=${artis.idArtis})}" th:text="${artis.namaArtis}"></a>
+                <a th:href="@{/artist/{namaArtis}-{idArtis}(namaArtis=${#strings.replace(artis.namaArtis, ' ', '-')}, idArtis=${artis.idArtis})}" th:text="${artis.namaArtis}"></a>
                 <div class="popularity-bar">
                     <div class="filled-bar" th:style="'width: ' + ${(max != 0 ? (artis.jumlahSetlist * 100.0 / max) : 0) + '%'}"></div>
                 </div>

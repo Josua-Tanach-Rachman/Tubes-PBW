@@ -68,7 +68,7 @@ public class JdbcArtisRepository implements ArtisRepository {
     }
 
     @Override
-    public Iterable<Artis> findByIdArtis(int idArtis) {
+    public List<Artis> findByIdArtis(int idArtis) {
         String sql = "SELECT * FROM artis WHERE idartis = ? ORDER BY namaartis";
         return jdbcTemplate.query(sql, this::mapRowToArtis, idArtis);
     }
