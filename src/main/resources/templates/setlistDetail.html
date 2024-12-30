@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Artist Name</title>
+  <link rel="stylesheet" th:href="@{/css/setlistDetail.css}">
+</head>
+<header>
+  <div class="kotak_ungu"></div>
+  <nav>
+    <img src="@{/assets/icon.png}" alt="" id="logo">
+    <P id="home"><a th:href="@{/}">HOME</a></P>
+    <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
+    <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
+    <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
+    <P id="news">NEWS</P>
+
+    <div class="button-container">
+      <button type="submit" class="button setlist"><a th:href="@{/addsetlist}">+SET LIST</a></button>
+      <!-- <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
+          <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
+      </form>
+      <form action="/login" method="GET" th:if="${!isUserLoggedIn}">
+          <button type="submit" class="button login">LOG IN</button>
+      </form> -->
+    </div>
+  </nav>
+</header>
+<body>
+<!--        Search Bar and Header Text-->
+<div class="search-container">
+  <!--  <h1 id="slogan">Discover Your Favorite Artist</h1>-->
+  <img src="" alt="" class="background-search">
+  <div class="blackBox"></div>
+  <div class="search_bar">
+    <form action="">
+      <input type="text" placeholder="Search for Artists...">
+    </form>
+    <div>
+      <img src="assets/search.png" alt="" class="icon_search">
+    </div>
+  </div>
+</div>
+
+<div class="content-wrapper">
+  <div class="artist-setlists">
+    <div class="setlist-content">
+      <h1>"artist-name" Setlist</h1>
+      <h2>at "vanue-name"</h2>
+      <h3>on "concert-date"</h3>
+      <ol class="artist-list">
+        <li>
+          <a href="#">Songs A</a>
+        </li>
+        <li>
+          <a href="#">Songs A</a>
+        </li>
+
+      </ol>
+    </div>
+    <a href="#" class="edit-list">Edit List</a>
+  </div>
+</div>
+</body>
+</html>

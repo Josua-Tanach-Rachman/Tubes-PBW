@@ -141,7 +141,6 @@ public class UserController {
         return "searchPage";
     }
 
-
     @GetMapping("/artistDetail")
     public String artistDetail(){
         return "artistDetail";
@@ -160,5 +159,10 @@ public class UserController {
     @GetMapping("/addShow")
     public String addShow(User user){
         return "addShow";
+    }
+
+    @GetMapping("/setlistDetail")
+    public String setlistDetail(){
+        return "setlistDetail";
     }
 }
