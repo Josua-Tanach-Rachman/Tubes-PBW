@@ -4,18 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>artist</title>
+    <title>FaveList | Artist</title>
     <link rel="stylesheet" th:href="@{/css/artist.css}">
+    <script th:src="@{/js/pagination.js}" defer></script>
+    <link rel="icon" href="assets/icon.png" type="image/png">
 </head>
 <header>
     <div class="kotak_ungu"></div>
     <nav>
-        <img src="@{/assets/icon.png}" alt="" id="logo">
+        <img src="assets/logo5.png" alt="logo image" id="logo">
         <P id="home"><a th:href="@{/}">HOME</a></P>
         <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
         <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
         <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
-        <P id="news">NEWS</P>
+        <P id="song">SONG</P>
 
         <div class="button-container">
             <button type="submit" class="button setlist"><a th:href="@{/addsetlist}">+SET LIST</a></button>
@@ -30,14 +32,14 @@
 </header>
 
 <body>
-    <!--        Search Bar and Header Text-->
     <div class="search-container">
-        <h1 id="slogan">Discover Your Favorite Artist</h1>
-        <img src="" alt="" class="background-search">
+        <img src="assets/background_search_main.png" alt="" class="background-search">
         <div class="blackBox"></div>
         <div class="search_bar">
-            <form action="">
-                <input type="text" placeholder="Search for Artists...">
+            <form action="/artist" method="get">
+                <h1 id="slogan">Discover Your Favorite Artist</h1>
+                <input type="text" placeholder="Search for Artists..." th:value="${filter}" name="filter">
+                <input type="hidden" name="page" th:value="1">
             </form>
             <div>
                 <img src="assets/search.png" alt="" class="icon_search">
@@ -46,50 +48,17 @@
     </div>
     <div class="artist-setlists">
         <h1>Artist Setlists</h1>
-        <h3>Top artists by concertgoers</h3>
-        <ul class="artist-list">
+        <h3>Top artists by setlists</h3>
+        <ul class="artist-list" th:each="artis : ${listArtis}">
             <li>
-                <a href="#">Metallica</a>
-                <span class="setlists">2143 setlists</span>
+                <a th:href="@{/artist/{namaArtis}-{idArtis}(namaArtis=${artis.namaArtis}, idArtis=${artis.idArtis})}" th:text="${artis.namaArtis}"></a>
                 <div class="popularity-bar">
-                    <div class="filled-bar" style="width: 90%;"></div>
+                    <div class="filled-bar" th:style="'width: ' + ${(max != 0 ? (artis.jumlahSetlist * 100.0 / max) : 0) + '%'}"></div>
                 </div>
-                <span class="popularity-count">46861</span>
-            </li>
-            <li>
-                <a href="#">Foo Fighters</a>
-                <span class="setlists">1567 setlists</span>
-                <div class="popularity-bar">
-                    <div class="filled-bar" style="width: 70%;"></div>
-                </div>
-                <span class="popularity-count">36499</span>
-            </li>
-            <li>
-                <a href="#">Iron Maiden</a>
-                <span class="setlists">2600 setlists</span>
-                <div class="popularity-bar">
-                    <div class="filled-bar" style="width: 65%;"></div>
-                </div>
-                <span class="popularity-count">32688</span>
-            </li>
-            <li>
-                <a href="#">Red Hot Chili Peppers</a>
-                <span class="setlists">1906 setlists</span>
-                <div class="popularity-bar">
-                    <div class="filled-bar" style="width: 60%;"></div>
-                </div>
-                <span class="popularity-count">30879</span>
-            </li>
-            <li>
-                <a href="#">Red Hot Chili Peppers</a>
-                <span class="setlists">1906 setlists</span>
-                <div class="popularity-bar">
-                    <div class="filled-bar" style="width: 60%;"></div>
-                </div>
-                <span class="popularity-count">30879</span>
+                <span class="popularity-count" th:text="${artis.jumlahSetlist} + ' users'"></span>
             </li>
         </ul>
-        <p class="last-updated">Last updated: 28 minutes ago</p>
+        <th:block th:include="~{/pagination :: pagination}"></th:block>
     </div>
 </body>
 

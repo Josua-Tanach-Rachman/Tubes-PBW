@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.tubes_pbw.model.artis.ArtisService;
+import com.example.tubes_pbw.model.artis.ArtisSetlistCountDTO;
 import com.example.tubes_pbw.model.user.User;
 import com.example.tubes_pbw.model.user.UserService;
 
@@ -19,6 +21,9 @@ import jakarta.validation.Valid;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ArtisService artisService;
 
     @GetMapping("/login")
     public String loginView(HttpSession session) {
@@ -92,7 +97,25 @@ public class UserController {
     }
 
     @GetMapping("/artist")
-    public String artist(User user){
+    public String artist(
+        @RequestParam(required = false, defaultValue = "1") String page,
+        @RequestParam(required = false, defaultValue = "") String filter, 
+        Model model)
+    {
+        int curPage = Integer.parseInt(page);
+        
+        long count = artisService.countByFilterNamaArtis(filter);
+
+        long max = artisService.maxSetlistCountForArtis();
+
+        Iterable<ArtisSetlistCountDTO> res = artisService.findByFilterNamaArtisWithOffsetReturnWithCount(filter,10, (curPage-1)*10);
+        
+        model.addAttribute("filter",filter);
+        model.addAttribute("listArtis", res);
+        model.addAttribute("max", max);
+        model.addAttribute("kategori", "artist");
+        model.addAttribute("pageCount",(int)Math.ceil((double)count/10));
+        model.addAttribute("currentPage",curPage);
         return "artist";
     }
 
@@ -107,12 +130,35 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public String searchAll(@RequestParam String keyword ,User user){
+    public String searchAll(@RequestParam(required = false, defaultValue = "") String filter ,User user, Model model){
+        Iterable<ArtisSetlistCountDTO> res = artisService.findByFilterNamaArtisWithOffsetReturnWithCount(filter,5, (1-1)*10);
+        long maxArtis = artisService.maxSetlistCountForArtis();
+        model.addAttribute("filter", filter);
+        model.addAttribute("maxArtis", maxArtis);
+        model.addAttribute("listArtis", res);
+
+        
         return "searchPage";
     }
+
 
     @GetMapping("/artistDetail")
     public String artistDetail(){
         return "artistDetail";
+    }
+
+    @GetMapping("/addArtist")
+    public String addArtist(User user){
+        return "addArtist";
+    }
+
+    @GetMapping("/addSong")
+    public String addSong(User user){
+        return "addsong";
+    }
+
+    @GetMapping("/addShow")
+    public String addShow(User user){
+        return "addShow";
     }
 }

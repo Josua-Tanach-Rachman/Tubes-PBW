@@ -1,0 +1,67 @@
+<div th:fragment="pagination">
+    <nav th:if="${pageCount > 1}">
+        <ul class="pagination-container">
+            <!-- Previous Button -->
+            <li>
+                <a th:href="@{/{kategori}(page=${currentPage} - 1, filter=${filter}, kategori = ${kategori})}" 
+                   aria-label="Previous" 
+                   th:class="${currentPage} == 1 ? 'disabled' : null">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <!-- Page Numbers -->
+            <!-- <li th:each="i : ${#numbers.sequence(1, pageCount)}">
+                <a th:href="@{/{kategori}(page=${i}, filter=${filter}, kategori = ${kategori})}" 
+                   th:text="${i}" 
+                   th:class="${currentPage} == ${i} ? 'disabled' : null"
+                   th:if="${i == 1 or i == pageCount or (i >= currentPage - 1 and i <= currentPage + 1)}"></a>
+            </li> -->
+            <li>
+                <!-- First Page and Ellipsis Logic -->
+                <span th:if="${currentPage > 1 + 2}">
+                    <a th:href="@{/{kategori}(page=1, filter=${filter}, kategori=${kategori})}" 
+                       th:text="'1'"></a>
+                </span>
+            
+                <span th:if="${currentPage > 1 + 3}">
+                    <span>...</span>
+                </span>
+            
+                <!-- Pages around current page -->
+                <span th:each="i : ${#numbers.sequence(currentPage - 2, currentPage + 2)}"
+                      th:if="${i > 0 and i <= pageCount}">
+                    <a th:href="@{/{kategori}(page=${i}, filter=${filter}, kategori = ${kategori})}" 
+                       th:text="${i}" 
+                       th:class="${currentPage} == ${i} ? 'disabled' : null"></a>
+                </span>
+            
+                <!-- Ellipsis after current page range -->
+                <span th:if="${currentPage < pageCount - 3}">
+                    <span>...</span>
+                </span>
+            
+                <!-- Last Page -->
+                <span th:if="${currentPage < pageCount - 2}">
+                    <a th:href="@{/{kategori}(page=${pageCount}, filter=${filter}, kategori = ${kategori})}" 
+                       th:text="${pageCount}"></a>
+                </span>
+            </li>
+
+            <!-- Next Button -->
+            <li>
+                <a th:href="@{/{kategori}(page=${currentPage} + 1, filter=${filter}, kategori = ${kategori})}" 
+                   aria-label="Next" 
+                   th:class="${currentPage} == ${pageCount} ? 'disabled' : null">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+
+        </ul>
+        <div>
+            <form th:action="@{/{kategori}(page=${currentPage} + 1, filter=${filter}, kategori = ${kategori})}">
+                <input type="number" name="page" id="quantity" min="1" th:max="${pageCount}" th:value="${currentPage}"> of <span th:text="${pageCount}"></span> pages
+            </form>
+        </div>
+    </nav>
+</div>

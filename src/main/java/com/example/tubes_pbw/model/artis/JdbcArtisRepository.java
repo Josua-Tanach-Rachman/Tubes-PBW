@@ -17,20 +17,59 @@ public class JdbcArtisRepository implements ArtisRepository {
 
     @Override
     public Optional<Artis> findByNamaArtis(String namaArtis) {
-        String sql = "SELECT * FROM artis WHERE namaartis = ?";
+        String sql = "SELECT * FROM artis WHERE namaartis = ? ORDER BY namaartis";
         List<Artis> res = jdbcTemplate.query(sql, this::mapRowToArtis, namaArtis);
         return res.isEmpty() ? Optional.empty() : Optional.of(res.get(0));
     }
 
     @Override
     public Iterable<Artis> findByFilterNamaArtis(String namaArtis) {
-        String sql = "SELECT * FROM artis WHERE namaartis ILIKE ?";
+        String sql = "SELECT * FROM artis WHERE namaartis ILIKE ? ORDER BY namaartis";
         return jdbcTemplate.query(sql, this::mapRowToArtis, "%" + namaArtis + "%");
     }
 
     @Override
+    public long countByFilterNamaArtis(String namaArtis) {
+        String sql = "SELECT COUNT(idartis) FROM artis WHERE namaartis ILIKE ?";
+        return jdbcTemplate.queryForObject(sql, Long.class, "%" + namaArtis + "%");
+    }
+
+    @Override
+    public Iterable<Artis> findByFilterNamaArtisWithOffset(String namaArtis, int limit, int offset) {
+        String sql = "SELECT * FROM artis WHERE namaartis ILIKE ? ORDER BY namaartis LIMIT ? OFFSET ?";
+        return jdbcTemplate.query(sql, this::mapRowToArtis, "%" + namaArtis + "%", limit, offset);
+    }
+
+    @Override
+    public Iterable<ArtisSetlistCountDTO> findByFilterNamaArtisWithOffsetReturnWithCount(String namaArtis,int limit, int offset){
+        String sql = "SELECT a.namaArtis, a.idArtis,COUNT(ps.email) AS jumlahSetlist "+
+                    "FROM Artis a "+
+                    "JOIN Setlist s ON a.idArtis = s.idArtis "+
+                    "JOIN Pengguna_setlist ps ON ps.idSetlist = s.idSetlist "+
+                    "WHERE a.namaArtis ILIKE ? "+
+                    "GROUP BY a.idArtis, a.namaArtis "+
+                    "ORDER BY jumlahSetlist DESC "+
+                    "LIMIT ? OFFSET ?";
+        return jdbcTemplate.query(sql, this::mapRowToArtisSetlistCountDTO, "%" + namaArtis + "%", limit, offset);
+    }
+
+    @Override
+    public long maxSetlistCountForArtis() {
+        String sql = "SELECT MAX(jumlahSetlist) " +
+                    "FROM( " +
+                        "SELECT a.namaArtis, a.idArtis, COUNT(ps.email) AS jumlahSetlist " +
+                        "FROM Artis a "+
+                    "JOIN Setlist s ON a.idArtis = s.idArtis "+
+                        "JOIN Pengguna_setlist ps ON ps.idSetlist = s.idSetlist "+
+                        "GROUP BY a.idArtis, a.namaArtis "+
+                        "ORDER BY jumlahSetlist DESC "+
+                    ") AS artistSetlists";
+        return jdbcTemplate.queryForObject(sql, Long.class);
+    }
+
+    @Override
     public Iterable<Artis> findByIdArtis(int idArtis) {
-        String sql = "SELECT * FROM artis WHERE idartis = ?";
+        String sql = "SELECT * FROM artis WHERE idartis = ? ORDER BY namaartis";
         return jdbcTemplate.query(sql, this::mapRowToArtis, idArtis);
     }
 
@@ -49,7 +88,13 @@ public class JdbcArtisRepository implements ArtisRepository {
 
     @Override
     public List<Artis> findTopArtisBySetlistLagu() {
-        String sql = "SELECT a.idartis, a.namaartis, a.urlgambarartis FROM artis a JOIN lagu l ON a.idartis = l.idartis JOIN setlist_lagu sl ON l.idlagu = sl.idlagu GROUP BY a.idartis, a.namaartis, a.urlgambarartis ORDER BY COUNT(sl.idlagu) DESC LIMIT 15";
+        String sql = "SELECT a.idartis, a.namaartis, a.urlgambarartis\n" + //
+                        "FROM artis a\n" + //
+                        "LEFT JOIN lagu l ON a.idartis = l.idartis\n" + //
+                        "LEFT JOIN setlist_lagu sl ON l.idlagu = sl.idlagu\n" + //
+                        "GROUP BY a.idartis, a.namaartis, a.urlgambarartis\n" + //
+                        "ORDER BY COUNT(sl.idlagu) DESC\n" + //
+                        "LIMIT 15;";
         return jdbcTemplate.query(sql, this::mapRowToArtis);
     }
 
@@ -59,6 +104,13 @@ public class JdbcArtisRepository implements ArtisRepository {
             resultSet.getInt("idArtis"),
             resultSet.getString("namaArtis"),
             resultSet.getString("urlGambarArtis")
+        );
+    }
+    private ArtisSetlistCountDTO mapRowToArtisSetlistCountDTO(ResultSet resultSet, int rowNum) throws SQLException {
+        return new ArtisSetlistCountDTO(
+            resultSet.getInt("idArtis"),
+            resultSet.getString("namaArtis"),
+            resultSet.getInt("jumlahSetlist")
         );
     }
 }

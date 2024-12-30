@@ -20,6 +20,22 @@ public class ArtisService {
         return artisRepository.findByFilterNamaArtis(namaArtis);
     }
 
+    public Iterable<Artis> findByFilterNamaArtisWithOffset(String namaArtis,int limit, int offset) {
+        return artisRepository.findByFilterNamaArtisWithOffset(namaArtis,limit,offset);
+    }
+
+    public Iterable<ArtisSetlistCountDTO> findByFilterNamaArtisWithOffsetReturnWithCount(String namaArtis,int limit, int offset){
+        return artisRepository.findByFilterNamaArtisWithOffsetReturnWithCount(namaArtis, limit, offset);
+    }
+
+    public long maxSetlistCountForArtis(){
+        return artisRepository.maxSetlistCountForArtis();
+    }
+
+    public long countByFilterNamaArtis(String namaArtis){
+        return artisRepository.countByFilterNamaArtis(namaArtis);
+    }
+
     public Iterable<Artis> findByIdArtis(int idArtis) {
         return artisRepository.findByIdArtis(idArtis);
     }
