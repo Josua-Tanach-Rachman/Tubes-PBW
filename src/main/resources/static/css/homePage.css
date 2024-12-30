@@ -29,9 +29,10 @@ nav p {
   #artist:hover,
   #concert:hover,
   #song:hover {
-    background-color: #8100B3;
+    background-color: #510370;
     padding-top: 23.5px;
     padding-bottom: 23.5px;
+    text-shadow: 3px 3px 5px black;
 }
 
 a {
@@ -40,11 +41,20 @@ a {
 }
 
 #home a{
-    color: #8100B3;
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 0 20px whitesmoke;
+}
+
+p#home {
+    background-color: #8100B3;
+    padding-top: 23.5px;
+    padding-bottom: 23.5px;
 }
 
 #logo{
     height: 70px;
+    margin-right: 20px;
 }
 
 button {
@@ -121,7 +131,7 @@ input {
     justify-content: space-evenly;
 }
 h3 {
-    color: #d592ef;
+    color: white;
 }
 .gambar-artist img {
     width: 120px;
