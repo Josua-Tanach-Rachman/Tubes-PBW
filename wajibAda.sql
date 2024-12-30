@@ -201,74 +201,221 @@ INSERT INTO Show (namaShow, idLokasi) VALUES
 ('SA Rugby Match', 19), ('Africa Music Festival', 20);
 
 -- Insert into Artis
-INSERT INTO Artis (namaArtis, urlGambarArtis) VALUES
-('Shawn Mendes', '/assets/topArtist/shawnMendes.png'), ('Selena Gomez', '/assets/topArtist/selena.png'), 
-('Abel Makkonen', '/assets/topArtist/abel.png'), ('Halsey', '/assets/topArtist/halsey.png'), 
-('Billie Eilish', '/assets/topArtist/billie.png'), ('Justin Bieber', '/assets/topArtist/justin.png'), 
-('Ariana Grande', '/assets/topArtist/ariana.png'), ('Ed Sheeran', '/assets/topArtist/edsheeran.png'), 
-('Dua Lipa', '/assets/topArtist/dualipa.png'), ('BTS', '/assets/topArtist/bts.png'),
-('Calum Scott', '/assets/topArtist/calumscott.png'), ('Adele', '/assets/topArtist/adele.png'), 
-('Alan Walker', '/assets/topArtist/alanwalker.jpg'), ('Lauv', '/assets/topArtist/lauv.jpeg'), 
-('James Arthur', '/assets/topArtist/jamesarthur.png'), ('Bruno Mars', '/assets/topArtist/brunomars.jpeg'), 
-('Troye Sivan', '/assets/topArtist/troyesivan.jpg'), ('Taylor Swift', '/assets/topArtist/taylorswift.png'),
-('Sam Smith', '/assets/topArtist/samsmith.jpg'), ('Jamie Miller', '/assets/topArtist/jamie miller.jpeg');
+INSERT INTO Artis(namaArtis, urlGambarArtis) VALUES
+('Shawn Mendes', '/artis/shawnMendes.png'),
+('Selena Gomez', '/artis/selena.png'),
+('Abel Makkonen', '/artis/abel.png'),
+('Halsey', '/artis/halsey.png'),
+('Billie Eilish', '/artis/billie.png'),
+('Justin Bieber', '/artis/justin.png'),
+('Ariana Grande', '/artis/ariana.png'),
+('Ed Sheeran', '/artis/edsheeran.png'),
+('Dua Lipa', '/artis/dualipa.png'),
+('BTS', '/artis/bts.png'),
+('Calum Scott', '/artis/calumscott.png'),
+('Adele', '/artis/adele.png'),
+('Alan Walker', '/artis/alanwalker.jpg'),
+('Lauv', '/artis/lauv.jpeg'),
+('James Arthur', '/artis/jamesarthur.png'),
+('Bruno Mars', '/artis/brunomars.jpeg'),
+('Troye Sivan', '/artis/troyesivan.jpg'),
+('Taylor Swift', '/artis/taylorswift.png'),
+('Sam Smith', '/artis/samsmith.jpg'),
+('Jamie Miller', '/artis/jamie_miller.jpeg');
 
 -- Insert into Album
 INSERT INTO Album (namaAlbum, release_date, idArtis, urlGambarAlbum) VALUES
-('Album 1', '2022-01-01', 1, '/images/album1.jpg'), ('Album 2', '2022-02-01', 2, '/assets/topArtist/logo1.png'),
-('Album 3', '2022-03-01', 3, '/images/album3.jpg'), ('Album 4', '2022-04-01', 4, '/assets/topArtist/logo1.png'),
-('Album 5', '2022-05-01', 5, '/images/album5.jpg'), ('Album 6', '2022-06-01', 6, '/assets/topArtist/logo1.png'),
-('Album 7', '2022-07-01', 7, '/images/album7.jpg'), ('Album 8', '2022-08-01', 8, '/assets/topArtist/logo1.png'),
-('Album 9', '2022-09-01', 9, '/images/album9.jpg'), ('Album 10', '2022-10-01', 10, '/assets/topArtist/logo1.png'),
-('Album 11', '2022-11-01', 11, '/images/album11.jpg'), ('Album 12', '2022-12-01', 12, '/assets/topArtist/logo1.png'),
-('Album 13', '2023-01-01', 13, '/images/album13.jpg'), ('Album 14', '2023-02-01', 14, '/assets/topArtist/logo1.png'),
-('Album 15', '2023-03-01', 15, '/images/album15.jpg'), ('Album 16', '2023-04-01', 16, '/assets/topArtist/logo1.png'),
-('Album 17', '2023-05-01', 17, '/images/album17.jpg'), ('Album 18', '2023-06-01', 18, '/assets/topArtist/logo1.png'),
-('Album 19', '2023-07-01', 19, '/images/album19.jpg'), ('Album 20', '2023-08-01', 20, '/assets/topArtist/logo1.png');
+('Handwritten', '2015-04-14', 1, '/album/shawn_1.jpeg'), ('Illuminate', '2016-09-23', 1, '/album/shawn_2.jpeg'),
+('Rare', '2020-04-09', 2, '/album/selena_1.jpeg'), ('Stars Dance', '2013-01-01', 2, '/album/selena_2.jpeg'),
+('Starboy', '2016-11-25', 3, '/album/abel_1.jpeg'), ('After Hours', '2020-03-20', 3, '/album/abel_2.jpeg'),
+('Badlands', '2015-08-28', 4, '/album/halsey_1.jpeg'), ('Hopeless Fountain Kingdom', '2017-06-02', 4, '/album/halsey_2.jpeg'),
+('When We All Fall Asleep, Where Do We Go?', '2019-03-29', 5, '/album/billie_1.jpeg'), ('Happier Than Ever', '2021-07-30', 5, '/album/billie_2.jpeg'),
+('Purpose', '2015-11-13', 6, '/album/justin_1.jpeg'), ('Justice', '2021-03-19', 6, '/album/justin_2.jpeg'),
+('Sweetener', '2018-08-17', 7, '/album/ariana_1.jpeg'), ('Thank U, Next', '2019-02-08', 7, '/album/ariana_2.jpeg'),
+('Divide', '2017-03-03', 8, '/album/ed_1.jpeg'), ('Equals', '2021-10-29', 8, '/album/ed_2.jpeg'),
+('Dua Lipa', '2017-06-02', 9, '/album/dua_1.jpeg'), ('Future Nostalgia', '2020-03-27', 9, '/album/dua_2.jpeg'),
+('Map of the Soul: 7', '2020-02-21', 10, '/album/bts_1.jpeg'), ('BE', '2020-11-20', 10, '/album/bts_2.jpeg'),
+('Only Human', '2018-03-09', 11, '/album/calum_1.jpeg'), ('Bridges', '2022-06-17', 11, '/album/calum_2.jpeg'),
+('25', '2015-11-20', 12, '/album/adele_1.jpeg'), ('30', '2021-11-19', 12, '/album/adele_2.jpeg'),
+('Different World', '2018-12-14', 13, '/album/alan_1.jpeg'), ('World of Walker', '2021-11-26', 13, '/album/alan_2.jpeg'),
+('I Met You When I Was 18', '2018-05-31', 14, '/album/lauv_1.jpeg'), ('How Im Feeling', '2020-03-06', 14, '/album/lauv_2.jpeg'),
+('Back from the Edge', '2016-10-28', 15, '/album/james_1.jpeg'), ('You', '2019-10-18', 15, '/album/james_2.jpeg'),
+('24K Magic', '2016-11-18', 16, '/album/bruno_1.jpeg'), ('An Evening with Silk Sonic', '2021-11-12', 16, '/album/bruno_2.jpeg'),
+('Blue Neighbourhood', '2015-12-04', 17, '/album/troye_1.jpeg'), ('Bloom', '2018-08-31', 17, '/album/troye_2.jpeg'),
+('1989', '2014-10-27', 18, '/album/taylor_1.jpeg'), ('Lover', '2019-08-23', 18, '/album/taylor_2.jpeg'),
+('The Thrill of It All', '2017-11-03', 19, '/album/sam_1.jpeg'), ('Love Goes', '2020-10-30', 19, '/album/sam_2.jpeg'),
+('Broken Memories', '2022-04-29', 20, '/album/jamie_1.jpeg'), ('The Things I Left Unsaid', '2023-09-15', 20, '/album/jamie_2.jpeg');
+
 
 -- Insert into Lagu
 INSERT INTO Lagu (idAlbum, namaLagu, duration, idArtis, urlGambarLagu) VALUES
-(1, 'Song 1', 180, 1, '/images/song1.jpg'), (2, 'Song 2', 190, 2, '/assets/topArtist/logo1.png'),
-(3, 'Song 3', 200, 3, '/images/song3.jpg'), (4, 'Song 4', 210, 4, '/assets/topArtist/logo1.png'),
-(5, 'Song 5', 220, 5, '/images/song5.jpg'), (6, 'Song 6', 230, 6, '/assets/topArtist/logo1.png'),
-(7, 'Song 7', 240, 7, '/images/song7.jpg'), (8, 'Song 8', 250, 8, '/assets/topArtist/logo1.png'),
-(9, 'Song 9', 260, 9, '/images/song9.jpg'), (10, 'Song 10', 270, 10, '/assets/topArtist/logo1.png'),
-(11, 'Song 11', 280, 11, '/images/song11.jpg'), (12, 'Song 12', 290, 12, '/assets/topArtist/logo1.png'),
-(13, 'Song 13', 300, 13, '/images/song13.jpg'), (14, 'Song 14', 310, 14, '/assets/topArtist/logo1.png'),
-(15, 'Song 15', 320, 15, '/images/song15.jpg'), (16, 'Song 16', 330, 16, '/assets/topArtist/logo1.png'),
-(17, 'Song 17', 340, 17, '/images/song17.jpg'), (18, 'Song 18', 350, 18, '/assets/topArtist/logo1.png'),
-(19, 'Song 19', 360, 19, '/images/song19.jpg'), (20, 'Song 20', 370, 20, '/assets/topArtist/logo1.png');
+-- Shawn Mendes
+(1, 'Life of the Party', 214, 1, '/album/shawn_1.jpeg'),
+(1, 'Stitches', 206, 1, '/album/shawn_1.jpeg'),
+(2, 'Mercy', 208, 1, '/album/shawn_2.jpeg'),
+(2, 'Treat You Better', 187, 1, '/album/shawn_2.jpeg'),
 
--- Insert into Setlist
+-- Selena Gomez
+(3, 'Lose You to Love Me', 207, 2, '/album/selena_1.jpeg'),
+(3, 'Rare', 220, 2, '/album/selena_1.jpeg'),
+(4, 'Come & Get It', 231, 2, '/album/selena_2.jpeg'),
+(4, 'Slow Down', 210, 2, '/album/selena_2.jpeg'),
+
+-- Abel Makkonen (The Weeknd)
+(5, 'Starboy', 230, 3, '/album/abel_1.jpeg'),
+(5, 'Party Monster', 249, 3, '/album/abel_1.jpeg'),
+(6, 'Blinding Lights', 200, 3, '/album/abel_2.jpeg'),
+(6, 'Save Your Tears', 215, 3, '/album/abel_2.jpeg'),
+
+-- Halsey
+(7, 'Colors', 250, 4, '/album/halsey_1.jpeg'),
+(7, 'New Americana', 198, 4, '/album/halsey_1.jpeg'),
+(8, 'Now or Never', 214, 4, '/album/halsey_2.jpeg'),
+(8, 'Bad at Love', 181, 4, '/album/halsey_2.jpeg'),
+
+-- Billie Eilish
+(9, 'Bad Guy', 194, 5, '/album/billie_1.jpeg'),
+(9, 'When the Party\s Over', 196, 5, '/album/billie_1.jpeg'),
+(10, 'Happier Than Ever', 298, 5, '/album/billie_2.jpeg'),
+(10, 'Your Power', 245, 5, '/album/billie_2.jpeg'),
+
+-- Justin Bieber
+(11, 'Love Yourself', 234, 6, '/album/justin_1.jpeg'),
+(11, 'Sorry', 200, 6, '/album/justin_1.jpeg'),
+(12, 'Peaches', 198, 6, '/album/justin_2.jpeg'),
+(12, 'Holy', 212, 6, '/album/justin_2.jpeg'),
+
+-- Ariana Grande
+(13, 'No Tears Left to Cry', 205, 7, '/album/ariana_1.jpeg'),
+(13, 'God Is a Woman', 197, 7, '/album/ariana_1.jpeg'),
+(14, '7 Rings', 179, 7, '/album/ariana_2.jpeg'),
+(14, 'Thank U, Next', 207, 7, '/album/ariana_2.jpeg'),
+
+-- Ed Sheeran
+(15, 'Shape of You', 234, 8, '/album/ed_1.jpeg'),
+(15, 'Castle on the Hill', 261, 8, '/album/ed_1.jpeg'),
+(16, 'Bad Habits', 230, 8, '/album/ed_2.jpeg'),
+(16, 'Shivers', 207, 8, '/album/ed_2.jpeg'),
+
+-- Dua Lipa
+(17, 'New Rules', 225, 9, '/album/dua_1.jpeg'),
+(17, 'IDGAF', 217, 9, '/album/dua_1.jpeg'),
+(18, 'Don\t Start Now', 183, 9, '/album/dua_2.jpeg'),
+(18, 'Levitating', 203, 9, '/album/dua_2.jpeg'),
+
+-- BTS
+(19, 'Boy with Luv', 229, 10, '/album/bts_1.jpeg'),
+(19, 'Make It Right', 226, 10, '/album/bts_1.jpeg'),
+(20, 'Life Goes On', 207, 10, '/album/bts_2.jpeg'),
+(20, 'Dynamite', 199, 10, '/album/bts_2.jpeg'),
+
+-- Calum Scott
+(21, 'You Are the Reason', 204, 11, '/album/calum_1.jpeg'),
+(21, 'No Matter What', 239, 11, '/album/calum_1.jpeg'),
+(22, 'Biblical', 219, 11, '/album/calum_2.jpeg'),
+(22, 'Heaven', 195, 11, '/album/calum_2.jpeg'),
+
+-- Adele
+(23, 'Hello', 295, 12, '/album/adele_1.jpeg'),
+(23, 'When We Were Young', 290, 12, '/album/adele_1.jpeg'),
+(24, 'Easy On Me', 225, 12, '/album/adele_2.jpeg'),
+(24, 'Oh My God', 225, 12, '/album/adele_2.jpeg'),
+
+-- Alan Walker
+(25, 'Faded', 212, 13, '/album/alan_1.jpeg'),
+(25, 'Alone', 161, 13, '/album/alan_1.jpeg'),
+(26, 'Sweet Dreams', 195, 13, '/album/alan_2.jpeg'),
+(26, 'Paradise', 218, 13, '/album/alan_2.jpeg'),
+
+-- Lauv
+(27, 'I Like Me Better', 197, 14, '/album/lauv_1.jpeg'),
+(27, 'Paris in the Rain', 205, 14, '/album/lauv_1.jpeg'),
+(28, 'Modern Loneliness', 252, 14, '/album/lauv_2.jpeg'),
+(28, 'Tattoos Together', 188, 14, '/album/lauv_2.jpeg'),
+
+-- James Arthur
+(29, 'Say You Won\t Let Go', 211, 15, '/album/james_1.jpeg'),
+(29, 'Can I Be Him', 245, 15, '/album/james_1.jpeg'),
+(30, 'Falling Like the Stars', 214, 15, '/album/james_2.jpeg'),
+(30, 'Quite Miss Home', 229, 15, '/album/james_2.jpeg'),
+
+-- Bruno Mars
+(31, '24K Magic', 226, 16, '/album/bruno_1.jpeg'),
+(31, 'That\s What I Like', 206, 16, '/album/bruno_1.jpeg'),
+(32, 'Leave the Door Open', 242, 16, '/album/bruno_2.jpeg'),
+(32, 'Skate', 203, 16, '/album/bruno_2.jpeg'),
+
+-- Troye Sivan
+(33, 'Youth', 197, 17, '/album/troye_1.jpeg'),
+(33, 'Wild', 228, 17, '/album/troye_1.jpeg'),
+(34, 'My My My!', 205, 17, '/album/troye_2.jpeg'),
+(34, 'Bloom', 224, 17, '/album/troye_2.jpeg'),
+
+-- Taylor Swift
+(35, 'Blank Space', 231, 18, '/album/taylor_1.jpeg'),
+(35, 'Style', 231, 18, '/album/taylor_1.jpeg'),
+(36, 'Lover', 221, 18, '/album/taylor_2.jpeg'),
+(36, 'You Need to Calm Down', 171, 18, '/album/taylor_2.jpeg'),
+
+-- Sam Smith
+(37, 'Too Good at Goodbyes', 201, 19, '/album/sam_1.jpeg'),
+(37, 'Pray', 221, 19, '/album/sam_1.jpeg'),
+(38, 'Diamonds', 214, 19, '/album/sam_2.jpeg'),
+(38, 'Love Goes', 221, 19, '/album/sam_2.jpeg'),
+
+-- Jamie Miller
+(39, 'Here\s Your Perfect', 170, 20, '/album/jamie_1.jpeg'),
+(39, 'It Is What It Is', 202, 20, '/album/jamie_1.jpeg'),
+(40, 'No Matter What', 214, 20, '/album/jamie_2.jpeg'),
+(40, 'The Things I Left Unsaid', 225, 20, '/album/jamie_2.jpeg');
+
 INSERT INTO Setlist (namaSetlist, tanggal, urlBukti, idShow) VALUES
-('Setlist 1', '2022-01-01 20:00:00', '/images/setlist1.jpg', 1), ('Setlist 2', '2022-02-01 20:00:00', '/assets/topArtist/logo1.png', 2),
-('Setlist 3', '2022-03-01 20:00:00', '/images/setlist3.jpg', 3), ('Setlist 4', '2022-04-01 20:00:00', '/assets/topArtist/logo1.png', 4),
-('Setlist 5', '2022-05-01 20:00:00', '/images/setlist5.jpg', 5), ('Setlist 6', '2022-06-01 20:00:00', '/assets/topArtist/logo1.png', 6),
-('Setlist 7', '2022-07-01 20:00:00', '/images/setlist7.jpg', 7), ('Setlist 8', '2022-08-01 20:00:00', '/assets/topArtist/logo1.png', 8),
-('Setlist 9', '2022-09-01 20:00:00', '/images/setlist9.jpg', 9), ('Setlist 10', '2022-10-01 20:00:00', '/assets/topArtist/logo1.png', 10),
-('Setlist 11', '2022-11-01 20:00:00', '/images/setlist11.jpg', 11), ('Setlist 12', '2022-12-01 20:00:00', '/assets/topArtist/logo1.png', 12),
-('Setlist 13', '2023-01-01 20:00:00', '/images/setlist13.jpg', 13), ('Setlist 14', '2023-02-01 20:00:00', '/assets/topArtist/logo1.png', 14),
-('Setlist 15', '2023-03-01 20:00:00', '/images/setlist15.jpg', 15), ('Setlist 16', '2023-04-01 20:00:00', '/assets/topArtist/logo1.png', 16),
-('Setlist 17', '2023-05-01 20:00:00', '/images/setlist17.jpg', 17), ('Setlist 18', '2023-06-01 20:00:00', '/assets/topArtist/logo1.png', 18),
-('Setlist 19', '2023-07-01 20:00:00', '/images/setlist19.jpg', 19), ('Setlist 20', '2023-08-01 20:00:00', '/assets/topArtist/logo1.png', 20);
+('Setlist 1', '2022-01-01 20:00:00', '/images/setlist1.jpg', 1),
+('Setlist 2', '2022-02-01 20:00:00', '/assets/topArtist/logo1.png', 2),
+('Setlist 3', '2022-03-01 20:00:00', '/images/setlist3.jpg', 3),
+('Setlist 4', '2022-04-01 20:00:00', '/assets/topArtist/logo1.png', 4),
+('Setlist 5', '2022-05-01 20:00:00', '/images/setlist5.jpg', 5),
+('Setlist 6', '2022-06-01 20:00:00', '/assets/topArtist/logo1.png', 6),
+('Setlist 7', '2022-07-01 20:00:00', '/images/setlist7.jpg', 7),
+('Setlist 8', '2022-08-01 20:00:00', '/assets/topArtist/logo1.png', 8),
+('Setlist 9', '2022-09-01 20:00:00', '/images/setlist9.jpg', 9),
+('Setlist 10', '2022-10-01 20:00:00', '/assets/topArtist/logo1.png', 10),
+('Setlist 11', '2022-11-01 20:00:00', '/images/setlist11.jpg', 11),
+('Setlist 12', '2022-12-01 20:00:00', '/assets/topArtist/logo1.png', 12),
+('Setlist 13', '2023-01-01 20:00:00', '/images/setlist13.jpg', 13),
+('Setlist 14', '2023-02-01 20:00:00', '/assets/topArtist/logo1.png', 14),
+('Setlist 15', '2023-03-01 20:00:00', '/images/setlist15.jpg', 15),
+('Setlist 16', '2023-04-01 20:00:00', '/assets/topArtist/logo1.png', 16),
+('Setlist 17', '2023-05-01 20:00:00', '/images/setlist17.jpg', 17),
+('Setlist 18', '2023-06-01 20:00:00', '/assets/topArtist/logo1.png', 18),
+('Setlist 19', '2023-07-01 20:00:00', '/images/setlist19.jpg', 19),
+('Setlist 20', '2023-08-01 20:00:00', '/assets/topArtist/logo1.png', 20);
 
--- Insert into Setlist_lagu
 INSERT INTO Setlist_lagu (idSetlist, idLagu, idArtis, trackNumber) VALUES
-(1, 1, 1, 1), (2, 2, 2, 2), (3, 3, 3, 3), (4, 4, 4, 4),
-(5, 5, 5, 5), (6, 6, 6, 6), (7, 7, 7, 7), (8, 8, 8, 8),
-(9, 9, 9, 9), (10, 10, 10, 10), (11, 11, 11, 11), (12, 12, 12, 12),
-(13, 13, 13, 13), (14, 14, 14, 14), (15, 15, 15, 15), (16, 16, 16, 16),
-(17, 17, 17, 17), (18, 18, 18, 18), (19, 19, 19, 19), (20, 20, 20, 20);
+(1, 1, 1, 1), (2, 3, 1, 2), (3, 5, 1, 3), (4, 7, 1, 4),
+(5, 9, 2, 5), (6, 11, 2, 6), (7, 13, 2, 7), (8, 15, 3, 8),
+(9, 17, 3, 9), (10, 19, 3, 10), (11, 21, 3, 11), (12, 23, 4, 12),
+(13, 25, 4, 13), (14, 27, 4, 14), (15, 29, 5, 15), (16, 31, 5, 16),
+(17, 33, 5, 17), (18, 35, 6, 18), (19, 37, 6, 19), (20, 39, 6, 20);
 
--- Insert into Komentar
 INSERT INTO Komentar (username, idSetlist, komentar) VALUES
-('user1', 1, 'Amazing performance!'), ('user2', 2, 'Loved the songs!'), 
-('user3', 3, 'Great setlist!'), ('user4', 4, 'Nice energy on stage!'), 
-('user5', 5, 'Good vibes!'), ('user6', 6, 'Wonderful show!'), 
-('user7', 7, 'Fantastic performance!'), ('user8', 8, 'Enjoyed the concert!'),
-('user9', 9, 'Would love to see again!'), ('user10', 10, 'Great atmosphere!'),
-('user11', 11, 'Beautiful music!'), ('user12', 12, 'Incredible experience!'),
-('user13', 13, 'Amazing band!'), ('user14', 14, 'Fabulous concert!'),
-('user15', 15, 'Great show!'), ('user16', 16, 'Memorable event!'),
-('user17', 17, 'Had a blast!'), ('user18', 18, 'Such an amazing night!'),
-('user19', 19, 'Unforgettable!'), ('user20', 20, 'Awesome concert!');
+('user1', 1, 'Amazing performance!'), 
+('user2', 2, 'Loved the songs!'), 
+('user3', 3, 'Great setlist!'), 
+('user4', 4, 'Nice energy on stage!'), 
+('user5', 5, 'Good vibes!'), 
+('user6', 6, 'Wonderful show!'), 
+('user7', 7, 'Fantastic performance!'), 
+('user8', 8, 'Enjoyed the concert!'),
+('user9', 9, 'Would love to see again!'), 
+('user10', 10, 'Great atmosphere!'),
+('user11', 11, 'Beautiful music!'), 
+('user12', 12, 'Incredible experience!'),
+('user13', 13, 'Amazing band!'), 
+('user14', 14, 'Fabulous concert!'),
+('user15', 15, 'Great show!'), 
+('user16', 16, 'Memorable event!'),
+('user17', 17, 'Had a blast!'), 
+('user18', 18, 'Such an amazing night!'),
+('user19', 19, 'Unforgettable!'), 
+('user20', 20, 'Awesome concert!');

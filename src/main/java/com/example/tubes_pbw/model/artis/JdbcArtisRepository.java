@@ -61,7 +61,13 @@ public class JdbcArtisRepository implements ArtisRepository {
 
     @Override
     public List<Artis> findTopArtisBySetlistLagu() {
-        String sql = "SELECT a.idartis, a.namaartis, a.urlgambarartis FROM artis a JOIN lagu l ON a.idartis = l.idartis JOIN setlist_lagu sl ON l.idlagu = sl.idlagu GROUP BY a.idartis, a.namaartis, a.urlgambarartis ORDER BY COUNT(sl.idlagu) DESC LIMIT 15";
+        String sql = "SELECT a.idartis, a.namaartis, a.urlgambarartis\n" + //
+                        "FROM artis a\n" + //
+                        "LEFT JOIN lagu l ON a.idartis = l.idartis\n" + //
+                        "LEFT JOIN setlist_lagu sl ON l.idlagu = sl.idlagu\n" + //
+                        "GROUP BY a.idartis, a.namaartis, a.urlgambarartis\n" + //
+                        "ORDER BY COUNT(sl.idlagu) DESC\n" + //
+                        "LIMIT 15;";
         return jdbcTemplate.query(sql, this::mapRowToArtis);
     }
 
