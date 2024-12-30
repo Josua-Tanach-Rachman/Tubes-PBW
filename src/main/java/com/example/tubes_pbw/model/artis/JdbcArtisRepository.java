@@ -56,13 +56,13 @@ public class JdbcArtisRepository implements ArtisRepository {
     @Override
     public long maxSetlistCountForArtis() {
         String sql = "SELECT MAX(jumlahSetlist) " +
-                    "FROM( " +
+                    "FROM ( " +
                         "SELECT a.namaArtis, a.idArtis, COUNT(ps.email) AS jumlahSetlist " +
-                        "FROM Artis a "+
-                    "JOIN Setlist s ON a.idArtis = s.idArtis "+
-                        "JOIN Pengguna_setlist ps ON ps.idSetlist = s.idSetlist "+
-                        "GROUP BY a.idArtis, a.namaArtis "+
-                        "ORDER BY jumlahSetlist DESC "+
+                        "FROM Artis a " +
+                        "LEFT JOIN Setlist s ON a.idArtis = s.idArtis " +
+                        "LEFT JOIN Pengguna_setlist ps ON ps.idSetlist = s.idSetlist " +
+                        "GROUP BY a.idArtis, a.namaArtis " +
+                        "ORDER BY jumlahSetlist DESC " +
                     ") AS artistSetlists";
         return jdbcTemplate.queryForObject(sql, Long.class);
     }
