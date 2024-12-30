@@ -35,12 +35,15 @@ fetch('/add/setlist/artist')
         data.forEach(function(artis) {
             arrayArtis.push(artis.namaArtis);
         });
+
+        // Tambahkan opsi "Add New Artist" ke dalam arrayArtis
+        arrayArtis.push('Add New Artist');
+
         console.log(arrayArtis);
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
-    }
-);
+    });
 
 fetch('/add/setlist/negara')
     .then(response => {
@@ -57,8 +60,7 @@ fetch('/add/setlist/negara')
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
-    }
-);
+    });
 
 function fetchKota(namaNegara) {
     fetch(`/add/setlist/kota?namaNegara=${namaNegara}`)
@@ -81,8 +83,7 @@ function fetchKota(namaNegara) {
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
-        }
-    );
+        });
 }
 
 function fetchLokasi(namaKota) {
@@ -106,8 +107,7 @@ function fetchLokasi(namaKota) {
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
-        }
-    );
+        });
 }
 
 
@@ -154,13 +154,11 @@ async function openPopup(field) {
             popupTitle.textContent = 'Select Artist';
             searchInput.placeholder = 'Search artists...';
             currentSuggestions = arrayArtis;
-            // currentSuggestions = mockData.artists;
             break;
         case 'country':
             popupTitle.textContent = 'Select Country';
             searchInput.placeholder = 'Search countries...';
             currentSuggestions = arrayNegara;
-            // currentSuggestions = Object.keys(mockData.locations);
             break;
         case 'city':
             if (!selectedCountry) {
@@ -171,7 +169,6 @@ async function openPopup(field) {
             popupTitle.textContent = 'Select City';
             searchInput.placeholder = 'Search cities...';
             currentSuggestions = arrayKota;
-            // currentSuggestions = Object.keys(mockData.locations[selectedCountry]);
             break;
         case 'venue':
             if (!selectedCountry || !selectedCity) {
@@ -182,7 +179,6 @@ async function openPopup(field) {
             popupTitle.textContent = 'Select Venue';
             searchInput.placeholder = 'Search venues...';
             currentSuggestions = arrayLokasi;
-            // currentSuggestions = mockData.locations[selectedCountry][selectedCity];
             break;
     }
     
@@ -205,7 +201,7 @@ function handleSearch(e) {
             searchList = arrayKota;
             break;
         case 'venue':
-            searchList = mockData.locations[selectedCountry][selectedCity];
+            searchList = arrayLokasi;
             break;
     }
     
@@ -223,7 +219,12 @@ function updateSuggestionsList(suggestions) {
         const li = document.createElement('li');
         li.textContent = suggestion;
         li.addEventListener('click', () => {
-            selectSuggestion(suggestion);
+            if (suggestion === 'Add New Artist') {
+                // Arahkan ke halaman tambah artis baru
+                window.location.href = '/addArtist';
+            } else {
+                selectSuggestion(suggestion);
+            }
         });
         suggestionsList.appendChild(li);
     });
