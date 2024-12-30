@@ -40,6 +40,31 @@ public class JdbcArtisRepository implements ArtisRepository {
     }
 
     @Override
+    public Iterable<ArtisSetlistCountDTO> findByFilterNamaArtisWithOffsetReturnWithCount(String namaArtis,int limit, int offset){
+        String sql = "SELECT a.idArtis, a.namaArtis, COUNT(s.idSetlist) AS jumlahSetlist " +
+                     "FROM artis a " +
+                     "LEFT JOIN setlist s ON a.idArtis = s.idArtis " +
+                     "WHERE a.namaArtis ILIKE ? " +
+                     "GROUP BY a.idArtis, a.namaArtis " +
+                     "ORDER BY jumlahSetlist DESC " +
+                     "LIMIT ? OFFSET ?";
+        return jdbcTemplate.query(sql, this::mapRowToArtisSetlistCountDTO, "%" + namaArtis + "%", limit, offset);
+    }
+
+    @Override
+    public long maxSetlistCountForArtis() {
+        String sql = "SELECT MAX(jumlahSetlist) " +
+                    "FROM ( " +
+                    "SELECT a.namaArtis, a.idArtis, COUNT(s.idSetlist) AS jumlahSetlist " +
+                     "FROM artis a " +
+                     "LEFT JOIN setlist s ON a.idArtis = s.idArtis " +
+                     "GROUP BY a.idArtis, a.namaArtis " +
+                     "ORDER BY jumlahSetlist DESC " +
+                    ") AS artistSetlists";
+        return jdbcTemplate.queryForObject(sql, Long.class);
+    }
+
+    @Override
     public Iterable<Artis> findByIdArtis(int idArtis) {
         String sql = "SELECT * FROM artis WHERE idartis = ? ORDER BY namaartis";
         return jdbcTemplate.query(sql, this::mapRowToArtis, idArtis);
@@ -63,6 +88,14 @@ public class JdbcArtisRepository implements ArtisRepository {
             resultSet.getInt("idArtis"),
             resultSet.getString("namaArtis"),
             resultSet.getString("urlGambarArtis")
+        );
+    }
+
+    private ArtisSetlistCountDTO mapRowToArtisSetlistCountDTO(ResultSet resultSet, int rowNum) throws SQLException {
+        return new ArtisSetlistCountDTO(
+            resultSet.getInt("idArtis"),
+            resultSet.getString("namaArtis"),
+            resultSet.getInt("jumlahSetlist")
         );
     }
 }

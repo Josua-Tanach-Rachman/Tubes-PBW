@@ -47,10 +47,14 @@
     </div>
     <div class="artist-setlists">
         <h1>Artist Setlists</h1>
-        <h3>Top artists by concertgoers</h3>
+        <h3>Top artists by setlists</h3>
         <ul class="artist-list" th:each="artis : ${listArtis}">
             <li>
                 <a th:href="@{/artist/{namaArtis}-{idArtis}(namaArtis=${artis.namaArtis}, idArtis=${artis.idArtis})}" th:text="${artis.namaArtis}"></a>
+                <div class="popularity-bar">
+                    <div class="filled-bar" th:style="'width: ' + ${(max != 0 ? (artis.jumlahSetlist * 100.0 / max) : 0) + '%'}"></div>
+                </div>
+                <span class="popularity-count" th:text="${artis.jumlahSetlist} + ' setlist'"></span>
             </li>
         </ul>
         <th:block th:include="~{/pagination :: pagination}"></th:block>
