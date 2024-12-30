@@ -13,9 +13,6 @@ nav {
     color: white;
     background-color: #1E1E1E;
     display: flex;
-    gap: 50px;
-    padding-top: 8px;
-    padding-bottom: 8px;
     font-size: 20px;
     padding-left: 20px;
     position: relative;
@@ -24,13 +21,18 @@ nav {
 
 nav p {
     margin: 0px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 #setlist:hover,
-  #artist:hover,
-  #concert:hover,
-  #news:hover {
-    background-color: #8100B3;
+#artist:hover,
+#concert:hover,
+#song:hover {
+    background-color: #510370;
+    padding-top: 23.5px;
+    padding-bottom: 23.5px;
+    text-shadow: 3px 3px 5px black;
 }
 
 a {
@@ -39,11 +41,20 @@ a {
 }
 
 #home a{
-    color: #8100B3;
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 0 20px whitesmoke;
+}
+
+p#home {
+    background-color: #8100B3;
+    padding-top: 23.5px;
+    padding-bottom: 23.5px;
 }
 
 #logo{
-    height: 70px;
+    height: 60px;
+    margin-right: 20px;
 }
 
 button {
@@ -120,7 +131,7 @@ input {
     justify-content: space-evenly;
 }
 h3 {
-    color: #d592ef;
+    color: white;
 }
 .gambar-artist img {
     width: 120px;
@@ -144,91 +155,122 @@ h3 {
     margin-right: 10px;
 }
 
-/* HOT NEWS */
-.hot-news{
+/* SLIDE SHOW */
+#header_slideshow{
     margin: 20px;
     margin-top: 50px;
 }
-.grid-news{
-    display: grid;
-    /* gap: 10px; */
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 10px;
-    grid-template-areas: 
-        'news1 news2'
-        'news1 news3'
-        'news4 news3'
-    ;
-}
-.news {
-    background-color: #8100B3;
-}
-.news.besar {
-    height: 250px;
+
+/* SLIDE SHOW ARTIST */
+.trending-artist {
+    display: flex;
+    justify-content: left;
+    align-items: center;
     width: 100%;
-    border-radius: 10px;
-    padding-bottom: 10px;
+    overflow: hidden;
+    background-color: black;
+    padding: 0px;
 }
-.news.kecil {
-    height: 125px;
+.carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 95%;
+    overflow: hidden;
+}
+.carousel-container {
+    display: flex;
+    gap: 10px;
+    transition: transform 0.2s ease-in-out;
+    scroll-behavior: smooth;
     width: 100%;
-    border-radius: 10px;
+    justify-content: flex-start; /* Mulai dari kiri */
 }
-.news h2 {
-    padding-right: 20px;
-    margin-bottom: 0px;
-    color: white;
+.carousel-item {
+    flex-shrink: 0;
+    background: #8100B3;
+    border-radius: 8px;
+    text-align: center;
+    padding: 10px;
+    margin-right: 10px; /* Jarak antar item */
+    box-sizing: border-box;
+}
+.carousel-item img {
+    width: 180px;
+    height: 200px;
+    border-radius: 8px;
+
+}
+.carousel-item p {
+    margin: 5px 0 0;
+    font-size: 14px;
     font-weight: bold;
-}
-.news p{
-    margin-top: 0px;
     color: white;
-    font-family: serif;
-    padding-right: 20px;
-    text-align: justify;
 }
-.news.besar img{
-    height: 220px;
-    margin: 20px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+.carousel-item:last-child {
+    margin-right: 0;
 }
-.news.kecil img{
-    height: 90px;
-    margin: 20px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+button.prev-btn, button.next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
 }
-/* gambar news 1 */
-.news.besar.ke1{
-    display: grid;
-    grid-template-areas: 
-        'gambar judul'
-        'gambar keterangan'
-    ;
+.prev-btn {
+    left: 10px;
 }
-/* gambar news 2 */
-.news.kecil.ke2{
-    display: grid;
-    grid-template-areas: 
-        'gambar judul'
-        'gambar keterangan'
-    ;
+.next-btn {
+    right: 10px;
 }
-/* gambar news 3 */
-.news.besar.ke3{
-    display: grid;
-    grid-template-areas: 
-        'gambar judul'
-        'gambar keterangan'
-    ;
+.prev-btn:hover, .next-btn:hover {
+    background-color: white;
+    opacity: 0.7;
+    color: #8100B3;
 }
-/* gambar news 4 */
-.news.kecil.ke4{
-    display: grid;
-    grid-template-areas: 
-        'gambar judul'
-        'gambar keterangan'
-    ;
+
+
+/* BUTTON recommended song */
+.trending-song {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+    background-color: black;
+    padding: 0px;
+}
+.carousel-container2 {
+    display: flex;
+    gap: 10px;
+    transition: transform 0.2s ease-in-out;
+    scroll-behavior: smooth;
+    width: 100%;
+    justify-content: flex-start; /* Mulai dari kiri */
+}
+button.prev-btn2, button.next-btn2 {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+.prev-btn2 {
+    left: 10px;
+}
+.next-btn2 {
+    right: 10px;
+}
+.prev-btn2:hover, .next-btn2:hover {
+    background-color: white;
+    opacity: 0.7;
+    color: #8100B3;
 }

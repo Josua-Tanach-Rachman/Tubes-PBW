@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -85,6 +86,19 @@ public class JdbcArtisRepository implements ArtisRepository {
         jdbcTemplate.update(sql, idArtis);
     }
 
+    @Override
+    public List<Artis> findTopArtisBySetlistLagu() {
+        String sql = "SELECT a.idartis, a.namaartis, a.urlgambarartis\n" + //
+                        "FROM artis a\n" + //
+                        "LEFT JOIN lagu l ON a.idartis = l.idartis\n" + //
+                        "LEFT JOIN setlist_lagu sl ON l.idlagu = sl.idlagu\n" + //
+                        "GROUP BY a.idartis, a.namaartis, a.urlgambarartis\n" + //
+                        "ORDER BY COUNT(sl.idlagu) DESC\n" + //
+                        "LIMIT 15;";
+        return jdbcTemplate.query(sql, this::mapRowToArtis);
+    }
+
+
     private Artis mapRowToArtis(ResultSet resultSet, int rowNum) throws SQLException {
         return new Artis(
             resultSet.getInt("idArtis"),
@@ -92,7 +106,6 @@ public class JdbcArtisRepository implements ArtisRepository {
             resultSet.getString("urlGambarArtis")
         );
     }
-
     private ArtisSetlistCountDTO mapRowToArtisSetlistCountDTO(ResultSet resultSet, int rowNum) throws SQLException {
         return new ArtisSetlistCountDTO(
             resultSet.getInt("idArtis"),

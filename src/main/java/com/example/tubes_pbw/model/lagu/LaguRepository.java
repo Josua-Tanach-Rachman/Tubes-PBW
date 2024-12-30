@@ -1,5 +1,6 @@
 package com.example.tubes_pbw.model.lagu;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface LaguRepository {
@@ -7,4 +8,5 @@ public interface LaguRepository {
     Iterable<Lagu> findByIdAlbum(int idAlbum);
     Iterable<Lagu> findByNamaLagu(String namaLagu);
     int save(int idAlbum, String namaLagu, int duration, String urlGambarLagu);
+    List<Lagu> findTopSong();
 }

@@ -140,4 +140,19 @@ public class UserController {
         
         return "searchPage";
     }
+
+    @GetMapping("/addArtist")
+    public String addArtist(User user){
+        return "addArtist";
+    }
+
+    @GetMapping("/addSong")
+    public String addSong(User user){
+        return "addsong";
+    }
+
+    @GetMapping("/addShow")
+    public String addShow(User user){
+        return "addShow";
+    }
 }
