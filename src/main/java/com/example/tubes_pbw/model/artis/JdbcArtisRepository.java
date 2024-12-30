@@ -41,25 +41,27 @@ public class JdbcArtisRepository implements ArtisRepository {
 
     @Override
     public Iterable<ArtisSetlistCountDTO> findByFilterNamaArtisWithOffsetReturnWithCount(String namaArtis,int limit, int offset){
-        String sql = "SELECT a.idArtis, a.namaArtis, COUNT(s.idSetlist) AS jumlahSetlist " +
-                     "FROM artis a " +
-                     "LEFT JOIN setlist s ON a.idArtis = s.idArtis " +
-                     "WHERE a.namaArtis ILIKE ? " +
-                     "GROUP BY a.idArtis, a.namaArtis " +
-                     "ORDER BY jumlahSetlist DESC " +
-                     "LIMIT ? OFFSET ?";
+        String sql = "SELECT a.namaArtis, a.idArtis,COUNT(ps.email) AS jumlahSetlist "+
+                    "FROM Artis a "+
+                    "JOIN Setlist s ON a.idArtis = s.idArtis "+
+                    "JOIN Pengguna_setlist ps ON ps.idSetlist = s.idSetlist "+
+                    "WHERE a.namaArtis ILIKE ? "+
+                    "GROUP BY a.idArtis, a.namaArtis "+
+                    "ORDER BY jumlahSetlist DESC "+
+                    "LIMIT ? OFFSET ?";
         return jdbcTemplate.query(sql, this::mapRowToArtisSetlistCountDTO, "%" + namaArtis + "%", limit, offset);
     }
 
     @Override
     public long maxSetlistCountForArtis() {
         String sql = "SELECT MAX(jumlahSetlist) " +
-                    "FROM ( " +
-                    "SELECT a.namaArtis, a.idArtis, COUNT(s.idSetlist) AS jumlahSetlist " +
-                     "FROM artis a " +
-                     "LEFT JOIN setlist s ON a.idArtis = s.idArtis " +
-                     "GROUP BY a.idArtis, a.namaArtis " +
-                     "ORDER BY jumlahSetlist DESC " +
+                    "FROM( " +
+                        "SELECT a.namaArtis, a.idArtis, COUNT(ps.email) AS jumlahSetlist " +
+                        "FROM Artis a "+
+                    "JOIN Setlist s ON a.idArtis = s.idArtis "+
+                        "JOIN Pengguna_setlist ps ON ps.idSetlist = s.idSetlist "+
+                        "GROUP BY a.idArtis, a.namaArtis "+
+                        "ORDER BY jumlahSetlist DESC "+
                     ") AS artistSetlists";
         return jdbcTemplate.queryForObject(sql, Long.class);
     }
