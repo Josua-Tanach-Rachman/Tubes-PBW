@@ -101,6 +101,7 @@ function fetchLokasi(namaKota) {
                 arrayLokasi.push(lokasi.namaLokasi);
                 console.log(lokasi);
             });
+            arrayLokasi.push('Add New Show');
             console.log(arrayLokasi);
             currentSuggestions = arrayLokasi;
             console.log(currentSuggestions);
@@ -220,8 +221,9 @@ function updateSuggestionsList(suggestions) {
         li.textContent = suggestion;
         li.addEventListener('click', () => {
             if (suggestion === 'Add New Artist') {
-                // Arahkan ke halaman tambah artis baru
                 window.location.href = '/addArtist';
+            }else if (suggestion == 'Add New Show') {
+                window.location.href = 'addShow';
             } else {
                 selectSuggestion(suggestion);
             }
