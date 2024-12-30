@@ -110,4 +110,9 @@ public class UserController {
     public String searchAll(@RequestParam String keyword ,User user){
         return "searchPage";
     }
+
+    @GetMapping("/artistDetail")
+    public String artistDetail(){
+        return "artistDetail";
+    }
 }
