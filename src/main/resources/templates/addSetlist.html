@@ -10,7 +10,7 @@
 <header>
     <div class="kotak_ungu"></div>
     <nav>
-        <img src="@{/assets/icon.png}" alt="" id="logo">
+        <!-- <img src="@{/assets/icon.png}" alt="" id="logo"> -->
         <P id="home"><a th:href="@{/}">HOME</a></P>
         <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
         <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
@@ -32,7 +32,7 @@
     <div class="addsetlist-container">
         <h1>Add New Setlist</h1>
         <h3>Enter details of the new setlist</h3>
-        <form id="setlistForm" class="setlist-form" action="/testsetlist" method="POST">
+        <form id="setlistForm" class="setlist-form" action="/addsetlist" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="artist-name">Artist Name:</label>
                 <input type="text" id="artist-name" name="artist-name" readonly placeholder="Click to select artist" required>
@@ -49,12 +49,27 @@
             </div>
             
             <div class="form-group">
-                <label for="venue">Show:</label>
-                <input type="text" id="venue" name="venue" readonly placeholder="Click to select venue" required>
+                <label for="venue">Location:</label>
+                <input type="text" id="venue" name="venue" readonly placeholder="Click to select location" required>
             </div>
 
             <div class="form-group">
-                <label for="file">Photos:</label>
+                <label for="">Date:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+
+            <!-- <div class="form-group">
+                <label for="">Time Start:(not required)</label>
+                <input type="time" id="timeStart" name="timeStart">
+            </div>
+
+            <div class="form-group">
+                <label for="">Time End:(not required)</label>
+                <input type="time" id="timeEnd" name="timeEnd">
+            </div> -->
+
+            <div class="form-group">
+                <label for="file">Evidence(Photos):</label>
                 <input type="file" id="file" name="file" required>
             </div>
             

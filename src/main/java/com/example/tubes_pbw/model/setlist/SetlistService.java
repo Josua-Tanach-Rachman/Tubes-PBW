@@ -3,7 +3,7 @@ package com.example.tubes_pbw.model.setlist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.util.Optional;
 
 @Service
@@ -24,7 +24,7 @@ public class SetlistService {
         return setlistRepository.findByShow(idShow);
     }
 
-    public void save(String namaSetlist, LocalDate tanggal, int idShow, String urlBukti) {
-        setlistRepository.save(namaSetlist,tanggal,idShow,urlBukti);
+    public int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti) {
+        return setlistRepository.save(namaSetlist, tanggal, idArtis, idLokasi, urlBukti) ;
     }
 }
