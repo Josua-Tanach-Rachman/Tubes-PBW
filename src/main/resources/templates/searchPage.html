@@ -49,19 +49,23 @@
         <h1>Related Setlists</h1>
         <h3>Top setlist of your search</h3>
         <ul class="artist-list" th:each="artis : ${listArtis}">
-            <li>
-                <a th:href="@{/artist/{namaArtis}-{idArtis}(namaArtis=${artis.namaArtis}, idArtis=${artis.idArtis})}" th:text="${artis.namaArtis}"></a>
-            </li>
+
         </ul>
         <p class="last-updated"><a th:href="@{/artist(filter=${filter})}">See More...</a></p>
     </div>
     <div class="artist-setlists">
         <h1>Related Artist</h1>
         <h3>Top artists of your search</h3>
-        <ul class="artist-list">
-            
+        <ul class="artist-list" th:each="artis : ${listArtis}">
+            <li>
+                <a th:href="@{/artist/{namaArtis}-{idArtis}(namaArtis=${artis.namaArtis}, idArtis=${artis.idArtis})}" th:text="${artis.namaArtis}"></a>
+                <div class="popularity-bar">
+                    <div class="filled-bar" th:style="'width: ' + ${(maxArtis != 0 ? (artis.jumlahSetlist * 100.0 / maxArtis) : 0) + '%'}"></div>
+                </div>
+                <span class="popularity-count" th:text="${artis.jumlahSetlist} + ' setlist'"></span>
+            </li>
         </ul>
-        <p class="last-updated"><a href="">See More...</a></p>
+        <p class="last-updated"><a th:href="@{/artist(filter=${filter})}">See More...</a></p>
     </div>
     <div class="artist-setlists">
         <h1>Related Concert</h1>

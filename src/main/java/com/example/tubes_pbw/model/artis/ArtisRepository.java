@@ -8,6 +8,8 @@ public interface ArtisRepository {
     Iterable<Artis> findByFilterNamaArtis(String namaArtis);
     Iterable<Artis> findByFilterNamaArtisWithOffset(String namaArtis,int limit, int offset);
     long countByFilterNamaArtis(String namaArtis);
+    Iterable<ArtisSetlistCountDTO> findByFilterNamaArtisWithOffsetReturnWithCount(String namaArtis,int limit, int offset);
+    long maxSetlistCountForArtis();
     Iterable<Artis> findByIdArtis(int idArtis);
     int save(String namaArtis, String urlGambarArtis);
     void deleteById(int idArtis);

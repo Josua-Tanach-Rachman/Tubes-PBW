@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.tubes_pbw.model.artis.Artis;
 import com.example.tubes_pbw.model.artis.ArtisService;
+import com.example.tubes_pbw.model.artis.ArtisSetlistCountDTO;
 import com.example.tubes_pbw.model.user.User;
 import com.example.tubes_pbw.model.user.UserService;
 
@@ -106,10 +106,13 @@ public class UserController {
         
         long count = artisService.countByFilterNamaArtis(filter);
 
-        Iterable<Artis> res = artisService.findByFilterNamaArtisWithOffset(filter,10, (curPage-1)*10);
+        long max = artisService.maxSetlistCountForArtis();
+
+        Iterable<ArtisSetlistCountDTO> res = artisService.findByFilterNamaArtisWithOffsetReturnWithCount(filter,10, (curPage-1)*10);
         
         model.addAttribute("filter",filter);
         model.addAttribute("listArtis", res);
+        model.addAttribute("max", max);
         model.addAttribute("kategori", "artist");
         model.addAttribute("pageCount",(int)Math.ceil((double)count/10));
         model.addAttribute("currentPage",curPage);
@@ -128,8 +131,10 @@ public class UserController {
 
     @GetMapping("/search")
     public String searchAll(@RequestParam(required = false, defaultValue = "") String filter ,User user, Model model){
+        Iterable<ArtisSetlistCountDTO> res = artisService.findByFilterNamaArtisWithOffsetReturnWithCount(filter,5, (1-1)*10);
+        long maxArtis = artisService.maxSetlistCountForArtis();
         model.addAttribute("filter", filter);
-        Iterable<Artis> res = artisService.findByFilterNamaArtisWithOffset(filter,5, (1-1)*10);
+        model.addAttribute("maxArtis", maxArtis);
         model.addAttribute("listArtis", res);
 
         
