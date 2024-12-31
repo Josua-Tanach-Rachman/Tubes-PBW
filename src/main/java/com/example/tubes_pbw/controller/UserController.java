@@ -17,6 +17,8 @@ import com.example.tubes_pbw.model.artis.ArtisService;
 import com.example.tubes_pbw.model.artis.ArtisSetlistCountDTO;
 import com.example.tubes_pbw.model.user.User;
 import com.example.tubes_pbw.model.user.UserService;
+import com.example.tubes_pbw.model.setlist.ArtistSetlistLokasiDate;
+import com.example.tubes_pbw.model.setlist.SetlistService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -28,6 +30,9 @@ public class UserController {
 
     @Autowired
     private ArtisService artisService;
+
+    @Autowired
+    private SetlistService setlistService;
 
     @GetMapping("/login")
     public String loginView(HttpSession session) {
@@ -140,21 +145,18 @@ public class UserController {
         model.addAttribute("filter", filter);
         model.addAttribute("maxArtis", maxArtis);
         model.addAttribute("listArtis", res);
-
-        
         return "searchPage";
     }
 
-
-    // @GetMapping("/artistDetail")
-    // public String artistDetail(){
-    //     return "artistDetail";
-    // }
-
     @GetMapping("/artist/{namaArtis}-{idArtis}")
     public String getArtistDetail(@PathVariable String namaArtis, @PathVariable int idArtis, Model model) {
-        List<Artis> artis = artisService.findByIdArtis(idArtis);
-        model.addAttribute("artis", artis.get(0));
+        List<Artis> artisList = artisService.findByIdArtis(idArtis);
+        Artis artis = artisList.get(0);
+        model.addAttribute("artis", artis);
+
+        List<ArtistSetlistLokasiDate> lokasiDates = setlistService.findLokasiDate(idArtis);
+        model.addAttribute("lokasiDates", lokasiDates);
+
         return "artistDetail";
     }
 

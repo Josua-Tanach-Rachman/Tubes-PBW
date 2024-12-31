@@ -28,44 +28,61 @@
     </div>
   </nav>
 </header>
-<body>
-<!--        Search Bar and Header Text-->
-<div class="search-container">
-<!--  <h1 id="slogan">Discover Your Favorite Artist</h1>-->
-  <img src="" alt="" class="background-search">
-  <div class="blackBox"></div>
-  <div class="search_bar">
-    <form action="">
-      <input type="text" placeholder="Search for Artists...">
-    </form>
-    <div>
-      <img src="assets/search.png" alt="" class="icon_search">
+    <body>
+      <div class="search-container">
+        <img src="/assets/background_search_main.png" alt="" class="background-search">
+        <div class="blackBox"></div>
+        <div class="search_bar">
+            <form action="/artist" method="get">
+                <h1 id="slogan">Discover Your Favorite Artist</h1>
+                <input type="text" placeholder="Search for Artists..." th:value="${filter}" name="filter">
+                <input type="hidden" name="page" th:value="1">
+            </form>
+            <div>
+                <img src="/assets/search.png" alt="" class="icon_search">
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<div class="content-wrapper">
-  <div class="artist-setlists">
-    <h1>"ArtistName" Concert Setlists</h1>
-    <h3></h3>
-    <ul class="artist-list">
-      <li>
-        <a href="#">"ArtistName" at "Concert/Venue"</a>
-        <span class="setlists">Date: "Date Month Year"</span>
-      </li>
-      <li>
-        <a href="#">"ArtistName" at "Concert/Venue"</a>
-        <span class="setlists">Date: "Date Month Year"</span>
-      </li>
-      <li>
-        <a href="#">"ArtistName" at "Concert/Venue"</a>
-        <span class="setlists">Date: "Date Month Year"</span>
-      </li>
-    </ul>
-  </div>
-  <div class="artist-image">
-    <img src="@{/assets/artist-placeholder.jpg}" alt="Artist Image">
-  </div>
-</div>
-</body>
+
+          <div class="content-wrapper">
+            <div class="artist-setlists">
+                <h1 th:text="${artis.namaArtis} + ' Concert Setlists'"></h1>
+                <h3></h3>
+                <ul class="artist-list">
+                  <li th:each="lokasiDate : ${lokasiDates}">
+                      <a href="#" th:text="${artis.namaArtis} + ' at ' + ${lokasiDate.namaLokasiConcert}"></a>
+                      <span class="setlists" th:text="'Date: ' + ${#temporals.format(lokasiDate.tanggal, 'dd-MM-yyyy')}"></span>
+                  </li>
+                </ul>
+            </div>
+            <div class="artist-image">
+                <img th:src="@{'/api/uploads/images' + ${artis.urlGambarArtis}}" alt="Artist Image">
+            </div>
+        </div>
+        
+        <!-- <div class="content-wrapper">
+          <div class="artist-setlists">
+            <h1>"ArtistName" Concert Setlists</h1>
+            <h3></h3>
+            <ul class="artist-list">
+              <li>
+                <a href="#">"ArtistName" at "Concert/Venue"</a>
+                <span class="setlists">Date: "Date Month Year"</span>
+              </li>
+              <li>
+                <a href="#">"ArtistName" at "Concert/Venue"</a>
+                <span class="setlists">Date: "Date Month Year"</span>
+              </li>
+              <li>
+                <a href="#">"ArtistName" at "Concert/Venue"</a>
+                <span class="setlists">Date: "Date Month Year"</span>
+              </li>
+            </ul>
+          </div>
+          <div class="artist-image">
+            <img src="@{/assets/artist-placeholder.jpg}" alt="Artist Image">
+          </div>
+        </div> -->
+    </body>
 </html>
