@@ -54,8 +54,10 @@
             <!-- Kontainer untuk item carousel -->
             <div class="carousel-container">
                 <div th:each="artis : ${listArtisTop}" class="carousel-item">
-                    <img th:src="@{'api/uploads/images' + ${artis.urlGambarArtis}}" alt="Artist Image" class="recommended-image">
-                    <p th:text="${artis.namaArtis}"></p>
+                    <a th:href="@{/artist/{namaArtis}-{idArtis}(namaArtis=${#strings.replace(artis.namaArtis, ' ', '-')}, idArtis=${artis.idArtis})}">
+                        <img th:src="@{'api/uploads/images' + ${artis.urlGambarArtis}}" alt="Artist Image" class="recommended-image">
+                        <p th:text="${artis.namaArtis}"></p>
+                    </a>
                 </div>
             </div> 
     
