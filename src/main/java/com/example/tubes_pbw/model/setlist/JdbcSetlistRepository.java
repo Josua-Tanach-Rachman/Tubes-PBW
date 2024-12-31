@@ -2,7 +2,7 @@ package com.example.tubes_pbw.model.setlist;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,9 +36,12 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
 
     @Override
-    public int save(String namaSetlist, LocalDate tanggal, int idShow, String urlBukti) {
-        String sql = "INSERT INTO setlist (namasetlist, tanggal, description, idshow, urlbukti) VALUES (?, ?, ?, ?, ?, ?) RETURNING idsetlist";
-        int idSetlist = jdbcTemplate.queryForObject(sql,Integer.class, namaSetlist, tanggal, idShow, urlBukti);
+    public int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti) {
+        String sql = "INSERT INTO setlist (namasetlist, tanggal, idartis, idlokasi, urlbukti) " +
+                    "VALUES (?, ?, ?, ?, ?) RETURNING idsetlist";
+        
+        int idSetlist = jdbcTemplate.queryForObject(sql, Integer.class, namaSetlist, tanggal, idArtis, idLokasi, urlBukti);
+        
         return idSetlist;
     }
 
@@ -68,10 +71,12 @@ public class JdbcSetlistRepository implements SetlistRepository {
     private Setlist mapRowToSetlist(ResultSet resultSet, int rowNum) throws SQLException {
         return new Setlist(
             resultSet.getInt("idSetlist"),
-            resultSet.getString("namaSetlist"),
-            resultSet.getTimestamp("tanggal").toLocalDateTime(),
-            resultSet.getString("urlBukti"),
-            resultSet.getInt("idShow")
+            resultSet.getString("namaSetlist"), 
+            resultSet.getInt("idArtis"),    
+            resultSet.getInt("idLokasi"),     
+            resultSet.getTimestamp("tanggal").toLocalDateTime(), 
+            resultSet.getString("urlBukti"),   
+            resultSet.getInt("idShow")         
         );
     }
 
