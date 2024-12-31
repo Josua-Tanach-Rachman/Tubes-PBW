@@ -14,11 +14,8 @@ body {
 
 nav {
     color: white;
-    background-color: #1E1E1E; /* Dark background for the navbar */
+    background-color: #1E1E1E;
     display: flex;
-    gap: 50px;
-    padding-top: 8px;
-    padding-bottom: 8px;
     font-size: 20px;
     padding-left: 20px;
     position: relative;
@@ -27,18 +24,24 @@ nav {
 
 nav p {
     margin: 0px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 #home:hover,
 #artist:hover,
 #concert:hover,
-#news:hover,
+#song:hover,
 #setlist:hover {
-    background-color: #8100B3; /* Purple hover effect for nav items */
+    background-color: #510370;
+    padding-top: 23.5px;
+    padding-bottom: 23.5px;
+    text-shadow: 3px 3px 5px black;
 }
 
 #logo {
-    height: 70px;
+    height: 60px;
+    margin-right: 20px;
 }
 
 button {
@@ -78,8 +81,8 @@ a {
 
 .artist-setlists h1 {
     font-size: 24px;
-    color: #8100B3; /* Highlight headings in purple */
-    margin-bottom: 10px;
+    color: white; /* Highlight headings in purple */
+    margin-bottom: 30px;
 }
 
 .artist-setlists h3 {
@@ -106,10 +109,11 @@ a {
 }
 
 .artist-list li a {
-    color: #8100B3; /* Purple for artist names */
+    color: white; /* Purple for artist names */
     text-decoration: none;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 20px;
+    width: 200px;
 }
 
 .artist-list li a:hover {
@@ -125,7 +129,7 @@ a {
 
 .popularity-bar {
     flex: 1;
-    height: 8px;
+    height: 10px;
     background: #333; /* Dark bar */
     border-radius: 5px;
     margin: 0 15px;
@@ -139,13 +143,16 @@ a {
 }
 
 .popularity-count {
-    color: #8100B3; /* Purple numbers for emphasis */
-    font-size: 14px;
+    color: white;
+    font-size: 20px;
     font-weight: bold;
+    width: 100px;
+    text-align: right;
+    padding-right: 10px;
 }
 
 .last-updated {
-    font-size: 12px;
+    font-size: 16px;
     color: #666; /* Subtle gray for timestamps */
     text-align: right;
     margin-top: 20px;
@@ -195,13 +202,6 @@ a {
 .column ul li a:hover {
     text-decoration: underline;
     color: white; /* White text on hover */
-}
-
-.last-updated {
-    font-size: 12px;
-    color: #666;
-    margin-top: 20px;
-    text-align: right;
 }
 
 #judul{
