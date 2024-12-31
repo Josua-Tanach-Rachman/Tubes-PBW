@@ -46,18 +46,24 @@
 
 
           <div class="content-wrapper">
+            <div class="artist-image">
+              <img th:src="@{'/api/uploads/images' + ${artis.urlGambarArtis}}" alt="Artist Image">
+            </div>
             <div class="artist-setlists">
                 <h1 th:text="${artis.namaArtis} + ' Concert Setlists'"></h1>
                 <h3></h3>
                 <ul class="artist-list">
                   <li th:each="lokasiDate : ${lokasiDates}">
-                      <a href="#" th:text="${artis.namaArtis} + ' at ' + ${lokasiDate.namaLokasiConcert}"></a>
-                      <span class="setlists" th:text="'Date: ' + ${#temporals.format(lokasiDate.tanggal, 'dd-MM-yyyy')}"></span>
+                      <div class="location">
+                        <img src="/assets/map.png" alt="Location at" class="map-image">
+                        <a href="#" th:text="${artis.namaArtis} + ' at ' + ${lokasiDate.namaLokasiConcert}"></a>
+                      </div>
+                      <div class="location"> 
+                        <img src="/assets/calender.jpg" alt="Location at" class="date-image">
+                        <span class="setlists" th:text="'Date: ' + ${#temporals.format(lokasiDate.tanggal, 'dd-MM-yyyy')}"></span>
+                      </div>
                   </li>
                 </ul>
-            </div>
-            <div class="artist-image">
-                <img th:src="@{'/api/uploads/images' + ${artis.urlGambarArtis}}" alt="Artist Image">
             </div>
         </div>
         
