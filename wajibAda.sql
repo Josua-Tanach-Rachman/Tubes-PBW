@@ -6,10 +6,10 @@ DROP TRIGGER IF EXISTS trigger_save_update ON Setlist;
 DROP TRIGGER IF EXISTS trigger_save_delete ON Setlist;
 
 -- Drop tables using CASCADE to ensure dependent objects are dropped
+DROP TABLE IF EXISTS Komentar CASCADE;
 DROP TABLE IF EXISTS Setlist_lagu CASCADE;
 DROP TABLE IF EXISTS SetlistHistory CASCADE;
 DROP TABLE IF EXISTS Setlist CASCADE;
-DROP TABLE IF EXISTS Komentar CASCADE;
 DROP TABLE IF EXISTS Lagu CASCADE;
 DROP TABLE IF EXISTS Album CASCADE;
 DROP TABLE IF EXISTS Artis CASCADE;
@@ -18,6 +18,7 @@ DROP TABLE IF EXISTS Lokasi CASCADE;
 DROP TABLE IF EXISTS Kota CASCADE;
 DROP TABLE IF EXISTS Negara CASCADE;
 DROP TABLE IF EXISTS Pengguna CASCADE;
+DROP TABLE IF EXISTS Pengguna_setlist CASCADE;
 
 CREATE TYPE rolePengguna AS ENUM ('admin', 'pengguna');
 
@@ -50,7 +51,9 @@ CREATE TABLE Lokasi(
 CREATE TABLE Show(
     idShow SERIAL PRIMARY KEY,
     namaShow VARCHAR(255),
-    idLokasi INT REFERENCES Lokasi(idLokasi)
+    idLokasi INT REFERENCES Lokasi(idLokasi),
+    beginDate DATE,
+    endDate DATE
 );
 
 CREATE TABLE Artis (
@@ -78,15 +81,22 @@ CREATE TABLE Lagu(
 
 CREATE TABLE Setlist(
     idSetlist SERIAL PRIMARY KEY,
+	idArtis INT REFERENCES Artis(idArtis),
+    idLokasi INT REFERENCES Lokasi(idLokasi),
     namaSetlist VARCHAR(255) NOT NULL,
     tanggal TIMESTAMP,
     urlBukti VARCHAR(255),
     idShow INT REFERENCES Show(idShow) ON DELETE CASCADE
 );
 
+ALTER TABLE Setlist
+ALTER COLUMN idShow DROP NOT NULL;
+
 CREATE TABLE SetlistHistory (
     idHistory SERIAL PRIMARY KEY,
     idSetlist INT,
+	idArtis INT REFERENCES Artis(idArtis),
+    idLokasi INT REFERENCES Lokasi(idLokasi),
     namaSetlist VARCHAR(255),
     tanggal TIMESTAMP,
     urlBukti VARCHAR(255),
@@ -99,9 +109,14 @@ CREATE TABLE SetlistHistory (
 CREATE TABLE Setlist_lagu(
     idSetlist INT REFERENCES Setlist(idSetlist) ON DELETE CASCADE,
     idLagu INT REFERENCES Lagu(idLagu) ON DELETE CASCADE,
-	idArtis INT REFERENCES Artis(idArtis),
     trackNumber INT,
     PRIMARY KEY (idSetlist, idLagu)
+);
+
+CREATE TABLE Pengguna_setlist(
+    email VARCHAR(255) REFERENCES pengguna(email) ON DELETE CASCADE,
+    idSetlist INT REFERENCES Setlist(idSetlist) ON DELETE CASCADE,
+    PRIMARY KEY (email, idSetlist)
 );
 
 CREATE TABLE Komentar(
@@ -115,8 +130,8 @@ CREATE TABLE Komentar(
 CREATE OR REPLACE FUNCTION save_update_to_history() 
 RETURNS TRIGGER AS $$
 BEGIN
-    INSERT INTO SetlistHistory (idSetlist, namaSetlist, tanggal, urlBukti, idShow, action)
-    VALUES (OLD.idSetlist, OLD.namaSetlist, OLD.tanggal, OLD.urlBukti, OLD.idShow, 'UPDATE');
+    INSERT INTO SetlistHistory (idSetlist, idArtis, idLokasi, namaSetlist, tanggal, urlBukti, idShow, action)
+    VALUES (OLD.idSetlist, OLD.idArtis, OLD.idLokasi, OLD.namaSetlist, OLD.tanggal, OLD.urlBukti, OLD.idShow, 'UPDATE');
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -130,8 +145,8 @@ EXECUTE FUNCTION save_update_to_history();
 CREATE OR REPLACE FUNCTION save_delete_to_history() 
 RETURNS TRIGGER AS $$
 BEGIN
-    INSERT INTO SetlistHistory (idSetlist, namaSetlist, tanggal, urlBukti, idShow, action)
-    VALUES (OLD.idSetlist, OLD.namaSetlist, OLD.tanggal, OLD.urlBukti, OLD.idShow, 'DELETE');
+    INSERT INTO SetlistHistory (idSetlist, idArtis, idLokasi, namaSetlist, tanggal, urlBukti, idShow, action)
+    VALUES (OLD.idSetlist, OLD.idArtis, OLD.idLokasi, OLD.namaSetlist, OLD.tanggal, OLD.urlBukti, OLD.idShow, 'DELETE');
     RETURN OLD;
 END;
 $$ LANGUAGE plpgsql;
@@ -143,7 +158,6 @@ EXECUTE FUNCTION save_delete_to_history();
 
 -- Insert into Pengguna
 INSERT INTO Pengguna (username, email, password, nama, role) VALUES
-('user1', 'user1@example.com', 'password1', 'User One', 'pengguna'),
 ('user2', 'user2@example.com', 'password2', 'User Two', 'pengguna'),
 ('user3', 'user3@example.com', 'password3', 'User Three', 'pengguna'),
 ('user4', 'user4@example.com', 'password4', 'User Four', 'pengguna'),
@@ -185,7 +199,7 @@ INSERT INTO Lokasi (namaLokasi, alamatLokasi, idKota) VALUES
 ('Sydney Opera House', 'Sydney, Australia', 5), ('Olympiastadion', 'Berlin, Germany', 6), 
 ('Parc des Princes', 'Paris, France', 7), ('Tokyo Dome', 'Tokyo, Japan', 8), 
 ('Seoul World Cup Stadium', 'Seoul, South Korea', 9), ('Morumbi Stadium', 'Sao Paulo, Brazil', 10),
-('Wankhede Stadium', 'Mumbai, India', 11), ('Bird’s Nest Stadium', 'Beijing, China', 12), 
+('Wankhede Stadium', 'Mumbai, India', 11), ('Birds Nest Stadium', 'Beijing, China', 12), 
 ('Luzhniki Stadium', 'Moscow, Russia', 13), ('Estadio Azteca', 'Mexico City, Mexico', 14), 
 ('Coliseum', 'Rome, Italy', 15), ('Camp Nou', 'Barcelona, Spain', 16), 
 ('La Bombonera', 'Buenos Aires, Argentina', 17), ('Johan Cruijff Arena', 'Amsterdam, Netherlands', 18),
@@ -199,6 +213,7 @@ INSERT INTO Show (namaShow, idLokasi) VALUES
 ('World Track and Field', 12), ('Super Bowl', 13), ('European Football League', 14), 
 ('U2 World Tour', 15), ('Latin Concert', 16), ('Carnival Festival', 17), ('Eurovision', 18),
 ('SA Rugby Match', 19), ('Africa Music Festival', 20);
+
 
 -- Insert into Artis
 INSERT INTO Artis(namaArtis, urlGambarArtis) VALUES
@@ -219,9 +234,9 @@ INSERT INTO Artis(namaArtis, urlGambarArtis) VALUES
 ('James Arthur', '/artis/jamesarthur.png'),
 ('Bruno Mars', '/artis/brunomars.jpeg'),
 ('Troye Sivan', '/artis/troyesivan.jpg'),
-('Taylor Swift', '/artis/taylorswift.png'),
+('Taylor Swift', '/artis/taylorswift.jpeg'),
 ('Sam Smith', '/artis/samsmith.jpg'),
-('Jamie Miller', '/artis/jamie_miller.jpeg');
+('Jamie Miller', '/artis/jamiemiller.jpeg');
 
 -- Insert into Album
 INSERT INTO Album (namaAlbum, release_date, idArtis, urlGambarAlbum) VALUES
@@ -369,37 +384,37 @@ INSERT INTO Lagu (idAlbum, namaLagu, duration, idArtis, urlGambarLagu) VALUES
 (40, 'No Matter What', 214, 20, '/album/jamie_2.jpeg'),
 (40, 'The Things I Left Unsaid', 225, 20, '/album/jamie_2.jpeg');
 
-INSERT INTO Setlist (namaSetlist, tanggal, urlBukti, idShow) VALUES
-('Setlist 1', '2022-01-01 20:00:00', '/images/setlist1.jpg', 1),
-('Setlist 2', '2022-02-01 20:00:00', '/assets/topArtist/logo1.png', 2),
-('Setlist 3', '2022-03-01 20:00:00', '/images/setlist3.jpg', 3),
-('Setlist 4', '2022-04-01 20:00:00', '/assets/topArtist/logo1.png', 4),
-('Setlist 5', '2022-05-01 20:00:00', '/images/setlist5.jpg', 5),
-('Setlist 6', '2022-06-01 20:00:00', '/assets/topArtist/logo1.png', 6),
-('Setlist 7', '2022-07-01 20:00:00', '/images/setlist7.jpg', 7),
-('Setlist 8', '2022-08-01 20:00:00', '/assets/topArtist/logo1.png', 8),
-('Setlist 9', '2022-09-01 20:00:00', '/images/setlist9.jpg', 9),
-('Setlist 10', '2022-10-01 20:00:00', '/assets/topArtist/logo1.png', 10),
-('Setlist 11', '2022-11-01 20:00:00', '/images/setlist11.jpg', 11),
-('Setlist 12', '2022-12-01 20:00:00', '/assets/topArtist/logo1.png', 12),
-('Setlist 13', '2023-01-01 20:00:00', '/images/setlist13.jpg', 13),
-('Setlist 14', '2023-02-01 20:00:00', '/assets/topArtist/logo1.png', 14),
-('Setlist 15', '2023-03-01 20:00:00', '/images/setlist15.jpg', 15),
-('Setlist 16', '2023-04-01 20:00:00', '/assets/topArtist/logo1.png', 16),
-('Setlist 17', '2023-05-01 20:00:00', '/images/setlist17.jpg', 17),
-('Setlist 18', '2023-06-01 20:00:00', '/assets/topArtist/logo1.png', 18),
-('Setlist 19', '2023-07-01 20:00:00', '/images/setlist19.jpg', 19),
-('Setlist 20', '2023-08-01 20:00:00', '/assets/topArtist/logo1.png', 20);
+-- Insert into Setlist
+INSERT INTO Setlist(namaSetlist, tanggal, urlBukti, idArtis, idLokasi, idShow) VALUES
+('Setlist 1', '2022-01-01 20:00:00', '/bukti/setlist1.jpg', 1, 1, 1),
+('Setlist 2', '2022-02-01 20:00:00', '/bukti/setlist2.jpg', 2, 2, 2),
+('Setlist 3', '2022-03-01 20:00:00', '/bukti/setlist3.jpg', 3, 3, 3),
+('Setlist 4', '2022-04-01 20:00:00', '/bukti/setlist4.jpg', 4, 4, 4),
+('Setlist 5', '2022-05-01 20:00:00', '/bukti/setlist5.jpg', 5, 5, 5),
+('Setlist 6', '2022-06-01 20:00:00', '/bukti/setlist6.jpg', 6, 6, 6),
+('Setlist 7', '2022-07-01 20:00:00', '/bukti/setlist7.jpg', 7, 7, 7),
+('Setlist 8', '2022-08-01 20:00:00', '/bukti/setlist8.jpg', 8, 8, 8),
+('Setlist 9', '2022-09-01 20:00:00', '/bukti/setlist9.jpg', 9, 9, 9),
+('Setlist 10', '2022-10-01 20:00:00', '/bukti/setlist10.jpg', 10, 10, 10),
+('Setlist 11', '2022-11-01 20:00:00', '/bukti/setlist11.jpg', 11, 11, 11),
+('Setlist 12', '2022-12-01 20:00:00', '/bukti/setlist12.jpg', 12, 12, 12),
+('Setlist 13', '2023-01-01 20:00:00', '/bukti/setlist13.jpg', 13, 13, 13),
+('Setlist 14', '2023-02-01 20:00:00', '/bukti/setlist14.jpg', 14, 14, 14),
+('Setlist 15', '2023-03-01 20:00:00', '/bukti/setlist15.jpg', 15, 15, 15),
+('Setlist 16', '2023-04-01 20:00:00', '/bukti/setlist16.jpg', 16, 16, 16),
+('Setlist 17', '2023-05-01 20:00:00', '/bukti/setlist17.jpg', 17, 17, 17),
+('Setlist 18', '2023-06-01 20:00:00', '/bukti/setlist18.jpg', 18, 18, 18),
+('Setlist 19', '2023-07-01 20:00:00', '/bukti/setlist19.jpg', 19, 19, 19),
+('Setlist 20', '2023-08-01 20:00:00', '/bukti/setlist20.jpg', 20, 20, 20);
 
-INSERT INTO Setlist_lagu (idSetlist, idLagu, idArtis, trackNumber) VALUES
-(1, 1, 1, 1), (2, 3, 1, 2), (3, 5, 1, 3), (4, 7, 1, 4),
-(5, 9, 2, 5), (6, 11, 2, 6), (7, 13, 2, 7), (8, 15, 3, 8),
-(9, 17, 3, 9), (10, 19, 3, 10), (11, 21, 3, 11), (12, 23, 4, 12),
-(13, 25, 4, 13), (14, 27, 4, 14), (15, 29, 5, 15), (16, 31, 5, 16),
-(17, 33, 5, 17), (18, 35, 6, 18), (19, 37, 6, 19), (20, 39, 6, 20);
+INSERT INTO Setlist_lagu (idSetlist, idLagu, trackNumber) VALUES
+(1, 1, 1), (2, 2, 2), (3, 3, 3), (4, 4, 4),
+(5, 5, 5), (6, 6, 6), (7, 7, 7), (8, 8, 8),
+(9, 9, 9), (10, 10, 10), (11, 11, 11), (12, 12, 12),
+(13, 13, 13), (14, 14, 14), (15, 15, 15), (16, 16, 16),
+(17, 17, 17), (18, 18, 18), (19, 19, 19), (20, 20, 20);
 
 INSERT INTO Komentar (username, idSetlist, komentar) VALUES
-('user1', 1, 'Amazing performance!'), 
 ('user2', 2, 'Loved the songs!'), 
 ('user3', 3, 'Great setlist!'), 
 ('user4', 4, 'Nice energy on stage!'), 
@@ -419,3 +434,16 @@ INSERT INTO Komentar (username, idSetlist, komentar) VALUES
 ('user18', 18, 'Such an amazing night!'),
 ('user19', 19, 'Unforgettable!'), 
 ('user20', 20, 'Awesome concert!');
+
+INSERT INTO Pengguna_setlist (email, idSetlist) VALUES
+('user2@example.com', 2),
+('user3@example.com', 3),
+('user3@example.com', 4),
+('user4@example.com', 4),
+('user4@example.com', 2),
+('user5@example.com', 5),
+('user6@example.com', 6),
+('user7@example.com', 7),
+('user8@example.com', 8),
+('user9@example.com', 9),
+('user10@example.com', 10);

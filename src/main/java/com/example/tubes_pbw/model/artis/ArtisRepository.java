@@ -10,7 +10,7 @@ public interface ArtisRepository {
     long countByFilterNamaArtis(String namaArtis);
     Iterable<ArtisSetlistCountDTO> findByFilterNamaArtisWithOffsetReturnWithCount(String namaArtis,int limit, int offset);
     long maxSetlistCountForArtis();
-    Iterable<Artis> findByIdArtis(int idArtis);
+    List<Artis> findByIdArtis(int idArtis);
     int save(String namaArtis, String urlGambarArtis);
     void deleteById(int idArtis);
     List<Artis> findTopArtisBySetlistLagu();

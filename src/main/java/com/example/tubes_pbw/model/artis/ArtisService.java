@@ -36,7 +36,7 @@ public class ArtisService {
         return artisRepository.countByFilterNamaArtis(namaArtis);
     }
 
-    public Iterable<Artis> findByIdArtis(int idArtis) {
+    public List<Artis> findByIdArtis(int idArtis) {
         return artisRepository.findByIdArtis(idArtis);
     }
 

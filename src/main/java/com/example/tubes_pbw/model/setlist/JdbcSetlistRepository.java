@@ -45,6 +45,28 @@ public class JdbcSetlistRepository implements SetlistRepository {
         return idSetlist;
     }
 
+    @Override
+    public List<ArtistSetlistLokasiDate> findArtistSetlistLokasiDateByIdArtis(int idArtis) {
+        String sql = """
+            SELECT 
+                s.idSetlist,
+                a.idArtis,
+                l.idLokasi,
+                a.namaArtis,
+                l.namaLokasi AS namaLokasiConcert,
+                s.tanggal
+            FROM 
+                Setlist s
+            JOIN 
+                Artis a ON s.idArtis = a.idArtis
+            JOIN 
+                Lokasi l ON s.idLokasi = l.idLokasi
+            WHERE 
+                a.idArtis = ?
+        """;
+    
+        return jdbcTemplate.query(sql, this::mapRowToArtistSetlist, idArtis);
+    }
 
     private Setlist mapRowToSetlist(ResultSet resultSet, int rowNum) throws SQLException {
         return new Setlist(
@@ -57,5 +79,15 @@ public class JdbcSetlistRepository implements SetlistRepository {
             resultSet.getInt("idShow")         
         );
     }
-    
+
+    private ArtistSetlistLokasiDate mapRowToArtistSetlist(ResultSet resultSet, int rowNum) throws SQLException {
+        return new ArtistSetlistLokasiDate(
+            resultSet.getInt("idSetlist"),
+            resultSet.getInt("idArtis"),
+            resultSet.getInt("idLokasi"),
+            resultSet.getString("namaArtis"),
+            resultSet.getString("namaLokasiConcert"),
+            resultSet.getTimestamp("tanggal").toLocalDateTime()
+        );
+    }
 }

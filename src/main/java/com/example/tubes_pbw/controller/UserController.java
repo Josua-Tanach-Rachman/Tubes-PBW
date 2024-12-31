@@ -1,18 +1,24 @@
 package com.example.tubes_pbw.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.tubes_pbw.model.artis.Artis;
 import com.example.tubes_pbw.model.artis.ArtisService;
 import com.example.tubes_pbw.model.artis.ArtisSetlistCountDTO;
 import com.example.tubes_pbw.model.user.User;
 import com.example.tubes_pbw.model.user.UserService;
+import com.example.tubes_pbw.model.setlist.ArtistSetlistLokasiDate;
+import com.example.tubes_pbw.model.setlist.SetlistService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -24,6 +30,9 @@ public class UserController {
 
     @Autowired
     private ArtisService artisService;
+
+    @Autowired
+    private SetlistService setlistService;
 
     @GetMapping("/login")
     public String loginView(HttpSession session) {
@@ -136,16 +145,21 @@ public class UserController {
         model.addAttribute("filter", filter);
         model.addAttribute("maxArtis", maxArtis);
         model.addAttribute("listArtis", res);
-
-        
         return "searchPage";
     }
 
+    @GetMapping("/artist/{namaArtis}-{idArtis}")
+    public String getArtistDetail(@PathVariable String namaArtis, @PathVariable int idArtis, Model model) {
+        List<Artis> artisList = artisService.findByIdArtis(idArtis);
+        Artis artis = artisList.get(0);
+        model.addAttribute("artis", artis);
 
-    @GetMapping("/artistDetail")
-    public String artistDetail(){
+        List<ArtistSetlistLokasiDate> lokasiDates = setlistService.findLokasiDate(idArtis);
+        model.addAttribute("lokasiDates", lokasiDates);
+
         return "artistDetail";
     }
+
 
     @GetMapping("/addArtist")
     public String addArtist(User user){
@@ -160,5 +174,10 @@ public class UserController {
     @GetMapping("/addShow")
     public String addShow(User user){
         return "addShow";
+    }
+
+    @GetMapping("/setlistDetail")
+    public String setlistDetail(){
+        return "setlistDetail";
     }
 }

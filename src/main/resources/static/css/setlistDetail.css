@@ -14,8 +14,11 @@ body {
 
 nav {
     color: white;
-    background-color: #1E1E1E;
+    background-color: #1E1E1E; /* Dark background for the navbar */
     display: flex;
+    gap: 50px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     font-size: 20px;
     padding-left: 20px;
     position: relative;
@@ -24,23 +27,17 @@ nav {
 
 nav p {
     margin: 0px;
-    padding-left: 30px;
-    padding-right: 30px;
 }
 
 #home:hover,
 #setlist:hover,
 #concert:hover,
-#song:hover {
-    background-color: #510370;
-    padding-top: 23.5px;
-    padding-bottom: 23.5px;
-    text-shadow: 3px 3px 5px black;
+#news:hover {
+    background-color: #8100B3; /* Purple hover effect for nav items */
 }
 
 #logo {
-    height: 60px;
-    margin-right: 20px;
+    height: 70px;
 }
 
 button {
@@ -68,31 +65,47 @@ a {
 }
 
 #artist a {
-    color: white;
-    font-weight: bold;
-    text-shadow: 0 0 20px whitesmoke;
-}
-p#artist {
-    background-color: #8100B3;
-    padding-top: 23.5px;
-    padding-bottom: 23.5px;
+    color: #8100B3; /* Highlight artist links in purple */
 }
 
 .artist-setlists {
+    position: relative;  /* For absolute positioning of edit link */
     margin: 50px auto;
-    background: #1E1E1E; /* Match navbar's dark theme */
-    border: 1px solid #8100B3; /* Purple border for accent */
+    background: #1E1E1E;
+    border: 1px solid #8100B3;
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Softer shadow for dark theme */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     width: 1160px;
-    color: white; /* Ensure text is readable */
+    color: white;
+    min-height: 200px;  /* Ensure minimum height for short lists */
+}
+
+.setlist-content {
+    width: 1160px;
+    margin: 25px auto;
+}
+
+.edit-list {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: #8100B3;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.edit-list:hover {
+    color: white;
+    text-decoration: underline;
 }
 
 .artist-setlists h1 {
-    font-size: 24px;
-    color: white; /* Highlight headings in purple */
-    margin-bottom: 30px;
+    font-size: 32px;
+    color: #8100B3; /* Highlight headings in purple */
+    margin-bottom: 10px;
+    margin-top: -30px;
 }
 
 .artist-setlists h3 {
@@ -104,14 +117,15 @@ p#artist {
 }
 
 .artist-list {
-    list-style: none;
-    padding: 0;
+    /*list-style: none;*/
+    padding: 0 0 0 20px;
     margin: 0;
 }
 
 .artist-list li {
-    display: flex;
-    align-items: center;
+    /*display: flex;*/
+    align-items: flex-start;
+    flex-direction: column;
     justify-content: space-between;
     margin-bottom: 15px;
     padding-bottom: 10px;
@@ -119,11 +133,10 @@ p#artist {
 }
 
 .artist-list li a {
-    color: white; /* Purple for artist names */
+    color: #8100B3; /* Purple for artist names */
     text-decoration: none;
     font-weight: bold;
-    font-size: 20px;
-    width: 200px;
+    font-size: 16px;
 }
 
 .artist-list li a:hover {
@@ -139,7 +152,7 @@ p#artist {
 
 .popularity-bar {
     flex: 1;
-    height: 10px;
+    height: 8px;
     background: #333; /* Dark bar */
     border-radius: 5px;
     margin: 0 15px;
@@ -153,12 +166,9 @@ p#artist {
 }
 
 .popularity-count {
-    color: white;
-    font-size: 20px;
+    color: #8100B3; /* Purple numbers for emphasis */
+    font-size: 14px;
     font-weight: bold;
-    width: 100px;
-    text-align: right;
-    padding-right: 10px;
 }
 
 .last-updated {
@@ -187,29 +197,29 @@ p#artist {
 
 .column h2 {
     font-size: 20px;
-    color: white; /* Purple heading */
+    color: #8100B3; /* Purple heading */
     margin-bottom: 20px;
     border-bottom: 1px solid #8100B3; /* Purple divider */
     padding-bottom: 10px;
 }
 
-.column ul {
-    list-style: none;
-    padding: 0;
+.column ol{
+    list-style: decimal;
 }
 
-.column ul li {
+.column ol li {
+    display: list-item;
     margin-bottom: 10px;
     font-size: 16px;
 }
 
-.column ul li a {
+.column ol li a {
     text-decoration: none;
-    color: white; /* Purple links */
+    color: #8100B3; /* Purple links */
     font-weight: bold;
 }
 
-.column ul li a:hover {
+.column ol li a:hover {
     text-decoration: underline;
     color: white; /* White text on hover */
 }
@@ -225,10 +235,10 @@ p#artist {
     text-align: center;
 }
 
-/*Gambar*/
+/*Search Bar*/
 .search-container{
     width: 100%;
-    height: 200px;
+    height: 120px;
     overflow: hidden;
     display: flex;
     position: relative;
@@ -236,9 +246,7 @@ p#artist {
     align-items: center;
 }
 .search-container img.background-search {
-    height: 500px;
     width: 100%;
-    margin: -40px 0px 0px 0px;
     z-index: 0;
 }
 .search-container .blackBox {
@@ -253,6 +261,7 @@ p#artist {
     position: absolute;
     z-index: 2;
     display: flex;
+    right: 20px;
 }
 input {
     background-color: white;
@@ -260,7 +269,7 @@ input {
     padding-left: 60px;
     border-radius: 30px;
     cursor:text;
-    width: 400px;
+    width: 200px;
 }
 .icon_search {
     position: absolute;
@@ -268,109 +277,77 @@ input {
     width: 20px;
     z-index: 2;
     left: 17px;
-    top: 93px;
+    top: 14px;
 }
 #slogan {
     color: white;
-    text-align: center;
+    margin: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    /*text-align: center;*/
+    /*width: 100%;*/
 }
 
-
-/*
----------------------------------
-*/
-.update-form-grid{
-    display: grid;
-    grid-template-columns: 150px 10px 200px;
-    grid-template-rows: 1fr 1fr;
-}
-
-/*
----------------------------------
-*/
-ul.pagination-container{
-	display: flex;
-	list-style-type: none;
-    align-items: center;
-    justify-content: center;
-    padding-inline-start: 0;
-}
-
-ul.pagination-container a.disabled{
-	pointer-events: none;
-    opacity: 0.5;               
-    /* background: #7D10B7;         */
-    color: white;              
-    cursor: not-allowed;
-}
-
-li a span {
-    width: 30px;
-    text-align: center;
-    display: inline-flex;
-    justify-content: center;
-}
-
-span a {
-	text-decoration: none;
-	border: 2px solid white;
-	background: #7D10B7;
-	color: white;
-	padding: 6px;
-    border-radius: 4px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-}
-span a:hover {
-	color: white;
-	background: #A727EC;
-}
-span a:active {
-	color: white;
-	background: #7D10B7;
-}
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-
-input[type="number" i] {
-    padding-block: 0;
-    padding-inline: 0;
-}
-
-input[type="number"] {
-    width: 0;
-    padding: 6px;
-    font-size: 16px;
-    height: 23px;
-    border: 2px solid white;
-    border-radius: 4px;
-    background-color: white;
-    color: black;
-    text-align: center;
-    display: inline-flex;
-    font-family: "Times New Roman", Times, serif;
-    font-size: 20px;
-}
-/* input[type="number"]:focus {
-    border-color: #007BFF; 
-    background-color: #A727EC; 
-} */
-
-div nav {
-    color: white;
-    background-color: #1E1E1E; /* Dark background for the navbar */
+/*image*/
+.content-wrapper {
     display: flex;
-    gap: 0;
-    font-size: 20px;
-    padding: 0px;
-    position: relative;
-    align-items: center;
     flex-direction: column;
-    justify-content: center;
+    max-width: 1400px;
+    margin: 50px auto;
+    gap: 40px;
+    align-items: center;
+}
+
+.artist-setlists {
+    flex: 1;
+    margin: 0;
+    background: #1E1E1E;
+    border: 1px solid #8100B3;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.artist-image {
+    width: 300px;
+    height: 400px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #8100B3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.artist-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/*table*/
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-top: 1px solid #8100B3;
+    border-bottom: 1px solid #8100B3;
+    color: white;
+}
+
+th {
+    color: #8100B3;
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: #2E2E2E;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
 }
