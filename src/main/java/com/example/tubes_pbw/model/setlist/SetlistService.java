@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,5 +27,9 @@ public class SetlistService {
 
     public void save(String namaSetlist, LocalDate tanggal, int idShow, String urlBukti) {
         setlistRepository.save(namaSetlist,tanggal,idShow,urlBukti);
+    }
+
+    public List<ArtistSetlistLokasiDate> findLokasiDate (int idArtis){
+        return setlistRepository.findArtistSetlistLokasiDateByIdArtis(idArtis);
     }
 }
