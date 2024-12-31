@@ -173,4 +173,9 @@ public class UserController {
     public String addShow(User user){
         return "addShow";
     }
+
+    @GetMapping("/setlistDetail")
+    public String setlistDetail(){
+        return "setlistDetail";
+    }
 }
