@@ -196,6 +196,7 @@ h3 {
     margin-right: 10px; /* Jarak antar item */
     width: 180px;
     height: 225px;
+    transition: all 0.3s ease-in-out; /* Tambahkan efek transisi */
 }
 .carousel-item:hover {
     flex-shrink: 0;
@@ -206,12 +207,12 @@ h3 {
     margin-right: 10px; /* Jarak antar item */
     width: 230px;
     height: 275px;
-    transition: all 0.3s ease-in-out; /* Tambahkan efek transisi */
 }
 .carousel-item img {
     width: 180px;
     height: 200px;
     border-radius: 8px;
+    transition: all 0.3s ease-in-out; /* Tambahkan efek transisi */
 
 }
 .carousel-item p {
@@ -291,5 +292,4 @@ button.prev-btn2, button.next-btn2 {
 .carousel-item:hover img {
     height: 250px;
     width: 230px;
-    transition: all 0.3s ease-in-out; /* Tambahkan efek transisi */
 }
