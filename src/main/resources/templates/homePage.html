@@ -54,7 +54,7 @@
             <!-- Kontainer untuk item carousel -->
             <div class="carousel-container">
                 <div th:each="artis : ${listArtisTop}" class="carousel-item">
-                    <img th:src="@{'api/uploads/images' + ${artis.urlGambarArtis}}" alt="Artist Image">
+                    <img th:src="@{'api/uploads/images' + ${artis.urlGambarArtis}}" alt="Artist Image" class="recommended-image">
                     <p th:text="${artis.namaArtis}"></p>
                 </div>
             </div> 
@@ -73,7 +73,7 @@
             <!-- Kontainer untuk item carousel -->
             <div class="carousel-container2">
                 <div th:each="song : ${listSongTop}" class="carousel-item">
-                    <img th:src="@{'api/uploads/images' + ${song.urlGambarLagu}}" alt="Song Image">
+                    <img th:src="@{'api/uploads/images' + ${song.urlGambarLagu}}" alt="Song Image" class="recommended-image">
                     <p th:text="${song.namaLagu}"></p>
                 </div>
             </div> 
