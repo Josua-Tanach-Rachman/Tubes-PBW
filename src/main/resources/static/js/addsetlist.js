@@ -138,7 +138,7 @@ venueInput.addEventListener('click', () => openPopup('venue'));
 closeBtn.addEventListener('click', closePopup);
 overlay.addEventListener('click', closePopup);
 searchInput.addEventListener('input', handleSearch);
-form.addEventListener('submit', handleSubmit);
+form.addEventListener('submit', validateForm);
 
 // Functions
 async function openPopup(field) {
@@ -209,6 +209,15 @@ function handleSearch(e) {
     currentSuggestions = searchList.filter(item => 
         item.toLowerCase().includes(searchTerm)
     );
+
+    //kalo hasil search ga ada addnya tambahin
+    if (activeField === 'artist' && !currentSuggestions.includes('Add New Artist')) {
+        currentSuggestions.push('Add New Artist');
+    }
+
+    if (activeField === 'venue' && !currentSuggestions.includes('Add New Show')) {
+        currentSuggestions.push('Add New Show');
+    }
     
     updateSuggestionsList(currentSuggestions);
 }
@@ -219,9 +228,13 @@ function updateSuggestionsList(suggestions) {
     suggestions.forEach(suggestion => {
         const li = document.createElement('li');
         li.textContent = suggestion;
+        if (suggestion === 'Add New Artist') {
+            li.id = "add";      
+        }else if (suggestion == 'Add New Show') {
+            li.id = "add";}
         li.addEventListener('click', () => {
             if (suggestion === 'Add New Artist') {
-                window.location.href = '/addArtist';
+                window.location.href = '/addArtist';         
             }else if (suggestion == 'Add New Show') {
                 window.location.href = 'addShow';
             } else {
@@ -280,8 +293,8 @@ function handleSubmit(e) {
         country: countryInput.value,
         city: cityInput.value,
         venue: venueInput.value,
-        date: document.getElementById('date').value,
-        time: document.getElementById('time').value
+        // date: document.getElementById('date').value,
+        // time: document.getElementById('time').value
     };
     
     console.log('Form submitted:', formData);
@@ -306,14 +319,31 @@ function validateForm() {
         alert('Please select a venue');
         return false;
     }
-    if (!document.getElementById('date').value) {
-        alert('Please select a date');
-        return false;
-    }
-    if (!document.getElementById('time').value) {
-        alert('Please select a time');
-        return false;
-    }
+    // if (!document.getElementById('date').value) {
+    //     alert('Please select a date');
+    //     return false;
+    // }
+    // if (!document.getElementById('time').value) {
+    //     alert('Please select a time');
+    //     return false;
+    // }
+    // let timeStart = document.querySelector("input[name='timeStart']").value;
+    // let timeEnd = document.querySelector("input[name='timeEnd']").value;
+    // console.log(timeStart);
+    // console.log(timeEnd);
+    // if(timeStart){
+    //     if(!timeEnd){
+    //         alert('Please select a time end');
+    //         return false;
+    //     }
+    // }
+
+    // if(timeEnd){
+    //     if(!timeStart){
+    //         alert('Please select a time start');
+    //         return false;
+    //     }
+    // }
     return true;
 }
 

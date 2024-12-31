@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 public class Setlist {
@@ -12,7 +14,13 @@ public class Setlist {
     @NotBlank
     private String namaSetlist;
     
-    private java.time.LocalDateTime tanggal;
-    private String urlBukti;
+    private int idArtis; 
+    
+    private int idLokasi;
+    
+    private LocalDateTime tanggal;
+    
+    private String urlBukti; 
+    
     private int idShow;
 }
