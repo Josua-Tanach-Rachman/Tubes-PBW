@@ -18,6 +18,7 @@ import com.example.tubes_pbw.model.artis.ArtisSetlistCountDTO;
 import com.example.tubes_pbw.model.user.User;
 import com.example.tubes_pbw.model.user.UserService;
 import com.example.tubes_pbw.model.setlist.ArtistSetlistLokasiDate;
+import com.example.tubes_pbw.model.setlist.SetlistJumlahPengguna;
 import com.example.tubes_pbw.model.setlist.SetlistService;
 
 import jakarta.servlet.http.HttpSession;
@@ -101,7 +102,26 @@ public class UserController {
     }
 
     @GetMapping("/setlist")
-    public String setlist(User user){
+    public String setlist(
+        @RequestParam(required = false, defaultValue = "1") String page,
+        @RequestParam(required = false, defaultValue = "") String filter,
+        Model model)
+    {
+        int curPage = Integer.parseInt(page);
+        
+        long count = setlistService.countByFilterNamaSetlist(filter);
+
+        long max = setlistService.maxSetlistCountForEachSetlist();
+
+        Iterable<SetlistJumlahPengguna> res = setlistService.findSetlistByFilterNamaWithOffsetReturnWithCount(filter,10, (curPage-1)*10);
+        
+        model.addAttribute("filter",filter);
+        model.addAttribute("listSetlist", res);
+        model.addAttribute("max", max);
+        model.addAttribute("kategori", "setlist");
+        model.addAttribute("pageCount",(int)Math.ceil((double)count/10));
+        model.addAttribute("currentPage",curPage);
+
         return "setlist";
     }
 
@@ -145,6 +165,11 @@ public class UserController {
         model.addAttribute("filter", filter);
         model.addAttribute("maxArtis", maxArtis);
         model.addAttribute("listArtis", res);
+
+        Iterable<SetlistJumlahPengguna> resSetlist = setlistService.findSetlistByFilterNamaWithOffsetReturnWithCount(filter, 5, 0);
+        long maxSetlist = setlistService.maxSetlistCountForEachSetlist();
+        model.addAttribute("maxSetlist", maxSetlist);
+        model.addAttribute("listSetlist", resSetlist);
         return "searchPage";
     }
 
