@@ -255,4 +255,32 @@ public class UserController {
     public String setlistDetail(){
         return "setlistDetail";
     }
+
+    @GetMapping("/song")
+    public String song(
+        @RequestParam(required = false, defaultValue = "1") String page,
+        @RequestParam(required = false, defaultValue = "") String filter,
+        Model model,
+        HttpSession session)
+    {
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "songPage";
+    }
+
+    @GetMapping("/songDetail")
+    public String songDetail(Model model,
+    HttpSession session){
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "songDetail";
+    }
 }

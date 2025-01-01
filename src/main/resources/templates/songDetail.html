@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaveList | Detail-Song</title>
+    <link rel="stylesheet" th:href="@{/css/songDetail.css}">
+    <link rel="icon" href="/assets/icon.png" type="image/png">
+</head>
+<header>
+  <div class="kotak_ungu"></div>
+  <nav>
+      <img src="/assets/logo5.png" alt="logo image" id="logo">
+      <P id="home"><a th:href="@{/}">HOME</a></P>
+      <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
+      <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
+      <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
+      <P id="song"><a th:href="@{/song}">SONG</a></P>
+
+    <div class="button-container">
+      <button type="submit" class="button setlist"><a th:href="@{/addsetlist}">+SET LIST</a></button>
+      <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
+          <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
+      </form>
+      <form action="/login" method="GET" th:if="${!isUserLoggedIn}">
+          <button type="submit" class="button login">LOG IN</button>
+      </form>
+    </div>
+  </nav>
+</header>
+    <body>
+      <div class="search-container">
+        <img src="/assets/background_search_main.png" alt="" class="background-search">
+        <div class="blackBox"></div>
+        <div class="search_bar">
+            <form action="/song" method="get">
+                <h1 id="slogan">Discover Your Favorite Artist</h1>
+                <input type="text" placeholder="Search for Artists..." th:value="${filter}" name="filter">
+                <input type="hidden" name="page" th:value="1">
+            </form>
+            <div>
+                <img src="/assets/search.png" alt="" class="icon_search">
+            </div>
+        </div>
+    </div>
+
+
+          <div class="content-wrapper">
+            <div class="artist-image">
+              <!-- <img th:src="@{'/api/uploads/images' + ${artis.urlGambarArtis}}" alt="Artist Image"> -->
+               <img src="/assets/bruno.jpg" alt="">
+            </div>
+            <div class="artist-setlists">
+                <!-- <h1 th:text="${artis.namaArtis} + ' Concert Setlists'"></h1> -->
+                 <h1>Perahu Kertas</h1>
+                <h3></h3>
+                <ul class="artist-list">
+                  <!-- <li th:each="lokasiDate : ${lokasiDates}">
+                      <div class="location">
+                        <img src="/assets/map.png" alt="Location at" class="map-image">
+                        <a href="#" th:text="${artis.namaArtis} + ' at ' + ${lokasiDate.namaLokasiConcert}"></a>
+                         <a href="">by Jaki di soreang</a>
+                      </div>
+                      <div class="location"> 
+                        <img src="/assets/calender.jpg" alt="Location at" class="date-image">
+                        <span class="setlists" th:text="'Date: ' + ${#temporals.format(lokasiDate.tanggal, 'dd-MM-yyyy')}"></span>
+                      </div>
+                  </li> -->
+
+
+                  <li>
+                    <div class="location">
+                        <img src="/assets/microphone.png" alt="Location at" class="map-image">
+                         <a href="">by Zakky the rapper</a>
+                    </div>
+                    <div class="progress-bar">
+                        <span>Duration 2:30</span>
+                        <span class="progress" style="width: 30%;"></span>
+                    </div>
+                  </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- <div class="content-wrapper">
+          <div class="artist-setlists">
+            <h1>"ArtistName" Concert Setlists</h1>
+            <h3></h3>
+            <ul class="artist-list">
+              <li>
+                <a href="#">"ArtistName" at "Concert/Venue"</a>
+                <span class="setlists">Date: "Date Month Year"</span>
+              </li>
+              <li>
+                <a href="#">"ArtistName" at "Concert/Venue"</a>
+                <span class="setlists">Date: "Date Month Year"</span>
+              </li>
+              <li>
+                <a href="#">"ArtistName" at "Concert/Venue"</a>
+                <span class="setlists">Date: "Date Month Year"</span>
+              </li>
+            </ul>
+          </div>
+          <div class="artist-image">
+            <img src="@{/assets/artist-placeholder.jpg}" alt="Artist Image">
+          </div>
+        </div> -->
+    </body>
+</html>
