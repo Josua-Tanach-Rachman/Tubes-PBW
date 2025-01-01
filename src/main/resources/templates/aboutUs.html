@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FaveList | HomePage</title>
-    <link rel="stylesheet" th:href="@{/css/homePage.css}">
-    <script th:src="@{/js/slideShow.js}" defer></script>
+    <title>FaveList | About Us</title>
+    <link rel="stylesheet" th:href="@{/css/aboutUs.css}">
     <link rel="icon" href="assets/icon.png" type="image/png">
 </head>
 <header>
@@ -41,6 +40,55 @@
             <div>
                 <img src="assets/search.png" alt="" class="icon_search">
             </div>
+        </div>
+    </div>
+    <div class="music-note-container">
+        <div class="about-us">
+            <section class="about-intro">
+                <h1>About FaveList</h1>
+                <p>Welcome to FaveList! Your ultimate destination for exploring, sharing, and discovering your favorite artists, songs, concerts, and setlists.</p>
+            </section>
+
+            <section class="features">
+                <h2>Our Features</h2>
+                <ul>
+                    <li><strong>Discover Artists:</strong> Explore detailed profiles of your favorite artists.</li>
+                    <li><strong>Concert Setlists:</strong> Browse and share setlists from memorable concerts.</li>
+                    <li><strong>Create Your Own:</strong> Customize and share your own setlists.</li>
+                    <li><strong>Community Interaction:</strong> Engage with fans by commenting and rating setlists.</li>
+                </ul>
+            </section>
+
+            <section class="team">
+                <h2>Meet Our Team</h2>
+                <div class="team-container">
+                    <div class="team-member">
+                        <img src="assets/team1.jpg" alt="Team Member 1">
+                        <h3>Josua</h3>
+                        <p>Founder & Developer</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="assets/team2.jpg" alt="Team Member 2">
+                        <h3>Olivia</h3>
+                        <p>UI/UX Designer</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="assets/team3.jpg" alt="Team Member 3">
+                        <h3>Steven</h3>
+                        <p>Content Manager</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="assets/team4.jpg" alt="Team Member 3">
+                        <h3>Zakki</h3>
+                        <p>Content Manager</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contact">
+                <h2>Contact Us</h2>
+                <p>If you have any questions, suggestions, or feedback, feel free to <a th:href="@{/contact}">contact us</a>.</p>
+            </section>
         </div>
     </div>
 </body>
