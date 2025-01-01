@@ -31,7 +31,7 @@ nav p {
 #home:hover,
 #setlist:hover,
 #concert:hover,
-#song:hover {
+#artist:hover {
     background-color: #510370;
     padding-top: 23.5px;
     padding-bottom: 23.5px;
@@ -67,12 +67,12 @@ a {
     color: white; /* Default link color to white */
 }
 
-#artist a {
+#song a {
     color: white;
     font-weight: bold;
     text-shadow: 0 0 20px whitesmoke;
 }
-p#artist {
+p#song {
     background-color: #8100B3;
     padding-top: 23.5px;
     padding-bottom: 23.5px;
@@ -323,3 +323,48 @@ img.map-image {
 img.date-image {
     height: 23px;
 }
+
+.progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Jarak antara teks dan bar */
+    width: 100%; /* Panjang bar */
+    height: 20px; /* Tinggi area bar */
+    position: relative;
+}
+
+.progress-bar span:first-child {
+    font-size: 14px; /* Ukuran teks */
+    font-weight: bold; /* Tebal teks */
+    color: #333; /* Warna teks */
+}
+
+.progress-bar .progress {
+    flex-grow: 1; /* Bar akan mengambil sisa ruang */
+    height: 10px; /* Tinggi progress bar */
+    background: linear-gradient(90deg, #8100B3, #C933FF); /* Gradasi warna progress */
+    border-radius: 5px; /* Sudut melengkung */
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Bayangan pada progress bar */
+}
+
+.progress-bar .progress::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Ukuran highlight */
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3); /* Efek highlight */
+    border-radius: 5px;
+    opacity: 0.6;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.progress-bar .progress:hover::after {
+    transform: scaleX(1); /* Highlight muncul saat hover */
+}
+
