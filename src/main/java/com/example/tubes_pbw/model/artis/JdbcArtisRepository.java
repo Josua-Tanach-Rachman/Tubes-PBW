@@ -44,8 +44,8 @@ public class JdbcArtisRepository implements ArtisRepository {
     public Iterable<ArtisSetlistCountDTO> findByFilterNamaArtisWithOffsetReturnWithCount(String namaArtis,int limit, int offset){
         String sql = "SELECT a.namaArtis, a.idArtis,COUNT(ps.email) AS jumlahSetlist "+
                     "FROM Artis a "+
-                    "JOIN Setlist s ON a.idArtis = s.idArtis "+
-                    "JOIN Pengguna_setlist ps ON ps.idSetlist = s.idSetlist "+
+                    "LEFT JOIN Setlist s ON a.idArtis = s.idArtis "+
+                    "LEFT JOIN Pengguna_setlist ps ON ps.idSetlist = s.idSetlist "+
                     "WHERE a.namaArtis ILIKE ? "+
                     "GROUP BY a.idArtis, a.namaArtis "+
                     "ORDER BY jumlahSetlist DESC "+

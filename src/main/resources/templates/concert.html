@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FaveList | Concert</title>
-    <link rel="stylesheet" th:href="@{/css/concert.css}">
+    <link rel="stylesheet" th:href="@{/css/setlist.css}">  
+    <!-- ke setlist.css -->
+    <script th:src="@{/js/pagination.js}" defer></script>
     <link rel="icon" href="assets/icon.png" type="image/png">
 </head>
 <header>
@@ -47,52 +49,20 @@
         </div>
     </div>
 
-    <div class="concert-setlists">
+    <!-- <div class="concert-setlists"> -->
+    <div class="artist-setlists">   <!-- ini css setlist -->
         <h1>Concerts</h1>
-        <h3>Top concert by wombatteam</h3>
-        <ul class="concert-list">
+        <h3>Top concert by concertgoers</h3>
+        <ul class="artist-list" th:each="show : ${listShow}">
             <li>
-                <a href="#">Metallica</a>
-                <span class="setlists">2143 setlists</span>
+                <a th:href="@{/show/{namaShow}-{idShow}(namaShow=${#strings.replace(show.namaShow, ' ', '-')}, idShow=${show.idShow})}" th:text="${show.namaShow}"></a>
                 <div class="popularity-bar">
-                    <div class="filled-bar" style="width: 90%;"></div>
+                    <div class="filled-bar" th:style="'width: ' + ${(max != 0 ? (show.jumlahPengguna * 100.0 / max) : 0) + '%'}"></div>
                 </div>
-                <span class="popularity-count">46861</span>
-            </li>
-            <li>
-                <a href="#">Foo Fighters</a>
-                <span class="setlists">1567 setlists</span>
-                <div class="popularity-bar">
-                    <div class="filled-bar" style="width: 70%;"></div>
-                </div>
-                <span class="popularity-count">36499</span>
-            </li>
-            <li>
-                <a href="#">Iron Maiden</a>
-                <span class="setlists">2600 setlists</span>
-                <div class="popularity-bar">
-                    <div class="filled-bar" style="width: 65%;"></div>
-                </div>
-                <span class="popularity-count">32688</span>
-            </li>
-            <li>
-                <a href="#">Red Hot Chili Peppers</a>
-                <span class="setlists">1906 setlists</span>
-                <div class="popularity-bar">
-                    <div class="filled-bar" style="width: 60%;"></div>
-                </div>
-                <span class="popularity-count">30879</span>
-            </li>
-            <li>
-                <a href="#">Red Hot Chili Peppers</a>
-                <span class="setlists">1906 setlists</span>
-                <div class="popularity-bar">
-                    <div class="filled-bar" style="width: 60%;"></div>
-                </div>
-                <span class="popularity-count">30879</span>
+                <span class="popularity-count" th:text="${show.jumlahPengguna} + ' users'"></span>
             </li>
         </ul>
-        <p class="last-updated">Last updated: 28 minutes ago</p>
+        <th:block th:include="~{/pagination :: pagination}"></th:block>
     </div>
 </body>
 

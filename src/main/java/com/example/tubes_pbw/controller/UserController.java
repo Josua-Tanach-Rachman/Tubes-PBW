@@ -20,6 +20,8 @@ import com.example.tubes_pbw.model.user.UserService;
 import com.example.tubes_pbw.model.setlist.ArtistSetlistLokasiDate;
 import com.example.tubes_pbw.model.setlist.SetlistJumlahPengguna;
 import com.example.tubes_pbw.model.setlist.SetlistService;
+import com.example.tubes_pbw.model.show.ShowJumlahPengguna;
+import com.example.tubes_pbw.model.show.ShowService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -34,6 +36,9 @@ public class UserController {
 
     @Autowired
     private SetlistService setlistService;
+    
+    @Autowired
+    private ShowService showService;
 
     @GetMapping("/login")
     public String loginView(HttpSession session) {
@@ -162,7 +167,26 @@ public class UserController {
     }
 
     @GetMapping("/concert")
-    public String concert(User user, HttpSession session, Model model){
+    public String concert(
+        @RequestParam(required = false, defaultValue = "1") String page,
+        @RequestParam(required = false, defaultValue = "") String filter, 
+        User user, HttpSession session, Model model)
+    {
+        int curPage = Integer.parseInt(page);
+        
+        long count = showService.countByFilterNamaShow(filter);
+
+        long max = showService.maxSetlistCountForEachShow();
+
+        Iterable<ShowJumlahPengguna> res = showService.findShowByFilterNamaWithOffsetReturnWithCount(filter,10, (curPage-1)*10);
+        
+        model.addAttribute("filter",filter);
+        model.addAttribute("listShow", res);
+        model.addAttribute("max", max);
+        model.addAttribute("kategori", "concert");
+        model.addAttribute("pageCount",(int)Math.ceil((double)count/10));
+        model.addAttribute("currentPage",curPage);
+
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);
         }
@@ -195,6 +219,12 @@ public class UserController {
         long maxSetlist = setlistService.maxSetlistCountForEachSetlist();
         model.addAttribute("maxSetlist", maxSetlist);
         model.addAttribute("listSetlist", resSetlist);
+
+        Iterable<ShowJumlahPengguna> resShow = showService.findShowByFilterNamaWithOffsetReturnWithCount(filter, 5, 0);
+        long maxShow = showService.maxSetlistCountForEachShow();
+        model.addAttribute("maxShow", maxShow);
+        model.addAttribute("listShow", resShow);
+
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);
         }
