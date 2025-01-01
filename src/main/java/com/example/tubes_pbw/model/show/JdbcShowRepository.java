@@ -1,5 +1,6 @@
 package com.example.tubes_pbw.model.show;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -28,17 +29,25 @@ public class JdbcShowRepository implements ShowRepository{
     }
 
     @Override
-    public int save(String namaShow, int idLokasi) {
-        String sql = "INSERT INTO show (namashow, idlokasi) VALUES (?, ?) RETURNING idshow";
-        int idSetlist = jdbcTemplate.queryForObject(sql,Integer.class, namaShow, idLokasi);
-        return idSetlist;
+    public Iterable<Show> findByIdLokasi(int idLokasi) {
+        String sql = "SELECT * FROM show WHERE idlokasi = ?";
+        return jdbcTemplate.query(sql, this::mapRowToShow, idLokasi);
+    }
+
+    @Override
+    public int save(String namaShow, int idLokasi, Date beginDate, Date endDate) {
+        String sql = "INSERT INTO show (namashow, idlokasi, begindate, enddate) VALUES (?, ?, ?, ?) RETURNING idshow";
+        int idShow = jdbcTemplate.queryForObject(sql, Integer.class, namaShow, idLokasi, beginDate, endDate);
+        return idShow;
     }
 
     private Show mapRowToShow(ResultSet resultSet, int rowNum) throws SQLException {
         return new Show(
             resultSet.getInt("idShow"),
             resultSet.getString("namaShow"),
-            resultSet.getInt("idLokasi")
+            resultSet.getInt("idLokasi"),
+            resultSet.getDate("beginDate"),
+            resultSet.getDate("endDate")
         );
     }
 }

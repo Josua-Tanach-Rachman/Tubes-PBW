@@ -1,50 +1,6 @@
-const mockData = {
-    artists: ['The Beatles', 'Pink Floyd', 'Led Zeppelin', 'Queen', 'The Rolling Stones'],
-    locations: {
-        'United States': {
-            'New York': ['Madison Square Garden', 'Radio City Music Hall', 'Barclays Center'],
-            'Colorado': ['Red Rocks Amphitheatre', 'Ball Arena', 'Fiddler\'s Green'],
-            'California': ['Hollywood Bowl', 'The Greek Theatre', 'Chase Center']
-        },
-        'United Kingdom': {
-            'London': ['Wembley Stadium', 'O2 Arena', 'Royal Albert Hall'],
-            'Manchester': ['Manchester Arena', 'Old Trafford Cricket Ground'],
-            'Liverpool': ['Anfield Stadium', 'M&S Bank Arena']
-        },
-        'Australia': {
-            'Sydney': ['Sydney Opera House', 'Qudos Bank Arena'],
-            'Melbourne': ['Rod Laver Arena', 'Marvel Stadium'],
-            'Brisbane': ['Brisbane Entertainment Centre', 'The Gabba']
-        }
-    }
-};
-
-let arrayArtis = [];
 let arrayNegara = [];
 let arrayKota = [];
 let arrayLokasi = [];
-let arrayShow = [];
-
-fetch('/add/setlist/artist')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json(); 
-    })
-    .then(data => {
-        data.forEach(function(artis) {
-            arrayArtis.push(artis.namaArtis);
-        });
-
-        // Tambahkan opsi "Add New Artist" ke dalam arrayArtis
-        arrayArtis.push('Add New Artist');
-
-        console.log(arrayArtis);
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-    });
 
 fetch('/add/setlist/negara')
     .then(response => {
@@ -111,39 +67,10 @@ function fetchLokasi(namaKota) {
         });
 }
 
-function fetchShow(namaLokasi) {
-    fetch(`/add/setlist/show?namaLokasi=${namaLokasi}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json(); 
-        })
-        .then(data => {
-            currentSuggestions = [];
-            arrayShow = [];
-            data.forEach(function(show) {
-                arrayShow.push(show.namaShow);
-                console.log(show);
-            });
-            arrayShow.push('Add New Concert');
-            console.log(arrayShow);
-            currentSuggestions = arrayShow;
-            console.log(currentSuggestions);
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
-}
-
-
-// DOM Elements
 const form = document.getElementById('setlistForm');
-const artistInput = document.getElementById('artist-name');
 const countryInput = document.getElementById('country');
 const cityInput = document.getElementById('city');
 const venueInput = document.getElementById('venue');
-const showInput = document.getElementById('show');
 const popup = document.getElementById('popup');
 const overlay = document.getElementById('overlay');
 const closeBtn = document.querySelector('.close-btn');
@@ -155,20 +82,15 @@ let activeField = null;
 let currentSuggestions = [];
 let selectedCountry = '';
 let selectedCity = '';
-let selectedLocation = '';
 
-// Event Listeners
-artistInput.addEventListener('click', () => openPopup('artist'));
 countryInput.addEventListener('click', () => openPopup('country'));
 cityInput.addEventListener('click', () => openPopup('city'));
 venueInput.addEventListener('click', () => openPopup('venue'));
-showInput.addEventListener('click', () => openPopup('show'));
 closeBtn.addEventListener('click', closePopup);
 overlay.addEventListener('click', closePopup);
 searchInput.addEventListener('input', handleSearch);
 form.addEventListener('submit', validateForm);
 
-// Functions
 async function openPopup(field) {
     activeField = field;
     popup.style.display = 'block';
@@ -179,11 +101,6 @@ async function openPopup(field) {
     
     // Set appropriate title and suggestions based on field
     switch(field) {
-        case 'artist':
-            popupTitle.textContent = 'Select Artist';
-            searchInput.placeholder = 'Search artists...';
-            currentSuggestions = arrayArtis;
-            break;
         case 'country':
             popupTitle.textContent = 'Select Country';
             searchInput.placeholder = 'Search countries...';
@@ -209,16 +126,6 @@ async function openPopup(field) {
             searchInput.placeholder = 'Search venues...';
             currentSuggestions = arrayLokasi;
             break;
-        case 'show':
-            if (!selectedCountry || !selectedCity || !selectedLocation) {
-                alert('Please select both country, city, and location first');
-                closePopup();
-                return;
-            }
-            popupTitle.textContent = 'Select Venue';
-            searchInput.placeholder = 'Search venues...';
-            currentSuggestions = arrayShow;
-            break;
     }
     
     updateSuggestionsList(currentSuggestions);
@@ -230,9 +137,6 @@ function handleSearch(e) {
     let searchList;
     
     switch(activeField) {
-        case 'artist':
-            searchList = arrayArtis;
-            break;
         case 'country':
             searchList = arrayNegara;
             break;
@@ -242,23 +146,12 @@ function handleSearch(e) {
         case 'venue':
             searchList = arrayLokasi;
             break;
-        case 'show':
-            searchList = arrayShow;
-            break;
     }
     
     currentSuggestions = searchList.filter(item => 
         item.toLowerCase().includes(searchTerm)
     );
 
-    //kalo hasil search ga ada addnya tambahin
-    if (activeField === 'artist' && !currentSuggestions.includes('Add New Artist')) {
-        currentSuggestions.push('Add New Artist');
-    }
-
-    if (activeField === 'show' && !currentSuggestions.includes('Add New Concert')) {
-        currentSuggestions.push('Add New Concert');
-    }
     
     updateSuggestionsList(currentSuggestions);
 }
@@ -269,18 +162,8 @@ function updateSuggestionsList(suggestions) {
     suggestions.forEach(suggestion => {
         const li = document.createElement('li');
         li.textContent = suggestion;
-        if (suggestion === 'Add New Artist') {
-            li.id = "add";      
-        }else if (suggestion == 'Add New Concert') {
-            li.id = "add";}
         li.addEventListener('click', () => {
-            if (suggestion === 'Add New Artist') {
-                window.location.href = '/addArtist';         
-            }else if (suggestion == 'Add New Concert') {
-                window.location.href = '/addConcert';
-            } else {
-                selectSuggestion(suggestion);
-            }
+            selectSuggestion(suggestion);
         });
         suggestionsList.appendChild(li);
     });
@@ -288,9 +171,6 @@ function updateSuggestionsList(suggestions) {
 
 function selectSuggestion(value) {
     switch(activeField) {
-        case 'artist':
-            artistInput.value = value;
-            break;
         case 'country':
             countryInput.value = value;
             selectedCountry = value;
@@ -299,7 +179,6 @@ function selectSuggestion(value) {
             venueInput.value = '';
             selectedCity = '';
             selectedLocation = ''; // Reset location
-            showInput.value = ''; // Reset show
             console.log("Country selected");
             fetchKota(selectedCountry);
             break;
@@ -309,21 +188,11 @@ function selectSuggestion(value) {
             // Reset venue
             venueInput.value = '';
             selectedLocation = ''; // Reset location
-            showInput.value = ''; // Reset show
             console.log("City selected");
             fetchLokasi(selectedCity);
             break;
         case 'venue':
             venueInput.value = value;
-            selectedLocation = value;
-            // Reset show
-            showInput.value = '';
-            console.log("Venue selected");
-            fetchShow(selectedLocation);
-            break;
-        case 'show':
-            showInput.value = value;
-            console.log("Show selected: " + value);
             break;
     }
     closePopup();
@@ -335,30 +204,9 @@ function closePopup() {
     activeField = null;
 }
 
-function handleSubmit(e) {
-    e.preventDefault();
-    
-    if (!validateForm()) {
-        return;
-    }
-    
-    const formData = {
-        artist: artistInput.value,
-        country: countryInput.value,
-        city: cityInput.value,
-        venue: venueInput.value,
-        // date: document.getElementById('date').value,
-        // time: document.getElementById('time').value
-    };
-    
-    console.log('Form submitted:', formData);
-    // Add your API call or data processing logic here
-}
-
 function validateForm() {
-    console.log(artistInput.value);
-    if (!artistInput.value) {
-        alert('Please select an artist');
+    if (!document.getElementById('concert-name').value) {
+        alert('Please insert the concert name');
         return false;
     }
     if (!countryInput.value) {
@@ -373,18 +221,14 @@ function validateForm() {
         alert('Please select a venue');
         return false;
     }
-    if (!showInput.value) {
-        alert('Please select a show');
+    if (!document.getElementById('date').value) {
+        alert('Please select a start date');
         return false;
     }
-    // if (!document.getElementById('date').value) {
-    //     alert('Please select a date');
-    //     return false;
-    // }
-    // if (!document.getElementById('time').value) {
-    //     alert('Please select a time');
-    //     return false;
-    // }
+    if (!document.getElementById('enddate').value) {
+        alert('Please select an end date');
+        return false;
+    }
     // let timeStart = document.querySelector("input[name='timeStart']").value;
     // let timeEnd = document.querySelector("input[name='timeEnd']").value;
     // console.log(timeStart);

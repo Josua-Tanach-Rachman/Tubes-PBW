@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Show</title>
     <link rel="stylesheet" th:href="@{/css/addsetlist.css}">
-    <script th:src="@{/js/addsetlist.js}" defer></script>
+    <script th:src="@{/js/addshow.js}" defer></script>
 </head>
 <header>
     <div class="kotak_ungu"></div>
@@ -30,12 +30,12 @@
 </header>
 <body>
     <div class="addsetlist-container">
-        <h1>Add New Show</h1>
-        <h3>Enter details of the new show</h3>
-        <form id="setlistForm" class="setlist-form" action="/testsetlist" method="POST">
+        <h1>Add New Concert</h1>
+        <h3>Enter details of the new concert</h3>
+        <form id="setlistForm" class="setlist-form" action="/addConcert" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="show-name">Show Name:</label>
-                <input type="text" id="show-name" name="show-name" placeholder="Enter the show name" required>
+                <label for="concert-name">Concert Name:</label>
+                <input type="text" id="concert-name" name="concert-name" placeholder="Enter the concert name" required>
             </div>
 
             <div class="form-group">
@@ -49,6 +49,11 @@
             </div>  
 
             <div class="form-group">
+                <label for="venue">Location:</label>
+                <input type="text" id="venue" name="venue" readonly placeholder="Click to select location" required>
+            </div>
+
+            <div class="form-group">
                 <label for="date">Start Date:</label>
                 <input type="date" id="date" name="date" required>
             </div>
@@ -59,7 +64,7 @@
             </div>
             
             <div class="form-group">
-                <button type="submit">Add Show</button>
+                <button type="submit">Add Concert</button>
             </div>
         </form>
     </div>

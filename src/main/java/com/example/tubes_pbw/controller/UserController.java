@@ -171,7 +171,7 @@ public class UserController {
         return "addsong";
     }
 
-    @GetMapping("/addShow")
+    @GetMapping("/addConcert")
     public String addShow(User user){
         return "addShow";
     }

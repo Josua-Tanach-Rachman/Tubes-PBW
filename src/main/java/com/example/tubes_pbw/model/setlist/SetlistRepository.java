@@ -9,6 +9,6 @@ public interface SetlistRepository {
     Optional<Setlist> findByIdSetlist(int idSetlist);
     Iterable<Setlist> findByNamaSetlist(String namaSetlist);
     Iterable<Setlist> findByShow(int idShow);
-    int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti);
+    int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow);
     List<ArtistSetlistLokasiDate> findArtistSetlistLokasiDateByIdArtis(int idArtis);
 }
