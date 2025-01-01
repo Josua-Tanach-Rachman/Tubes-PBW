@@ -1,9 +1,11 @@
 package com.example.tubes_pbw.model.show;
 
+import java.sql.Date;
 import java.util.Optional;
 
 public interface ShowRepository {
     Optional<Show> findByIdShow(int idShow);
     Iterable<Show> findByNamaShow(String namaShow);
-    int save(String namaShow, int idLokasi);
+    Iterable<Show> findByIdLokasi(int idLokasi);
+    int save(String namaShow, int idLokasi, Date beginDate, Date endDate);
 }

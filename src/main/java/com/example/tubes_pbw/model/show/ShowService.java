@@ -3,6 +3,7 @@ package com.example.tubes_pbw.model.show;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.Optional;
 
 @Service
@@ -20,7 +21,11 @@ public class ShowService {
         return jdbcShowRepository.findByNamaShow(namaShow);
     }
 
-    public int saveShow(String namaShow, int idLokasi) {
-        return jdbcShowRepository.save(namaShow, idLokasi);
+    public Iterable<Show> findByIdLokasi(int  idLokasi) {
+        return jdbcShowRepository.findByIdLokasi(idLokasi);
+    }
+
+    public int saveShow(String namaShow, int idLokasi, Date beginDate, Date endDate) {
+        return jdbcShowRepository.save(namaShow, idLokasi, beginDate, endDate);
     }
 }

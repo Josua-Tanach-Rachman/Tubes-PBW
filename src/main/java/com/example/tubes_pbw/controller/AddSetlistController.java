@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,6 +30,8 @@ import com.example.tubes_pbw.model.lokasi.LokasiService;
 import com.example.tubes_pbw.model.negara.Negara;
 import com.example.tubes_pbw.model.negara.NegaraService;
 import com.example.tubes_pbw.model.setlist.SetlistService;
+import com.example.tubes_pbw.model.show.Show;
+import com.example.tubes_pbw.model.show.ShowService;
 import com.example.tubes_pbw.model.user.User;
 
 @Controller
@@ -51,6 +54,11 @@ public class AddSetlistController {
 
     @Autowired
     LokasiService lokasiService;
+
+    @Autowired
+    ShowService showService;
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     
     @GetMapping("/add/setlist/artist")
     @ResponseBody
@@ -82,12 +90,22 @@ public class AddSetlistController {
         return lokasiService.findByIdKota(kota.getIdKota());
     }
 
+    @GetMapping("/add/setlist/show")
+    @ResponseBody
+    public Iterable<Show> getAllConcertInCity(@RequestParam("namaLokasi") String namaLokasi) {
+        Iterable<Lokasi> listLokasi = lokasiService.findByFilterNamaLokasi(namaLokasi);
+        Iterator<Lokasi> iterator = listLokasi.iterator();
+        Lokasi lokasi = iterator.hasNext()? iterator.next() : null;
+        return showService.findByIdLokasi(lokasi.getIdLokasi());
+    }
+
     @PostMapping("/addsetlist")
     public String addsetlist(
         @RequestParam("artist-name") String namaArtis,
         @RequestParam("country") String namaNegara,
         @RequestParam("city") String namaKota,
         @RequestParam("venue") String namaLokasi,
+        @RequestParam("show") String namaShow,
         @RequestParam("date") String date,
         @RequestParam("file") MultipartFile file,
         Model model,User user) throws IOException
@@ -96,8 +114,7 @@ public class AddSetlistController {
         String namaImage = (namaArtis + namaLokasi).replaceAll("\\s+", "");
         String path = saveImage("bukti", file,namaImage);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Adjusted for 
-        LocalDate localDate = LocalDate.parse(date, formatter);
+        LocalDate localDate = LocalDate.parse(date, DATE_FORMATTER);
         
         Timestamp timestamp = Timestamp.valueOf(localDate.atStartOfDay());
 
@@ -105,9 +122,48 @@ public class AddSetlistController {
 
         Lokasi lokasi = lokasiService.findByNamaLokasi(namaLokasi).get();
 
-        int idSetlist = setlistService.save(namaSetlist, timestamp, artis.getIdArtis(), lokasi.getIdLokasi(), path);
+        Iterable<Show> listShow = showService.findByNamaShow(namaShow);
+        Iterator<Show> iterator = listShow.iterator();
+        Show show = iterator.hasNext()? iterator.next() : null;
+
+        int idSetlist = setlistService.save(namaSetlist, timestamp, artis.getIdArtis(), lokasi.getIdLokasi(), path,show.getIdShow());
 
         return "redirect:/setlist";
+    }
+
+    @PostMapping("/addArtist")
+    public String addArtistToDb(
+        @RequestParam("artist-name") String namaArtis,
+        @RequestParam("file") MultipartFile file) throws IOException
+    {
+        String namaImage = namaArtis.replaceAll("\\s+", "");
+        String path = saveImage("artis", file,namaImage);
+        artisService.save(namaArtis, path);
+        return "redirect:/addsetlist";
+    }
+
+    @PostMapping("/addConcert")
+    public String addConcertToDb(
+        @RequestParam("concert-name") String namaConcert,
+        @RequestParam("country") String namaNegara,
+        @RequestParam("city") String namaKota,
+        @RequestParam("venue") String namaLokasi,
+        @RequestParam("date") String date,
+        @RequestParam("enddate") String endDate,
+        User user
+    )
+    {
+        LocalDate beginLocalDate = LocalDate.parse(date, DATE_FORMATTER);
+        LocalDate endLocalDate = LocalDate.parse(endDate, DATE_FORMATTER);
+
+        Date sqlBeginDate = Date.valueOf(beginLocalDate);
+        Date sqlEndDate = Date.valueOf(endLocalDate);
+
+        Lokasi lokasi = lokasiService.findByNamaLokasi(namaLokasi).get();
+
+        int idShow = showService.saveShow(namaConcert, lokasi.getIdLokasi(), sqlBeginDate, sqlEndDate);
+        
+        return "redirect:/addsetlist";
     }
 
     public String saveImage(String subDir, MultipartFile file, String namaImage) throws IOException {

@@ -36,11 +36,11 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
 
     @Override
-    public int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti) {
-        String sql = "INSERT INTO setlist (namasetlist, tanggal, idartis, idlokasi, urlbukti) " +
-                    "VALUES (?, ?, ?, ?, ?) RETURNING idsetlist";
+    public int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow) {
+        String sql = "INSERT INTO setlist (namasetlist, tanggal, idartis, idlokasi, urlbukti, idShow) " +
+                    "VALUES (?, ?, ?, ?, ?, ?) RETURNING idsetlist";
         
-        int idSetlist = jdbcTemplate.queryForObject(sql, Integer.class, namaSetlist, tanggal, idArtis, idLokasi, urlBukti);
+        int idSetlist = jdbcTemplate.queryForObject(sql, Integer.class, namaSetlist, tanggal, idArtis, idLokasi, urlBukti,idShow);
         
         return idSetlist;
     }
