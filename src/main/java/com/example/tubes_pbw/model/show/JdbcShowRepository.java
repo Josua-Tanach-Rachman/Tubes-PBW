@@ -40,6 +40,39 @@ public class JdbcShowRepository implements ShowRepository{
         int idShow = jdbcTemplate.queryForObject(sql, Integer.class, namaShow, idLokasi, beginDate, endDate);
         return idShow;
     }
+    
+    @Override
+    public Iterable<ShowJumlahPengguna> findShowByFilterNamaWithOffsetReturnWithCount(String namaShow, int limit, int offset) {
+        String sql = "SELECT sh.idShow, sh.namaShow, COUNT(ps.email) as jumlahPengguna\n" + //
+                        "FROM Show sh\n" + //
+                        "LEFT JOIN Setlist s ON s.idShow = sh.idShow\n" + //
+                        "LEFT JOIN Pengguna_setlist ps ON s.idSetlist = ps.idSetlist\n" + //
+                        "WHERE sh.namaShow ILIKE ?\n" + //
+                        "GROUP BY sh.idShow, sh.namaShow\n" + //
+                        "ORDER BY jumlahPengguna DESC \n" + //
+                        "LIMIT ? OFFSET ?;\n";
+        return jdbcTemplate.query(sql, this::mapRowToShowJumlahPengguna, "%" + namaShow + "%", limit, offset);
+    }
+    
+    @Override
+    public long countByFilterNamaShow(String namaShow) {
+        String sql = "SELECT COUNT(idShow) FROM Show WHERE namaShow ILIKE ?";
+        return jdbcTemplate.queryForObject(sql, Long.class, "%" + namaShow + "%");
+    }
+
+    @Override
+    public long maxSetlistCountForEachShow() {
+        String sql = "SELECT MAX(jumlahPengguna) " +
+                    "FROM ( " +
+                        "SELECT sh.idShow, sh.namaShow, COUNT(ps.email) as jumlahPengguna\n" + //
+                        "FROM Show sh\n" + //
+                        "LEFT JOIN Setlist s ON s.idShow = sh.idShow\n" + //
+                        "LEFT JOIN Pengguna_setlist ps ON s.idSetlist = ps.idSetlist\n" + //
+                        "GROUP BY sh.idShow, sh.namaShow\n" +
+                        "ORDER BY jumlahPengguna DESC \n" + //
+                    ") AS artistSetlists";
+        return jdbcTemplate.queryForObject(sql, Long.class);
+    }
 
     private Show mapRowToShow(ResultSet resultSet, int rowNum) throws SQLException {
         return new Show(
@@ -48,6 +81,14 @@ public class JdbcShowRepository implements ShowRepository{
             resultSet.getInt("idLokasi"),
             resultSet.getDate("beginDate"),
             resultSet.getDate("endDate")
+        );
+    }
+
+    private ShowJumlahPengguna mapRowToShowJumlahPengguna(ResultSet resultSet, int rowNum) throws SQLException {
+        return new ShowJumlahPengguna(
+            resultSet.getInt("idShow"),
+            resultSet.getString("namaShow"),
+            resultSet.getInt("jumlahPengguna")
         );
     }
 }
