@@ -38,17 +38,6 @@ nav p {
     text-shadow: 3px 3px 5px black;
 }
 
-#setlist a{
-    color: white;
-    font-weight: bold;
-    text-shadow: 0 0 20px whitesmoke;
-}
-p#setlist {
-    background-color: #8100B3;
-    padding-top: 23.5px;
-    padding-bottom: 23.5px;
-}
-
 #logo {
     height: 60px;
     margin-right: 20px;
@@ -78,6 +67,17 @@ a {
     color: white; /* Default link color to white */
 }
 
+#setlist a {
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 0 20px whitesmoke;
+}
+p#setlist {
+    background-color: #8100B3;
+    padding-top: 23.5px;
+    padding-bottom: 23.5px;
+}
+
 .artist-setlists {
     margin: 50px auto;
     background: #1E1E1E; /* Match navbar's dark theme */
@@ -91,8 +91,8 @@ a {
 
 .artist-setlists h1 {
     font-size: 24px;
-    color: #8100B3; /* Highlight headings in purple */
-    margin-bottom: 10px;
+    color: white; /* Highlight headings in purple */
+    margin-bottom: 30px;
 }
 
 .artist-setlists h3 {
@@ -119,10 +119,11 @@ a {
 }
 
 .artist-list li a {
-    color: #8100B3; /* Purple for artist names */
+    color: white; /* Purple for artist names */
     text-decoration: none;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 20px;
+    width: 200px;
 }
 
 .artist-list li a:hover {
@@ -138,7 +139,7 @@ a {
 
 .popularity-bar {
     flex: 1;
-    height: 8px;
+    height: 10px;
     background: #333; /* Dark bar */
     border-radius: 5px;
     margin: 0 15px;
@@ -152,9 +153,12 @@ a {
 }
 
 .popularity-count {
-    color: #8100B3; /* Purple numbers for emphasis */
-    font-size: 14px;
+    color: white;
+    font-size: 20px;
     font-weight: bold;
+    width: 100px;
+    text-align: right;
+    padding-right: 10px;
 }
 
 .last-updated {
@@ -183,7 +187,7 @@ a {
 
 .column h2 {
     font-size: 20px;
-    color: #8100B3; /* Purple heading */
+    color: white; /* Purple heading */
     margin-bottom: 20px;
     border-bottom: 1px solid #8100B3; /* Purple divider */
     padding-bottom: 10px;
@@ -201,7 +205,7 @@ a {
 
 .column ul li a {
     text-decoration: none;
-    color: #8100B3; /* Purple links */
+    color: white; /* Purple links */
     font-weight: bold;
 }
 
