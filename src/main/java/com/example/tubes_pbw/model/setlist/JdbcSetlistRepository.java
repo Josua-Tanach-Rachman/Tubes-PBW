@@ -68,6 +68,39 @@ public class JdbcSetlistRepository implements SetlistRepository {
         return jdbcTemplate.query(sql, this::mapRowToArtistSetlist, idArtis);
     }
 
+    @Override
+    public long countByFilterNamaSetlist(String namaSetlist) {
+        String sql = "SELECT COUNT(idSetlist) FROM Setlist WHERE namaSetlist ILIKE ?";
+        return jdbcTemplate.queryForObject(sql, Long.class, "%" + namaSetlist + "%");
+    }
+
+    @Override
+    public Iterable<SetlistJumlahPengguna> findSetlistByFilterNamaWithOffsetReturnWithCount(String namaSetlist, int limit, int offset) {
+        String sql = "SELECT s.idSetlist, s.namaSetlist, COUNT(ps.email) as jumlahPengguna\n" + //
+                        "FROM Setlist s\n" + //
+                        "LEFT JOIN Pengguna_setlist ps ON s.idSetlist = ps.idSetlist\n" + //
+                        "LEFT JOIN Show sh ON s.idShow = sh.idShow\n" + //
+                        "WHERE s.namaSetlist ILIKE ?\n" + //
+                        "GROUP BY s.idSetlist, s.namaSetlist\n" + //
+                        "ORDER BY jumlahPengguna DESC \n" + //
+                        "LIMIT ? OFFSET ?;\n";
+        return jdbcTemplate.query(sql, this::mapRowToSetlistJumlahPengguna, "%" + namaSetlist + "%", limit, offset);
+    }
+
+    @Override
+    public long maxSetlistCountForEachSetlist() {
+        String sql = "SELECT MAX(jumlahPengguna) " +
+                    "FROM ( " +
+                        "SELECT s.idSetlist, s.namaSetlist, COUNT(ps.email) as jumlahPengguna\n" + //
+                        "FROM Setlist s\n" + //
+                        "LEFT JOIN Pengguna_setlist ps ON s.idSetlist = ps.idSetlist\n" + //
+                        "LEFT JOIN Show sh ON s.idShow = sh.idShow\n" + //
+                        "GROUP BY s.idSetlist, s.namaSetlist\n" +
+                        "ORDER BY jumlahPengguna DESC \n" + //
+                    ") AS artistSetlists";
+        return jdbcTemplate.queryForObject(sql, Long.class);
+    }
+
     private Setlist mapRowToSetlist(ResultSet resultSet, int rowNum) throws SQLException {
         return new Setlist(
             resultSet.getInt("idSetlist"),
@@ -88,6 +121,14 @@ public class JdbcSetlistRepository implements SetlistRepository {
             resultSet.getString("namaArtis"),
             resultSet.getString("namaLokasiConcert"),
             resultSet.getTimestamp("tanggal").toLocalDateTime()
+        );
+    }
+
+    private SetlistJumlahPengguna mapRowToSetlistJumlahPengguna(ResultSet resultSet, int rowNum) throws SQLException {
+        return new SetlistJumlahPengguna(
+            resultSet.getInt("idSetlist"),
+            resultSet.getString("namaSetlist"),
+            resultSet.getInt("jumlahPengguna")
         );
     }
 }
