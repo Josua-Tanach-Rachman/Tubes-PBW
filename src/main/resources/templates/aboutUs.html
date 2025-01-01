@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FaveList | Artist</title>
-    <link rel="stylesheet" th:href="@{/css/artist.css}">
-    <script th:src="@{/js/pagination.js}" defer></script>
+    <title>FaveList | HomePage</title>
+    <link rel="stylesheet" th:href="@{/css/homePage.css}">
+    <script th:src="@{/js/slideShow.js}" defer></script>
     <link rel="icon" href="assets/icon.png" type="image/png">
 </head>
 <header>
@@ -26,40 +25,23 @@
             </form>
             <form action="/login" method="GET" th:if="${!isUserLoggedIn}">
                 <button type="submit" class="button login">LOG IN</button>
-            </form>
+            </form>       
         </div>
     </nav>
 </header>
-
 <body>
     <div class="search-container">
         <img src="assets/background_search_main.png" alt="" class="background-search">
         <div class="blackBox"></div>
         <div class="search_bar">
-            <form action="/artist" method="get">
-                <h1 id="slogan">Discover Your Favorite Artist</h1>
-                <input type="text" placeholder="Search for Artists..." th:value="${filter}" name="filter">
-                <input type="hidden" name="page" th:value="1">
+            <form action="/search" method="GET">
+                <h1 id="slogan">Discover Your Favourite...</h1>
+                <input name="filter" type="text" placeholder="Search for artist, song, album, concert, ...">
             </form>
             <div>
                 <img src="assets/search.png" alt="" class="icon_search">
             </div>
         </div>
     </div>
-    <div class="artist-setlists">
-        <h1>Artist Setlists</h1>
-        <h3>Top artists by setlists</h3>
-        <ul class="artist-list" th:each="artis : ${listArtis}">
-            <li>
-                <a th:href="@{/artist/{namaArtis}-{idArtis}(namaArtis=${#strings.replace(artis.namaArtis, ' ', '-')}, idArtis=${artis.idArtis})}" th:text="${artis.namaArtis}"></a>
-                <div class="popularity-bar">
-                    <div class="filled-bar" th:style="'width: ' + ${(max != 0 ? (artis.jumlahSetlist * 100.0 / max) : 0) + '%'}"></div>
-                </div>
-                <span class="popularity-count" th:text="${artis.jumlahSetlist} + ' users'"></span>
-            </li>
-        </ul>
-        <th:block th:include="~{/pagination :: pagination}"></th:block>
-    </div>
 </body>
-
 </html>

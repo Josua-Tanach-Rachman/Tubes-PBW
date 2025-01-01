@@ -97,7 +97,7 @@ button {
     background-color: black;
     z-index: 1;
     position: absolute;
-    opacity: 25%;
+    opacity: 30%;
 }
 .search_bar {
     position: absolute;
@@ -147,6 +147,7 @@ h3 {
     margin: 20px;
     display: flex;
     justify-content: space-evenly;
+    margin-bottom: 70px;
 }
 .gambar-album img{
     width: 120px;
@@ -292,4 +293,17 @@ button.prev-btn2, button.next-btn2 {
 .carousel-item:hover img {
     height: 250px;
     width: 230px;
+}
+
+/* FOOTER */
+.footer-container{
+    width: 100%;
+    height: 100px;
+    background-color: #8100B3;
+    color: white;
+    display: flex;
+}
+.footer-container a{
+    text-decoration: underline;
+    font-size: 20px;
 }
