@@ -92,8 +92,8 @@ p#concert {
 
 .concert-setlists h1 {
     font-size: 24px;
-    color: #8100B3; /* Highlight headings in purple */
-    margin-bottom: 10px;
+    color: white; /* Highlight headings in purple */
+    margin-bottom: 30px;
 }
 
 .concert-setlists h3 {
@@ -120,10 +120,11 @@ p#concert {
 }
 
 .concert-list li a {
-    color: #8100B3; /* Purple for artist names */
+    color: white; /* Purple for artist names */
     text-decoration: none;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 20px;
+    width: 200px;
 }
 
 .concert-list li a:hover {
@@ -139,7 +140,7 @@ p#concert {
 
 .popularity-bar {
     flex: 1;
-    height: 8px;
+    height: 10px;
     background: #333; /* Dark bar */
     border-radius: 5px;
     margin: 0 15px;
@@ -153,9 +154,12 @@ p#concert {
 }
 
 .popularity-count {
-    color: #8100B3; /* Purple numbers for emphasis */
-    font-size: 14px;
+    color: white;
+    font-size: 20px;
     font-weight: bold;
+    width: 100px;
+    text-align: right;
+    padding-right: 10px;
 }
 
 .last-updated {
@@ -184,7 +188,7 @@ p#concert {
 
 .column h2 {
     font-size: 20px;
-    color: #8100B3; /* Purple heading */
+    color: white; /* Purple heading */
     margin-bottom: 20px;
     border-bottom: 1px solid #8100B3; /* Purple divider */
     padding-bottom: 10px;
@@ -202,7 +206,7 @@ p#concert {
 
 .column ul li a {
     text-decoration: none;
-    color: #8100B3; /* Purple links */
+    color: white; /* Purple links */
     font-weight: bold;
 }
 
@@ -225,15 +229,17 @@ p#concert {
 /*Search Bar*/
 .search-container{
     width: 100%;
-    height: 120px;
+    height: 200px;
     overflow: hidden;
     display: flex;
     position: relative;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 }
 .search-container img.background-search {
+    height: 500px;
     width: 100%;
+    margin: -40px 0px 0px 0px;
     z-index: 0;
 }
 .search-container .blackBox {
@@ -248,7 +254,6 @@ p#concert {
     position: absolute;
     z-index: 2;
     display: flex;
-    right: 20px;
 }
 input {
     background-color: white;
@@ -256,7 +261,7 @@ input {
     padding-left: 60px;
     border-radius: 30px;
     cursor:text;
-    width: 200px;
+    width: 400px;
 }
 .icon_search {
     position: absolute;
@@ -264,12 +269,109 @@ input {
     width: 20px;
     z-index: 2;
     left: 17px;
-    top: 14px;
+    top: 93px;
 }
 #slogan {
     color: white;
-    margin: 0 auto;
-    left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
+    text-align: center;
+}
+
+
+/*
+---------------------------------
+*/
+.update-form-grid{
+    display: grid;
+    grid-template-columns: 150px 10px 200px;
+    grid-template-rows: 1fr 1fr;
+}
+
+/*
+---------------------------------
+*/
+ul.pagination-container{
+	display: flex;
+	list-style-type: none;
+    align-items: center;
+    justify-content: center;
+    padding-inline-start: 0;
+}
+
+ul.pagination-container a.disabled{
+	pointer-events: none;
+    opacity: 0.5;               
+    /* background: #7D10B7;         */
+    color: white;              
+    cursor: not-allowed;
+}
+
+li a span {
+    width: 30px;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+}
+
+span a {
+	text-decoration: none;
+	border: 2px solid white;
+	background: #7D10B7;
+	color: white;
+	padding: 6px;
+    border-radius: 4px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+span a:hover {
+	color: white;
+	background: #A727EC;
+}
+span a:active {
+	color: white;
+	background: #7D10B7;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+input[type="number" i] {
+    padding-block: 0;
+    padding-inline: 0;
+}
+
+input[type="number"] {
+    width: 0;
+    padding: 6px;
+    font-size: 16px;
+    height: 23px;
+    border: 2px solid white;
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    display: inline-flex;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 20px;
+}
+/* input[type="number"]:focus {
+    border-color: #007BFF; 
+    background-color: #A727EC; 
+} */
+
+div nav {
+    color: white;
+    background-color: #1E1E1E; /* Dark background for the navbar */
+    display: flex;
+    gap: 0;
+    font-size: 20px;
+    padding: 0px;
+    position: relative;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
