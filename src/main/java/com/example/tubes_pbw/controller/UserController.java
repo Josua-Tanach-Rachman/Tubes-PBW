@@ -1,6 +1,7 @@
 package com.example.tubes_pbw.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,11 @@ import com.example.tubes_pbw.model.artis.ArtisSetlistCountDTO;
 import com.example.tubes_pbw.model.user.User;
 import com.example.tubes_pbw.model.user.UserService;
 import com.example.tubes_pbw.model.setlist.ArtistSetlistLokasiDate;
+import com.example.tubes_pbw.model.setlist.Setlist;
+import com.example.tubes_pbw.model.setlist.SetlistDetail;
 import com.example.tubes_pbw.model.setlist.SetlistJumlahPengguna;
 import com.example.tubes_pbw.model.setlist.SetlistService;
+import com.example.tubes_pbw.model.setlist.SetlistSong;
 import com.example.tubes_pbw.model.show.ShowJumlahPengguna;
 import com.example.tubes_pbw.model.show.ShowService;
 
@@ -281,8 +285,19 @@ public class UserController {
         return "addShow";
     }
 
-    @GetMapping("/setlistDetail")
-    public String setlistDetail(){
+    @GetMapping("/setlist/{namaSetlist}-{idSetlist}")
+    public String setlistDetail(@PathVariable String namaSetlist, @PathVariable int idSetlist, Model model, HttpSession session){
+        Optional<Setlist> optionalSetlist = setlistService.findByIdSetlist(idSetlist);
+        if(optionalSetlist.isPresent()){
+            Setlist setlist = optionalSetlist.get();
+            List<ArtistSetlistLokasiDate> generalInfo = setlistService.findArtistSetlistLokasiDateByIdSetlist(setlist.getIdSetlist());
+
+            model.addAttribute("generalInfo", generalInfo.get(0));
+
+            List<SetlistSong> setlistSong = setlistService.findSetlistSongByIdSetlist(setlist.getIdSetlist());
+            model.addAttribute("listLagu", setlistSong);
+            // model.addAttribute("setlistDetail", setlistDetail);
+        }
         return "setlistDetail";
     }
 

@@ -13,4 +13,9 @@ public interface SetlistRepository {
     Iterable<SetlistJumlahPengguna> findSetlistByFilterNamaWithOffsetReturnWithCount(String namaSetlist,int limit, int offset);
     long countByFilterNamaSetlist(String namaSetlist);
     long maxSetlistCountForEachSetlist();
+
+    List<ArtistSetlistLokasiDate> findArtistSetlistLokasiDateByIdSetlist(int idSetlist);
+    Iterable<SetlistDetail> findSetlistDetailByIdSetlist(int idSetlist);
+
+    List<SetlistSong> findSetlistSongByIdSetlist(int idSetlist);
 }
