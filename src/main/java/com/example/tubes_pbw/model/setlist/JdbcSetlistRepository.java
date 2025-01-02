@@ -101,6 +101,64 @@ public class JdbcSetlistRepository implements SetlistRepository {
         return jdbcTemplate.queryForObject(sql, Long.class);
     }
 
+    @Override
+    public List<ArtistSetlistLokasiDate> findArtistSetlistLokasiDateByIdSetlist(int idSetlist){
+        String sql = """
+            SELECT 
+                s.idSetlist,
+                a.idArtis,
+                l.idLokasi,
+                a.namaArtis,
+                l.namaLokasi AS namaLokasiConcert,
+                s.tanggal
+            FROM 
+                Setlist s
+            JOIN 
+                Artis a ON s.idArtis = a.idArtis
+            JOIN 
+                Lokasi l ON s.idLokasi = l.idLokasi
+            WHERE 
+                s.idSetlist = ?
+        """;
+    
+        return jdbcTemplate.query(sql, this::mapRowToArtistSetlist, idSetlist);
+    }
+
+    @Override
+    public Iterable<SetlistDetail> findSetlistDetailByIdSetlist(int idSetlist){
+        String sql = "SELECT \n" + //
+                        "\ts.idSetlist,\n" + //
+                        "    a.idArtis, \n" + //
+                        "    a.namaArtis, \n" + //
+                        "    l.idLokasi, \n" + //
+                        "    l.namaLokasi, \n" + //
+                        "    s.tanggal, \n" + //
+                        "    p.email, \n" + //
+                        "    p.nama AS namaPembuat, \n" + //
+                        "    sl.idLagu, \n" + //
+                        "    lg.namaLagu, \n" + //
+                        "    sl.trackNumber\n" + //
+                        "FROM Setlist s\n" + //
+                        "JOIN Artis a ON s.idArtis = a.idArtis\n" + //
+                        "JOIN Lokasi l ON s.idLokasi = l.idLokasi\n" + //
+                        "JOIN Setlist_lagu sl ON s.idSetlist = sl.idSetlist\n" + //
+                        "JOIN Lagu lg ON sl.idLagu = lg.idLagu\n" + //
+                        "JOIN Pengguna p ON s.email = p.email\n" + //
+                        "WHERE s.idSetlist = ?\n" + //
+                        "ORDER BY tracknumber;";
+        return jdbcTemplate.query(sql, this::mapRowToSetlistDetail,idSetlist);
+    }
+
+    @Override
+    public List<SetlistSong> findSetlistSongByIdSetlist(int idSetlist) {
+        String sql = "SELECT sll.idsetlist,sll.idlagu, sll.tracknumber, l.namalagu \n" + //
+                        "FROM setlistlagu sll\n" + //
+                        "JOIN lagu l ON sll.idlagu = l.idlagu\n" + //
+                        "where sll.idsetlist = ?\n" + //
+                        "order by sll.tracknumber";
+        return jdbcTemplate.query(sql, this::mapRowToSetlistSong,idSetlist);
+    }
+
     private Setlist mapRowToSetlist(ResultSet resultSet, int rowNum) throws SQLException {
         return new Setlist(
             resultSet.getInt("idSetlist"),
@@ -131,4 +189,31 @@ public class JdbcSetlistRepository implements SetlistRepository {
             resultSet.getInt("jumlahPengguna")
         );
     }
+
+    private SetlistDetail mapRowToSetlistDetail(ResultSet resultSet, int rowNum) throws SQLException {
+        return new SetlistDetail(
+            resultSet.getInt("idSetlist"),
+            resultSet.getInt("idArtis"),
+            resultSet.getString("namaArtis"),
+            resultSet.getInt("idLokasi"),
+            resultSet.getString("namaLokasi"),
+            resultSet.getTimestamp("tanggal"),
+            resultSet.getString("email"),
+            resultSet.getString("namaPembuat"),
+            resultSet.getInt("idLagu"),
+            resultSet.getString("namaLagu"),
+            resultSet.getInt("trackNumber")
+        );
+    }
+
+    private SetlistSong mapRowToSetlistSong(ResultSet resultSet, int rowNum) throws SQLException {
+        return new SetlistSong(
+            resultSet.getInt("idSetlist"),
+            resultSet.getInt("idLagu"),
+            resultSet.getInt("trackNumber"),
+            resultSet.getString("namaLagu")
+        );
+    }
+    
+       
 }
