@@ -313,4 +313,9 @@ public class UserController {
         }
         return "songDetail";
     }
+
+    @GetMapping("/editSetlist")
+    public String editSetlist(Model model, HttpSession session){
+        return "editSetlist";
+    }
 }

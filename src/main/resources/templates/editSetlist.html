@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Artist Name</title>
+  <link rel="stylesheet" th:href="@{/css/editSetlist.css}">
+  <link rel="icon" href="assets/icon.png" type="image/png">
+</head>
+<header>
+  <div class="kotak_ungu"></div>
+  <nav>
+    <img src="assets/logo5.png" alt="logo image" id="logo">
+    <P id="home"><a th:href="@{/}">HOME</a></P>
+    <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
+    <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
+    <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
+    <P id="song"><a th:href="@{/song}">SONG</a></P>
+
+    <div class="button-container">
+      <button type="submit" class="button setlist"><a th:href="@{/addsetlist}">+SET LIST</a></button>
+<!--      <form action="/logout" method="GET" th:if="${isUserLoggedIn}">-->
+<!--        <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>-->
+<!--      </form>-->
+<!--      <form action="/login" method="GET" th:if="${!isUserLoggedIn}">-->
+<!--        <button type="submit" class="button login">LOG IN</button>-->
+<!--      </form>-->
+    </div>
+  </nav>
+</header>
+<body>
+<div class="content-wrapper">
+  <div class="artist-setlists">
+    <div class="setlist-content">
+      <h2>Edit Setlist- Songs</h2>
+      <ol class="artist-list">
+        <li>
+          <div class="list-item">
+            <a href="#">Songs A</a>
+            <div class="actions">
+              <img src="assets/edit.png" alt="edit-icon" class="icon">
+              <a href="#" class="edit-song">Edit this song</a>
+              <img src="assets/delete.png" alt="remove-icon" class="icon">
+              <a href="#" class="remove-song">Remove this song</a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="list-item">
+            <a href="#">Songs A</a>
+            <div class="actions">
+              <img src="assets/edit.png" alt="edit-icon" class="icon">
+              <a href="#" class="edit-song">Edit this song</a>
+              <img src="assets/delete.png" alt="remove-icon" class="icon">
+              <a href="#" class="remove-song">Remove this song</a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="list-item">
+            <a href="#">Songs A</a>
+            <div class="actions">
+              <img src="assets/edit.png" alt="edit-icon" class="icon">
+              <a href="#" class="edit-song">Edit this song</a>
+              <img src="assets/delete.png" alt="remove-icon" class="icon">
+              <a href="#" class="remove-song">Remove this song</a>
+            </div>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+<!--    <input type="text" name="add-song" id="add-song-text" placeholder="Add a new song"  >-->
+    <select name="add-song" id="add-song">
+      <option value="" disabled selected>Select a Song</option>
+      <option value="">Song A</option>
+      <option value="">Song B</option>
+      <option value="">Song C</option>
+
+    </select>
+    <button class="button add-song" type="button">+ ADD SONG</button>
+  </div>
+  <button class="button submit-button" type="submit">SUBMIT CHANGES</button>
+</div>
+</body>
+</html>
