@@ -52,6 +52,36 @@ public class JdbcLaguRepository implements LaguRepository {
         return jdbcTemplate.query(sql, this::mapRowToLagu);
     }
 
+    @Override
+    public Iterable<LaguJumlahSetlist> findLaguWithLimitOffset(String namaLagu, int limit, int offset) {
+        String sql = "SELECT l.idLagu, l.namaLagu, COUNT(sl.idSetlist) as jumlahSetlist\n" + //
+                        "FROM Lagu l\n" + //
+                        "LEFT JOIN setlistlagu sl ON l.idLagu = sl.idLagu\n" + //
+                        "WHERE l.namaLagu ILIKE ?\n" + //
+                        "GROUP BY l.idLagu, l.namaLagu\n" + //
+                        "ORDER BY jumlahSetlist DESC \n" + //
+                        "LIMIT ? OFFSET ?;\n";
+        return jdbcTemplate.query(sql, this::mapRowToLaguJumlahSetlist, "%" + namaLagu + "%", limit, offset);
+    }
+    
+    @Override
+    public long countByFilterNamaLagu(String namaLagu) {
+        String sql = "SELECT COUNT(idLagu) FROM Lagu WHERE namaLagu ILIKE ?";
+        return jdbcTemplate.queryForObject(sql, Long.class, "%" + namaLagu + "%");
+    }
+
+    @Override
+    public long maxSetlistCountForEachLagu() {
+        String sql = "SELECT MAX(jumlahSetlist) " +
+                    "FROM ( " +
+                        "SELECT l.idLagu, l.namaLagu, COUNT(sl.idSetlist) as jumlahSetlist\n" + //
+                        "FROM Lagu l\n" + //
+                        "LEFT JOIN Setlistlagu sl ON l.idLagu = sl.idLagu\n" + //
+                        "GROUP BY l.idLagu, l.namaLagu\n" +
+                        "ORDER BY jumlahSetlist DESC \n" + //
+                    ") AS artistSetlists";
+        return jdbcTemplate.queryForObject(sql, Long.class);
+    }
 
     private Lagu mapRowToLagu(ResultSet resultSet, int rowNum) throws SQLException {
         return new Lagu(
@@ -59,7 +89,16 @@ public class JdbcLaguRepository implements LaguRepository {
             resultSet.getInt("idAlbum"),
             resultSet.getString("namaLagu"),
             resultSet.getInt("duration"),
+            resultSet.getInt("idArtis"),
             resultSet.getString("urlGambarLagu")
+        );
+    }
+
+    private LaguJumlahSetlist mapRowToLaguJumlahSetlist(ResultSet resultSet, int rowNum) throws SQLException {
+        return new LaguJumlahSetlist(
+            resultSet.getInt("idLagu"),
+            resultSet.getString("namaLagu"),
+            resultSet.getInt("jumlahSetlist")
         );
     }
 }

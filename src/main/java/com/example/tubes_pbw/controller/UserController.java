@@ -16,6 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.tubes_pbw.model.artis.Artis;
 import com.example.tubes_pbw.model.artis.ArtisService;
 import com.example.tubes_pbw.model.artis.ArtisSetlistCountDTO;
+import com.example.tubes_pbw.model.lagu.LaguJumlahSetlist;
+import com.example.tubes_pbw.model.lagu.LaguService;
 import com.example.tubes_pbw.model.user.User;
 import com.example.tubes_pbw.model.user.UserService;
 import com.example.tubes_pbw.model.setlist.ArtistSetlistLokasiDate;
@@ -43,6 +45,9 @@ public class UserController {
     
     @Autowired
     private ShowService showService;
+
+    @Autowired
+    private LaguService laguService;
 
     @GetMapping("/login")
     public String loginView(HttpSession session) {
@@ -308,6 +313,21 @@ public class UserController {
         Model model,
         HttpSession session)
     {
+        int curPage = Integer.parseInt(page);
+        
+        long count = laguService.countByFilterNamaLagu(filter);
+
+        long max = laguService.maxSetlistCountForEachLagu();
+
+        Iterable<LaguJumlahSetlist> res = laguService.findLaguWithLimitOffset(filter,10, (curPage-1)*10);
+        
+        model.addAttribute("filter",filter);
+        model.addAttribute("listLagu", res);
+        model.addAttribute("max", max);
+        model.addAttribute("kategori", "song");
+        model.addAttribute("pageCount",(int)Math.ceil((double)count/10));
+        model.addAttribute("currentPage",curPage);
+
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);
         }

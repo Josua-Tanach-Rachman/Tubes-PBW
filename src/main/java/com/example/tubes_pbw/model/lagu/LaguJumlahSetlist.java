@@ -6,16 +6,13 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Lagu {
-    private int idLagu;
-    
+public class LaguJumlahSetlist {
     @NotBlank
-    private int idAlbum;
-    
+    int idLagu;
+
     @NotBlank
-    private String namaLagu;
-    
-    private int duration;
-    private int idArtis;
-    private String urlGambarLagu;
+    String namaLagu;
+
+    @NotBlank
+    int jumlahSetlist;
 }
