@@ -282,7 +282,13 @@ public class UserController {
     }
 
     @GetMapping("/setlistDetail")
-    public String setlistDetail(){
+    public String setlistDetail(Model model, HttpSession session){
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
         return "setlistDetail";
     }
 
@@ -316,6 +322,12 @@ public class UserController {
 
     @GetMapping("/editSetlist")
     public String editSetlist(Model model, HttpSession session){
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
         return "editSetlist";
     }
 }
