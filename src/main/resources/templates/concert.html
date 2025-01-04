@@ -54,7 +54,7 @@
         <h3>Top concert by concertgoers</h3>
         <ul class="artist-list" th:each="show : ${listShow}">
             <li>
-                <a th:href="@{/show/{namaShow}-{idShow}(namaShow=${#strings.replace(show.namaShow, ' ', '-')}, idShow=${show.idShow})}" th:text="${show.namaShow}"></a>
+                <a th:href="@{/concert/{namaShow}-{idShow}(namaShow=${#strings.replace(show.namaShow, ' ', '-')}, idShow=${show.idShow})}" th:text="${show.namaShow}"></a>
                 <div class="popularity-bar">
                     <div class="filled-bar" th:style="'width: ' + ${(max != 0 ? (show.jumlahPengguna * 100.0 / max) : 0) + '%'}"></div>
                 </div>

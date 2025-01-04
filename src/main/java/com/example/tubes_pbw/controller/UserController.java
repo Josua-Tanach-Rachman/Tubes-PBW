@@ -16,6 +16,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.tubes_pbw.model.artis.Artis;
 import com.example.tubes_pbw.model.artis.ArtisService;
 import com.example.tubes_pbw.model.artis.ArtisSetlistCountDTO;
+import com.example.tubes_pbw.model.lagu.Lagu;
+import com.example.tubes_pbw.model.lagu.LaguArtisAlbum;
+import com.example.tubes_pbw.model.lagu.LaguJumlahSetlist;
+import com.example.tubes_pbw.model.lagu.LaguService;
+import com.example.tubes_pbw.model.lagu.LaguTanggalShow;
 import com.example.tubes_pbw.model.user.User;
 import com.example.tubes_pbw.model.user.UserService;
 import com.example.tubes_pbw.model.setlist.ArtistSetlistLokasiDate;
@@ -43,6 +48,9 @@ public class UserController {
     
     @Autowired
     private ShowService showService;
+
+    @Autowired
+    private LaguService laguService;
 
     @GetMapping("/login")
     public String loginView(HttpSession session) {
@@ -308,6 +316,21 @@ public class UserController {
         Model model,
         HttpSession session)
     {
+        int curPage = Integer.parseInt(page);
+        
+        long count = laguService.countByFilterNamaLagu(filter);
+
+        long max = laguService.maxSetlistCountForEachLagu();
+
+        Iterable<LaguJumlahSetlist> res = laguService.findLaguWithLimitOffset(filter,10, (curPage-1)*10);
+        
+        model.addAttribute("filter",filter);
+        model.addAttribute("listLagu", res);
+        model.addAttribute("max", max);
+        model.addAttribute("kategori", "song");
+        model.addAttribute("pageCount",(int)Math.ceil((double)count/10));
+        model.addAttribute("currentPage",curPage);
+
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);
         }
@@ -317,9 +340,31 @@ public class UserController {
         return "songPage";
     }
 
-    @GetMapping("/songDetail")
-    public String songDetail(Model model,
-    HttpSession session){
+    @GetMapping("/song/{namaSong}-{idSong}")
+    public String songDetail(@PathVariable("namaSong") String namaLagu, @PathVariable("idSong") int idLagu,
+        Model model,HttpSession session)
+    {
+        Optional<Lagu> LaguList = laguService.findByIdLagu(idLagu);
+        Lagu Lagu = LaguList.get();
+        model.addAttribute("Lagu", Lagu);
+
+        List<LaguJumlahSetlist> laguSetlist = laguService.findLaguWithLimitOffset(Lagu.getNamaLagu(), 5, 0);
+        model.addAttribute("jumlahDimainkan", laguSetlist.get(0));
+
+        LaguArtisAlbum laguArtisAlbum = laguService.findLaguArtisAlbum(idLagu);
+        model.addAttribute("laguArtisAlbum", laguArtisAlbum);
+        
+        List<LaguTanggalShow> tanggalShow = laguService.findTanggalShow(Lagu.getIdLagu());
+        if(tanggalShow.size()>=1){
+            model.addAttribute("pertama", tanggalShow.get(0));
+            model.addAttribute("terakhir", tanggalShow.get(tanggalShow.size()-1));
+        }
+        else{
+            model.addAttribute("pertama", null);
+            model.addAttribute("terakhir", null);
+        }
+        // List<LaguSetlistLokasiDate> lokasiDates = setlistService.findLokasiDate(idLagu);
+        // model.addAttribute("lokasiDates", lokasiDates);
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);
         }

@@ -37,7 +37,7 @@
         <img src="assets/background_search_main.png" alt="" class="background-search">
         <div class="blackBox"></div>
         <div class="search_bar">
-            <form action="/setlist" method="get">
+            <form action="/song" method="get">
                 <h1 id="slogan">Discover Your Favorite Song</h1>
                 <input type="text" placeholder="Search for Song..." th:value="${filter}" name="filter">
                 <input type="hidden" name="page" th:value="1">
@@ -49,14 +49,14 @@
     </div>
     <div class="artist-setlists">
         <h1>Song</h1>
-        <h3>Top Song by Concertgoers</h3>
-        <ul class="artist-list" th:each="setlist : ${listSetlist}">
+        <h3>Top Song by setlist</h3>
+        <ul class="artist-list" th:each="Lagu : ${listLagu}">
             <li>
-                <a th:href="@{/setlist/{namaSetlist}-{idSetlist}(namaSetlist=${#strings.replace(setlist.namaSetlist, ' ', '-')}, idSetlist=${setlist.idSetlist})}" th:text="${setlist.namaSetlist}"></a>
+                <a th:href="@{/song/{namaLagu}-{idLagu}(namaLagu=${#strings.replace(Lagu.namaLagu, ' ', '-')}, idLagu=${Lagu.idLagu})}" th:text="${Lagu.namaLagu}"></a>
                 <div class="popularity-bar">
-                    <div class="filled-bar" th:style="'width: ' + ${(max != 0 ? (setlist.jumlahPengguna * 100.0 / max) : 0) + '%'}"></div>
+                    <div class="filled-bar" th:style="'width: ' + ${(max != 0 ? (Lagu.jumlahSetlist * 100.0 / max) : 0) + '%'}"></div>
                 </div>
-                <span class="popularity-count" th:text="${setlist.jumlahPengguna} + ' users'"></span>
+                <span class="popularity-count" th:text="${Lagu.jumlahSetlist} + ' setlist'"></span>
             </li>
         </ul>
         <th:block th:include="~{/pagination :: pagination}"></th:block>
