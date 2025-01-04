@@ -10,7 +10,11 @@ public interface LaguRepository {
     int save(int idAlbum, String namaLagu, int duration, String urlGambarLagu);
     List<Lagu> findTopSong();
 
-    Iterable<LaguJumlahSetlist> findLaguWithLimitOffset(String namaLagu,int limit, int offset);
+    List<LaguJumlahSetlist> findLaguWithLimitOffset(String namaLagu,int limit, int offset);
     long countByFilterNamaLagu(String namaLagu);
     long maxSetlistCountForEachLagu();
+
+    List<LaguTanggalShow> findTanggalShow(int idLagu);
+
+    LaguArtisAlbum findLaguArtis(int idLagu);
 }

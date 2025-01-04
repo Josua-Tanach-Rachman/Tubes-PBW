@@ -50,7 +50,7 @@
       <h3 th:text="on + ' ' + ${#temporals.format(generalInfo.tanggal, 'd MMMM yyyy')}"></h3>
       <ol class="artist-list" th:each="lagu : ${listLagu}">
         <li>
-          <a th:href="@{/lagu/{namaLagu}-{idLagu}(namaLagu=${#strings.replace(lagu.namaLagu, ' ', '-')}, idLagu=${lagu.idLagu})}" th:text="${lagu.namaLagu}"></a>
+          <a th:href="@{/song/{namaLagu}-{idLagu}(namaLagu=${#strings.replace(lagu.namaLagu, ' ', '-')}, idLagu=${lagu.idLagu})}" th:text="${lagu.namaLagu}"></a>
         </li>
       </ol>
     </div>
