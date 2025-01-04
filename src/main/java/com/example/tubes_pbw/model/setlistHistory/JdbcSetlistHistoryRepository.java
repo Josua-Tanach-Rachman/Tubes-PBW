@@ -18,16 +18,34 @@ public class JdbcSetlistHistoryRepository implements SetlistHistoryRepository {
         return jdbcTemplate.query(sql, this::mapRowToSetlistHistory);
     }
 
+    @Override
+    public Iterable<SetlistHistoryPengguna> findSetlistHistoryWithPengguna(int idSetlist) {
+        String sql = "SELECT sh.idhistory, p.email, p.username, sh.tanggalDiubah FROM SetlistHistory sh JOIN Pengguna p ON sh.email = p.email WHERE sh.idSetlist = ? ORDER BY tanggalDiubah DESC";
+        return jdbcTemplate.query(sql, this::mapRowToSetlistHistoryPengguna, idSetlist);
+    }
+
     private SetlistHistory mapRowToSetlistHistory(ResultSet resultSet, int rowNum) throws SQLException {
         return new SetlistHistory(
-            resultSet.getInt("idHistory"),         
-            resultSet.getInt("idSetlist"),         
-            resultSet.getString("namaSetlist"),     
-            resultSet.getTimestamp("tanggal").toLocalDateTime(),      
-            resultSet.getString("urlBukti"),        
-            resultSet.getInt("idShow"),             
-            resultSet.getString("action"),          
-            resultSet.getTimestamp("tanggalDiubah").toLocalDateTime()
+            resultSet.getInt("idHistory"),
+            resultSet.getInt("idSetlist"),
+            resultSet.getInt("idArtis"),
+            resultSet.getInt("idLokasi"),
+            resultSet.getString("namaSetlist"),
+            resultSet.getTimestamp("tanggal"),
+            resultSet.getString("urlBukti"),
+            resultSet.getInt("idShow"),
+            resultSet.getString("email"),
+            resultSet.getString("action"),
+            resultSet.getTimestamp("tanggalDiubah")
+        );
+    }
+
+    private SetlistHistoryPengguna mapRowToSetlistHistoryPengguna(ResultSet resultSet, int rowNum) throws SQLException {
+        return new SetlistHistoryPengguna(
+            resultSet.getInt("idHistory"),             // Map idHistory
+            resultSet.getString("email"),              // Map email
+            resultSet.getString("username"),           // Map username
+            resultSet.getTimestamp("tanggalDiubah")    // Map tanggalDiubah (Timestamp)
         );
     }
 }
