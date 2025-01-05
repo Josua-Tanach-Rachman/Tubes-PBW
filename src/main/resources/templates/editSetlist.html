@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Artist Name</title>
   <link rel="stylesheet" th:href="@{/css/editSetlist.css}">
+  <script th:src="@{/js/editSetlist.js}" defer></script>
   <link rel="icon" href="assets/icon.png" type="image/png">
 </head>
 <header>
@@ -44,42 +45,38 @@
             </div>
           </div>
         </li>
-        <li>
-          <div class="list-item">
-            <a href="#">Songs A</a>
-            <div class="actions">
-              <img src="assets/edit.png" alt="edit-icon" class="icon">
-              <a href="#" class="edit-song">Edit this song</a>
-              <img src="assets/delete.png" alt="remove-icon" class="icon">
-              <a href="#" class="remove-song">Remove this song</a>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="list-item">
-            <a href="#">Songs A</a>
-            <div class="actions">
-              <img src="assets/edit.png" alt="edit-icon" class="icon">
-              <a href="#" class="edit-song">Edit this song</a>
-              <img src="assets/delete.png" alt="remove-icon" class="icon">
-              <a href="#" class="remove-song">Remove this song</a>
-            </div>
-          </div>
-        </li>
-
       </ol>
     </div>
-<!--    <input type="text" name="add-song" id="add-song-text" placeholder="Add a new song"  >-->
-    <select name="add-song" id="add-song">
-      <option value="" disabled selected>Select a Song</option>
-      <option value="">Song A</option>
-      <option value="">Song B</option>
-      <option value="">Song C</option>
-
-    </select>
-    <button class="button add-song" type="button">+ ADD SONG</button>
+    <form id="setlistForm" class="setlist-form" action="/addsetlist" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="artist-name">Add new song:</label>
+        <input type="text" id="artist-name" name="artist-name" readonly placeholder="Click to select new song" required>
+      </div>
+    </form>
   </div>
   <button class="button submit-button" type="submit">SUBMIT CHANGES</button>
 </div>
+
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <div class="popup-header">
+      <h4 id="popup-title">Select</h4>
+      <span class="close-btn">&times;</span>
+    </div>
+
+    <div class="popup-body">
+      <input type="text" id="search-input"
+             placeholder="Type to search..." autocomplete="off">
+
+      <div class="suggestions-container">
+        <h4>Suggestions</h4>
+        <ul id="suggestions-list"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="overlay" class="overlay"></div>
+
 </body>
 </html>
