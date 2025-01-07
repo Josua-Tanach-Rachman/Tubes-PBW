@@ -1,6 +1,7 @@
 package com.example.tubes_pbw.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +16,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.tubes_pbw.model.artis.Artis;
 import com.example.tubes_pbw.model.artis.ArtisService;
 import com.example.tubes_pbw.model.artis.ArtisSetlistCountDTO;
+import com.example.tubes_pbw.model.lagu.Lagu;
+import com.example.tubes_pbw.model.lagu.LaguArtisAlbum;
+import com.example.tubes_pbw.model.lagu.LaguJumlahSetlist;
+import com.example.tubes_pbw.model.lagu.LaguService;
+import com.example.tubes_pbw.model.lagu.LaguTanggalShow;
 import com.example.tubes_pbw.model.user.User;
 import com.example.tubes_pbw.model.user.UserService;
 import com.example.tubes_pbw.model.setlist.ArtistSetlistLokasiDate;
+import com.example.tubes_pbw.model.setlist.Setlist;
+import com.example.tubes_pbw.model.setlist.SetlistDetail;
+import com.example.tubes_pbw.model.setlist.SetlistJumlahPengguna;
 import com.example.tubes_pbw.model.setlist.SetlistService;
+import com.example.tubes_pbw.model.setlist.SetlistSong;
+import com.example.tubes_pbw.model.show.ShowJumlahPengguna;
+import com.example.tubes_pbw.model.show.ShowService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -33,6 +45,12 @@ public class UserController {
 
     @Autowired
     private SetlistService setlistService;
+    
+    @Autowired
+    private ShowService showService;
+
+    @Autowired
+    private LaguService laguService;
 
     @GetMapping("/login")
     public String loginView(HttpSession session) {
@@ -85,7 +103,7 @@ public class UserController {
         boolean status = userService.register(user);
         model.addAttribute("error",user);
         if(status){
-            return "redirect:/results";
+            return "redirect:/login";
         }
         else{
             bindingResult.rejectValue("username"
@@ -102,26 +120,39 @@ public class UserController {
 
     @GetMapping("/setlist")
     public String setlist(
-        User user, 
-        HttpSession session, 
         @RequestParam(required = false, defaultValue = "1") String page,
-        @RequestParam(required = false, defaultValue = "") String filter, 
-        Model model){
-            if(session.getAttribute("username") == null){
-                model.addAttribute("isUserLoggedIn", false);
-            }
-            else{
-                model.addAttribute("isUserLoggedIn", true);
-            }
-            return "setlist";
+        @RequestParam(required = false, defaultValue = "") String filter,
+        Model model,
+        HttpSession session)
+    {
+        int curPage = Integer.parseInt(page);
+        
+        long count = setlistService.countByFilterNamaSetlist(filter);
+
+        long max = setlistService.maxSetlistCountForEachSetlist();
+
+        Iterable<SetlistJumlahPengguna> res = setlistService.findSetlistByFilterNamaWithOffsetReturnWithCount(filter,10, (curPage-1)*10);
+        
+        model.addAttribute("filter",filter);
+        model.addAttribute("listSetlist", res);
+        model.addAttribute("max", max);
+        model.addAttribute("kategori", "setlist");
+        model.addAttribute("pageCount",(int)Math.ceil((double)count/10));
+        model.addAttribute("currentPage",curPage);
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "setlist";
     }
 
     @GetMapping("/artist")
     public String artist(
         @RequestParam(required = false, defaultValue = "1") String page,
         @RequestParam(required = false, defaultValue = "") String filter, 
-        Model model,
-        HttpSession session)
+        Model model, HttpSession session)
     {
         int curPage = Integer.parseInt(page);
         
@@ -131,12 +162,79 @@ public class UserController {
 
         Iterable<ArtisSetlistCountDTO> res = artisService.findByFilterNamaArtisWithOffsetReturnWithCount(filter,10, (curPage-1)*10);
         
-        model.addAttribute("filter",filter);
-        model.addAttribute("listArtis", res);
-        model.addAttribute("max", max);
-        model.addAttribute("kategori", "artist");
         model.addAttribute("pageCount",(int)Math.ceil((double)count/10));
-        model.addAttribute("currentPage",curPage);
+
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "artist";
+    }
+
+    @GetMapping("/concert")
+    public String concert(
+        @RequestParam(required = false, defaultValue = "1") String page,
+        @RequestParam(required = false, defaultValue = "") String filter, 
+        User user, HttpSession session, Model model)
+    {
+        int curPage = Integer.parseInt(page);
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "concert";
+    }
+
+    @GetMapping("/addsetlist")
+    public String addsetlist(User user, Model model, HttpSession session){
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "addSetlist";
+    }
+
+    @GetMapping("/search")
+    public String searchAll(@RequestParam(required = false, defaultValue = "") String filter ,User user, Model model, HttpSession session){
+        Iterable<ArtisSetlistCountDTO> res = artisService.findByFilterNamaArtisWithOffsetReturnWithCount(filter,5, (1-1)*10);
+        long maxArtis = artisService.maxSetlistCountForArtis();
+        model.addAttribute("filter", filter);
+        model.addAttribute("maxArtis", maxArtis);
+        model.addAttribute("listArtis", res);
+
+        Iterable<SetlistJumlahPengguna> resSetlist = setlistService.findSetlistByFilterNamaWithOffsetReturnWithCount(filter, 5, 0);
+        long maxSetlist = setlistService.maxSetlistCountForEachSetlist();
+        model.addAttribute("maxSetlist", maxSetlist);
+        model.addAttribute("listSetlist", resSetlist);
+
+        Iterable<ShowJumlahPengguna> resShow = showService.findShowByFilterNamaWithOffsetReturnWithCount(filter, 5, 0);
+        long maxShow = showService.maxSetlistCountForEachShow();
+        model.addAttribute("maxShow", maxShow);
+        model.addAttribute("listShow", resShow);
+
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "searchPage";
+    }
+
+    @GetMapping("/artist/{namaArtis}-{idArtis}")
+    public String getArtistDetail(@PathVariable String namaArtis, @PathVariable int idArtis, Model model, HttpSession session) {
+        List<Artis> artisList = artisService.findByIdArtis(idArtis);
+        Artis artis = artisList.get(0);
+        model.addAttribute("artis", artis);
+
+            List<ArtistSetlistLokasiDate> lokasiDates = setlistService.findLokasiDate(idArtis);
+            model.addAttribute("lokasiDates", lokasiDates);
 
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);
@@ -145,77 +243,18 @@ public class UserController {
             model.addAttribute("isUserLoggedIn", true);
         }
 
-        return "artist";
-    }
-
-    @GetMapping("/concert")
-    public String concert(User user, 
-        HttpSession session, 
-        @RequestParam(required = false, defaultValue = "1") String page,
-        @RequestParam(required = false, defaultValue = "") String filter, 
-        Model model){
-            if(session.getAttribute("username") == null){
-                model.addAttribute("isUserLoggedIn", false);
-            }
-            else{
-                model.addAttribute("isUserLoggedIn", true);
-            }
-            return "concert";
-    }
-
-    @GetMapping("/addsetlist")
-    public String addsetlist(User user){
-        return "addSetlist";
-    }
-
-    @GetMapping("/search")
-    public String searchAll(
-        @RequestParam(required = false, defaultValue = "") String filter,
-        @RequestParam(required = false, defaultValue = "1") String page,
-        HttpSession session,
-        User user, 
-        Model model){
-            if(session.getAttribute("username") == null){
-                model.addAttribute("isUserLoggedIn", false);
-            }
-            else{
-                model.addAttribute("isUserLoggedIn", true);
-            }
-            Iterable<ArtisSetlistCountDTO> res = artisService.findByFilterNamaArtisWithOffsetReturnWithCount(filter,5, (1-1)*10);
-            long maxArtis = artisService.maxSetlistCountForArtis();
-            model.addAttribute("filter", filter);
-            model.addAttribute("maxArtis", maxArtis);
-            model.addAttribute("listArtis", res);
-            return "searchPage";
-    }
-
-    @GetMapping("/artist/{namaArtis}-{idArtis}")
-    public String getArtistDetail(
-        @PathVariable String namaArtis, 
-        @PathVariable int idArtis, 
-        Model model,
-        @RequestParam(required = false, defaultValue = "") String filter,
-        @RequestParam(required = false, defaultValue = "1") String page,
-        HttpSession session) {
-            List<Artis> artisList = artisService.findByIdArtis(idArtis);
-            Artis artis = artisList.get(0);
-            model.addAttribute("artis", artis);
-
-            List<ArtistSetlistLokasiDate> lokasiDates = setlistService.findLokasiDate(idArtis);
-            model.addAttribute("lokasiDates", lokasiDates);
-
-            if(session.getAttribute("username") == null){
-                model.addAttribute("isUserLoggedIn", false);
-            }
-            else{
-                model.addAttribute("isUserLoggedIn", true);
-            }
-            return "artistDetail";
+        return "artistDetail";
     }
 
 
     @GetMapping("/addArtist")
-    public String addArtist(User user){
+    public String addArtist(User user, Model model, HttpSession session){
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
         return "addArtist";
     }
 
@@ -225,26 +264,94 @@ public class UserController {
     }
 
     @GetMapping("/addConcert")
-    public String addShow(User user){
+    public String addShow(User user, Model model, HttpSession session){
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
         return "addShow";
     }
 
-    @GetMapping("/setlistDetail")
-    public String setlistDetail(){
+    @GetMapping("/setlist/{namaSetlist}-{idSetlist}")
+    public String setlistDetail(@PathVariable String namaSetlist, @PathVariable int idSetlist, Model model, HttpSession session){
+        Optional<Setlist> optionalSetlist = setlistService.findByIdSetlist(idSetlist);
+        if(optionalSetlist.isPresent()){
+            Setlist setlist = optionalSetlist.get();
+            List<ArtistSetlistLokasiDate> generalInfo = setlistService.findArtistSetlistLokasiDateByIdSetlist(setlist.getIdSetlist());
+
+            model.addAttribute("generalInfo", generalInfo.get(0));
+
+            List<SetlistSong> setlistSong = setlistService.findSetlistSongByIdSetlist(setlist.getIdSetlist());
+            model.addAttribute("listLagu", setlistSong);
+            // model.addAttribute("setlistDetail", setlistDetail);
+        }
         return "setlistDetail";
     }
 
-    @GetMapping ("/aboutUs")
-    public String aboutUs (
+    @GetMapping("/song")
+    public String song(
         @RequestParam(required = false, defaultValue = "1") String page,
-        @RequestParam(required = false, defaultValue = "") String filter, 
-        Model model, HttpSession session){
-            if(session.getAttribute("username") == null){
-                model.addAttribute("isUserLoggedIn", false);
-            }
-            else{
-                model.addAttribute("isUserLoggedIn", true);
-            }
-            return "aboutUs";
+        @RequestParam(required = false, defaultValue = "") String filter,
+        Model model,
+        HttpSession session)
+    {
+        int curPage = Integer.parseInt(page);
+        
+        long count = laguService.countByFilterNamaLagu(filter);
+
+        long max = laguService.maxSetlistCountForEachLagu();
+
+        Iterable<LaguJumlahSetlist> res = laguService.findLaguWithLimitOffset(filter,10, (curPage-1)*10);
+        
+        model.addAttribute("filter",filter);
+        model.addAttribute("listLagu", res);
+        model.addAttribute("max", max);
+        model.addAttribute("kategori", "song");
+        model.addAttribute("pageCount",(int)Math.ceil((double)count/10));
+        model.addAttribute("currentPage",curPage);
+
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "songPage";
+    }
+
+    @GetMapping("/song/{namaSong}-{idSong}")
+    public String songDetail(@PathVariable("namaSong") String namaLagu, @PathVariable("idSong") int idLagu,
+        Model model,HttpSession session)
+    {
+        Optional<Lagu> LaguList = laguService.findByIdLagu(idLagu);
+        Lagu Lagu = LaguList.get();
+        model.addAttribute("Lagu", Lagu);
+
+        List<LaguJumlahSetlist> laguSetlist = laguService.findLaguWithLimitOffset(Lagu.getNamaLagu(), 5, 0);
+        model.addAttribute("jumlahDimainkan", laguSetlist.get(0));
+
+        LaguArtisAlbum laguArtisAlbum = laguService.findLaguArtisAlbum(idLagu);
+        model.addAttribute("laguArtisAlbum", laguArtisAlbum);
+        
+        List<LaguTanggalShow> tanggalShow = laguService.findTanggalShow(Lagu.getIdLagu());
+        if(tanggalShow.size()>=1){
+            model.addAttribute("pertama", tanggalShow.get(0));
+            model.addAttribute("terakhir", tanggalShow.get(tanggalShow.size()-1));
+        }
+        else{
+            model.addAttribute("pertama", null);
+            model.addAttribute("terakhir", null);
+        }
+        // List<LaguSetlistLokasiDate> lokasiDates = setlistService.findLokasiDate(idLagu);
+        // model.addAttribute("lokasiDates", lokasiDates);
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "songDetail";
     }
 }

@@ -3,28 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Show</title>
+    <title>Favelist | Add-Concert</title>
     <link rel="stylesheet" th:href="@{/css/addsetlist.css}">
     <script th:src="@{/js/addshow.js}" defer></script>
 </head>
 <header>
     <div class="kotak_ungu"></div>
     <nav>
-        <img src="@{/assets/icon.png}" alt="" id="logo">
+        <img src="assets/logo5.png" alt="logo image" id="logo">
         <P id="home"><a th:href="@{/}">HOME</a></P>
         <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
         <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
         <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
-        <P id="news">NEWS</P>
+        <P id="song">SONG</P>
 
         <div class="button-container">
-            <!-- <button type="submit" class="button setlist">+SET LIST</button> -->
-           <!-- <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
+           <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
                <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
            </form>
             <form action="/login" method="GET" th:if="${!isUserLoggedIn}">
                 <button type="submit" class="button login">LOG IN</button>
-            </form> -->
+            </form>
         </div>
     </nav>
 </header>

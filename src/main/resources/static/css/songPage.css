@@ -31,7 +31,7 @@ nav p {
 #home:hover,
 #artist:hover,
 #concert:hover,
-#song:hover {
+#setlist:hover {
     background-color: #510370;
     padding-top: 23.5px;
     padding-bottom: 23.5px;
@@ -67,12 +67,12 @@ a {
     color: white; /* Default link color to white */
 }
 
-#setlist a {
+#song a {
     color: white;
     font-weight: bold;
     text-shadow: 0 0 20px whitesmoke;
 }
-p#setlist {
+p#song {
     background-color: #8100B3;
     padding-top: 23.5px;
     padding-bottom: 23.5px;

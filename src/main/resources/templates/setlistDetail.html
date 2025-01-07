@@ -45,21 +45,12 @@
 <div class="content-wrapper">
   <div class="artist-setlists">
     <div class="setlist-content">
-      <h1>Metallica Setlist</h1>
-      <h2>at GBK, Jakarta, Indonesia</h2>
-      <h3>on 13 December 2024</h3>
-      <ol class="artist-list">
+      <h1><a th:href="@{/artist/{namaArtis}-{idArtis}(namaArtis=${#strings.replace(generalInfo.namaArtis, ' ', '-')}, idArtis=${generalInfo.idArtis})}" th:text="${generalInfo.namaArtis}"></a> Setlist</h1>
+      <h2 th:text="at + ' ' + ${generalInfo.namaLokasiConcert}"></h2>
+      <h3 th:text="on + ' ' + ${#temporals.format(generalInfo.tanggal, 'd MMMM yyyy')}"></h3>
+      <ol class="artist-list" th:each="lagu : ${listLagu}">
         <li>
-          <a href="#">Songs A</a>
-        </li>
-        <li>
-          <a href="#">Songs B</a>
-        </li>
-        <li>
-          <a href="#">Songs A</a>
-        </li>
-        <li>
-          <a href="#">Songs B</a>
+          <a th:href="@{/song/{namaLagu}-{idLagu}(namaLagu=${#strings.replace(lagu.namaLagu, ' ', '-')}, idLagu=${lagu.idLagu})}" th:text="${lagu.namaLagu}"></a>
         </li>
       </ol>
     </div>

@@ -10,22 +10,34 @@ import java.util.Optional;
 public class ShowService {
 
     @Autowired
-    JdbcShowRepository jdbcShowRepository;
+    ShowRepository showRepository;
 
 
     public Optional<Show> findByIdShow(int idShow) {
-        return jdbcShowRepository.findByIdShow(idShow);
+        return showRepository.findByIdShow(idShow);
     }
 
     public Iterable<Show> findByNamaShow(String namaShow) {
-        return jdbcShowRepository.findByNamaShow(namaShow);
+        return showRepository.findByNamaShow(namaShow);
     }
 
     public Iterable<Show> findByIdLokasi(int  idLokasi) {
-        return jdbcShowRepository.findByIdLokasi(idLokasi);
+        return showRepository.findByIdLokasi(idLokasi);
     }
 
     public int saveShow(String namaShow, int idLokasi, Date beginDate, Date endDate) {
-        return jdbcShowRepository.save(namaShow, idLokasi, beginDate, endDate);
+        return showRepository.save(namaShow, idLokasi, beginDate, endDate);
+    }
+
+    public Iterable<ShowJumlahPengguna> findShowByFilterNamaWithOffsetReturnWithCount(String namaShow, int limit, int offset){
+        return showRepository.findShowByFilterNamaWithOffsetReturnWithCount(namaShow, limit, offset);
+    }
+
+    public long countByFilterNamaShow(String namaShow){
+        return showRepository.countByFilterNamaShow(namaShow);
+    }
+
+    public long maxSetlistCountForEachShow(){
+        return showRepository.maxSetlistCountForEachShow();
     }
 }

@@ -8,4 +8,8 @@ public interface ShowRepository {
     Iterable<Show> findByNamaShow(String namaShow);
     Iterable<Show> findByIdLokasi(int idLokasi);
     int save(String namaShow, int idLokasi, Date beginDate, Date endDate);
+
+    Iterable<ShowJumlahPengguna> findShowByFilterNamaWithOffsetReturnWithCount(String namaShow,int limit, int offset);
+    long countByFilterNamaShow(String namaShow);
+    long maxSetlistCountForEachShow();
 }
