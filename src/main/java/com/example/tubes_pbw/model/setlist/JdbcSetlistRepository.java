@@ -3,6 +3,7 @@ package com.example.tubes_pbw.model.setlist;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -141,7 +142,7 @@ public class JdbcSetlistRepository implements SetlistRepository {
                         "FROM Setlist s\n" + //
                         "JOIN Artis a ON s.idArtis = a.idArtis\n" + //
                         "JOIN Lokasi l ON s.idLokasi = l.idLokasi\n" + //
-                        "JOIN Setlist_lagu sl ON s.idSetlist = sl.idSetlist\n" + //
+                        "JOIN Setlistlagu sl ON s.idSetlist = sl.idSetlist\n" + //
                         "JOIN Lagu lg ON sl.idLagu = lg.idLagu\n" + //
                         "JOIN Pengguna p ON s.email = p.email\n" + //
                         "WHERE s.idSetlist = ?\n" + //
@@ -157,6 +158,12 @@ public class JdbcSetlistRepository implements SetlistRepository {
                         "where sll.idsetlist = ?\n" + //
                         "order by sll.tracknumber";
         return jdbcTemplate.query(sql, this::mapRowToSetlistSong,idSetlist);
+    }
+
+    @Override
+    public int updateSetlist(int idSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow) {
+        String sql = "UPDATE Setlist SET tanggal = ?, idArtis = ?, idLokasi = ?, urlBukti = ?, idShow = ? WHERE idSetlist = ?";
+        return jdbcTemplate.update(sql, tanggal, idArtis, idLokasi, urlBukti, idShow, idSetlist);
     }
 
     private Setlist mapRowToSetlist(ResultSet resultSet, int rowNum) throws SQLException {
@@ -215,5 +222,15 @@ public class JdbcSetlistRepository implements SetlistRepository {
         );
     }
     
-       
+    public void setCustomTimestamp(Timestamp customTimestamp) {
+        String query = "SET my.custom_timestamp = ?";
+        jdbcTemplate.update(query, customTimestamp);
+    }
+
+    @Override
+    public void setCurrentTimestamp() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(currentDateTime);
+        setCustomTimestamp(timestamp);
+    }
 }

@@ -18,4 +18,8 @@ public interface SetlistRepository {
     Iterable<SetlistDetail> findSetlistDetailByIdSetlist(int idSetlist);
 
     List<SetlistSong> findSetlistSongByIdSetlist(int idSetlist);
+
+    int updateSetlist(int idSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow);
+
+    void setCurrentTimestamp();
 }
