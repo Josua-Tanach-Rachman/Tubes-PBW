@@ -317,13 +317,13 @@ public class UserController {
         HttpSession session)
     {
         int curPage = Integer.parseInt(page);
-        
+
         long count = laguService.countByFilterNamaLagu(filter);
 
         long max = laguService.maxSetlistCountForEachLagu();
 
         Iterable<LaguJumlahSetlist> res = laguService.findLaguWithLimitOffset(filter,10, (curPage-1)*10);
-        
+
         model.addAttribute("filter",filter);
         model.addAttribute("listLagu", res);
         model.addAttribute("max", max);
@@ -353,7 +353,7 @@ public class UserController {
 
         LaguArtisAlbum laguArtisAlbum = laguService.findLaguArtisAlbum(idLagu);
         model.addAttribute("laguArtisAlbum", laguArtisAlbum);
-        
+
         List<LaguTanggalShow> tanggalShow = laguService.findTanggalShow(Lagu.getIdLagu());
         if(tanggalShow.size()>=1){
             model.addAttribute("pertama", tanggalShow.get(0));
@@ -372,5 +372,16 @@ public class UserController {
             model.addAttribute("isUserLoggedIn", true);
         }
         return "songDetail";
+    }
+
+    @GetMapping("/editSetlist")
+    public String editSetlist(Model model, HttpSession session){
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "editSetlist";
     }
 }
