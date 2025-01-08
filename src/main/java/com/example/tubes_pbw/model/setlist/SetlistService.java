@@ -44,4 +44,16 @@ public class SetlistService {
     public long maxSetlistCountForEachSetlist(){
         return setlistRepository.maxSetlistCountForEachSetlist();
     }
+
+    public List<ArtistSetlistLokasiDate> findArtistSetlistLokasiDateByIdSetlist(int idSetlist){
+        return setlistRepository.findArtistSetlistLokasiDateByIdSetlist(idSetlist);
+    }
+
+    public Iterable<SetlistDetail> findSetlistDetailByIdSetlist(int idSetlist){
+        return setlistRepository.findSetlistDetailByIdSetlist(idSetlist);
+    }
+
+    public List<SetlistSong> findSetlistSongByIdSetlist(int idSetlist){
+        return setlistRepository.findSetlistSongByIdSetlist(idSetlist);
+    }
 }
