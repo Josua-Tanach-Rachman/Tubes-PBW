@@ -94,11 +94,12 @@ a {
     font-weight: bold;
     font-size: 16px;
     text-decoration: none;
+
 }
 
 .edit-list:hover {
-    color: white;
-    text-decoration: underline;
+    /*color: white;*/
+    /*text-decoration: underline;*/
 }
 
 .artist-setlists h1 {

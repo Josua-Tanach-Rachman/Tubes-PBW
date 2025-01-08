@@ -135,7 +135,8 @@ public class UserController {
         
         model.addAttribute("filter",filter);
         model.addAttribute("listSetlist", res);
-        model.addAttribute("max", max);
+//        model.addAttribute("max", max);
+        model.addAttribute("max", 5);
         model.addAttribute("kategori", "setlist");
         model.addAttribute("pageCount",(int)Math.ceil((double)count/10));
         model.addAttribute("currentPage",curPage);
@@ -296,6 +297,14 @@ public class UserController {
     @GetMapping("/setlist/{namaSetlist}-{idSetlist}")
     public String setlistDetail(@PathVariable String namaSetlist, @PathVariable int idSetlist, Model model, HttpSession session){
         Optional<Setlist> optionalSetlist = setlistService.findByIdSetlist(idSetlist);
+
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+
         if(optionalSetlist.isPresent()){
             Setlist setlist = optionalSetlist.get();
             List<ArtistSetlistLokasiDate> generalInfo = setlistService.findArtistSetlistLokasiDateByIdSetlist(setlist.getIdSetlist());
