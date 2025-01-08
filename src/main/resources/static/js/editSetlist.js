@@ -1,9 +1,58 @@
 const mockData = {
-    songs: ['Bohemian Rhapsody', 'Shape of You', 'Blinding Lights', 'Hotel California', 'Take On Me', 'Rolling in the Deep', 'Smells Like Teen Spirit'],
+    artists: ['The Beatles', 'Pink Floyd', 'Led Zeppelin', 'Queen', 'The Rolling Stones'],
+    locations: {
+        'United States': {
+            'New York': ['Madison Square Garden', 'Radio City Music Hall', 'Barclays Center'],
+            'Colorado': ['Red Rocks Amphitheatre', 'Ball Arena', 'Fiddler\'s Green'],
+            'California': ['Hollywood Bowl', 'The Greek Theatre', 'Chase Center']
+        },
+        'United Kingdom': {
+            'London': ['Wembley Stadium', 'O2 Arena', 'Royal Albert Hall'],
+            'Manchester': ['Manchester Arena', 'Old Trafford Cricket Ground'],
+            'Liverpool': ['Anfield Stadium', 'M&S Bank Arena']
+        },
+        'Australia': {
+            'Sydney': ['Sydney Opera House', 'Qudos Bank Arena'],
+            'Melbourne': ['Rod Laver Arena', 'Marvel Stadium'],
+            'Brisbane': ['Brisbane Entertainment Centre', 'The Gabba']
+        }
+    }
 };
 
 let arrayArtis = [];
-let arraySong = [];
+let arrayNegara = [];
+let arrayKota = [];
+let arrayLokasi = [];
+let arrayShow = [];
+// Set the date range for the date input
+const dateInput = document.getElementById('date');
+
+function fetchShowDetails(namaShow) {
+    fetch(`/get/showDetails?namaShow=${namaShow}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Assuming the response contains beginDate and endDate in 'YYYY-MM-DD' format
+            const showDetails = data; // This should include beginDate and endDate
+            const beginDate = new Date(showDetails.beginDate); // Convert to Date object
+            const endDate = new Date(showDetails.endDate); // Convert to Date object
+
+            dateInput.setAttribute('min', beginDate.toISOString().split('T')[0]); // Set min date
+            dateInput.setAttribute('max', endDate.toISOString().split('T')[0]); // Set max date
+            dateInput.value = beginDate.toISOString().split('T')[0];
+
+            console.log("Show details:", showDetails);
+            console.log("Begin Date:", beginDate);
+            console.log("End Date:", endDate);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
 
 fetch('/add/setlist/artist')
     .then(response => {
@@ -25,6 +74,97 @@ fetch('/add/setlist/artist')
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
+
+fetch('/add/setlist/negara')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        data.forEach(function(negara) {
+            arrayNegara.push(negara.namaNegara);
+        });
+        console.log(arrayNegara);
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+
+function fetchKota(namaNegara) {
+    fetch(`/add/setlist/kota?namaNegara=${namaNegara}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            currentSuggestions = [];
+            arrayKota = [];
+            data.forEach(function(kota) {
+                arrayKota.push(kota.namaKota);
+                console.log(kota);
+            });
+            console.log(arrayKota);
+            currentSuggestions = arrayKota;
+            console.log(currentSuggestions);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+function fetchLokasi(namaKota) {
+    fetch(`/add/setlist/lokasi?namaKota=${namaKota}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            currentSuggestions = [];
+            arrayLokasi = [];
+            data.forEach(function(lokasi) {
+                arrayLokasi.push(lokasi.namaLokasi);
+                console.log(lokasi);
+            });
+            console.log(arrayLokasi);
+            currentSuggestions = arrayLokasi;
+            console.log(currentSuggestions);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+function fetchShow(namaLokasi) {
+    fetch(`/add/setlist/show?namaLokasi=${namaLokasi}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            currentSuggestions = [];
+            arrayShow = [];
+            data.forEach(function(show) {
+                arrayShow.push(show.namaShow);
+                console.log(show);
+            });
+            arrayShow.push('Add New Concert');
+            console.log(arrayShow);
+            currentSuggestions = arrayShow;
+            console.log(currentSuggestions);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
 
 // DOM Elements
 const form = document.getElementById('setlistForm');
@@ -270,3 +410,11 @@ document.addEventListener('keydown', (e) => {
         closePopup();
     }
 });
+
+//edit selection function
+function handleSelectChange(selectElement) {
+    const selectedValue = selectElement.value;
+    if (selectedValue) {
+        window.location.href = selectedValue; // Redirect to the selected URL
+    }
+}

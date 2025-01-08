@@ -316,6 +316,8 @@ public class UserController {
 
             model.addAttribute("generalInfo", generalInfo.get(0));
 
+            model.addAttribute("setlist", optionalSetlist.get());
+
             List<SetlistSong> setlistSong = setlistService.findSetlistSongByIdSetlist(setlist.getIdSetlist());
             model.addAttribute("listLagu", setlistSong);
             // model.addAttribute("setlistDetail", setlistDetail);
@@ -391,14 +393,17 @@ public class UserController {
         return "songDetail";
     }
 
-    @GetMapping("/editSetlist")
-    public String editSetlist(Model model, HttpSession session){
+    @GetMapping("/setlist/edit/{namaSetlist}-{idSetlist}")
+    public String editSetlist(@PathVariable String namaSetlist, @PathVariable int idSetlist, Model model, HttpSession session){
+        Optional<Setlist> optionalSetlist = setlistService.findByIdSetlist(idSetlist);
+
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);
         }
         else{
             model.addAttribute("isUserLoggedIn", true);
         }
-        return "editSetlist";
+
+        return "editSetlistInfo";
     }
 }

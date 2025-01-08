@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Artist Name</title>
   <link rel="stylesheet" th:href="@{/css/setlistDetail.css}">
+  <script th:src="@{/js/editSetlist.js}" defer></script>
 </head>
 <header>
   <div class="kotak_ungu"></div>
@@ -54,10 +55,14 @@
         </li>
       </ol>
     </div>
-    <select name="edit-option" id="edit-option" class="edit-list">
+    <select name="edit-option" id="edit-option" class="edit-list" onchange="handleSelectChange(this)">
       <option value="" selected="selected" disabled>Edit setlist</option>
-      <option value="1">Edit setlist song</option>
-      <option value="2">Edit setlist info</option>
+      <option th:value="'/setlist/edit/' + ${#strings.replace(setlist.namaSetlist, ' ', '-')} + '-' + ${setlist.idSetlist}">
+        Edit setlist info
+      </option>
+      <option value="/setlist/songs/${setlist.idSetlist}">
+        Edit setlist songs
+      </option>
     </select>
   </div>
 <!--  comment-->

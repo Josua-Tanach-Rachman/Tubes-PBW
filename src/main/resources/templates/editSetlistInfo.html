@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaveList | Add Setlist</title>
+    <link rel="stylesheet" th:href="@{/css/editSetlistInfo.css}">
+    <script th:src="@{/js/editSetlist.js}" defer></script>
+    <link rel="icon" href="assets/icon.png" type="image/png">
+</head>
+<header>
+    <div class="kotak_ungu"></div>
+    <nav>
+        <img src="assets/logo5.png" alt="logo image" id="logo">
+        <P id="home"><a th:href="@{/}">HOME</a></P>
+        <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
+        <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
+        <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
+        <P id="song">SONG</P>
+
+        <div class="button-container">
+            <!-- <button type="submit" class="button setlist">+SET LIST</button> -->
+            <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
+                <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
+            </form>
+            <form action="/login" method="GET" th:if="${!isUserLoggedIn}">
+                <button type="submit" class="button login">LOG IN</button>
+            </form>
+        </div>
+    </nav>
+</header>
+<body>
+<div class="addsetlist-container">
+    <h1>Edit Setlist</h1>
+    <h3>Enter the details of setlist</h3>
+    <form id="setlistForm" class="setlist-form" action="/addsetlist" method="POST" enctype="multipart/form-data">
+<!--        <div class="form-group">-->
+<!--            <label for="artist-name">Artist Name:</label>-->
+<!--            <input type="text" id="artist-name" name="artist-name" readonly placeholder="Click to select artist" required>-->
+<!--        </div>-->
+
+        <div class="form-group">
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country" readonly placeholder="Click to select country" required>
+        </div>
+
+        <div class="form-group">
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" readonly placeholder="Click to select city" required>
+        </div>
+
+        <div class="form-group">
+            <label for="venue">Location:</label>
+            <input type="text" id="venue" name="venue" readonly placeholder="Click to select location" required>
+        </div>
+
+        <div class="form-group">
+            <label for="show">Concert:</label>
+            <input type="text" id="show" name="show" readonly placeholder="Click to select concert" required>
+        </div>
+
+        <div class="form-group">
+            <label for="">Date:</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+
+        <!-- <div class="form-group">
+            <label for="">Time Start:(not required)</label>
+            <input type="time" id="timeStart" name="timeStart">
+        </div>
+
+        <div class="form-group">
+            <label for="">Time End:(not required)</label>
+            <input type="time" id="timeEnd" name="timeEnd">
+        </div> -->
+
+        <div class="form-group">
+            <label for="file">Evidence Photo:</label>
+            <input type="file" id="file" name="file" required>
+        </div>
+
+        <div class="form-group">
+            <button type="submit">Add Setlist</button>
+        </div>
+    </form>
+</div>
+
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <div class="popup-header">
+            <h4 id="popup-title">Select</h4>
+            <span class="close-btn">&times;</span>
+        </div>
+
+        <div class="popup-body">
+            <input type="text" id="search-input"
+                   placeholder="Type to search..." autocomplete="off">
+
+            <div class="suggestions-container">
+                <h4>Suggestions</h4>
+                <ul id="suggestions-list"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="overlay" class="overlay"></div>
+</body>
+</html>
