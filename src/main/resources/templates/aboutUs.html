@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaveList | About Us</title>
+    <link rel="stylesheet" th:href="@{/css/aboutUs.css}">
+    <link rel="icon" href="assets/icon.png" type="image/png">
+</head>
+<body>
+    <header>
+        <div class="kotak_ungu"></div>
+        <nav>
+            <img src="assets/logo5.png" alt="logo image" id="logo">
+            <P id="home"><a th:href="@{/}">HOME</a></P>
+            <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
+            <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
+            <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
+            <P id="song"><a th:href="@{/song}">SONG</a></P>
+
+            <div class="button-container">
+                <button type="submit" class="button setlist"><a th:href="@{/addsetlist}">+SET LIST</a></button>
+                <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
+                    <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
+                </form>
+                <form action="/login" method="GET" th:if="${!isUserLoggedIn}">
+                    <button type="submit" class="button login">LOG IN</button>
+                </form>       
+            </div>
+        </nav>
+    </header>
+
+    <div class="search-container">
+        <img src="assets/background_search_main.png" alt="" class="background-search">
+        <div class="blackBox"></div>
+        <div class="search_bar">
+            <form action="/search" method="GET">
+                <h1 id="slogan">Discover Your Favourite...</h1>
+                <input name="filter" type="text" placeholder="Search for artist, song, album, concert, ...">
+            </form>
+            <div>
+                <img src="assets/search.png" alt="" class="icon_search">
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section class="about-intro">
+            <h1>About FaveList</h1>
+            <hr>
+            <p>Welcome to FaveList! Your ultimate platform for exploring and sharing music, artists, and concerts. Join our growing community of music enthusiasts and create memories that last forever.</p>
+        </section>
+
+        <section class="vision-mission">
+            <h2>Our Vision</h2>
+            <hr>
+            <p>To become the leading platform for connecting music lovers around the world, enabling them to explore, share, and celebrate their passion for music.</p>
+
+            <h2>Our Mission</h2>
+            <hr>
+            <ul>
+                <li>Empower users to discover and share their favorite music experiences.</li>
+                <li>Provide a comprehensive database of artists, concerts, and setlists.</li>
+                <li>Foster a vibrant community of music enthusiasts.</li>
+                <li>Innovate continuously to enhance the user experience.</li>
+            </ul>
+        </section>
+
+        <section class="core-values">
+            <h2>Our Core Values</h2>
+            <hr>
+            <ul>
+                <li><strong>Passion:</strong> Celebrating the love of music.</li>
+                <li><strong>Community:</strong> Building connections among music enthusiasts.</li>
+                <li><strong>Innovation:</strong> Continuously improving to provide the best user experience.</li>
+                <li><strong>Integrity:</strong> Ensuring accurate and reliable content.</li>
+            </ul>
+        </section>
+
+        <section class="team">
+            <h2>Meet Our Team</h2>
+            <hr>
+            <ul class="team-list">
+                <li>
+                    <h3>Josua</h3>
+                    <p>Founder & Developer</p>
+                    <p>Josua is responsible for building and maintaining the FaveList platform. With a passion for technology and innovation, he ensures the platform delivers seamless experiences to music enthusiasts worldwide.</p>
+                </li>
+                <li>
+                    <h3>Olivia</h3>
+                    <p>UI/UX Designer</p>
+                    <p>Olivia designs intuitive and visually appealing interfaces. She works tirelessly to create a user experience that is both functional and engaging, ensuring users love every moment spent on FaveList.</p>
+                </li>
+                <li>
+                    <h3>Steven</h3>
+                    <p>Content Manager</p>
+                    <p>Steven curates and manages the rich database of artists, concerts, and setlists. His expertise ensures that all content on FaveList is accurate, relevant, and up-to-date.</p>
+                </li>
+                <li>
+                    <h3>Zakki</h3>
+                    <p>Content Manager</p>
+                    <p>Zakki collaborates with Steven to expand the content library. He ensures that the platform remains a comprehensive and trusted source for music enthusiasts.</p>
+                </li>
+            </ul>
+        </section>        
+
+        <section class="contact">
+            <h2>Contact Us</h2>
+            <hr>
+            <p>We'd love to hear from you! Feel free to <a th:href="@{/contact}">contact us</a> with any questions or feedback.</p>
+        </section>
+    </main>
+</body>
+</html>

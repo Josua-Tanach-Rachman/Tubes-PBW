@@ -31,4 +31,24 @@ public class LaguService {
     public List<Lagu> findTopSong_slideShow (){
         return laguRepository.findTopSong();
     }
+
+    public List<LaguJumlahSetlist> findLaguWithLimitOffset(String namaLagu, int limit, int offset){
+        return laguRepository.findLaguWithLimitOffset(namaLagu, limit, offset);
+    }
+
+    public long countByFilterNamaLagu(String namaLagu){
+        return laguRepository.countByFilterNamaLagu(namaLagu);
+    }
+
+    public long maxSetlistCountForEachLagu(){
+        return laguRepository.maxSetlistCountForEachLagu();
+    }
+
+    public List<LaguTanggalShow> findTanggalShow(int idLagu){
+        return laguRepository.findTanggalShow(idLagu);
+    }
+
+    public LaguArtisAlbum findLaguArtisAlbum(int idLagu){
+        return laguRepository.findLaguArtis(idLagu);
+    }
 }
