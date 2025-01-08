@@ -3,6 +3,8 @@ package com.example.tubes_pbw.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.tubes_pbw.model.komentar.Komentar;
+import com.example.tubes_pbw.model.komentar.KomentarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,6 +53,9 @@ public class UserController {
 
     @Autowired
     private LaguService laguService;
+
+    @Autowired
+    private KomentarService komentarService;
 
     @GetMapping("/login")
     public String loginView(HttpSession session) {
@@ -314,6 +319,9 @@ public class UserController {
             List<SetlistSong> setlistSong = setlistService.findSetlistSongByIdSetlist(setlist.getIdSetlist());
             model.addAttribute("listLagu", setlistSong);
             // model.addAttribute("setlistDetail", setlistDetail);
+
+            Iterable<Komentar> komentar = komentarService.findBySetlistId(setlist.getIdSetlist());
+            model.addAttribute("listKomentar", komentar);
         }
         return "setlistDetail";
     }

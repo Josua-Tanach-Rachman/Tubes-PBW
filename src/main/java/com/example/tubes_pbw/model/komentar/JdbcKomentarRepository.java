@@ -43,7 +43,7 @@ public class JdbcKomentarRepository implements KomentarRepository {
     private Komentar mapRowToKomentar(ResultSet resultSet, int rowNum) throws java.sql.SQLException {
         return new Komentar(
             resultSet.getInt("idkomentar"),
-            resultSet.getInt("idpengguna"),
+            resultSet.getString("email"),
             resultSet.getInt("idsetlist"),
             resultSet.getString("komentar"),
             resultSet.getTimestamp("tanggal")

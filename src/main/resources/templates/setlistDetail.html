@@ -55,7 +55,7 @@
       </ol>
     </div>
     <select name="edit-option" id="edit-option" class="edit-list">
-      <option value="" selected="selected" disabled>Select an edit option</option>
+      <option value="" selected="selected" disabled>Edit setlist</option>
       <option value="1">Edit setlist song</option>
       <option value="2">Edit setlist info</option>
     </select>
@@ -72,20 +72,10 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>2024-12-30</td>
-        <td>JohnDoe</td>
-        <td>Great setlist! The encore was amazing.</td>
-      </tr>
-      <tr>
-        <td>2024-12-29</td>
-        <td>MusicLover123</td>
-        <td>They played my favorite song!</td>
-      </tr>
-      <tr>
-        <td>2024-12-28</td>
-        <td>ConcertGoer</td>
-        <td>The order of songs was perfect.</td>
+      <tr th:each="komentar : ${listKomentar}">
+        <td th:text="${#dates.format(komentar.tanggal, 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:text="${komentar.email}"></td>
+        <td th:text="${komentar.komentar}"></td>
       </tr>
       </tbody>
     </table>
