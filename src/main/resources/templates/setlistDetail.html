@@ -52,13 +52,24 @@
                         th:text="${generalInfo.namaArtis}"></a> Setlist</h1>
                 <h2 th:text="at + ' ' + ${generalInfo.namaLokasiConcert}"></h2>
                 <h3 th:text="on + ' ' + ${#temporals.format(generalInfo.tanggal, 'd MMMM yyyy')}"></h3>
-                <ol class="artist-list" th:each="lagu : ${listLagu}">
-                    <li>
-                        <a th:href="@{/lagu/{namaLagu}-{idLagu}(namaLagu=${#strings.replace(lagu.namaLagu, ' ', '-')}, idLagu=${lagu.idLagu})}"
+                <ol class="artist-list">
+                    <li th:each="lagu : ${listLagu}">
+                        <a th:href="@{/song/{namaLagu}-{idLagu}(namaLagu=${#strings.replace(lagu.namaLagu, ' ', '-')}, idLagu=${lagu.idLagu})}"
                             th:text="${lagu.namaLagu}"></a>
                     </li>
                 </ol>
             </div>
+            <form action="/addPenggunaSetlist" method="post">
+                <input type="hidden" name="idSetlist" th:value="${idSetlist}">
+                <input type="hidden" name="namaSetlist" th:value="${namaSetlist}">
+                <button type="submit" 
+                    th:if="${terdaftar != true}" 
+                    th:text="'I was there'">I Was There</button>
+
+                <button type="submit" 
+                    th:if="${terdaftar == true}" 
+                    th:text="'I wasn\'t there'">I Wasn't There</button>
+            </form>
             <a href="#" class="edit-list">Edit List</a>
         </div>
         <!--  comment-->

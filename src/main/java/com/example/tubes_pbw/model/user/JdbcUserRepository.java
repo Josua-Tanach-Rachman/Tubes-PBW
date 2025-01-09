@@ -34,6 +34,26 @@ public class JdbcUserRepository implements UserRepository {
         return results.size() == 0 ? Optional.empty() : Optional.of(results.get(0));
     }
 
+    @Override
+    public Optional<PenggunaSetlist> findInSetlist(String email, int idSetlist){
+        String sql = "SELECT * FROM pengguna_setlist WHERE email = ? AND idsetlist = ?";
+        List<PenggunaSetlist> results = jdbcTemplate.query(sql, this::mapRowToPenggunaSetlist, email, idSetlist);
+        return results.size() == 0 ? Optional.empty() : Optional.of(results.get(0));
+    }
+
+    @Override
+    public void addToPenggunaSetlist(String email, int idSetlist) {
+        String sql = "INSERT INTO Pengguna_setlist (email, idSetlist) VALUES\r\n" + //
+                        "(?, ?)";
+        jdbcTemplate.update(sql, email, idSetlist);
+    }
+
+    @Override
+    public void removeFromPenggunaSetlist(String email, int idSetlist) {
+        String sql = "DELETE FROM Pengguna_setlist WHERE email = ? AND idSetlist = ?";
+        jdbcTemplate.update(sql, email, idSetlist);
+    }
+
     private User mapRowToUser(ResultSet resultSet, int rowNum) throws SQLException {
         return new User(
             resultSet.getString("username"),
@@ -41,6 +61,13 @@ public class JdbcUserRepository implements UserRepository {
             resultSet.getString("nama"),
             resultSet.getString("role"),
             resultSet.getString("email")
+        );
+    }
+
+    private PenggunaSetlist mapRowToPenggunaSetlist(ResultSet resultSet, int rowNum) throws SQLException {
+        return new PenggunaSetlist(
+            resultSet.getString("email"),
+            resultSet.getInt("idSetlist")
         );
     }
 

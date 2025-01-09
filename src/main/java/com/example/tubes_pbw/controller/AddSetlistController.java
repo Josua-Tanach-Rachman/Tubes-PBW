@@ -34,7 +34,11 @@ import com.example.tubes_pbw.model.negara.NegaraService;
 import com.example.tubes_pbw.model.setlist.SetlistService;
 import com.example.tubes_pbw.model.show.Show;
 import com.example.tubes_pbw.model.show.ShowService;
+import com.example.tubes_pbw.model.user.PenggunaSetlist;
 import com.example.tubes_pbw.model.user.User;
+import com.example.tubes_pbw.model.user.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AddSetlistController {
@@ -59,6 +63,9 @@ public class AddSetlistController {
 
     @Autowired
     ShowService showService;
+
+    @Autowired
+    UserService userService;
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     
@@ -182,6 +189,30 @@ public class AddSetlistController {
 
         // return filePath.toString();
         return "/" + subDir + "/" + namaImage + fileExtension;
+    }
+
+    @PostMapping("/addPenggunaSetlist")
+    public String addPenggunaSetlist(
+        @RequestParam("idSetlist")String idSetlistBef,
+        @RequestParam("namaSetlist")String namaSetlist,
+    HttpSession session)
+    {
+        int idSetlist = Integer.parseInt(idSetlistBef);
+        String username = (String)session.getAttribute("username");
+        if(username == null){
+            return "redirect:/login";
+        }
+        else{
+            String email = (String)session.getAttribute("email");
+            PenggunaSetlist ps = userService.findInSetlist(email, idSetlist);
+            if(ps == null){
+                userService.addToPenggunaSetlist(email, idSetlist);
+            }
+            else{
+                userService.removeFromPenggunaSetlist(email, idSetlist);
+            }
+            return "redirect:/setlist/" + namaSetlist + "-" + idSetlist;
+        }
     }
 
     public String getFileExtension(String fileName) {
