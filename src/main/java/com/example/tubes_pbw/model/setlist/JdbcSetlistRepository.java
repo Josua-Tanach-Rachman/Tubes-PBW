@@ -142,7 +142,7 @@ public class JdbcSetlistRepository implements SetlistRepository {
                         "FROM Setlist s\n" + //
                         "JOIN Artis a ON s.idArtis = a.idArtis\n" + //
                         "JOIN Lokasi l ON s.idLokasi = l.idLokasi\n" + //
-                        "JOIN Setlistlagu sl ON s.idSetlist = sl.idSetlist\n" + //
+                        "JOIN Setlist_lagu sl ON s.idSetlist = sl.idSetlist\n" + //
                         "JOIN Lagu lg ON sl.idLagu = lg.idLagu\n" + //
                         "JOIN Pengguna p ON s.email = p.email\n" + //
                         "WHERE s.idSetlist = ?\n" + //
@@ -153,7 +153,7 @@ public class JdbcSetlistRepository implements SetlistRepository {
     @Override
     public List<SetlistSong> findSetlistSongByIdSetlist(int idSetlist) {
         String sql = "SELECT sll.idsetlist,sll.idlagu, sll.tracknumber, l.namalagu \n" + //
-                        "FROM setlistlagu sll\n" + //
+                        "FROM setlist_lagu sll\n" + //
                         "JOIN lagu l ON sll.idlagu = l.idlagu\n" + //
                         "where sll.idsetlist = ?\n" + //
                         "order by sll.tracknumber";
@@ -161,9 +161,35 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
 
     @Override
-    public int updateSetlist(int idSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow) {
-        String sql = "UPDATE Setlist SET tanggal = ?, idArtis = ?, idLokasi = ?, urlBukti = ?, idShow = ? WHERE idSetlist = ?";
-        return jdbcTemplate.update(sql, tanggal, idArtis, idLokasi, urlBukti, idShow, idSetlist);
+    public List<SetlistSong> findSetlistSongForDetailHistory(int idSetlist, Timestamp time) {
+        String sql = "SELECT sll.idsetlist,sll.idlagu, sll.tracknumber, l.namalagu\n" + //
+                        "FROM setlist_laguhistory sll\n" + //
+                        "JOIN lagu l ON sll.idlagu = l.idlagu\n" + //
+                        "where sll.idsetlist = ? AND tanggalDiubah = ?\n" + //
+                        "order by sll.tracknumber";
+        return jdbcTemplate.query(sql, this::mapRowToSetlistSong,idSetlist,time.toString());
+    }
+
+    @Override
+    public int updateSetlist(String namaSetlist, int idSetlist, Timestamp tanggal, int idLokasi, String urlBukti, int idShow) {
+        String sql = "UPDATE Setlist SET namaSetlist = ?, tanggal = ?, idLokasi = ?, urlBukti = ?, idShow = ? WHERE idSetlist = ?";
+        return jdbcTemplate.update(sql, namaSetlist, tanggal, idLokasi, urlBukti, idShow, idSetlist);
+    }
+
+    public void addSongToSetlist(int idSetlist, int idLagu, int trackNumber, String email) {
+        int nextTrackNumber = getNextTrackNumber(idSetlist);
+        String sql = "INSERT INTO setlist_lagu (idSetlist, idLagu, trackNumber, email) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, idSetlist, idLagu, nextTrackNumber, email);
+    }
+
+    public void changeSong(int idSetlist, int idLagu, int trackNumber) {
+        String sql = "UPDATE setlist_lagu SET idLagu = ? WHERE idSetlist = ? AND trackNumber = ?";
+        jdbcTemplate.update(sql, idLagu, idSetlist, trackNumber);
+    }
+
+    public void removeSongFromSetlist(int idSetlist, int idLagu) {
+        String sql = "DELETE FROM setlist_lagu WHERE idSetlist = ? AND idLagu = ?";
+        jdbcTemplate.update(sql, idSetlist, idLagu);
     }
 
     private Setlist mapRowToSetlist(ResultSet resultSet, int rowNum) throws SQLException {
@@ -223,8 +249,8 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
     
     public void setCustomTimestamp(Timestamp customTimestamp) {
-        String query = "SET my.custom_timestamp = ?";
-        jdbcTemplate.update(query, customTimestamp);
+        String query = "SELECT set_config('my.custom_timestamp', ?, true);";
+        jdbcTemplate.update(query, customTimestamp.toString());
     }
 
     @Override
@@ -233,4 +259,9 @@ public class JdbcSetlistRepository implements SetlistRepository {
         Timestamp timestamp = Timestamp.valueOf(currentDateTime);
         setCustomTimestamp(timestamp);
     }
+
+    public int getNextTrackNumber(int idSetlist) {
+        String sql = "SELECT COALESCE(MAX(trackNumber), 0) + 1 AS nextTrackNumber FROM setlist_lagu WHERE idSetlist = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, idSetlist);
+    }    
 }

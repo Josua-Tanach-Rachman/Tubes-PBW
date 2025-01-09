@@ -56,7 +56,7 @@ public class JdbcLaguRepository implements LaguRepository {
     public List<LaguJumlahSetlist> findLaguWithLimitOffset(String namaLagu, int limit, int offset) {
         String sql = "SELECT l.idLagu, l.namaLagu, COUNT(sl.idSetlist) as jumlahSetlist\n" + //
                         "FROM Lagu l\n" + //
-                        "LEFT JOIN setlistlagu sl ON l.idLagu = sl.idLagu\n" + //
+                        "LEFT JOIN setlist_lagu sl ON l.idLagu = sl.idLagu\n" + //
                         "WHERE l.namaLagu ILIKE ?\n" + //
                         "GROUP BY l.idLagu, l.namaLagu\n" + //
                         "ORDER BY jumlahSetlist DESC \n" + //
@@ -76,7 +76,7 @@ public class JdbcLaguRepository implements LaguRepository {
                     "FROM ( " +
                         "SELECT l.idLagu, l.namaLagu, COUNT(sl.idSetlist) as jumlahSetlist\n" + //
                         "FROM Lagu l\n" + //
-                        "LEFT JOIN Setlistlagu sl ON l.idLagu = sl.idLagu\n" + //
+                        "LEFT JOIN Setlist_lagu sl ON l.idLagu = sl.idLagu\n" + //
                         "GROUP BY l.idLagu, l.namaLagu\n" +
                         "ORDER BY jumlahSetlist DESC \n" + //
                     ") AS artistSetlists";
@@ -87,7 +87,7 @@ public class JdbcLaguRepository implements LaguRepository {
     public List<LaguTanggalShow> findTanggalShow(int idLagu) {
         String sql = "SELECT s.tanggal, sh.idShow, sh.namaShow\n" + //
                         "FROM Lagu l\n" + //
-                        "JOIN setlistlagu sl ON l.idLagu = sl.idLagu\n" + //
+                        "JOIN setlist_lagu sl ON l.idLagu = sl.idLagu\n" + //
                         "JOIN setlist s ON sl.idsetlist = s.idsetlist\n" + //
                         "JOIN show sh oN s.idshow = sh.idshow\n" + //
                         "WHERE l.idLagu = ?\n" + //

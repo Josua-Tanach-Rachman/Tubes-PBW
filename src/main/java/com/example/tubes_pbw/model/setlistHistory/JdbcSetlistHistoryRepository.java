@@ -20,7 +20,16 @@ public class JdbcSetlistHistoryRepository implements SetlistHistoryRepository {
 
     @Override
     public Iterable<SetlistHistoryPengguna> findSetlistHistoryWithPengguna(int idSetlist) {
-        String sql = "SELECT sh.idhistory, p.email, p.username, sh.tanggalDiubah FROM SetlistHistory sh JOIN Pengguna p ON sh.email = p.email WHERE sh.idSetlist = ? ORDER BY tanggalDiubah DESC";
+        String sql = "SELECT DISTINCT ON (sh.idsetlist, sh.tanggalDiubah) \n" + //
+                        "\tsh.idhistory, \n" + //
+                        "\tsh.idSetlist, \n" + //
+                        "\tp.email, \n" + //
+                        "\tp.username, \n" + //
+                        "\tsh.tanggalDiubah \n" + //
+                        "FROM SetlistHistory sh \n" + //
+                        "JOIN Pengguna p ON sh.email = p.email \n" + //
+                        "WHERE sh.idSetlist = ? \n" + //
+                        "ORDER BY tanggalDiubah DESC";
         return jdbcTemplate.query(sql, this::mapRowToSetlistHistoryPengguna, idSetlist);
     }
 
@@ -43,6 +52,7 @@ public class JdbcSetlistHistoryRepository implements SetlistHistoryRepository {
     private SetlistHistoryPengguna mapRowToSetlistHistoryPengguna(ResultSet resultSet, int rowNum) throws SQLException {
         return new SetlistHistoryPengguna(
             resultSet.getInt("idHistory"),             // Map idHistory
+            resultSet.getInt("idSetlist"),
             resultSet.getString("email"),              // Map email
             resultSet.getString("username"),           // Map username
             resultSet.getTimestamp("tanggalDiubah")    // Map tanggalDiubah (Timestamp)

@@ -323,6 +323,13 @@ public class UserController {
             Iterable<SetlistHistoryPengguna> listSetlistHistory = setlistHistoryService.findAllByOrderByTanggalDiubahDesc(setlist.getIdSetlist());
             model.addAttribute("listHistory", listSetlistHistory);
         }
+
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
         return "setlistDetail";
     }
 

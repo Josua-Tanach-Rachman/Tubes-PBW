@@ -96,7 +96,7 @@
                     <tr th:each="history : ${listHistory}">
                         <td th:text="${#dates.format(history.tanggalDiubah, 'dd-MM-yyyy HH:mm')}">2024-12-30</td>
                         <td th:text="${history.username}">JohnDoe</td>
-                        <td><button><a th:href="@{/setlistHistory/{id}(id = ${history.idHistory})}">DETAIL</a></button></td>
+                        <td><button><a th:href="@{/setlistHistory/{idSetlist}/{date}(idSetlist = ${history.idSetlist}, date = ${history.tanggalDiubah})}">DETAIL</a></button></td>
                     </tr>
                 </tbody>
             </table>

@@ -9,6 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class SetlistHistoryPengguna {
     private int idHistory;
+    private int idSetlist;
     private String email;
     private String username;
     private Timestamp tanggalDiubah;
