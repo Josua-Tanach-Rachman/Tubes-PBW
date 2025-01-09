@@ -18,11 +18,14 @@ import com.example.tubes_pbw.model.album.AlbumService;
 import com.example.tubes_pbw.model.artis.Artis;
 import com.example.tubes_pbw.model.artis.ArtisService;
 import com.example.tubes_pbw.model.artis.ArtisSetlistCountDTO;
+import com.example.tubes_pbw.model.komentar.KomentarPengguna;
+import com.example.tubes_pbw.model.komentar.KomentarService;
 import com.example.tubes_pbw.model.lagu.Lagu;
 import com.example.tubes_pbw.model.lagu.LaguArtisAlbum;
 import com.example.tubes_pbw.model.lagu.LaguJumlahSetlist;
 import com.example.tubes_pbw.model.lagu.LaguService;
 import com.example.tubes_pbw.model.lagu.LaguTanggalShow;
+import com.example.tubes_pbw.model.user.PenggunaSetlist;
 import com.example.tubes_pbw.model.user.User;
 import com.example.tubes_pbw.model.user.UserService;
 import com.example.tubes_pbw.model.setlist.ArtistSetlistLokasiDate;
@@ -31,6 +34,8 @@ import com.example.tubes_pbw.model.setlist.SetlistDetail;
 import com.example.tubes_pbw.model.setlist.SetlistJumlahPengguna;
 import com.example.tubes_pbw.model.setlist.SetlistService;
 import com.example.tubes_pbw.model.setlist.SetlistSong;
+import com.example.tubes_pbw.model.setlistHistory.SetlistHistoryPengguna;
+import com.example.tubes_pbw.model.setlistHistory.SetlistHistoryService;
 import com.example.tubes_pbw.model.show.ShowJumlahPengguna;
 import com.example.tubes_pbw.model.show.ShowService;
 
@@ -50,6 +55,12 @@ public class UserController {
     
     @Autowired
     private ShowService showService;
+
+    @Autowired
+    private KomentarService komentarService;
+
+    @Autowired
+    private SetlistHistoryService setlistHistoryService;
 
     @Autowired
     private LaguService laguService;
@@ -80,6 +91,7 @@ public class UserController {
         }
 
         session.setAttribute("username", user.getUsername());
+        session.setAttribute("email", user.getEmail());
         session.setAttribute("role", user.getRole());
         return "redirect:/login";
     }
@@ -300,6 +312,9 @@ public class UserController {
 
     @GetMapping("/setlist/{namaSetlist}-{idSetlist}")
     public String setlistDetail(@PathVariable String namaSetlist, @PathVariable int idSetlist, Model model, HttpSession session){
+        model.addAttribute("namaSetlist", namaSetlist);
+        model.addAttribute("idSetlist", idSetlist);
+
         Optional<Setlist> optionalSetlist = setlistService.findByIdSetlist(idSetlist);
         if(optionalSetlist.isPresent()){
             Setlist setlist = optionalSetlist.get();
@@ -309,7 +324,30 @@ public class UserController {
 
             List<SetlistSong> setlistSong = setlistService.findSetlistSongByIdSetlist(setlist.getIdSetlist());
             model.addAttribute("listLagu", setlistSong);
-            // model.addAttribute("setlistDetail", setlistDetail);
+            
+            //komentar
+            Iterable<KomentarPengguna> listKomentarPengguna = komentarService.findKomentarPenggunaBySetlistId(setlist.getIdSetlist());
+            model.addAttribute("listKomentar", listKomentarPengguna);
+
+            //setlist history
+            Iterable<SetlistHistoryPengguna> listSetlistHistory = setlistHistoryService.findAllByOrderByTanggalDiubahDesc(setlist.getIdSetlist());
+            model.addAttribute("listHistory", listSetlistHistory);
+        }
+
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+            model.addAttribute("terdaftar", false);
+        }
+        else{
+            String email = (String)session.getAttribute("email");
+            PenggunaSetlist ps = userService.findInSetlist(email, idSetlist);
+            if(ps != null){
+                model.addAttribute("terdaftar", true);
+            }
+            else{
+                model.addAttribute("terdaftar", false);
+            }
+            model.addAttribute("isUserLoggedIn", true);
         }
         return "setlistDetail";
     }

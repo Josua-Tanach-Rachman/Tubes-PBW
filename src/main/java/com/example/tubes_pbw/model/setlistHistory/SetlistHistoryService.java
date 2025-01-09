@@ -12,4 +12,8 @@ public class SetlistHistoryService {
     public Iterable<SetlistHistory> getAllSetlistHistory() {
         return jdbcSetlistHistoryRepository.findAllByOrderByTanggalDiubahDesc();
     }
+
+    public Iterable<SetlistHistoryPengguna> findAllByOrderByTanggalDiubahDesc(int idSetlist){
+        return jdbcSetlistHistoryRepository.findSetlistHistoryWithPengguna(idSetlist);
+    }
 }
