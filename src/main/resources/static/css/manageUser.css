@@ -2,6 +2,7 @@
 body {
     margin: 0px;
     background-color: black;
+    color: white;
 }
 
 .kotak_ungu{
@@ -86,7 +87,7 @@ button {
 input {
     background-color: white;
     padding: 14px;
-    padding-left: 60px;
+    padding-left: 55px;
     border-radius: 30px;
     cursor:text;
     width: 350px;
@@ -131,7 +132,7 @@ button:hover {
 
 /* User Table */
 .user-table {
-    width: 100%;
+    width: 90%;
     margin: 20px auto;
     border-collapse: collapse;
 }

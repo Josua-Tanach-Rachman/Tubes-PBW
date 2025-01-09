@@ -55,7 +55,7 @@
         <table class="user-table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Username</th>
                     <th>Email</th>
                     <th>Role</th>
@@ -65,54 +65,28 @@
             </thead>
             <tbody id="user-list">
                 <!-- Contoh data pengguna -->
-                <tr>
-                    <td>1</td>
-                    <td>admin</td>
-                    <td>admin@example.com</td>
+                <tr th:each="user, iterStat : ${listUsers}">
+                    <td th:text="${iterStat.index + 1}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.email}"></td>
                     <td>
-                        <select class="role-dropdown">
-                            <option value="admin" selected>Admin</option>
-                            <option value="user">User</option>
+                        <select class="role-dropdown" th:attr="data-user-id=${user.username}">
+                            <option value="admin" th:selected="${user.role == 'admin'}">Admin</option>
+                            <option value="pengguna" th:selected="${user.role == 'pengguna'}">User</option>
                         </select>
                     </td>
                     <td>
-                        <button class="status-btn active">Active</button>
+                        <button class="status-btn" 
+                                th:text="${user.status ? 'Active' : 'Inactive'}" 
+                                th:classappend="${user.status ? ' active' : ' inactive'}">
+                        </button>
                     </td>
                     <td>
-                        <button class="activity-btn">View Activity</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>user1</td>
-                    <td>user1@example.com</td>
-                    <td>
-                        <select class="role-dropdown">
-                            <option value="admin">Admin</option>
-                            <option value="user" selected>User</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button class="status-btn inactive">Inactive</button>
-                    </td>
-                    <td>
-                        <button class="activity-btn">View Activity</button>
+                        <button class="activity-btn" th:attr="data-user-id=${user.username}">View Activity</button>
                     </td>
                 </tr>
             </tbody>
         </table>
-
-        <!-- User Statistics -->
-        <section class="statistics">
-            <h2>User Statistics</h2>
-            <div class="stat-box">
-                <p>Total Users: <span id="total-users">100</span></p>
-                <p>Active Users: <span id="active-users">80</span></p>
-                <p>Inactive Users: <span id="inactive-users">20</span></p>
-                <p>Admins: <span id="total-admins">5</span></p>
-                <p>Users: <span id="total-normal-users">95</span></p>
-            </div>
-        </section>
     </main>
 </body>
 </html>

@@ -438,9 +438,9 @@ public class UserController {
         // }
 
         // Ambil data pengguna untuk ditampilkan di halaman
-        Iterable<User> listUsers = userService.findAllUsers(); // Asumsi ada service userService
+        List<User> listUsers = userService.findAllUsers(); // Asumsi ada service userService
         model.addAttribute("listUsers", listUsers);
-
+        System.out.println("PANDA "+listUsers);
         return "manageUser"; // Mengembalikan view manageUser.html
     }
 

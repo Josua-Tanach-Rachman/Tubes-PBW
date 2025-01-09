@@ -32,12 +32,16 @@ public class User {
 
     @NotBlank
     private String email;
+
+    @NotBlank
+    private Boolean status;
     
-    public User(String username,String password, String nama, String role, String email) {
+    public User(String username,String password, String nama, String role, String email, Boolean status) {
         this.username = username;
         this.password = password;
         this.nama = nama;
         this.role = role;
         this.email = email;
+        this.status = status;
     }
 }
