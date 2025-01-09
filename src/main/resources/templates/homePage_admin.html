@@ -18,7 +18,7 @@
         <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
         <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
         <P id="song"><a th:href="@{/song}">SONG</a></P>
-        <P id="manage_user"><a th:href="@{/manageSong}">MANAGE USER</a></P>
+        <P id="manage_user"><a th:href="@{/manageUser}">MANAGE USER</a></P>
         <P id="report"><a th:href="@{/report}">REPORT</a></P>
 
         <div class="button-container">
@@ -26,9 +26,9 @@
             <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
                 <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
             </form>
-            <form action="/login" method="GET" th:if="${!isUserLoggedIn}">
+            <!--<form action="/login" method="GET" th:if="${!isUserLoggedIn}">
                 <button type="submit" class="button login">LOG IN</button>
-            </form>       
+            </form>  -->     
         </div>
     </nav>
 </header>
@@ -36,14 +36,12 @@
     <div class="search-container">
         <img src="assets/background_search_main.png" alt="" class="background-search">
         <div class="blackBox"></div>
-        <div class="search_bar">
+        < class="search_bar">
             <form action="/search" method="GET">
                 <h1 id="slogan">Discover Your Favourite...</h1>
                 <input name="filter" type="text" placeholder="Search for artist, song, album, concert, ...">
             </form>
-            <div>
-                <img src="assets/search.png" alt="" class="icon_search">
-            </div>
+            <img src="assets/search.png" alt="" class="icon_search">
         </div>
     </div>
 

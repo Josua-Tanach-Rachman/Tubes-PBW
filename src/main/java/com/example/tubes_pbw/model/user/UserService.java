@@ -1,5 +1,6 @@
 package com.example.tubes_pbw.model.user;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,9 @@ public class UserService {
             return user.get();
         }
         return null;
+    }
+
+    public List<User> findAllUsers (){
+        return userRepository.findAll();
     }
 }

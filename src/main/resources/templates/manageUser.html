@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage User</title>
+    <link rel="stylesheet" th:href="@{/css/manageUser.css}">
+</head>
+<body>
+    <header>
+        <div class="kotak_ungu"></div>
+        <nav>
+            <img src="assets/logo5.png" alt="logo image" id="logo">
+            <P id="home"><a th:href="@{/}">HOME</a></P>
+            <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
+            <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
+            <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
+            <P id="song"><a th:href="@{/song}">SONG</a></P>
+            <P id="manage_user"><a th:href="@{/manageUser}">MANAGE USER</a></P>
+            <P id="report"><a th:href="@{/report}">REPORT</a></P>
+
+            <div class="button-container">
+                <button type="submit" class="button setlist"><a th:href="@{/addsetlist}">+SET LIST</a></button>
+                <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
+                    <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
+                </form>
+                <!--<form action="/login" method="GET" th:if="${!isUserLoggedIn}">
+                    <button type="submit" class="button login">LOG IN</button>
+                </form>-->       
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+        <!-- Filter and Search -->
+        <div class="filter-container">
+            <input type="text" class="search_bar" placeholder="Search by username or email">
+            <div>
+                <img src="assets/search.png" alt="" class="icon_search">
+            </div>
+            <select id="filter-role">
+                <option value="all">All Roles</option>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+            <select id="filter-status">
+                <option value="all">All Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
+            <button id="apply-filter">Apply Filter</button>
+        </div>
+
+        <!-- User Table -->
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="user-list">
+                <!-- Contoh data pengguna -->
+                <tr>
+                    <td>1</td>
+                    <td>admin</td>
+                    <td>admin@example.com</td>
+                    <td>
+                        <select class="role-dropdown">
+                            <option value="admin" selected>Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="status-btn active">Active</button>
+                    </td>
+                    <td>
+                        <button class="activity-btn">View Activity</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>user1</td>
+                    <td>user1@example.com</td>
+                    <td>
+                        <select class="role-dropdown">
+                            <option value="admin">Admin</option>
+                            <option value="user" selected>User</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="status-btn inactive">Inactive</button>
+                    </td>
+                    <td>
+                        <button class="activity-btn">View Activity</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- User Statistics -->
+        <section class="statistics">
+            <h2>User Statistics</h2>
+            <div class="stat-box">
+                <p>Total Users: <span id="total-users">100</span></p>
+                <p>Active Users: <span id="active-users">80</span></p>
+                <p>Inactive Users: <span id="inactive-users">20</span></p>
+                <p>Admins: <span id="total-admins">5</span></p>
+                <p>Users: <span id="total-normal-users">95</span></p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

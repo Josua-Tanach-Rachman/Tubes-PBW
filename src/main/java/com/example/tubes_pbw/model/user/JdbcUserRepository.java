@@ -34,6 +34,12 @@ public class JdbcUserRepository implements UserRepository {
         return results.size() == 0 ? Optional.empty() : Optional.of(results.get(0));
     }
 
+    @Override
+    public List<User> findAll (){
+        String sql = "Select * From pengguna";
+        return jdbcTemplate.query(sql, this::mapRowToUser);
+    }
+
     private User mapRowToUser(ResultSet resultSet, int rowNum) throws SQLException {
         return new User(
             resultSet.getString("username"),
