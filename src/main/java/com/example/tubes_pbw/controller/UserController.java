@@ -23,6 +23,7 @@ import com.example.tubes_pbw.model.lagu.LaguArtisAlbum;
 import com.example.tubes_pbw.model.lagu.LaguJumlahSetlist;
 import com.example.tubes_pbw.model.lagu.LaguService;
 import com.example.tubes_pbw.model.lagu.LaguTanggalShow;
+import com.example.tubes_pbw.model.user.PenggunaSetlist;
 import com.example.tubes_pbw.model.user.User;
 import com.example.tubes_pbw.model.user.UserService;
 import com.example.tubes_pbw.model.setlist.ArtistSetlistLokasiDate;
@@ -85,6 +86,7 @@ public class UserController {
         }
 
         session.setAttribute("username", user.getUsername());
+        session.setAttribute("email", user.getEmail());
         session.setAttribute("role", user.getRole());
         return "redirect:/login";
     }
@@ -305,6 +307,9 @@ public class UserController {
 
     @GetMapping("/setlist/{namaSetlist}-{idSetlist}")
     public String setlistDetail(@PathVariable String namaSetlist, @PathVariable int idSetlist, Model model, HttpSession session){
+        model.addAttribute("namaSetlist", namaSetlist);
+        model.addAttribute("idSetlist", idSetlist);
+
         Optional<Setlist> optionalSetlist = setlistService.findByIdSetlist(idSetlist);
         if(optionalSetlist.isPresent()){
             Setlist setlist = optionalSetlist.get();
@@ -326,8 +331,17 @@ public class UserController {
 
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);
+            model.addAttribute("terdaftar", false);
         }
         else{
+            String email = (String)session.getAttribute("email");
+            PenggunaSetlist ps = userService.findInSetlist(email, idSetlist);
+            if(ps != null){
+                model.addAttribute("terdaftar", true);
+            }
+            else{
+                model.addAttribute("terdaftar", false);
+            }
             model.addAttribute("isUserLoggedIn", true);
         }
         return "setlistDetail";

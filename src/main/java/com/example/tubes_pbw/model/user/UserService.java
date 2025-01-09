@@ -31,4 +31,21 @@ public class UserService {
         }
         return null;
     }
+
+    public PenggunaSetlist findInSetlist(String email, int idSetlist){
+        Optional<PenggunaSetlist> user = userRepository.findInSetlist(email,idSetlist);
+
+        if (!user.isEmpty()) {
+            return user.get();
+        }
+        return null;
+    }
+
+    public void addToPenggunaSetlist(String email, int idSetlist){
+        userRepository.addToPenggunaSetlist(email, idSetlist);
+    }
+
+    public void removeFromPenggunaSetlist(String email, int idSetlist){
+        userRepository.removeFromPenggunaSetlist(email, idSetlist);
+    }
 }
