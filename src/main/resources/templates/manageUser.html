@@ -60,7 +60,6 @@
                     <th>Email</th>
                     <th>Role</th>
                     <th>Status</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="user-list">
@@ -80,9 +79,6 @@
                                 th:text="${user.status ? 'Active' : 'Inactive'}" 
                                 th:classappend="${user.status ? ' active' : ' inactive'}">
                         </button>
-                    </td>
-                    <td>
-                        <button class="activity-btn" th:attr="data-user-id=${user.username}">View Activity</button>
                     </td>
                 </tr>
             </tbody>
