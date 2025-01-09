@@ -56,4 +56,13 @@ public class SetlistService {
     public List<SetlistSong> findSetlistSongByIdSetlist(int idSetlist){
         return setlistRepository.findSetlistSongByIdSetlist(idSetlist);
     }
+
+    public int updateSetlist(String namaSetlist,int idSetlist, Timestamp tanggal, int idLokasi, String urlBukti, int idShow){
+        setlistRepository.setCurrentTimestamp();
+        return setlistRepository.updateSetlist(namaSetlist,idSetlist, tanggal, idLokasi, urlBukti, idShow);
+    }
+
+    public List<SetlistSong> findSetlistSongForDetailHistory(int idSetlist, Timestamp time){
+        return setlistRepository.findSetlistSongForDetailHistory(idSetlist, time);
+    }
 }

@@ -40,6 +40,12 @@ public class JdbcKomentarRepository implements KomentarRepository {
         return idKomentar;
     }
 
+    @Override
+    public Iterable<KomentarPengguna> findKomentarPenggunaBySetlistId(int idSetlist) {
+        String sql = "SELECT * FROM komentar k JOIN pengguna p ON k.email = p.email WHERE k.idsetlist = ? ORDER By tanggal DESC";
+        return jdbcTemplate.query(sql, this::mapRowToKomentarPengguna, idSetlist);
+    }
+
     private Komentar mapRowToKomentar(ResultSet resultSet, int rowNum) throws java.sql.SQLException {
         return new Komentar(
             resultSet.getInt("idkomentar"),
@@ -49,4 +55,15 @@ public class JdbcKomentarRepository implements KomentarRepository {
             resultSet.getTimestamp("tanggal")
         );
     }
+
+    private KomentarPengguna mapRowToKomentarPengguna(ResultSet resultSet, int rowNum) throws java.sql.SQLException {
+        return new KomentarPengguna(
+            resultSet.getInt("idkomentar"),
+            resultSet.getString("email"),
+            resultSet.getString("username"),
+            resultSet.getString("komentar"),
+            resultSet.getTimestamp("tanggal")
+        );
+    }
+    
 }

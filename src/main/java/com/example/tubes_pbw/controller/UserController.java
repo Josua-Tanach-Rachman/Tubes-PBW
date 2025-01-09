@@ -16,6 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.tubes_pbw.model.artis.Artis;
 import com.example.tubes_pbw.model.artis.ArtisService;
 import com.example.tubes_pbw.model.artis.ArtisSetlistCountDTO;
+import com.example.tubes_pbw.model.komentar.KomentarPengguna;
+import com.example.tubes_pbw.model.komentar.KomentarService;
 import com.example.tubes_pbw.model.lagu.Lagu;
 import com.example.tubes_pbw.model.lagu.LaguArtisAlbum;
 import com.example.tubes_pbw.model.lagu.LaguJumlahSetlist;
@@ -29,6 +31,8 @@ import com.example.tubes_pbw.model.setlist.SetlistDetail;
 import com.example.tubes_pbw.model.setlist.SetlistJumlahPengguna;
 import com.example.tubes_pbw.model.setlist.SetlistService;
 import com.example.tubes_pbw.model.setlist.SetlistSong;
+import com.example.tubes_pbw.model.setlistHistory.SetlistHistoryPengguna;
+import com.example.tubes_pbw.model.setlistHistory.SetlistHistoryService;
 import com.example.tubes_pbw.model.show.ShowJumlahPengguna;
 import com.example.tubes_pbw.model.show.ShowService;
 
@@ -48,6 +52,12 @@ public class UserController {
     
     @Autowired
     private ShowService showService;
+
+    @Autowired
+    private KomentarService komentarService;
+
+    @Autowired
+    private SetlistHistoryService setlistHistoryService;
 
     @Autowired
     private LaguService laguService;
@@ -304,7 +314,21 @@ public class UserController {
 
             List<SetlistSong> setlistSong = setlistService.findSetlistSongByIdSetlist(setlist.getIdSetlist());
             model.addAttribute("listLagu", setlistSong);
-            // model.addAttribute("setlistDetail", setlistDetail);
+            
+            //komentar
+            Iterable<KomentarPengguna> listKomentarPengguna = komentarService.findKomentarPenggunaBySetlistId(setlist.getIdSetlist());
+            model.addAttribute("listKomentar", listKomentarPengguna);
+
+            //setlist history
+            Iterable<SetlistHistoryPengguna> listSetlistHistory = setlistHistoryService.findAllByOrderByTanggalDiubahDesc(setlist.getIdSetlist());
+            model.addAttribute("listHistory", listSetlistHistory);
+        }
+
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
         }
         return "setlistDetail";
     }
