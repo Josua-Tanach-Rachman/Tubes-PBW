@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.tubes_pbw.model.album.Album;
+import com.example.tubes_pbw.model.album.AlbumService;
 import com.example.tubes_pbw.model.artis.Artis;
 import com.example.tubes_pbw.model.artis.ArtisService;
 import com.example.tubes_pbw.model.artis.ArtisSetlistCountDTO;
@@ -63,13 +65,16 @@ public class UserController {
     @Autowired
     private LaguService laguService;
 
+    @Autowired
+    private AlbumService albumService;
+
     @GetMapping("/login")
     public String loginView(HttpSession session) {
         if (session.getAttribute("username") == null) {
             return "login";
         }
         if(session.getAttribute("role").equals("admin")){
-            return "redirect:/admin";
+            return "redirect:/homePage_admin";
         }
         if(session.getAttribute("role").equals("user")){
             return "redirect:/public";
@@ -436,5 +441,69 @@ public class UserController {
             model.addAttribute("isUserLoggedIn", true);
         }
         return "aboutUs";
+    }
+
+    @GetMapping("/coba")
+    public String coba(Model model, HttpSession session) {
+        Iterable<Artis> listArtis = artisService.findByFilterNamaArtis("");
+        model.addAttribute("listArtis", listArtis);
+
+        Iterable<Album> listAlbum = albumService.findAll();
+        model.addAttribute("listAlbum", listAlbum);
+
+        List<Artis> listArtisTop = artisService.findTopArtisBySetlistLagu();
+        model.addAttribute("listArtisTop", listArtisTop);
+
+        List<Lagu> listSongTop = laguService.findTopSong_slideShow();
+        model.addAttribute("listSongTop", listSongTop);
+        
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "homePage_admin";
+    }
+
+    @GetMapping("/manageUser")
+    public String manageUser(Model model, HttpSession session) {
+        // Cek apakah user sudah login
+        // if (session.getAttribute("username") == null) {
+        //     return "redirect:/login"; // Redirect ke login jika belum login
+        // }
+
+        // // Cek role user
+        // String role = (String) session.getAttribute("role");
+        // if (!"admin".equals(role)) {
+        //     return "redirect:/"; // Redirect ke homepage jika bukan admin
+        // }
+
+        // Ambil data pengguna untuk ditampilkan di halaman
+        List<User> listUsers = userService.findAllUsers(); // Asumsi ada service userService
+        model.addAttribute("listUsers", listUsers);
+        System.out.println("PANDA "+listUsers);
+        return "manageUser"; // Mengembalikan view manageUser.html
+    }
+
+
+    @GetMapping("/report")
+    public String report(Model model, HttpSession session) {
+        // Cek apakah user sudah login
+        // if (session.getAttribute("username") == null) {
+        //     return "redirect:/login"; // Redirect ke login jika belum login
+        // }
+
+        // // Cek role user
+        // String role = (String) session.getAttribute("role");
+        // if (!"admin".equals(role)) {
+        //     return "redirect:/"; // Redirect ke homepage jika bukan admin
+        // }
+
+        // Ambil data pengguna untuk ditampilkan di halaman
+        List<User> listUsers = userService.findAllUsers(); // Asumsi ada service userService
+        model.addAttribute("listUsers", listUsers);
+        System.out.println("PANDA "+listUsers);
+        return "report"; // Mengembalikan view manageUser.html
     }
 }
