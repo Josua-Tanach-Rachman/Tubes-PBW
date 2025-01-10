@@ -68,7 +68,7 @@
 
                 <button type="submit" th:if="${terdaftar == true}" th:text="'I wasn\'t there'">I Wasn't There</button>
             </form>
-            <a href="#" class="edit-list">Edit List</a>
+            <a th:href="@{/edit/setlistSongs/{idSetlist}(idSetlist=${idSetlist})}" class="edit-list">Edit List</a>
         </div>
         <!--  comment-->
         <div class="setlist-content">

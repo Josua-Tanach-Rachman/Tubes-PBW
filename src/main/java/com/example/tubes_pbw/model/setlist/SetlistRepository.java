@@ -24,4 +24,8 @@ public interface SetlistRepository {
     void setCurrentTimestamp();
 
     List<SetlistSong> findSetlistSongForDetailHistory(int idSetlist, Timestamp time);
+
+    void changeSong(int idSetlist, int idLagu, int trackNumber, String email, Timestamp tanggalDiubah, String bukti);
+    void removeSongFromSetlist(int idSetlist, int idLagu, String email, int trackNumber, Timestamp tanggalDiubah, String bukti);
+    void addSongToSetlist(int idSetlist, int idLagu, String email, Timestamp tanggalDiubah, String bukti);
 }
