@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #000;
+    color: #fff;
+    min-height: 100vh;
+}
+
+nav {
+    background-color: #1E1E1E;
+    border-bottom: 1px solid #9333ea;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav img {
+    max-width: 200px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+}
+
+.main-content {
+    position: relative;
+    min-height: calc(100vh - 70px);
+    background: linear-gradient(to bottom, rgba(88, 28, 135, 0.5), #000);
+    overflow: hidden;
+}
+
+.laser-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/api/placeholder/1920/1080');
+    opacity: 0.3;
+    background-size: cover;
+    background-position: center;
+}
+
+.error-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 70px);
+    padding: 20px;
+    text-align: center;
+}
+
+.error-number {
+    font-size: 120px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(147, 51, 234, 0.5);
+}
+
+.error-title {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.error-message {
+    color: #d8b4fe;
+    font-size: 18px;
+    max-width: 600px;
+    margin-bottom: 30px;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 30px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 16px 48px;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #9333ea;
+    color: white;
+    font-size: 16px;
+}
+
+.search-input::placeholder {
+    color: #d8b4fe;
+}
+
+.search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: #d8b4fe;
+}
+
+.home-button {
+    background-color: #9333ea;
+    color: white;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 999px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.home-button:hover {
+    background-color: #7928ca;
+}
+
+a {
+    text-decoration: none;
+}
