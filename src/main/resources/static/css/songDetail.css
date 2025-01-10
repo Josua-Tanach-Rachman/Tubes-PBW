@@ -368,3 +368,6 @@ img.date-image {
     transform: scaleX(1); /* Highlight muncul saat hover */
 }
 
+.button-container form button{
+    cursor: pointer;
+}

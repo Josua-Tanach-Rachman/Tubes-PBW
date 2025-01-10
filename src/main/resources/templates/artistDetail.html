@@ -18,7 +18,9 @@
       <P id="song">SONG</P>
 
     <div class="button-container">
-      <button type="submit" class="button setlist"><a th:href="@{/addsetlist}">+SET LIST</a></button>
+      <form action="/addsetlist" method="GET">
+        <button type="submit" class="button setlist">+SET LIST</button>
+      </form>
       <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
           <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
       </form>

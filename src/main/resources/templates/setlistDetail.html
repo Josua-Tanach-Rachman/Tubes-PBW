@@ -17,16 +17,18 @@
         <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
         <P id="news">NEWS</P>
 
-    <div class="button-container">
-      <button type="submit" class="button setlist"><a th:href="@{/addsetlist}">+SET LIST</a></button>
-      <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
-          <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
-      </form>
-      <form action="/login" method="GET" th:if="${!isUserLoggedIn}">
-          <button type="submit" class="button login">LOG IN</button>
-      </form>
-    </div>
-  </nav>
+        <div class="button-container">
+            <form action="/addsetlist" method="GET">
+                <button type="submit" class="button setlist">+SET LIST</button>
+            </form>
+            <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
+                <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
+            </form>
+            <form action="/login" method="GET" th:if="${!isUserLoggedIn}">
+                <button type="submit" class="button login">LOG IN</button>
+            </form>
+        </div>
+    </nav>
 </header>
 
 <body>
@@ -62,13 +64,9 @@
             <form action="/addPenggunaSetlist" method="post">
                 <input type="hidden" name="idSetlist" th:value="${idSetlist}">
                 <input type="hidden" name="namaSetlist" th:value="${namaSetlist}">
-                <button type="submit" 
-                    th:if="${terdaftar != true}" 
-                    th:text="'I was there'">I Was There</button>
+                <button type="submit" th:if="${terdaftar != true}" th:text="'I was there'">I Was There</button>
 
-                <button type="submit" 
-                    th:if="${terdaftar == true}" 
-                    th:text="'I wasn\'t there'">I Wasn't There</button>
+                <button type="submit" th:if="${terdaftar == true}" th:text="'I wasn\'t there'">I Wasn't There</button>
             </form>
             <a href="#" class="edit-list">Edit List</a>
         </div>
@@ -107,7 +105,9 @@
                     <tr th:each="history : ${listHistory}">
                         <td th:text="${#dates.format(history.tanggalDiubah, 'dd-MM-yyyy HH:mm')}">2024-12-30</td>
                         <td th:text="${history.username}">JohnDoe</td>
-                        <td><button><a th:href="@{/setlistHistory/{idSetlist}/{date}(idSetlist = ${history.idSetlist}, date = ${history.tanggalDiubah})}">DETAIL</a></button></td>
+                        <td><button><a
+                                    th:href="@{/setlistHistory/{idSetlist}/{date}(idSetlist = ${history.idSetlist}, date = ${history.tanggalDiubah})}">DETAIL</a></button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
