@@ -209,6 +209,84 @@ public class AddSetlistController {
         return "redirect:/addsetlist";
     }
 
+    @GetMapping("/edit/setlist/{idSetlist}")
+    public String editSetlist(
+        @PathVariable int idSetlist, 
+        Model model, HttpSession session
+    )
+    {
+        Setlist setlist = setlistService.findByIdSetlist(idSetlist).get();
+        Show show = showService.findByIdShow(setlist.getIdShow()).get();
+        Lokasi lokasi = lokasiService.findByIdLokasi(setlist.getIdLokasi()).get(0);
+        Kota kota = kotaService.findByIdKota(lokasi.getIdKota()).get(0);
+        Negara negara = negaraService.findByIdNegara(kota.getIdKota()).get(0);
+        
+        LocalDate localDate = setlist.getTanggal().toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = localDate.format(formatter);
+
+        model.addAttribute("setlist", setlist);
+        model.addAttribute("show", show);
+        model.addAttribute("lokasi", lokasi);
+        model.addAttribute("kota", kota);
+        model.addAttribute("negara", negara);
+        model.addAttribute("date", formattedDate);
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        if (session.getAttribute("username") == null) {
+            return "redirect:/login";
+        } else {
+            return "halamaneditSetlist";
+        }
+    }
+
+    @PostMapping("/edit/setlist/{idSetlist}")
+    public String editSetlistPost(
+        @PathVariable int idSetlist, 
+        @RequestParam("country") String namaNegara,
+        @RequestParam("city") String namaKota,
+        @RequestParam("venue") String namaLokasi,
+        @RequestParam("show") String namaShow,
+        @RequestParam("date") String date,
+        @RequestParam("file") MultipartFile file,
+        Model model, HttpSession session
+    ) throws IOException
+    {
+        // Parse the date string (yyyy-MM-dd) into a LocalDate
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        
+        // Convert LocalDate to LocalDateTime at start of day (midnight)
+        Timestamp tanggalSetlist = Timestamp.valueOf(localDate.atStartOfDay());
+        //set timestamp
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(currentDateTime);
+
+        //save bukti
+        Setlist setlist = setlistService.findByIdSetlist(idSetlist).get();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String formattedTimestamp = dateFormat.format(new Date(timestamp.getTime()));
+        String namaImage = (setlist.getNamaSetlist() + formattedTimestamp).replaceAll("\\s+", "");
+        String path = saveImage("bukti", file,namaImage);
+
+        Artis artis = artisService.findByIdArtis(setlist.getIdArtis()).get(0);
+        String namaSetlist = artis.getNamaArtis() + " at " + namaLokasi;
+        Lokasi lokasi = lokasiService.findByNamaLokasi(namaLokasi).get();
+
+        Iterable<Show> listShow = showService.findByNamaShow(namaShow);
+        Iterator<Show> iterator = listShow.iterator();
+        Show show = iterator.hasNext()? iterator.next() : null;
+
+        String email = (String) session.getAttribute("email");
+        setlistService.updateSetlist(namaSetlist, idSetlist, tanggalSetlist, lokasi.getIdLokasi(), path, show.getIdShow(), email, timestamp);
+
+        return "";
+    }
+
     @GetMapping("/edit/setlistSongs/{idSetlist}")
     public String editSetlistSongs(
         @PathVariable int idSetlist, 
@@ -232,7 +310,11 @@ public class AddSetlistController {
         else{
             model.addAttribute("isUserLoggedIn", true);
         }
-        return "editSetlist";
+        if (session.getAttribute("username") == null) {
+            return "redirect:/login";
+        } else {
+            return "editSetlist";
+        }
     }
 
     @PostMapping("/edit/setlistSongs/{idSetlist}")

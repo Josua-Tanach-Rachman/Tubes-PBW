@@ -171,9 +171,38 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
 
     @Override
-    public int updateSetlist(String namaSetlist, int idSetlist, Timestamp tanggal, int idLokasi, String urlBukti, int idShow) {
-        String sql = "UPDATE Setlist SET namaSetlist = ?, tanggal = ?, idLokasi = ?, urlBukti = ?, idShow = ? WHERE idSetlist = ?";
-        return jdbcTemplate.update(sql, namaSetlist, tanggal, idLokasi, urlBukti, idShow, idSetlist);
+    public int updateSetlist(String namaSetlist, int idSetlist, Timestamp tanggal, int idLokasi, String urlBukti, int idShow, String email, Timestamp tanggalDiubah) {
+        String sql = "UPDATE Setlist SET namaSetlist = ?, tanggal = ?, idLokasi = ?, urlBukti = ?, idShow = ?, email = ? WHERE idSetlist = ?";
+        int i = jdbcTemplate.update(sql, namaSetlist, tanggal, idLokasi, urlBukti, idShow, email, idSetlist);
+
+        //insert to setlisthistory
+        sql = "INSERT INTO SetlistHistory (\n" + //
+                        "    idSetlist, \n" + //
+                        "    idArtis, \n" + //
+                        "    idLokasi, \n" + //
+                        "    namaSetlist, \n" + //
+                        "    tanggal, \n" + //
+                        "    urlBukti, \n" + //
+                        "    idShow, \n" + //
+                        "    email, \n" + //
+                        "    action, \n" + //
+                        "    tanggalDiubah\n" + //
+                        ")\n" + //
+                        "SELECT \n" + //
+                        "    idSetlist, \n" + //
+                        "    idArtis, \n" + //
+                        "    idLokasi, \n" + //
+                        "    namaSetlist, \n" + //
+                        "    tanggal, \n" + //
+                        "    urlBukti, \n" + //
+                        "    idShow, \n" + //
+                        "    email, \n" + //
+                        "    'UPDATE', \n" + //
+                        "    ?\n" + //
+                        "FROM Setlist\n" + //
+                        "WHERE idSetlist = ?;";
+        jdbcTemplate.update(sql,tanggalDiubah,idSetlist);
+        return i;
     }
 
     @Override

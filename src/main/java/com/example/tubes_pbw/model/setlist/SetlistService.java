@@ -57,9 +57,8 @@ public class SetlistService {
         return setlistRepository.findSetlistSongByIdSetlist(idSetlist);
     }
 
-    public int updateSetlist(String namaSetlist,int idSetlist, Timestamp tanggal, int idLokasi, String urlBukti, int idShow){
-        setlistRepository.setCurrentTimestamp();
-        return setlistRepository.updateSetlist(namaSetlist,idSetlist, tanggal, idLokasi, urlBukti, idShow);
+    public int updateSetlist(String namaSetlist,int idSetlist, Timestamp tanggal, int idLokasi, String urlBukti, int idShow, String email, Timestamp tanggalDiubah){
+        return setlistRepository.updateSetlist(namaSetlist,idSetlist, tanggal, idLokasi, urlBukti, idShow, email, tanggalDiubah);
     }
 
     public List<SetlistSong> findSetlistSongForDetailHistory(int idSetlist, Timestamp time){

@@ -19,7 +19,7 @@ public interface SetlistRepository {
 
     List<SetlistSong> findSetlistSongByIdSetlist(int idSetlist);
 
-    int updateSetlist(String namaSetlist, int idSetlist, Timestamp tanggal, int idLokasi, String urlBukti, int idShow);
+    int updateSetlist(String namaSetlist, int idSetlist, Timestamp tanggal, int idLokasi, String urlBukti, int idShow, String email, Timestamp tanggalDiubah);
 
     void setCurrentTimestamp();
 

@@ -33,6 +33,12 @@ public class JdbcKotaRepository implements KotaRepository {
         return jdbcTemplate.query(sql, this::mapRowToKota, idNegara);
     }
 
+    @Override
+    public List<Kota> findByIdKota(int idKota){
+        String sql = "SELECT * FROM kota WHERE idKota = ?";
+        return jdbcTemplate.query(sql, this::mapRowToKota, idKota);
+    }
+
     private Kota mapRowToKota(ResultSet resultSet, int rowNum) throws SQLException {
         return new Kota(
             resultSet.getInt("idKota"),

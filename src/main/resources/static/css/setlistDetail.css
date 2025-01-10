@@ -97,8 +97,8 @@ a {
 }
 
 .edit-list:hover {
-    color: white;
-    text-decoration: underline;
+    /* color: white;
+    text-decoration: underline; */
 }
 
 .artist-setlists h1 {
