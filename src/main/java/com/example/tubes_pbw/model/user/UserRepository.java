@@ -11,4 +11,6 @@ public interface UserRepository {
     Optional<PenggunaSetlist> findInSetlist(String email, int idSetlist);
     void addToPenggunaSetlist(String email, int idSetlist);
     void removeFromPenggunaSetlist(String email, int idSetlist);
+    void updateUserRole(String username, String newRole);
+    void updateUserStatus(String username, boolean newStatus);
 } 
