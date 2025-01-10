@@ -295,6 +295,7 @@ public class UserController {
 
     @GetMapping("/addSong")
     public String addSong(User user){
+
         return "addsong";
     }
 

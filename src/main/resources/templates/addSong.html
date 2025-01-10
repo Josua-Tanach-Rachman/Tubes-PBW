@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Song</title>
     <link rel="stylesheet" th:href="@{/css/addSong.css}">
-    <script th:src="@{/js/addsetlist.js}" defer></script>
+    <script th:src="@{/js/addNewSong.js}" defer></script>
 </head>
 <header>
     <div class="kotak_ungu"></div>
@@ -32,20 +32,20 @@
     <div class="addsetlist-container">
         <h1>Add New Song</h1>
         <h3>Enter details of the new song</h3>
-        <form id="setlistForm" class="setlist-form" action="/testsetlist" method="POST">
+        <form id="setlistForm" class="setlist-form" action="/addSong" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="song-name">Song Title:</label>
                 <input type="text" id="song-name" name="song-name" placeholder="enter song title here" required>
             </div>
 
             <div class="form-group">
-                <label for="album">Album:</label>
-                <input type="text" id="album" name="album" readonly placeholder="enter song album here" required>
+                <label for="artist">Artist:</label>
+                <input type="text" id="artist-name" name="artist-name" readonly placeholder="click to select artist" required>
             </div>
 
             <div class="form-group">
-                <label for="artist">Artist:</label>
-                <input type="text" id="artist" name="artist" readonly placeholder="click to select artist" required>
+                <label for="album">Album:</label>
+                <input type="text" id="album" name="album" readonly placeholder="enter song album here" required>
             </div>
 
             <div class="form-group">

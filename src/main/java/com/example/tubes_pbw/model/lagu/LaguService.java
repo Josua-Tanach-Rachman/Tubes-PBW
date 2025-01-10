@@ -24,8 +24,8 @@ public class LaguService {
         return laguRepository.findByNamaLagu(namaLagu);
     }
 
-    public int save(int idAlbum, String namaLagu, int duration, String urlGambarLagu) {
-        return laguRepository.save(idAlbum,namaLagu,duration, urlGambarLagu);
+    public int save(int idAlbum, String namaLagu, int duration, int idArtis, String urlGambarLagu) {
+        return laguRepository.save(idAlbum,namaLagu,duration, idArtis, urlGambarLagu);
     }
 
     public List<Lagu> findTopSong_slideShow (){

@@ -32,4 +32,12 @@ public class AlbumService {
     public void deleteById(int idAlbum) {
         albumRepository.deleteById(idAlbum);
     }
+
+    public Iterable<Album> findByFilterNamaAlbum(String namaAlbum) {
+        return albumRepository.findByFilterNamaAlbum(namaAlbum);
+    }
+
+    public Iterable<Album> findByIdArtis(int idArtis) {
+        return albumRepository.findByIdArtis(idArtis);
+    }
 }

@@ -10,7 +10,12 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
 
+import com.example.tubes_pbw.model.album.Album;
+import com.example.tubes_pbw.model.album.AlbumService;
+import com.example.tubes_pbw.model.lagu.LaguService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -68,11 +73,23 @@ public class AddSetlistController {
     UserService userService;
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    
+    @Autowired
+    private LaguService laguService;
+    @Autowired
+    private AlbumService albumService;
+
     @GetMapping("/add/setlist/artist")
     @ResponseBody
     public Iterable<Artis> getAllArtis() {
         return artisService.findByFilterNamaArtis("");
+    }
+
+    @GetMapping("/add/song/album")
+    @ResponseBody
+    public Iterable<Album> getAllAlbumInArtist(@RequestParam("namaArtis") String namaArtis) {
+        Optional<Artis> listArtis =  artisService.findByNamaArtis(namaArtis);
+        int idArtis = listArtis.get().getIdArtis();
+        return albumService.findByIdArtis(idArtis);
     }
 
     @GetMapping("/add/setlist/negara")
@@ -106,6 +123,12 @@ public class AddSetlistController {
         Iterator<Lokasi> iterator = listLokasi.iterator();
         Lokasi lokasi = iterator.hasNext()? iterator.next() : null;
         return showService.findByIdLokasi(lokasi.getIdLokasi());
+    }
+
+    @GetMapping("/add/setlist/album")
+    @ResponseBody
+    public Iterable<Album> getAllAlbum() {
+        return albumService.findByFilterNamaAlbum("");
     }
 
     @PostMapping("/addsetlist")
@@ -149,6 +172,30 @@ public class AddSetlistController {
         String path = saveImage("artis", file,namaImage);
         artisService.save(namaArtis, path);
         return "redirect:/addsetlist";
+    }
+
+    @PostMapping("/addSong")
+    public String addSongToDb(
+            @RequestParam("song-name") String namaSong,
+            @RequestParam("album") String namaAlbum,
+            @RequestParam("artist-name") String namaArtist,
+            @RequestParam("photos") MultipartFile file
+    ) throws IOException
+    {
+        String namaImage = namaSong.replaceAll("\\s+", "");
+        String path = saveImage("lagu", file, namaImage);
+
+        //mencari idAlbum
+        List<Album> listAlbum = albumService.findByNamaAlbum(namaAlbum);
+        int idAlbum = listAlbum.get(0).getIdAlbum();
+
+        //mencari idArtis
+        Optional<Artis> listArtis = artisService.findByNamaArtis(namaArtist);
+        int idArtis = listArtis.get().getIdArtis();
+
+        laguService.save(idAlbum, namaSong, 200, idArtis, path);
+
+        return "redirect:/addSong";
     }
 
     @PostMapping("/addConcert")
