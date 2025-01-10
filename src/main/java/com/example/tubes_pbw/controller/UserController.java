@@ -482,4 +482,24 @@ public class UserController {
         return "manageUser"; // Mengembalikan view manageUser.html
     }
 
+
+    @GetMapping("/report")
+    public String report(Model model, HttpSession session) {
+        // Cek apakah user sudah login
+        // if (session.getAttribute("username") == null) {
+        //     return "redirect:/login"; // Redirect ke login jika belum login
+        // }
+
+        // // Cek role user
+        // String role = (String) session.getAttribute("role");
+        // if (!"admin".equals(role)) {
+        //     return "redirect:/"; // Redirect ke homepage jika bukan admin
+        // }
+
+        // Ambil data pengguna untuk ditampilkan di halaman
+        List<User> listUsers = userService.findAllUsers(); // Asumsi ada service userService
+        model.addAttribute("listUsers", listUsers);
+        System.out.println("PANDA "+listUsers);
+        return "report"; // Mengembalikan view manageUser.html
+    }
 }
