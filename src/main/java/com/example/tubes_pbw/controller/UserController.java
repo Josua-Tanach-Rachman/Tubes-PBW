@@ -233,7 +233,11 @@ public class UserController {
         else{
             model.addAttribute("isUserLoggedIn", true);
         }
-        return "addSetlist";
+        if (session.getAttribute("username") == null) {
+            return "redirect:/login";
+        } else {
+            return "addSetlist";
+        }
     }
 
     @GetMapping("/search")

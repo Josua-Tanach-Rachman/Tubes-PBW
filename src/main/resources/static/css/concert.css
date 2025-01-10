@@ -375,3 +375,7 @@ div nav {
     flex-direction: column;
     justify-content: center;
 }
+
+.button-container form button{
+    cursor: pointer;
+}

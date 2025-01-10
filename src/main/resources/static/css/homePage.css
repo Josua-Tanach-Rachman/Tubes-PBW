@@ -325,3 +325,7 @@ footer {
     text-decoration: underline;
     color: #8100B3;
 }
+
+.button-container form button{
+    cursor: pointer;
+}

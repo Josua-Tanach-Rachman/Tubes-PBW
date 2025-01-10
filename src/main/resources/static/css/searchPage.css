@@ -261,3 +261,7 @@ a {
     text-align: center;
     /* width: 100%; */
 } 
+
+.button-container form button{
+    cursor: pointer;
+}
