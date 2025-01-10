@@ -323,3 +323,7 @@ img.map-image {
 img.date-image {
     height: 23px;
 }
+
+.button-container form button{
+    cursor: pointer;
+}
