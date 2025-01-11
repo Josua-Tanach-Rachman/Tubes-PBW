@@ -202,8 +202,8 @@ public class JdbcSetlistRepository implements SetlistRepository {
 
     @Override
     public int updateSetlist(String namaSetlist, int idSetlist, Timestamp tanggal, int idLokasi, String urlBukti, int idShow, String email, Timestamp tanggalDiubah, int idLokasiBef, int idShowBef, Timestamp tanggalBef, String namaSetlistBef) {
-        String sql = "UPDATE Setlist SET namaSetlist = ?, tanggal = ?, idLokasi = ?, urlBukti = ?, idShow = ?, email = ?, idLokasiBef = ?, idShowBef = ?, tanggalBef = ?, namaSetlistBef = ? WHERE idSetlist = ?";
-        int i = jdbcTemplate.update(sql, namaSetlist, tanggal, idLokasi, urlBukti, idShow, email, idLokasiBef, idShowBef,tanggalBef,namaSetlistBef, idSetlist);
+        String sql = "UPDATE Setlist SET namaSetlist = ?, tanggal = ?, idLokasi = ?, urlBukti = ?, idShow = ?, email = ? WHERE idSetlist = ?";
+        int i = jdbcTemplate.update(sql, namaSetlist, tanggal, idLokasi, urlBukti, idShow, email, idSetlist);
 
         //insert to setlisthistory
         sql = "INSERT INTO SetlistHistory (\n" + //

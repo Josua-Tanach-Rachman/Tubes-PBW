@@ -27,33 +27,6 @@ let arrayShow = [];
 // Set the date range for the date input
 const dateInput = document.getElementById('date');
 
-function fetchShowDetails(namaShow) {
-    fetch(`/get/showDetails?namaShow=${namaShow}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Assuming the response contains beginDate and endDate in 'YYYY-MM-DD' format
-            const showDetails = data; // This should include beginDate and endDate
-            const beginDate = new Date(showDetails.beginDate); // Convert to Date object
-            const endDate = new Date(showDetails.endDate); // Convert to Date object
-
-            dateInput.setAttribute('min', beginDate.toISOString().split('T')[0]); // Set min date
-            dateInput.setAttribute('max', endDate.toISOString().split('T')[0]); // Set max date
-            dateInput.value = beginDate.toISOString().split('T')[0];
-
-            console.log("Show details:", showDetails);
-            console.log("Begin Date:", beginDate);
-            console.log("End Date:", endDate);
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
-}
-
 fetch('/add/setlist/artist')
     .then(response => {
         if (!response.ok) {
@@ -165,66 +138,9 @@ function fetchShow(namaLokasi) {
         });
 }
 
-// Add this function to fetch existing setlist data
-async function fetchExistingSetlist() {
-    // Get setlist ID from URL parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    const setlistId = urlParams.get('id');
-
-    if (!setlistId) {
-        console.error('No setlist ID provided');
-        return;
-    }
-
-    try {
-        const response = await fetch(`/api/setlist/${setlistId}`);
-        if (!response.ok) {
-            throw new Error('Failed to fetch setlist data');
-        }
-
-        const setlistData = await response.json();
-
-        // Populate the form fields
-        artistInput.value = setlistData.artistName;
-        countryInput.value = setlistData.country;
-        selectedCountry = setlistData.country;
-
-        // Fetch cities for the selected country
-        await fetchKota(selectedCountry);
-
-        cityInput.value = setlistData.city;
-        selectedCity = setlistData.city;
-
-        // Fetch venues for the selected city
-        await fetchLokasi(selectedCity);
-
-        venueInput.value = setlistData.venue;
-        selectedLocation = setlistData.venue;
-
-        // Fetch shows for the selected venue
-        await fetchShow(selectedLocation);
-
-        showInput.value = setlistData.show;
-
-        // Set the date
-        const dateInput = document.getElementById('date');
-        dateInput.value = setlistData.date;
-
-        // If you have a file input, you might want to display the current file name
-        const currentFileDiv = document.createElement('div');
-        currentFileDiv.className = 'current-file';
-        currentFileDiv.innerHTML = `Current file: ${setlistData.evidencePhoto}`;
-        document.querySelector('.form-group:has(#file)').appendChild(currentFileDiv);
-
-    } catch (error) {
-        console.error('Error fetching setlist data:', error);
-        alert('Failed to load setlist information. Please try again.');
-    }
-}
-
 // DOM Elements
 const form = document.getElementById('setlistForm');
-const artistInput = document.getElementById('artist-name');
+// const artistInput = document.getElementById('artist-name');
 const countryInput = document.getElementById('country');
 const cityInput = document.getElementById('city');
 const venueInput = document.getElementById('venue');
@@ -244,7 +160,7 @@ let selectedCity = '';
 let selectedLocation = '';
 
 // Event Listeners
-artistInput.addEventListener('click', () => openPopup('artist'));
+// artistInput.addEventListener('click', () => openPopup('artist'));
 countryInput.addEventListener('click', () => openPopup('country'));
 cityInput.addEventListener('click', () => openPopup('city'));
 venueInput.addEventListener('click', () => openPopup('venue'));
@@ -252,42 +168,6 @@ showInput.addEventListener('click', () => openPopup('show'));
 closeBtn.addEventListener('click', closePopup);
 overlay.addEventListener('click', closePopup);
 searchInput.addEventListener('input', handleSearch);
-document.addEventListener('DOMContentLoaded', fetchExistingSetlist);
-
-
-// Modify the form submit handler to handle updates
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    if (!validateForm()) {
-        return;
-    }
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const setlistId = urlParams.get('id');
-
-    const formData = new FormData(form);
-    formData.append('id', setlistId);
-
-    try {
-        const response = await fetch('/editSetlistInfo', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to update setlist');
-        }
-
-        alert('Setlist updated successfully!');
-        window.location.href = '/setlist'; // Redirect to setlist page
-
-    } catch (error) {
-        console.error('Error updating setlist:', error);
-        alert('Failed to update setlist. Please try again.');
-    }
-});
-
 
 // Functions
 async function openPopup(field) {
@@ -423,9 +303,9 @@ function selectSuggestion(value) {
             showInput.value = ''; // Reset show
             console.log("Country selected");
             fetchKota(selectedCountry);
-            dateInput.removeAttribute('min'); // Set min date
-            dateInput.removeAttribute('max'); // Set min date
-            dateInput.value = null;
+            // dateInput.removeAttribute('min'); // Set min date
+            // dateInput.removeAttribute('max'); // Set min date
+            // dateInput.value = null;
             break;
         case 'city':
             cityInput.value = value;
@@ -436,9 +316,9 @@ function selectSuggestion(value) {
             showInput.value = ''; // Reset show
             console.log("City selected");
             fetchLokasi(selectedCity);
-            dateInput.removeAttribute('min'); // Set min date
-            dateInput.removeAttribute('max'); // Set min date
-            dateInput.value = null;
+            // dateInput.removeAttribute('min'); // Set min date
+            // dateInput.removeAttribute('max'); // Set min date
+            // dateInput.value = null;
             break;
         case 'venue':
             venueInput.value = value;
@@ -447,15 +327,15 @@ function selectSuggestion(value) {
             showInput.value = '';
             console.log("Venue selected");
             fetchShow(selectedLocation);
-            dateInput.removeAttribute('min'); // Set min date
-            dateInput.removeAttribute('max'); // Set min date
-            dateInput.value = null;
+            // dateInput.removeAttribute('min'); // Set min date
+            // dateInput.removeAttribute('max'); // Set min date
+            // dateInput.value = null;
             break;
         case 'show':
             showInput.value = value;
             console.log("Show selected: " + value);
-            dateInput.value = null;
-            fetchShowDetails(value);
+            // dateInput.value = null;
+            // fetchShowDetails(value);
             break;
     }
     closePopup();
@@ -488,11 +368,7 @@ function handleSubmit(e) {
 }
 
 function validateForm() {
-    console.log(artistInput.value);
-    if (!artistInput.value) {
-        alert('Please select an artist');
-        return false;
-    }
+
     if (!countryInput.value) {
         alert('Please select a country');
         return false;
@@ -509,31 +385,19 @@ function validateForm() {
         alert('Please select a show');
         return false;
     }
-    // if (!document.getElementById('date').value) {
-    //     alert('Please select a date');
-    //     return false;
-    // }
-    // if (!document.getElementById('time').value) {
-    //     alert('Please select a time');
-    //     return false;
-    // }
-    // let timeStart = document.querySelector("input[name='timeStart']").value;
-    // let timeEnd = document.querySelector("input[name='timeEnd']").value;
-    // console.log(timeStart);
-    // console.log(timeEnd);
-    // if(timeStart){
-    //     if(!timeEnd){
-    //         alert('Please select a time end');
-    //         return false;
-    //     }
-    // }
+    if (!document.getElementById('date').value) {
+        alert('Please select a date');
+        return false;
+    }
 
-    // if(timeEnd){
-    //     if(!timeStart){
-    //         alert('Please select a time start');
-    //         return false;
-    //     }
-    // }
+    // Show success notification
+    showSuccessNotification('Setlist Information Edited successfully!');
+
+    // Delay form submission by 1 second
+    setTimeout(() => {
+        form.submit();
+    }, 3000);
+
     return true;
 }
 
@@ -542,3 +406,17 @@ document.addEventListener('keydown', (e) => {
         closePopup();
     }
 });
+
+function showSuccessNotification(message) {
+
+    const notification = document.createElement('div');
+    notification.className = 'success-notification';
+    notification.textContent = message;
+
+    document.body.appendChild(notification);
+
+    // Auto-remove notification after 3 seconds
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}

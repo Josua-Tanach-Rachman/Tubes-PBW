@@ -309,7 +309,7 @@ public class AddSetlistController {
         if (session.getAttribute("username") == null) {
             return "redirect:/login";
         } else {
-            return "halamaneditSetlist";
+            return "editSetlistInfo";
         }
     }
 
@@ -355,7 +355,10 @@ public class AddSetlistController {
         String email = (String) session.getAttribute("email");
         setlistService.updateSetlist(namaSetlist, idSetlist, tanggalSetlist, lokasi.getIdLokasi(), path, show.getIdShow(), email, timestamp, setlist.getIdLokasi(), setlist.getIdShow(), tanggalBef, setlist.getNamaSetlist());
 
-        return "";
+        return "redirect:/setlist/" +
+                setlist.getNamaSetlist().replace(" ", "-") +
+                "-" +
+                setlist.getIdSetlist();
     }
 
     @GetMapping("/edit/setlistSongs/{idSetlist}")
