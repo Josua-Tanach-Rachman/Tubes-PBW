@@ -449,4 +449,15 @@ public class UserController {
         }
         return "aboutUs";
     }
+
+    @GetMapping("/editSetlistInfo")
+    public String editSetlistInfo(Model model, HttpSession session) {
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "editSetlistInfo";
+    }
 }
