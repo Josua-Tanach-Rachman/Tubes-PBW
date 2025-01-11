@@ -191,7 +191,7 @@ function createElement(edit){
     
         // Create the edit icon image
         const editIcon = document.createElement("img");
-        editIcon.src = "assets/edit.png";  // Set the source of the image
+        editIcon.src = "/assets/edit.png";  // Set the source of the image
         editIcon.alt = "edit-icon";        // Alt text for the image
         editIcon.classList.add("icon");   // Add the class for styling
     
@@ -211,7 +211,7 @@ function createElement(edit){
     
         // Create the delete icon image
         const deleteIcon = document.createElement("img");
-        deleteIcon.src = "assets/delete.png";  // Set the source of the image
+        deleteIcon.src = "/assets/delete.png";  // Set the source of the image
         deleteIcon.alt = "remove-icon";        // Alt text for the image
         deleteIcon.classList.add("icon");     // Add the class for styling
     

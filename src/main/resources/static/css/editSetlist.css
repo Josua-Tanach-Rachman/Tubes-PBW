@@ -1,6 +1,7 @@
 body {
     margin: 0px;
     background-color: black;
+    font-family: "Segoe UI", "Trebuchet MS", "Verdana", sans-serif;
 }
 
 .kotak_ungu{
@@ -170,6 +171,7 @@ a {
 .artist-list li a:hover {
     text-decoration: underline;
     color: #ffffff; /* White text on hover */
+    cursor: pointer;
 }
 
 .artist-list li .setlists {
@@ -479,7 +481,8 @@ tr:hover {
 }
 
 .submit-button{
-    margin-left: -70%;
+    margin-left: 20px;
+    margin-top: 10px;
 }
 
 .submit-button:hover{
@@ -498,7 +501,56 @@ tr:hover {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    margin-bottom: 25px;
 }
+
+.form-group label {
+    font-size: 16px;
+    color: white;
+}
+
+.form-group input {
+    background-color: #333;
+    color: white;
+    border: 1px solid #8100B3;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    width: 30%;
+}
+
+.form-group input::placeholder {
+    color: #ccc;
+}
+
+.form-group button {
+    align-self: flex-start;
+    background-color: #8100B3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.form-group button:hover {
+    background-color: #9a00d4;
+}
+
+.form-group input[type="time"] {
+    background-color: #333; /* Warna latar belakang gelap */
+    color: white; /* Warna teks putih */
+    border: 1px solid #8100B3; /* Border ungu */
+    border-radius: 5px; /* Sudut border melengkung */
+    padding: 10px; /* Padding internal */
+    font-size: 14px; /* Ukuran font */
+}
+
+.form-group input[type="time"]::placeholder {
+    color: #ccc; /* Warna placeholder abu-abu terang */
+}
+
 
 label {
     font-weight: 600;
@@ -523,6 +575,7 @@ input[readonly]:hover {
 
 button:hover {
     background-color: #357ABD;
+    cursor: pointer;
 }
 
 /* Popup Styles */
@@ -550,6 +603,7 @@ button:hover {
     width: 90%;
     max-width: 400px;
     z-index: 1001;
+    color: white;
 }
 
 .popup-header {

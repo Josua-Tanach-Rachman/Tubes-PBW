@@ -3,15 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>FaveList | Edit Setlist</title>
+    <title>FaveList | Edit-Setlist-Song</title>
     <link rel="stylesheet" th:href="@{/css/editSetlist.css}">
     <script th:src="@{/js/editSetlistv2.js}" defer></script>
-    <link rel="icon" href="assets/icon.png" type="image/png">
+    <link rel="icon" href="/assets/icon.png" type="image/png">
 </head>
 <header>
     <div class="kotak_ungu"></div>
     <nav>
-        <img src="assets/logo5.png" alt="logo image" id="logo">
+        <img src="/assets/logo5.png" alt="logo image" id="logo">
         <P id="home"><a th:href="@{/}">HOME</a></P>
         <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
         <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
@@ -42,21 +42,21 @@
                                     <input type="hidden" name="songNames" th:value="${lagu.namaLagu}"/>
                                     <p th:text="${lagu.namaLagu}"></p>
                                     <div class="actions">
-                                        <img src="assets/edit.png" alt="edit-icon" class="icon">
+                                        <img src="/assets/edit.png" alt="edit-icon" class="icon">
                                         <a class="edit-song">Edit this song</a>
-                                        <img src="assets/delete.png" alt="remove-icon" class="icon">
+                                        <img src="/assets/delete.png" alt="remove-icon" class="icon">
                                         <a class="remove-song">Remove this song</a>
                                     </div>
                                 </div>
                             </li>
                         </ol>
                         <div class="form-group">
-                            <label for="photos">Evidence(Photos):</label>
+                            <label for="file">Evidence(Photos):</label>
                             <input type="file" id="file" name="file" required>
                         </div>
                         <!-- <button class="button submit-button" type="submit">SUBMIT CHANGES</button> -->
-                        <button id="addSong" type="button">Add new Song</button>
-                        <button type="submit">SUBMIT CHANGES</button>
+                        <button id="addSong" type="button">Add new song</button>
+                        <button type="submit" class="submit-button">Save changes</button>
                     </form>
                 </div>  
                 <!-- <div class="form-group">
