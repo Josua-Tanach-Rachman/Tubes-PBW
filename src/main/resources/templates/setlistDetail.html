@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Artist Name</title>
     <link rel="stylesheet" th:href="@{/css/setlistDetail.css}">
+    <script th:src="@{/js/setlistDetail.js}" defer></script>
 </head>
 
 <header>
@@ -101,18 +102,51 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <!-- <tbody>
                     <tr th:each="history : ${listHistory}">
                         <td th:text="${#dates.format(history.tanggalDiubah, 'dd-MM-yyyy HH:mm')}">2024-12-30</td>
                         <td th:text="${history.username}">JohnDoe</td>
-                        <td><button><a
-                                    th:href="@{/setlistHistory/{idSetlist}/{date}(idSetlist = ${history.idSetlist}, date = ${history.tanggalDiubah})}">DETAIL</a></button>
+                        <td>
+                            <button>
+                                <a th:href="@{/setlistHistory/{idSetlist}/{date}(idSetlist = ${history.idSetlist}, date = ${history.tanggalDiubah})}">DETAIL</a>
+                            </button>
                         </td>
+                    </tr>
+                    
+                </tbody> -->
+                <tbody>
+                    <tr>
+                        <td>30-12-2024 14:30</td>
+                        <td>JohnDoe</td>
+                        <td><button class="detailButton">Detail</button></td>
+                    </tr>
+                    <tr>
+                        <td>31-12-2024 10:15</td>
+                        <td>JaneSmith</td>
+                        <td><button class="detailButton">Detail</button></td>
                     </tr>
                 </tbody>
             </table>
+            <div class="overlay" id="overlay"></div>
+            <div class="popup" id="popup">
+                <button class="close">&times;</button>
+                <h2>Song Changes</h2>
+                <hr>
+                <p><strong>Song Added:</strong> <span id="song-title"></span></p>
+                <ul>
+                    <li>song1</li>
+                    <li>song2</li>
+                    <li>song3</li>
+                </ul>
+                <p><strong>Song Removed:</strong> <span id="previous-author"></span></p>
+                <ul>
+                    <li>song4</li>
+                    <li>song5</li>
+                    <li>song6</li>
+                </ul>
+                <p><strong>Total Change:</strong> <span id="current-author"></span></p>
+            </div>
         </div>
     </div>
 </body>
-
 </html>
