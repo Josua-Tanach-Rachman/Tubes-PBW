@@ -38,6 +38,5 @@ public class AuthorizationAspect {
         if(!Arrays.asList(roles).contains(role)){
             throw new SecurityException("user is not in the role" + Arrays.toString(roles));
         }
-        
     }
 }

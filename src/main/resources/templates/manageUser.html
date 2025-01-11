@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favelist | Manage User</title>
+    <link rel="stylesheet" th:href="@{/css/manageUser.css}">
+    <script th:src="@{/js/manageUser.js}" defer></script>
+</head>
+<body>
+    <header>
+        <div class="kotak_ungu"></div>
+        <nav>
+            <img src="assets/logo5.png" alt="logo image" id="logo">
+            <P id="home"><a th:href="@{/}">HOME</a></P>
+            <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
+            <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
+            <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
+            <P id="song"><a th:href="@{/song}">SONG</a></P>
+            <P id="manage_user"><a th:href="@{/manageUser}">MANAGE USER</a></P>
+            <P id="report"><a th:href="@{/report}">REPORT</a></P>
+
+            <div class="button-container">
+                <button type="submit" class="button setlist"><a th:href="@{/addsetlist}">+SET LIST</a></button>
+                <form action="/logout" method="GET">
+                    <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
+                </form>   
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+        <!-- Filter and Search -->
+        <div class="filter-container">
+            <input type="text" class="search_bar" placeholder="Search by username or email">
+            <div>
+                <img src="assets/search.png" alt="" class="icon_search">
+            </div>
+            <select id="filter-role">
+                <option value="all">All Roles</option>
+                <option value="user">User</option>
+                <option value="pengguna">Pengguna</option>
+            </select>
+            <select id="filter-status">
+                <option value="all">All Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
+            <button id="apply-filter">Apply Filter</button>
+        </div>
+
+        <!-- User Table -->
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="user-list">
+                <!-- Contoh data pengguna -->
+                <tr th:each="user, iterStat : ${listUsers}">
+                    <td th:text="${iterStat.index + 1}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td>
+                        <select class="role-dropdown" th:attr="data-user-id=${user.username}">
+                            <option value="admin" th:selected="${user.role == 'admin'}">Admin</option>
+                            <option value="pengguna" th:selected="${user.role == 'pengguna'}">Pengguna</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="status-btn" 
+                                th:text="${user.status ? 'Active' : 'Inactive'}" 
+                                th:classappend="${user.status ? ' active' : ' inactive'}">
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

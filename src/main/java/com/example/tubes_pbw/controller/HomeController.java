@@ -43,6 +43,11 @@ public class HomeController {
         }
         else{
             model.addAttribute("isUserLoggedIn", true);
+            if(session.getAttribute("role").equals("admin")){
+                model.addAttribute("isAdmin", true);
+            } else {
+                model.addAttribute("isAdmin", false);
+            }
         }
         return "homePage";
     }
