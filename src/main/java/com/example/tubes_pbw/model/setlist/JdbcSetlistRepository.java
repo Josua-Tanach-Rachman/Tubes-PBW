@@ -37,11 +37,41 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
 
     @Override
-    public int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow) {
-        String sql = "INSERT INTO setlist (namasetlist, tanggal, idartis, idlokasi, urlbukti, idShow) " +
-                    "VALUES (?, ?, ?, ?, ?, ?) RETURNING idsetlist";
+    public int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow, String email) {
+        String sql = "INSERT INTO setlist (namasetlist, tanggal, idartis, idlokasi, urlbukti, idShow, email) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING idsetlist";
         
-        int idSetlist = jdbcTemplate.queryForObject(sql, Integer.class, namaSetlist, tanggal, idArtis, idLokasi, urlBukti,idShow);
+        int idSetlist = jdbcTemplate.queryForObject(sql, Integer.class, namaSetlist, tanggal, idArtis, idLokasi, urlBukti,idShow, email);
+
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(currentDateTime);
+        //insert to setlisthistory
+        sql = "INSERT INTO SetlistHistory (\n" + //
+                        "    idSetlist, \n" + //
+                        "    idArtis, \n" + //
+                        "    idLokasi, \n" + //
+                        "    namaSetlist, \n" + //
+                        "    tanggal, \n" + //
+                        "    urlBukti, \n" + //
+                        "    idShow, \n" + //
+                        "    email, \n" + //
+                        "    action, \n" + //
+                        "    tanggalDiubah\n" + //
+                        ")\n" + //
+                        "SELECT \n" + //
+                        "    idSetlist, \n" + //
+                        "    idArtis, \n" + //
+                        "    idLokasi, \n" + //
+                        "    namaSetlist, \n" + //
+                        "    tanggal, \n" + //
+                        "    urlBukti, \n" + //
+                        "    idShow, \n" + //
+                        "    email, \n" + //
+                        "    'UPDATE', \n" + //
+                        "    ? \n" + //
+                        "FROM Setlist\n" + //
+                        "WHERE idSetlist = ?;";
+        jdbcTemplate.update(sql,timestamp,idSetlist);
         
         return idSetlist;
     }

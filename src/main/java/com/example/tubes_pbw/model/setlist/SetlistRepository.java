@@ -8,7 +8,7 @@ public interface SetlistRepository {
     Optional<Setlist> findByIdSetlist(int idSetlist);
     Iterable<Setlist> findByNamaSetlist(String namaSetlist);
     Iterable<Setlist> findByShow(int idShow);
-    int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow);
+    int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow, String email);
     List<ArtistSetlistLokasiDate> findArtistSetlistLokasiDateByIdArtis(int idArtis);
     Iterable<SetlistJumlahPengguna> findSetlistByFilterNamaWithOffsetReturnWithCount(String namaSetlist,int limit, int offset);
     long countByFilterNamaSetlist(String namaSetlist);

@@ -25,8 +25,8 @@ public class SetlistService {
         return setlistRepository.findByShow(idShow);
     }
 
-    public int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow) {
-        return setlistRepository.save(namaSetlist, tanggal, idArtis, idLokasi, urlBukti, idShow) ;
+    public int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow, String email) {
+        return setlistRepository.save(namaSetlist, tanggal, idArtis, idLokasi, urlBukti, idShow, email) ;
     }
 
     public List<ArtistSetlistLokasiDate> findLokasiDate (int idArtis){

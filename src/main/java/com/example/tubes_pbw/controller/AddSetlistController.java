@@ -157,7 +157,7 @@ public class AddSetlistController {
         @RequestParam("show") String namaShow,
         @RequestParam("date") String date,
         @RequestParam("file") MultipartFile file,
-        Model model,User user) throws IOException
+        Model model,User user, HttpSession session) throws IOException
     {
         String namaSetlist = namaArtis + " at " + namaLokasi;
         String namaImage = (namaArtis + namaLokasi).replaceAll("\\s+", "");
@@ -175,7 +175,9 @@ public class AddSetlistController {
         Iterator<Show> iterator = listShow.iterator();
         Show show = iterator.hasNext()? iterator.next() : null;
 
-        int idSetlist = setlistService.save(namaSetlist, timestamp, artis.getIdArtis(), lokasi.getIdLokasi(), path,show.getIdShow());
+        String email = (String) session.getAttribute("email");
+
+        int idSetlist = setlistService.save(namaSetlist, timestamp, artis.getIdArtis(), lokasi.getIdLokasi(), path,show.getIdShow(), email);
 
         return "redirect:/setlist";
     }
@@ -410,15 +412,24 @@ public class AddSetlistController {
             SetlistNowBef setlistNowBefs = setlistHistoryService.findSetlistNowBef(idSetlist, timestamp).get(0);
             if(setlistNowBefs.getIdLokasi() != setlistNowBefs.getIdLokasiBef()){
                 model.addAttribute("bedaLokasi", true);
+                teks += "bedaLokasi";
             }
             if(setlistNowBefs.getIdShow() != setlistNowBefs.getIdShowBef()){
                 model.addAttribute("bedaShow", true);
+                teks += "bedaShow";
             }
-            int comparisonResult = setlistNowBefs.getTanggal().compareTo(setlistNowBefs.getTanggalBef());
-            if(comparisonResult != 0){
+            if(setlistNowBefs.getTanggalBef() == null){
                 model.addAttribute("bedaTanggal", true);
+                teks += "bedaTanggal";
             }
-            return "ubahinfo";
+            else{
+                int comparisonResult = setlistNowBefs.getTanggal().compareTo(setlistNowBefs.getTanggalBef());
+                if(comparisonResult != 0){
+                    model.addAttribute("bedaTanggal", true);
+                    teks += "bedaTanggal";
+                }
+            }
+            return teks;
         }
 
         for(i = 0;i < listLaguYangDiubah.size();i++){
