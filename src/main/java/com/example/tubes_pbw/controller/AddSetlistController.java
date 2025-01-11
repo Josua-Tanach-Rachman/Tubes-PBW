@@ -41,6 +41,9 @@ import com.example.tubes_pbw.model.negara.NegaraService;
 import com.example.tubes_pbw.model.setlist.Setlist;
 import com.example.tubes_pbw.model.setlist.SetlistService;
 import com.example.tubes_pbw.model.setlist.SetlistSong;
+import com.example.tubes_pbw.model.setlistHistory.LaguNowBef;
+import com.example.tubes_pbw.model.setlistHistory.SetlistHistoryService;
+import com.example.tubes_pbw.model.setlistHistory.SetlistNowBef;
 import com.example.tubes_pbw.model.show.Show;
 import com.example.tubes_pbw.model.show.ShowService;
 import com.example.tubes_pbw.model.user.PenggunaSetlist;
@@ -78,6 +81,9 @@ public class AddSetlistController {
 
     @Autowired
     LaguService laguService;
+
+    @Autowired
+    SetlistHistoryService setlistHistoryService;
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     
@@ -281,8 +287,10 @@ public class AddSetlistController {
         Iterator<Show> iterator = listShow.iterator();
         Show show = iterator.hasNext()? iterator.next() : null;
 
+        Timestamp tanggalBef = Timestamp.valueOf(setlist.getTanggal());
+
         String email = (String) session.getAttribute("email");
-        setlistService.updateSetlist(namaSetlist, idSetlist, tanggalSetlist, lokasi.getIdLokasi(), path, show.getIdShow(), email, timestamp);
+        setlistService.updateSetlist(namaSetlist, idSetlist, tanggalSetlist, lokasi.getIdLokasi(), path, show.getIdShow(), email, timestamp, setlist.getIdLokasi(), setlist.getIdShow(), tanggalBef, setlist.getNamaSetlist());
 
         return "";
     }
@@ -346,7 +354,7 @@ public class AddSetlistController {
 
             SetlistSong laguOld = listLaguOld.get(i);
             if(lagu.getNamaLagu().equals(laguOld.getNamaLagu()) == false){       //kalo beda
-                setlistService.changeSong(idSetlist, lagu.getIdLagu(), laguOld.getTrackNumber(), email, timestamp, path);
+                setlistService.changeSong(idSetlist, lagu.getIdLagu(), laguOld.getTrackNumber(), email, timestamp, path, laguOld.getIdLagu());
             }
         }
 
@@ -375,7 +383,59 @@ public class AddSetlistController {
         else{
             model.addAttribute("isUserLoggedIn", true);
         }
-        return "redirect:/edit/setlistSongs/" + idSetlist;
+        return "redirect:/setlist/" + setlist.getNamaSetlist().replace(' ', '-') +"-"+ idSetlist;
+    }
+
+    @GetMapping("/setlistHistory/{idSetlist}/{date}")
+    @ResponseBody
+    public String getDetailHistory(
+        @PathVariable int idSetlist, 
+        @PathVariable String date, 
+        Model model, HttpSession session
+    )
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+        
+        // Parse the string into a LocalDateTime
+        LocalDateTime localDateTime = LocalDateTime.parse(date, formatter);
+        
+        // Convert LocalDateTime to Timestamp
+        Timestamp timestamp = Timestamp.valueOf(localDateTime);
+
+        List<LaguNowBef> listLaguYangDiubah = setlistHistoryService.findLaguBefAfter(idSetlist, timestamp);
+        int i;
+        String teks = "";
+        //update info berarti
+        if(listLaguYangDiubah.size() == 0){
+            SetlistNowBef setlistNowBefs = setlistHistoryService.findSetlistNowBef(idSetlist, timestamp).get(0);
+            if(setlistNowBefs.getIdLokasi() != setlistNowBefs.getIdLokasiBef()){
+                model.addAttribute("bedaLokasi", true);
+            }
+            if(setlistNowBefs.getIdShow() != setlistNowBefs.getIdShowBef()){
+                model.addAttribute("bedaShow", true);
+            }
+            int comparisonResult = setlistNowBefs.getTanggal().compareTo(setlistNowBefs.getTanggalBef());
+            if(comparisonResult != 0){
+                model.addAttribute("bedaTanggal", true);
+            }
+            return "ubahinfo";
+        }
+
+        for(i = 0;i < listLaguYangDiubah.size();i++){
+            LaguNowBef laguNowBef = listLaguYangDiubah.get(i);
+            if(laguNowBef.getAction().equals("INSERT")){
+
+            }   
+            else if(laguNowBef.getAction().equals("DELETE")) {
+
+            }
+            else{
+                
+            }
+            teks += "From " + Integer.toString(laguNowBef.getIdLaguBef()) + " To " + Integer.toString(laguNowBef.getIdLagu()) + " Using " + laguNowBef.getAction() + " ON tracknumber " + Integer.toString(laguNowBef.getTrackNumber()) + "\n";
+        }
+        // teks = "hai";
+        return String.format("%s", teks);
     }
 
     public String saveImage(String subDir, MultipartFile file, String namaImage) throws IOException {

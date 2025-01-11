@@ -19,13 +19,13 @@ public interface SetlistRepository {
 
     List<SetlistSong> findSetlistSongByIdSetlist(int idSetlist);
 
-    int updateSetlist(String namaSetlist, int idSetlist, Timestamp tanggal, int idLokasi, String urlBukti, int idShow, String email, Timestamp tanggalDiubah);
+    int updateSetlist(String namaSetlist, int idSetlist, Timestamp tanggal, int idLokasi, String urlBukti, int idShow, String email, Timestamp tanggalDiubah, int idLokasiBef, int idShowBef, Timestamp tanggalBef, String namaSetlistBef);
 
     void setCurrentTimestamp();
 
     List<SetlistSong> findSetlistSongForDetailHistory(int idSetlist, Timestamp time);
 
-    void changeSong(int idSetlist, int idLagu, int trackNumber, String email, Timestamp tanggalDiubah, String bukti);
+    void changeSong(int idSetlist, int idLagu, int trackNumber, String email, Timestamp tanggalDiubah, String bukti, int idLaguOld);
     void removeSongFromSetlist(int idSetlist, int idLagu, String email, int trackNumber, Timestamp tanggalDiubah, String bukti);
     void addSongToSetlist(int idSetlist, int idLagu, String email, Timestamp tanggalDiubah, String bukti);
 }
