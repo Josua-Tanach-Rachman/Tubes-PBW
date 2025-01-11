@@ -336,6 +336,17 @@ public class UserController {
         return "addsong";
     }
 
+    @GetMapping("/addAlbum")
+    public String addAlbum(User user, Model model, HttpSession session){
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "addAlbum";
+    }
+
     @GetMapping("/addConcert")
     public String addShow(User user, Model model, HttpSession session) {
         if(session.getAttribute("username") == null){
@@ -554,5 +565,16 @@ public class UserController {
         model.addAttribute("listUsers", listUsers);
         System.out.println("PANDA " + listUsers);
         return "report"; // Mengembalikan view manageUser.html
+    }
+
+    @GetMapping("/editSetlistInfo")
+    public String editSetlistInfo(Model model, HttpSession session) {
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "editSetlistInfo";
     }
 }

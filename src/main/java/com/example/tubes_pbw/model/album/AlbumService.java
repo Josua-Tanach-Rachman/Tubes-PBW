@@ -3,6 +3,7 @@ package com.example.tubes_pbw.model.album;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +26,19 @@ public class AlbumService {
         return albumRepository.findAll();
     }
 
-    public void save(String namaAlbum, String releaseDate, String urlGambarAlbum) {
-        albumRepository.save(namaAlbum, releaseDate, urlGambarAlbum);
+    public void save(String namaAlbum, Date releaseDate, int idartis, String urlGambarAlbum) {
+        albumRepository.save(namaAlbum, releaseDate, idartis, urlGambarAlbum);
     }
 
     public void deleteById(int idAlbum) {
         albumRepository.deleteById(idAlbum);
+    }
+
+    public Iterable<Album> findByFilterNamaAlbum(String namaAlbum) {
+        return albumRepository.findByFilterNamaAlbum(namaAlbum);
+    }
+
+    public Iterable<Album> findByIdArtis(int idArtis) {
+        return albumRepository.findByIdArtis(idArtis);
     }
 }

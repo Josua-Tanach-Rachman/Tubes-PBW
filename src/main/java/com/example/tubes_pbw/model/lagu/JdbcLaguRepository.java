@@ -35,9 +35,9 @@ public class JdbcLaguRepository implements LaguRepository {
     }
 
     @Override
-    public int save(int idAlbum, String namaLagu, int duration, String urlGambarLagu) {
-        String sql = "INSERT INTO lagu (idalbum, namalagu, duration, urlgambarlagu) VALUES (?, ?, ?, ?) RETURNING idlagu";
-        int idLagu = jdbcTemplate.queryForObject(sql,Integer.class, idAlbum, namaLagu, duration, urlGambarLagu);
+    public int save(int idAlbum, String namaLagu, int duration, int idArtis, String urlGambarLagu) {
+        String sql = "INSERT INTO lagu (idalbum, namalagu, duration, idartis, urlgambarlagu) VALUES (?, ?, ?, ?, ?) RETURNING idlagu";
+        int idLagu = jdbcTemplate.queryForObject(sql,Integer.class, idAlbum, namaLagu, duration, idArtis, urlGambarLagu);
         return idLagu;
     }
 
