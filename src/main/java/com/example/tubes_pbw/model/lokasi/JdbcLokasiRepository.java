@@ -36,6 +36,12 @@ public class JdbcLokasiRepository implements LokasiRepository {
         return jdbcTemplate.query(sql, this::mapRowToLokasi, idKota);
     }
 
+    @Override
+    public List<Lokasi> findByIdLokasi(int idLokasi){
+        String sql = "SELECT * FROM lokasi WHERE idLokasi = ?";
+        return jdbcTemplate.query(sql, this::mapRowToLokasi, idLokasi);
+    }
+
     private Lokasi mapRowToLokasi(ResultSet resultSet, int rowNum) throws SQLException {
         return new Lokasi(
             resultSet.getInt("idLokasi"),

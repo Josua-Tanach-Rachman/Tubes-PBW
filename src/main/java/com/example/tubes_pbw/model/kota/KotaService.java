@@ -1,5 +1,6 @@
 package com.example.tubes_pbw.model.kota;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,9 @@ public class KotaService {
 
     public Iterable<Kota> findByIdNegara(int idNegara) {
         return repo.findByIdNegara(idNegara);
+    }
+
+    public List<Kota> findByIdKota(int idKota) {
+        return repo.findByIdKota(idKota);
     }
 }

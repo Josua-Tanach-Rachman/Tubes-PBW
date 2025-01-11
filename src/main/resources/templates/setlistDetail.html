@@ -69,7 +69,12 @@
 
                 <button type="submit" th:if="${terdaftar == true}" th:text="'I wasn\'t there'">I Wasn't There</button>
             </form>
-            <a href="#" class="edit-list">Edit List</a>
+            <select name="edit-option" id="edit-option" class="edit-list">
+                <option value="" selected="selected" disabled>Select an edit option</option>
+                <option value="1" th:data-url="@{/edit/setlistSongs/{idSetlist}(idSetlist=${idSetlist})}">Edit setlist song</option>
+                <option value="2" th:data-url="@{/edit/setlist/{idSetlist}(idSetlist=${idSetlist})}">Edit setlist info</option>
+            </select>
+            
         </div>
         <!--  comment-->
         <div class="setlist-content">
@@ -148,5 +153,15 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('edit-option').addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const url = selectedOption.getAttribute('data-url');
+            
+            if (url) {
+                window.location.href = url;  // Redirect to the URL
+            }
+        });
+    </script>
 </body>
 </html>

@@ -22,5 +22,9 @@ public class LokasiService {
     public Iterable<Lokasi> findByIdKota(int idKota) {
         return repo.findByIdKota(idKota);
     }
+
+    public List<Lokasi> findByIdLokasi(int idLokasi){
+        return repo.findByIdLokasi(idLokasi);
+    }
 }
 
