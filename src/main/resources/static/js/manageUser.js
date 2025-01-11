@@ -8,7 +8,7 @@ const userList = document.getElementById('user-list');
 // Update the role filter options to match database values
 roleFilter.innerHTML = `
     <option value="all">All Roles</option>
-    <option value="pengguna">User</option>
+    <option value="pengguna">Pengguna</option>
     <option value="admin">Admin</option>
 `;
 
@@ -44,54 +44,22 @@ roleFilter.addEventListener('change', filterUsers);
 statusFilter.addEventListener('change', filterUsers);
 applyFilterBtn.addEventListener('click', filterUsers);
 
-// Function to handle role changes
-function handleRoleChange(event) {
-    const select = event.target;
-    const userId = select.getAttribute('data-user-id');
-    const newRole = select.value;
-    
-    // Here you would typically make an API call to update the user's role
-    console.log(`Updating user ${userId} role to ${newRole}`);
-    // Example API call:
-    // fetch('/api/users/update-role', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ userId, role: newRole })
-    // });
+
+function attachEventListeners() {
+    const roleDropdowns = document.querySelectorAll('.role-dropdown');
+    roleDropdowns.forEach(select => {
+        select.addEventListener('change', handleRoleChange);
+    });
+
+    const statusButtons = document.querySelectorAll('.status-btn');
+    statusButtons.forEach(button => {
+        button.addEventListener('click', handleStatusToggle);
+    });
 }
 
-// Function to handle status changes
-function handleStatusToggle(event) {
-    const button = event.target;
-    const currentStatus = button.textContent.toLowerCase();
-    const newStatus = currentStatus === 'active' ? 'Inactive' : 'Active';
-    
-    // Update button text and class
-    button.textContent = newStatus;
-    button.classList.remove('active', 'inactive');
-    button.classList.add(newStatus.toLowerCase());
-    
-    // Here you would typically make an API call to update the user's status
-    console.log(`Updating user status to ${newStatus}`);
-    // Example API call:
-    // fetch('/api/users/update-status', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ userId, status: newStatus === 'Active' })
-    // });
-}
-
-// Add event listeners for role and status changes
-document.querySelectorAll('.role-dropdown').forEach(select => {
-    select.addEventListener('change', handleRoleChange);
-});
-
-document.querySelectorAll('.status-btn').forEach(button => {
-    button.addEventListener('click', handleStatusToggle);
+// Panggil fungsi setelah DOM selesai dirender
+document.addEventListener('DOMContentLoaded', () => {
+    attachEventListeners();
 });
 
 // Initial filter on page load

@@ -446,41 +446,18 @@ public class UserController {
         return "aboutUs";
     }
 
-    @GetMapping("/coba")
-    public String coba(Model model, HttpSession session) {
-        Iterable<Artis> listArtis = artisService.findByFilterNamaArtis("");
-        model.addAttribute("listArtis", listArtis);
-
-        Iterable<Album> listAlbum = albumService.findAll();
-        model.addAttribute("listAlbum", listAlbum);
-
-        List<Artis> listArtisTop = artisService.findTopArtisBySetlistLagu();
-        model.addAttribute("listArtisTop", listArtisTop);
-
-        List<Lagu> listSongTop = laguService.findTopSong_slideShow();
-        model.addAttribute("listSongTop", listSongTop);
-        
-        if(session.getAttribute("username") == null){
-            model.addAttribute("isUserLoggedIn", false);
-        }
-        else{
-            model.addAttribute("isUserLoggedIn", true);
-        }
-        return "homePage_admin";
-    }
-
-    @GetMapping("/manageUser")
+    @GetMapping("/homePage_admin")
     public String manageUser(Model model, HttpSession session) {
-        // // Cek apakah user sudah login
-        // if (session.getAttribute("username") == null) {
-        //     return "redirect:/login"; // Redirect ke login jika belum login
-        // }
+        // Cek apakah user sudah login
+        if (session.getAttribute("username") == null) {
+            return "redirect:/login"; // Redirect ke login jika belum login
+        }
 
-        // // // Cek role user
-        // // String role = (String) session.getAttribute("role");
-        // if (!"admin".equals("role")) {
-        //     return "redirect:/"; // Redirect ke homepage jika bukan admin
-        // }
+        // Cek role user
+        String role = (String) session.getAttribute("role");
+        if (!"admin".equals(role)) {
+            return "redirect:/"; // Redirect ke homepage jika bukan admin
+        }
 
         List<User> listUsers = userService.findAllUsers(); // Asumsi ada service userService
         model.addAttribute("listUsers", listUsers);
@@ -488,44 +465,34 @@ public class UserController {
     }
 
     @PostMapping("/update-role")
-    public ResponseEntity<String> updateUserRole(
-            @RequestBody Map<String, String> payload) {
-        try {
-            String username = payload.get("userId");
-            String newRole = payload.get("role");
-            userService.updateUserRole(username, newRole);
-            return ResponseEntity.ok("Role updated successfully");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Failed to update role: " + e.getMessage());
-        }
+    public ResponseEntity<String> updateUserRole(@RequestBody Map<String, String> payload) {
+        String username = payload.get("userId");
+        String newRole = payload.get("role");
+        userService.updateUserRole(username, newRole);
+        return ResponseEntity.ok("Role updated successfully");
     }
 
     @PostMapping("/update-status")
-    public ResponseEntity<String> updateUserStatus(
-            @RequestBody Map<String, String> payload) {
-        try {
-            String username = payload.get("userId");
-            boolean newStatus = Boolean.parseBoolean(payload.get("status"));
-            userService.updateUserStatus(username, newStatus);
-            return ResponseEntity.ok("Status updated successfully");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Failed to update status: " + e.getMessage());
-        }
-    }
+    public ResponseEntity<String> updateUserStatus(@RequestBody Map<String, String> payload) {
+        String username = payload.get("userId");
+        boolean newStatus = Boolean.parseBoolean(payload.get("status"));
+        userService.updateUserStatus(username, newStatus);
+        return ResponseEntity.ok("Status updated successfully");
+    }       
 
 
     @GetMapping("/report")
     public String report(Model model, HttpSession session) {
         // Cek apakah user sudah login
-        // if (session.getAttribute("username") == null) {
-        //     return "redirect:/login"; // Redirect ke login jika belum login
-        // }
+        if (session.getAttribute("username") == null) {
+            return "redirect:/login"; // Redirect ke login jika belum login
+        }
 
-        // // Cek role user
-        // String role = (String) session.getAttribute("role");
-        // if (!"admin".equals(role)) {
-        //     return "redirect:/"; // Redirect ke homepage jika bukan admin
-        // }
+        // Cek role user
+        String role = (String) session.getAttribute("role");
+        if (!"admin".equals(role)) {
+            return "redirect:/"; // Redirect ke homepage jika bukan admin
+        }
 
         // Ambil data pengguna untuk ditampilkan di halaman
         List<User> listUsers = userService.findAllUsers(); // Asumsi ada service userService
