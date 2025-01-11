@@ -74,6 +74,15 @@ public class JdbcShowRepository implements ShowRepository{
         return jdbcTemplate.queryForObject(sql, Long.class);
     }
 
+    @Override
+    public long countByIwasThere(int idShow) {
+        String sql = "SELECT COUNT(DISTINCT ps.email) AS total_users\n" + //
+                        "FROM Pengguna_setlist ps\n" + //
+                        "JOIN Setlist s ON ps.idSetlist = s.idSetlist\n" + //
+                        "WHERE s.idShow = ?";
+        return jdbcTemplate.queryForObject(sql, Long.class, idShow);
+    }
+
     private Show mapRowToShow(ResultSet resultSet, int rowNum) throws SQLException {
         return new Show(
             resultSet.getInt("idShow"),

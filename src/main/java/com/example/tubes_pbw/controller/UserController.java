@@ -39,6 +39,7 @@ import com.example.tubes_pbw.model.setlist.SetlistService;
 import com.example.tubes_pbw.model.setlist.SetlistSong;
 import com.example.tubes_pbw.model.setlistHistory.SetlistHistoryPengguna;
 import com.example.tubes_pbw.model.setlistHistory.SetlistHistoryService;
+import com.example.tubes_pbw.model.show.Show;
 import com.example.tubes_pbw.model.show.ShowJumlahPengguna;
 import com.example.tubes_pbw.model.show.ShowService;
 
@@ -242,8 +243,34 @@ public class UserController {
         return "concert";
     }
 
-    @GetMapping("/addsetlist")
-    public String addsetlist(User user, Model model, HttpSession session) {
+    @GetMapping("/concert/{namaConcert}-{idConcert}")
+    public String concertDetail(@PathVariable("namaConcert") String namaConcert, @PathVariable("idConcert") int idConcert,
+            Model model, HttpSession session) {
+        Optional<Show> ShowList = showService.findByIdShow(idConcert);
+        Show show = ShowList.get();
+        model.addAttribute("show", show);
+
+        long jumlahUser_IwasThere = showService.countByIwasThere(idConcert);
+        model.addAttribute("jumlahUser", jumlahUser_IwasThere);
+
+        
+        List<LaguJumlahSetlist> laguSetlist = laguService.findLaguWithLimitOffset(Lagu.getNamaLagu(), 5, 0);
+        model.addAttribute("jumlahDimainkan", laguSetlist.get(0));
+
+        LaguArtisAlbum laguArtisAlbum = laguService.findLaguArtisAlbum(idLagu);
+        model.addAttribute("laguArtisAlbum", laguArtisAlbum);
+
+        List<LaguTanggalShow> tanggalShow = laguService.findTanggalShow(Lagu.getIdLagu());
+        if (tanggalShow.size() >= 1) {
+            model.addAttribute("pertama", tanggalShow.get(0));
+            model.addAttribute("terakhir", tanggalShow.get(tanggalShow.size() - 1));
+        } else {
+            model.addAttribute("pertama", null);
+            model.addAttribute("terakhir", null);
+        }
+        // List<LaguSetlistLokasiDate> lokasiDates =
+        // setlistService.findLokasiDate(idLagu);
+        // model.addAttribute("lokasiDates", lokasiDates);
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);
         }
@@ -256,11 +283,7 @@ public class UserController {
             }
         }
 
-        if (session.getAttribute("username") == null) {
-            return "redirect:/login";
-        } else {
-            return "addSetlist";
-        }
+        return "songDetail";
     }
 
     @GetMapping("/search")

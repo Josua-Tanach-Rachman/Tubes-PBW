@@ -40,4 +40,8 @@ public class ShowService {
     public long maxSetlistCountForEachShow(){
         return showRepository.maxSetlistCountForEachShow();
     }
+
+    public long countByIwasThere(int idShow){
+        return showRepository.countByIwasThere(idShow);
+    }
 }
