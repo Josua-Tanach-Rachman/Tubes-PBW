@@ -77,7 +77,7 @@ public class UserController {
             return "login";
         }
         if(session.getAttribute("role").equals("admin")){
-            return "redirect:/homePage_admin";
+            return "redirect:/manageUser";
         }
         if(session.getAttribute("role").equals("user")){
             return "redirect:/public";
@@ -165,6 +165,13 @@ public class UserController {
         else{
             model.addAttribute("isUserLoggedIn", true);
         }
+
+                if(session.getAttribute("role").equals("admin")){
+            model.addAttribute("isAdmin", true);
+        } else {
+            model.addAttribute("isAdmin", false);
+        }
+
         return "setlist";
     }
 
@@ -194,6 +201,12 @@ public class UserController {
         }
         else{
             model.addAttribute("isUserLoggedIn", true);
+        }
+
+        if(session.getAttribute("role").equals("admin")){
+            model.addAttribute("isAdmin", true);
+        } else {
+            model.addAttribute("isAdmin", false);
         }
         return "artist";
     }
@@ -225,6 +238,13 @@ public class UserController {
         else{
             model.addAttribute("isUserLoggedIn", true);
         }
+
+        if(session.getAttribute("role").equals("admin")){
+            model.addAttribute("isAdmin", true);
+        } else {
+            model.addAttribute("isAdmin", false);
+        }
+
         return "concert";
     }
 
@@ -236,6 +256,13 @@ public class UserController {
         else{
             model.addAttribute("isUserLoggedIn", true);
         }
+        
+        if(session.getAttribute("role").equals("admin")){
+            model.addAttribute("isAdmin", true);
+        } else {
+            model.addAttribute("isAdmin", false);
+        }
+
         if (session.getAttribute("username") == null) {
             return "redirect:/login";
         } else {
@@ -267,6 +294,13 @@ public class UserController {
         else{
             model.addAttribute("isUserLoggedIn", true);
         }
+
+        if(session.getAttribute("role").equals("admin")){
+            model.addAttribute("isAdmin", true);
+        } else {
+            model.addAttribute("isAdmin", false);
+        }
+
         return "searchPage";
     }
 
@@ -286,6 +320,12 @@ public class UserController {
             model.addAttribute("isUserLoggedIn", true);
         }
 
+        if(session.getAttribute("role").equals("admin")){
+            model.addAttribute("isAdmin", true);
+        } else {
+            model.addAttribute("isAdmin", false);
+        }
+
         return "artistDetail";
     }
 
@@ -298,6 +338,13 @@ public class UserController {
         else{
             model.addAttribute("isUserLoggedIn", true);
         }
+
+        if(session.getAttribute("role").equals("admin")){
+            model.addAttribute("isAdmin", true);
+        } else {
+            model.addAttribute("isAdmin", false);
+        }
+
         return "addArtist";
     }
 
@@ -356,6 +403,13 @@ public class UserController {
             }
             model.addAttribute("isUserLoggedIn", true);
         }
+
+        if(session.getAttribute("role").equals("admin")){
+            model.addAttribute("isAdmin", true);
+        } else {
+            model.addAttribute("isAdmin", false);
+        }
+
         return "setlistDetail";
     }
 
@@ -387,6 +441,13 @@ public class UserController {
         else{
             model.addAttribute("isUserLoggedIn", true);
         }
+
+        if(session.getAttribute("role").equals("admin")){
+            model.addAttribute("isAdmin", true);
+        } else {
+            model.addAttribute("isAdmin", false);
+        }
+
         return "songPage";
     }
 
@@ -421,6 +482,13 @@ public class UserController {
         else{
             model.addAttribute("isUserLoggedIn", true);
         }
+
+        if(session.getAttribute("role").equals("admin")){
+            model.addAttribute("isAdmin", true);
+        } else {
+            model.addAttribute("isAdmin", false);
+        }
+
         return "songDetail";
     }
 
@@ -446,7 +514,7 @@ public class UserController {
         return "aboutUs";
     }
 
-    @GetMapping("/homePage_admin")
+    @GetMapping("/manageUser")
     public String manageUser(Model model, HttpSession session) {
         // Cek apakah user sudah login
         if (session.getAttribute("username") == null) {

@@ -15,7 +15,7 @@ nav {
     color: white;
     background-color: #1E1E1E;
     display: flex;
-    font-size: 19px;
+    font-size: 20px;
     padding-left: 20px;
     position: relative;
     align-items: center;
@@ -23,8 +23,8 @@ nav {
 
 nav p {
     margin: 0px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 #home:hover,
@@ -98,8 +98,8 @@ input {
     height: 20px;
     width: 20px;
     z-index: 2;
-    left: 195px;
-    top: 15px;
+    left: 405px;
+    top: 13px;
 }
 
 /* Filter and Search */
@@ -206,4 +206,12 @@ button:hover {
 .role-dropdown:focus {
     outline: none;
     box-shadow: 0 0 10px #8100B3;
+}
+
+#apply-filter {
+    display: none;
+}
+
+.search_icon{ 
+    left: 200px;
 }

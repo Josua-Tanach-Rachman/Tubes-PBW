@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage User</title>
+    <title>Favelist | Manage User</title>
     <link rel="stylesheet" th:href="@{/css/manageUser.css}">
     <script th:src="@{/js/manageUser.js}" defer></script>
 </head>
@@ -22,12 +22,9 @@
 
             <div class="button-container">
                 <button type="submit" class="button setlist"><a th:href="@{/addsetlist}">+SET LIST</a></button>
-                <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
+                <form action="/logout" method="GET">
                     <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
-                </form>
-                <!--<form action="/login" method="GET" th:if="${!isUserLoggedIn}">
-                    <button type="submit" class="button login">LOG IN</button>
-                </form>-->       
+                </form>   
             </div>
         </nav>
     </header>
