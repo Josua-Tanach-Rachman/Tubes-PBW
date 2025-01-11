@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaveList | HomePage</title>
+    <link rel="stylesheet" th:href="@{/css/homePage.css}">
+    <link rel="stylesheet" th:href="@{/css/homePage_admin.css}">
+    <script th:src="@{/js/slideShow.js}" defer></script>
+    <link rel="icon" href="assets/icon.png" type="image/png">
+</head>
+<header>
+    <div class="kotak_ungu"></div>
+    <nav>
+        <img src="assets/logo5.png" alt="logo image" id="logo">
+        <P id="home"><a th:href="@{/}">HOME</a></P>
+        <p id="setlist"><a th:href="@{/setlist}">SETLIST</a></p>
+        <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
+        <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
+        <P id="song"><a th:href="@{/song}">SONG</a></P>
+        <P id="manage_user"><a th:href="@{/manageUser}">MANAGE USER</a></P>
+        <P id="report"><a th:href="@{/report}">REPORT</a></P>
+
+        <div class="button-container">
+            <button type="submit" class="button setlist"><a th:href="@{/addsetlist}">+SET LIST</a></button>
+            <form action="/logout" method="GET" th:if="${isUserLoggedIn}">
+                <button type="submit" class="button logout" style="background-color: red;">LOG OUT</button>
+            </form>
+            <form action="/login" method="GET" th:if="${!isUserLoggedIn}">
+                <button type="submit" class="button login">LOG IN</button>
+            </form>       
+        </div>
+    </nav>
+</header>
+<body>
+    <div class="search-container">
+        <img src="assets/background_search_main.png" alt="" class="background-search">
+        <div class="blackBox"></div>
+        <div class="search_bar">
+            <form action="/search" method="GET">
+                <h1 id="slogan">Discover Your Favourite...</h1>
+                <input name="filter" type="text" placeholder="Search for artist, song, album, concert, ...">
+            </form>
+            <div>
+                <img src="assets/search.png" alt="" class="icon_search">
+            </div>
+        </div>
+    </div>
+
+    <!-- Top 10 Trending Artist -->
+    <h3 id="header_slideshow">RECOMMENDED ARTIST</h3>
+    <div class="trending-artist">
+        <div class="carousel">
+            <!-- Tombol untuk berpindah ke slide sebelumnya -->
+            <button class="prev-btn" aria-label="Previous slide">❮</button>
+    
+            <!-- Kontainer untuk item carousel -->
+            <div class="carousel-container">
+                <div th:each="artis : ${listArtisTop}" class="carousel-item">
+                    <a th:href="@{/artist/{namaArtis}-{idArtis}(namaArtis=${#strings.replace(artis.namaArtis, ' ', '-')}, idArtis=${artis.idArtis})}">
+                        <img th:src="@{'api/uploads/images' + ${artis.urlGambarArtis}}" alt="Artist Image" class="recommended-image">
+                        <p th:text="${artis.namaArtis}"></p>
+                    </a>
+                </div>
+            </div> 
+    
+            <!-- Tombol untuk berpindah ke slide berikutnya -->
+            <button class="next-btn" aria-label="Next slide">❯</button>
+        </div>
+    </div>   
+
+    <h3 id="header_slideshow">RECOMMENDED SONG</h3>
+    <div class="trending-song">
+        <div class="carousel">
+            <!-- Tombol untuk berpindah ke slide sebelumnya -->
+            <button class="prev-btn2" aria-label="Previous slide">❮</button>
+    
+            <!-- Kontainer untuk item carousel -->
+            <div class="carousel-container2">
+                <div th:each="song : ${listSongTop}" class="carousel-item">
+                    <img th:src="@{'api/uploads/images' + ${song.urlGambarLagu}}" alt="Song Image" class="recommended-image">
+                    <p th:text="${song.namaLagu}"></p>
+                </div>
+            </div> 
+    
+            <!-- Tombol untuk berpindah ke slide berikutnya -->
+            <button class="next-btn2" aria-label="Next slide">❯</button>
+        </div>
+    </div>
+
+   
+</body>
+<footer>
+    <div class="footer-container">
+        <p>&copy; 2025 FaveList. All Rights Reserved.</p>
+        <nav class="footer-nav">
+            <a th:href="@{/aboutUs}">About Us</a>
+            <a th:href="@{/contact}">Contact</a>
+            <a th:href="@{/privacyPolicy}">Privacy Policy</a>
+        </nav>
+    </div>
+</footer>
+</html>

@@ -1,5 +1,6 @@
 package com.example.tubes_pbw.model.user;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,10 @@ public class UserService {
         return null;
     }
 
+    public List<User> findAllUsers (){
+        return userRepository.findAll();
+    }
+    
     public PenggunaSetlist findInSetlist(String email, int idSetlist){
         Optional<PenggunaSetlist> user = userRepository.findInSetlist(email,idSetlist);
 
@@ -47,5 +52,14 @@ public class UserService {
 
     public void removeFromPenggunaSetlist(String email, int idSetlist){
         userRepository.removeFromPenggunaSetlist(email, idSetlist);
+    }
+
+    public void updateUserRole(String username, String newRole) {
+        userRepository.updateUserRole(username, newRole);
+    }
+
+    public void updateUserStatus(String username, boolean newStatus) {
+        userRepository.updateUserStatus(username, newStatus);
+
     }
 }

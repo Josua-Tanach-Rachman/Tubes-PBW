@@ -35,6 +35,12 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
+    public List<User> findAll (){
+        String sql = "Select * From pengguna";
+        return jdbcTemplate.query(sql, this::mapRowToUser);
+    }
+
+    @Override
     public Optional<PenggunaSetlist> findInSetlist(String email, int idSetlist){
         String sql = "SELECT * FROM pengguna_setlist WHERE email = ? AND idsetlist = ?";
         List<PenggunaSetlist> results = jdbcTemplate.query(sql, this::mapRowToPenggunaSetlist, email, idSetlist);
@@ -60,7 +66,8 @@ public class JdbcUserRepository implements UserRepository {
             resultSet.getString("password"),
             resultSet.getString("nama"),
             resultSet.getString("role"),
-            resultSet.getString("email")
+            resultSet.getString("email"),
+            resultSet.getBoolean("status")
         );
     }
 
@@ -71,4 +78,15 @@ public class JdbcUserRepository implements UserRepository {
         );
     }
 
+    @Override
+    public void updateUserRole(String username, String newRole) {
+        String sql = "UPDATE Pengguna SET role = ?::rolepengguna WHERE username = ?";
+        jdbcTemplate.update(sql, newRole, username);
+    }
+
+    @Override
+    public void updateUserStatus(String username, boolean newStatus) {
+        String sql = "UPDATE Pengguna SET status = ? WHERE username = ?";
+        jdbcTemplate.update(sql, newStatus, username);
+    }
 }

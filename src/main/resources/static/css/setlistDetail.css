@@ -3,18 +3,21 @@ body {
     padding: 0px;
     box-sizing: border-box;
     background-color: black;
-    color: white; /* Adjust text color for readability */
+    color: white;
+    /* Adjust text color for readability */
 }
 
 .kotak_ungu {
     height: 10px;
     width: 100%;
-    background-color: #8100B3; /* Retain purple bar */
+    background-color: #8100B3;
+    /* Retain purple bar */
 }
 
 nav {
     color: white;
-    background-color: #1E1E1E; /* Dark background for the navbar */
+    background-color: #1E1E1E;
+    /* Dark background for the navbar */
     display: flex;
     gap: 50px;
     padding-top: 8px;
@@ -33,7 +36,8 @@ nav p {
 #setlist:hover,
 #concert:hover,
 #news:hover {
-    background-color: #8100B3; /* Purple hover effect for nav items */
+    background-color: #8100B3;
+    /* Purple hover effect for nav items */
 }
 
 #logo {
@@ -48,7 +52,7 @@ button {
     padding: 5px;
 }
 
-.button-container{
+.button-container {
     position: absolute;
     gap: 30px;
     z-index: 2;
@@ -61,15 +65,18 @@ button {
 
 a {
     text-decoration: none;
-    color: white; /* Default link color to white */
+    color: white;
+    /* Default link color to white */
 }
 
 #artist a {
-    color: #8100B3; /* Highlight artist links in purple */
+    color: #8100B3;
+    /* Highlight artist links in purple */
 }
 
 .artist-setlists {
-    position: relative;  /* For absolute positioning of edit link */
+    position: relative;
+    /* For absolute positioning of edit link */
     margin: 50px auto;
     background: #1E1E1E;
     border: 1px solid #8100B3;
@@ -78,7 +85,8 @@ a {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     width: 1160px;
     color: white;
-    min-height: 200px;  /* Ensure minimum height for short lists */
+    min-height: 200px;
+    /* Ensure minimum height for short lists */
 }
 
 .setlist-content {
@@ -103,16 +111,19 @@ a {
 
 .artist-setlists h1 {
     font-size: 32px;
-    color: #8100B3; /* Highlight headings in purple */
+    color: #8100B3;
+    /* Highlight headings in purple */
     margin-bottom: 10px;
     margin-top: -30px;
 }
 
 .artist-setlists h3 {
     font-size: 18px;
-    color: white; /* Sub-heading remains white */
+    color: white;
+    /* Sub-heading remains white */
     margin-bottom: 20px;
-    border-bottom: 1px solid #8100B3; /* Purple divider */
+    border-bottom: 1px solid #8100B3;
+    /* Purple divider */
     padding-bottom: 10px;
 }
 
@@ -129,11 +140,13 @@ a {
     justify-content: space-between;
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #333; /* Subtle separator */
+    border-bottom: 1px solid #333;
+    /* Subtle separator */
 }
 
 .artist-list li a {
-    color: #8100B3; /* Purple for artist names */
+    color: #8100B3;
+    /* Purple for artist names */
     text-decoration: none;
     font-weight: bold;
     font-size: 16px;
@@ -141,11 +154,13 @@ a {
 
 .artist-list li a:hover {
     text-decoration: underline;
-    color: #ffffff; /* White text on hover */
+    color: #ffffff;
+    /* White text on hover */
 }
 
 .artist-list li .setlists {
-    color: #ccc; /* Light gray for setlist numbers */
+    color: #ccc;
+    /* Light gray for setlist numbers */
     font-size: 14px;
     margin-left: 10px;
 }
@@ -153,7 +168,8 @@ a {
 .popularity-bar {
     flex: 1;
     height: 8px;
-    background: #333; /* Dark bar */
+    background: #333;
+    /* Dark bar */
     border-radius: 5px;
     margin: 0 15px;
     position: relative;
@@ -161,19 +177,22 @@ a {
 
 .popularity-bar .filled-bar {
     height: 100%;
-    background: #8100B3; /* Purple-filled bar */
+    background: #8100B3;
+    /* Purple-filled bar */
     border-radius: 5px;
 }
 
 .popularity-count {
-    color: #8100B3; /* Purple numbers for emphasis */
+    color: #8100B3;
+    /* Purple numbers for emphasis */
     font-size: 14px;
     font-weight: bold;
 }
 
 .last-updated {
     font-size: 12px;
-    color: #666; /* Subtle gray for timestamps */
+    color: #666;
+    /* Subtle gray for timestamps */
     text-align: right;
     margin-top: 20px;
 }
@@ -187,23 +206,28 @@ a {
 }
 
 .column {
-    background: #1E1E1E; /* Dark background for columns */
-    border: 1px solid #8100B3; /* Purple border */
+    background: #1E1E1E;
+    /* Dark background for columns */
+    border: 1px solid #8100B3;
+    /* Purple border */
     border-radius: 8px;
     padding: 20px;
     flex: 1;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Softer shadow for dark theme */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    /* Softer shadow for dark theme */
 }
 
 .column h2 {
     font-size: 20px;
-    color: #8100B3; /* Purple heading */
+    color: #8100B3;
+    /* Purple heading */
     margin-bottom: 20px;
-    border-bottom: 1px solid #8100B3; /* Purple divider */
+    border-bottom: 1px solid #8100B3;
+    /* Purple divider */
     padding-bottom: 10px;
 }
 
-.column ol{
+.column ol {
     list-style: decimal;
 }
 
@@ -215,13 +239,15 @@ a {
 
 .column ol li a {
     text-decoration: none;
-    color: #8100B3; /* Purple links */
+    color: #8100B3;
+    /* Purple links */
     font-weight: bold;
 }
 
 .column ol li a:hover {
     text-decoration: underline;
-    color: white; /* White text on hover */
+    color: white;
+    /* White text on hover */
 }
 
 .last-updated {
@@ -231,12 +257,12 @@ a {
     text-align: right;
 }
 
-#judul{
+#judul {
     text-align: center;
 }
 
 /*Search Bar*/
-.search-container{
+.search-container {
     width: 100%;
     height: 120px;
     overflow: hidden;
@@ -245,10 +271,12 @@ a {
     justify-content: center;
     align-items: center;
 }
+
 .search-container img.background-search {
     width: 100%;
     z-index: 0;
 }
+
 .search-container .blackBox {
     height: 500px;
     width: 100%;
@@ -257,20 +285,23 @@ a {
     position: absolute;
     opacity: 25%;
 }
+
 .search_bar {
     position: absolute;
     z-index: 2;
     display: flex;
     right: 20px;
 }
+
 input {
     background-color: white;
     padding: 14px;
     padding-left: 60px;
     border-radius: 30px;
-    cursor:text;
+    cursor: text;
     width: 200px;
 }
+
 .icon_search {
     position: absolute;
     height: 20px;
@@ -279,6 +310,7 @@ input {
     left: 17px;
     top: 14px;
 }
+
 #slogan {
     color: white;
     margin: 0;
@@ -331,7 +363,8 @@ table {
     margin-top: 20px;
 }
 
-th, td {
+th,
+td {
     padding: 12px;
     text-align: left;
     border-top: 1px solid #8100B3;
@@ -352,6 +385,52 @@ tr:hover {
     background-color: #f5f5f5;
 }
 
-.button-container form button{
+.button-container form button {
     cursor: pointer;
+}
+
+
+/* Popup styles */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #1E1E1E;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #8100B3;
+    width: 300px;
+}
+
+.popup h2 {
+    margin-top: 0;
+}
+
+.popup .close {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    float: right;
+}
+
+.popup .close:hover {
+    background-color: #e53935;
+}
+
+/* Overlay styles */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }
