@@ -242,27 +242,6 @@ public class UserController {
         return "concert";
     }
 
-    @GetMapping("/addsetlist")
-    public String addsetlist(User user, Model model, HttpSession session) {
-        if(session.getAttribute("username") == null){
-            model.addAttribute("isUserLoggedIn", false);
-        }
-        else{
-            model.addAttribute("isUserLoggedIn", true);
-            if(session.getAttribute("role").equals("admin")){
-                model.addAttribute("isAdmin", true);
-            } else {
-                model.addAttribute("isAdmin", false);
-            }
-        }
-
-        if (session.getAttribute("username") == null) {
-            return "redirect:/login";
-        } else {
-            return "addSetlist";
-        }
-    }
-
     @GetMapping("/search")
     public String searchAll(@RequestParam(required = false, defaultValue = "") String filter, User user, Model model,
             HttpSession session) {
