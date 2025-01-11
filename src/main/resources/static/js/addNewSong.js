@@ -27,6 +27,9 @@ fetch('/add/setlist/artist')
     });
 
 function fetchAlbum(namaArtis) {
+
+    arrayAlbum = [];
+
     fetch(`/add/song/album?namaArtis=${namaArtis}`)
         .then(response => {
             if (!response.ok) {
@@ -66,7 +69,7 @@ const popupTitle = document.getElementById('popup-title');
 
 let activeField = null;
 let currentSuggestions = [];
-let SelectedArtis = '';
+let selectedArtis = '';
 
 // Event Listeners
 artistInput.addEventListener('click', () => openPopup('artist'));
@@ -144,13 +147,13 @@ function updateSuggestionsList(suggestions) {
         li.textContent = suggestion;
         if (suggestion === 'Add New Artist') {
             li.id = "add";
-        }else if (suggestion == 'Add New Concert') {
+        }else if (suggestion == 'Add New Album') {
             li.id = "add";}
         li.addEventListener('click', () => {
             if (suggestion === 'Add New Artist') {
                 window.location.href = '/addArtist';
-            }else if (suggestion == 'Add New Concert') {
-                window.location.href = '/addConcert';
+            }else if (suggestion == 'Add New Album') {
+                window.location.href = '/addAlbum';
             } else {
                 selectSuggestion(suggestion);
             }
@@ -182,8 +185,9 @@ function closePopup() {
     activeField = null;
 }
 
-function validateForm() {
-    console.log(artistInput.value);
+function validateForm(e) {
+    e.preventDefault();  // Prevent immediate submission
+
     if (!artistInput.value) {
         alert('Please select an artist');
         return false;
@@ -192,11 +196,45 @@ function validateForm() {
         alert('Please select an album');
         return false;
     }
+
+    // Set submission status to 'submitted'
+    document.getElementById('submissionStatus').value = 'submitted';
+
+    // Show success notification
+    showSuccessNotification('Setlist submitted successfully!');
+
+    // Delay form submission by 1 second
+    setTimeout(() => {
+        form.submit();
+    }, 1000);
+
     return true;
 }
+
+
 
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && activeField) {
         closePopup();
     }
 });
+
+function showSuccessNotification(message) {
+    const submissionStatus = document.getElementById('submissionStatus').value;
+
+    // Only show the notification if the form was submitted
+    if (submissionStatus !== 'submitted') {
+        return;
+    }
+
+    const notification = document.createElement('div');
+    notification.className = 'success-notification';
+    notification.textContent = message;
+
+    document.body.appendChild(notification);
+
+    // Auto-remove notification after 3 seconds
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
