@@ -299,6 +299,17 @@ public class UserController {
         return "addsong";
     }
 
+    @GetMapping("/addAlbum")
+    public String addAlbum(User user, Model model, HttpSession session){
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "addAlbum";
+    }
+
     @GetMapping("/addConcert")
     public String addShow(User user, Model model, HttpSession session){
         if(session.getAttribute("username") == null){

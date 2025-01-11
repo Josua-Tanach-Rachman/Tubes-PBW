@@ -26,40 +26,10 @@ fetch('/add/setlist/artist')
         console.error('There was a problem with the fetch operation:', error);
     });
 
-function fetchAlbum(namaArtis) {
-
-    arrayAlbum = [];
-
-    fetch(`/add/song/album?namaArtis=${namaArtis}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            currentSuggestions = [];
-            arrayKota = [];
-
-            data.forEach(function(album) {
-                arrayAlbum.push(album.namaAlbum);
-                console.log(album);
-            })
-            console.log(arrayKota);
-            currentSuggestions = arrayKota;
-            console.log(currentSuggestions);
-
-            arrayAlbum.push('Add New Album');
-
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
-}
-
 const form = document.getElementById('setlistForm');
 const artistInput = document.getElementById('artist-name');
-const albumInput = document.getElementById('album');
+const albumInput = document.getElementById('album-name');
+const releaseInput = document.getElementById('release-date');
 const popup = document.getElementById('popup');
 const overlay = document.getElementById('overlay');
 const closeBtn = document.querySelector('.close-btn');
@@ -69,11 +39,10 @@ const popupTitle = document.getElementById('popup-title');
 
 let activeField = null;
 let currentSuggestions = [];
-let selectedArtis = '';
 
 // Event Listeners
 artistInput.addEventListener('click', () => openPopup('artist'));
-albumInput.addEventListener('click', () => openPopup('album'));
+// albumInput.addEventListener('click', () => openPopup('album'));
 closeBtn.addEventListener('click', closePopup);
 overlay.addEventListener('click', closePopup);
 searchInput.addEventListener('input', handleSearch);
@@ -94,18 +63,7 @@ async function openPopup(field) {
             searchInput.placeholder = 'Search artists...';
             currentSuggestions = arrayArtis;
             break;
-        case 'album':
-            if (!selectedArtis) {
-                alert('Please select an artist first');
-                closePopup();
-                return;
-            }
-            popupTitle.textContent = 'Select Album';
-            searchInput.placeholder = 'Search album...';
-            currentSuggestions = arrayAlbum;
-            break;
     }
-
     updateSuggestionsList(currentSuggestions);
     searchInput.focus();
 }
@@ -117,9 +75,6 @@ function handleSearch(e) {
     switch(activeField) {
         case 'artist':
             searchList = arrayArtis;
-            break;
-        case 'album':
-            searchList = arrayAlbum;
             break;
     }
 
@@ -168,21 +123,15 @@ function selectSuggestion(value) {
             artistInput.value = value;
             selectedArtis = value;
             // Reset dependent fields
-            albumInput.value = '';
+            // albumInput.value = '';
             console.log("Artist Selected");
-            fetchAlbum(selectedArtis)
+            // fetchAlbum(selectedArtis)
             break;
-        case 'album':
-            albumInput.value = value;
-            break;
+        // case 'album':
+        //     albumInput.value = value;
+        //     break;
     }
     closePopup();
-}
-
-function closePopup() {
-    popup.style.display = 'none';
-    overlay.style.display = 'none';
-    activeField = null;
 }
 
 function validateForm(e) {
@@ -193,7 +142,11 @@ function validateForm(e) {
         return false;
     }
     if (!albumInput.value) {
-        alert('Please select an album');
+        alert('Please fill the album name');
+        return false;
+    }
+    if (!releaseInput.value) {
+        alert('Please fill the release date');
         return false;
     }
 
@@ -201,7 +154,7 @@ function validateForm(e) {
     document.getElementById('submissionStatus').value = 'submitted';
 
     // Show success notification
-    showSuccessNotification('Song submitted successfully!');
+    showSuccessNotification('Album submitted successfully!');
 
     // Delay form submission by 1 second
     setTimeout(() => {
@@ -237,4 +190,10 @@ function showSuccessNotification(message) {
     setTimeout(() => {
         notification.remove();
     }, 3000);
+}
+
+function closePopup() {
+    popup.style.display = 'none';
+    overlay.style.display = 'none';
+    activeField = null;
 }

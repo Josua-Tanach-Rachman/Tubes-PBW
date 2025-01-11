@@ -198,6 +198,23 @@ public class AddSetlistController {
         return "redirect:/addSong";
     }
 
+    @PostMapping("/addAlbum")
+    public String addAlbumToDb(
+            @RequestParam("artist-name") String namaArtis,
+            @RequestParam("album-name") String namaAlbum,
+            @RequestParam("release-date") Date releaseDate,
+            @RequestParam("file") MultipartFile file) throws IOException
+    {
+        String namaImage = namaAlbum.replaceAll("\\s+", "");
+        String path = saveImage("album", file, namaImage);
+
+        Optional<Artis> artisList = artisService.findByNamaArtis(namaArtis);
+        int idArtis = artisList.get().getIdArtis();
+
+        albumService.save(namaAlbum, releaseDate, idArtis, path);
+        return "redirect:/addAlbum";
+    }
+
     @PostMapping("/addConcert")
     public String addConcertToDb(
         @RequestParam("concert-name") String namaConcert,
