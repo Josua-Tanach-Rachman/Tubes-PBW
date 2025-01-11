@@ -53,7 +53,7 @@
     </div>
     <div class="artist-setlists">
         <h1>Song</h1>
-        <h3>Top Song by setlist</h3>
+        <h3>Top Song by FaveList</h3>
         <ul class="artist-list" th:each="Lagu : ${listLagu}">
             <li>
                 <a th:href="@{/song/{namaLagu}-{idLagu}(namaLagu=${#strings.replace(Lagu.namaLagu, ' ', '-')}, idLagu=${Lagu.idLagu})}" th:text="${Lagu.namaLagu}"></a>

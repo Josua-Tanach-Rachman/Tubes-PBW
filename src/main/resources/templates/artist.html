@@ -52,7 +52,7 @@
     </div>
     <div class="artist-setlists">
         <h1>Artist Setlists</h1>
-        <h3>Top artists by setlists</h3>
+        <h3>Top Artists by FaveList</h3>
         <ul class="artist-list" th:each="artis : ${listArtis}">
             <li>
                 <a th:href="@{/artist/{namaArtis}-{idArtis}(namaArtis=${#strings.replace(artis.namaArtis, ' ', '-')}, idArtis=${artis.idArtis})}" th:text="${artis.namaArtis}"></a>

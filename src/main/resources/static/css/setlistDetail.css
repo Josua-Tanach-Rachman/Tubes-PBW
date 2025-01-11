@@ -17,11 +17,7 @@ body {
 nav {
     color: white;
     background-color: #1E1E1E;
-    /* Dark background for the navbar */
     display: flex;
-    gap: 50px;
-    padding-top: 8px;
-    padding-bottom: 8px;
     font-size: 20px;
     padding-left: 20px;
     position: relative;
@@ -30,18 +26,24 @@ nav {
 
 nav p {
     margin: 0px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 #home:hover,
-#setlist:hover,
 #concert:hover,
-#news:hover {
-    background-color: #8100B3;
-    /* Purple hover effect for nav items */
+#artist:hover,
+#manage_user:hover,
+#report:hover  {
+    background-color: #510370;
+    padding-top: 23.5px;
+    padding-bottom: 23.5px;
+    text-shadow: 3px 3px 5px black;
 }
 
 #logo {
-    height: 70px;
+    height: 60px;
+    margin-right: 20px;
 }
 
 button {
@@ -69,9 +71,16 @@ a {
     /* Default link color to white */
 }
 
-#artist a {
-    color: #8100B3;
-    /* Highlight artist links in purple */
+#setlist a {
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 0 20px whitesmoke;
+}
+
+p#setlist {
+    background-color: #8100B3;
+    padding-top: 23.5px;
+    padding-bottom: 23.5px;
 }
 
 .artist-setlists {
@@ -262,21 +271,21 @@ a {
 }
 
 /*Search Bar*/
-.search-container {
+.search-container{
     width: 100%;
-    height: 120px;
+    height: 200px;
     overflow: hidden;
     display: flex;
     position: relative;
     justify-content: center;
     align-items: center;
 }
-
 .search-container img.background-search {
+    height: 500px;
     width: 100%;
+    margin: -40px 0px 0px 0px;
     z-index: 0;
 }
-
 .search-container .blackBox {
     height: 500px;
     width: 100%;
@@ -285,40 +294,30 @@ a {
     position: absolute;
     opacity: 25%;
 }
-
 .search_bar {
     position: absolute;
     z-index: 2;
     display: flex;
-    right: 20px;
 }
-
 input {
     background-color: white;
     padding: 14px;
     padding-left: 60px;
     border-radius: 30px;
-    cursor: text;
-    width: 200px;
+    cursor:text;
+    width: 400px;
 }
-
 .icon_search {
     position: absolute;
     height: 20px;
     width: 20px;
     z-index: 2;
     left: 17px;
-    top: 14px;
+    top: 93px;
 }
-
 #slogan {
     color: white;
-    margin: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
-    /*text-align: center;*/
-    /*width: 100%;*/
+    text-align: center;
 }
 
 /*image*/

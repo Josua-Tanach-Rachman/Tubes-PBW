@@ -55,7 +55,7 @@
     <!-- <div class="concert-setlists"> -->
     <div class="artist-setlists">   <!-- ini css setlist -->
         <h1>Concerts</h1>
-        <h3>Top concert by concertgoers</h3>
+        <h3>Top Concert by FaveList</h3>
         <ul class="artist-list" th:each="show : ${listShow}">
             <li>
                 <a th:href="@{/concert/{namaShow}-{idShow}(namaShow=${#strings.replace(show.namaShow, ' ', '-')}, idShow=${show.idShow})}" th:text="${show.namaShow}"></a>
