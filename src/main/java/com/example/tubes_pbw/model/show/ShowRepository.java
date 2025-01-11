@@ -13,4 +13,7 @@ public interface ShowRepository {
     long countByFilterNamaShow(String namaShow);
     long maxSetlistCountForEachShow();
     long countByIwasThere(int idShow);
+    String findConcertCity(int idShow);
+    String findConcertAddress(int idShow);
+    String findAristOnConcert (int idShow);
 }

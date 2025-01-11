@@ -12,4 +12,5 @@ public class Show {
     private int idLokasi;
     private Date beginDate;
     private Date endDate;
+    String urlGambarShow;
 }

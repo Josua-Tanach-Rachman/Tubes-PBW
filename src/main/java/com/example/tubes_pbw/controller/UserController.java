@@ -253,24 +253,15 @@ public class UserController {
         long jumlahUser_IwasThere = showService.countByIwasThere(idConcert);
         model.addAttribute("jumlahUser", jumlahUser_IwasThere);
 
-        
-        List<LaguJumlahSetlist> laguSetlist = laguService.findLaguWithLimitOffset(Lagu.getNamaLagu(), 5, 0);
-        model.addAttribute("jumlahDimainkan", laguSetlist.get(0));
+        String kota = showService.findConcertCity(idConcert);
+        model.addAttribute("kota", kota);
 
-        LaguArtisAlbum laguArtisAlbum = laguService.findLaguArtisAlbum(idLagu);
-        model.addAttribute("laguArtisAlbum", laguArtisAlbum);
+        String alamat = showService.findConcertAddress(idConcert);
+        model.addAttribute("alamat", alamat);
 
-        List<LaguTanggalShow> tanggalShow = laguService.findTanggalShow(Lagu.getIdLagu());
-        if (tanggalShow.size() >= 1) {
-            model.addAttribute("pertama", tanggalShow.get(0));
-            model.addAttribute("terakhir", tanggalShow.get(tanggalShow.size() - 1));
-        } else {
-            model.addAttribute("pertama", null);
-            model.addAttribute("terakhir", null);
-        }
-        // List<LaguSetlistLokasiDate> lokasiDates =
-        // setlistService.findLokasiDate(idLagu);
-        // model.addAttribute("lokasiDates", lokasiDates);
+        String artis = showService.findAristOnConcert(idConcert);
+        model.addAttribute("artis", artis);
+
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);
         }
@@ -283,7 +274,7 @@ public class UserController {
             }
         }
 
-        return "songDetail";
+        return "concertDetail";
     }
 
     @GetMapping("/search")
