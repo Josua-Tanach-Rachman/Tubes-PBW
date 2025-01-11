@@ -1,5 +1,8 @@
 package com.example.tubes_pbw.model.setlistHistory;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +18,13 @@ public class SetlistHistoryService {
 
     public Iterable<SetlistHistoryPengguna> findAllByOrderByTanggalDiubahDesc(int idSetlist){
         return jdbcSetlistHistoryRepository.findSetlistHistoryWithPengguna(idSetlist);
+    }
+
+    public List<LaguNowBef> findLaguBefAfter(int idSetlist, Timestamp date){
+        return jdbcSetlistHistoryRepository.findLaguBefAfter(idSetlist, date);
+    }
+
+    public List<SetlistNowBef> findSetlistNowBef(int idSetlist, Timestamp date){
+        return jdbcSetlistHistoryRepository.findSetlistNowBef(idSetlist, date);
     }
 }

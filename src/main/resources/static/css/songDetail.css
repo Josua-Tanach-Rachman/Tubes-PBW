@@ -31,7 +31,9 @@ nav p {
 #home:hover,
 #setlist:hover,
 #concert:hover,
-#artist:hover {
+#artist:hover,
+#manage_user:hover,
+#report:hover  {
     background-color: #510370;
     padding-top: 23.5px;
     padding-bottom: 23.5px;

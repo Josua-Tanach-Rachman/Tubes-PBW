@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <link rel="stylesheet" th:href="@{/css/report.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Untuk grafik -->
+</head>
+<body>
+    <header>
+        <h1>Report</h1>
+    </header>
+    <main>
+        <!-- Statistik Utama -->
+        <section class="statistics">
+            <div class="card">
+                <h2>Total Users</h2>
+                <p th:text="${totalUsers}">100</p>
+            </div>
+            <div class="card">
+                <h2>Active Users</h2>
+                <p th:text="${activeUsers}">80</p>
+            </div>
+            <div class="card">
+                <h2>Inactive Users</h2>
+                <p th:text="${inactiveUsers}">20</p>
+            </div>
+            <div class="card">
+                <h2>Total Setlists</h2>
+                <p th:text="${totalSetlists}">200</p>
+            </div>
+        </section>
+
+        <!-- Grafik Distribusi Pengguna -->
+        <section class="charts">
+            <h2>User Role Distribution</h2>
+            <canvas id="roleChart"></canvas>
+        </section>
+
+        <!-- Popularitas -->
+        <section class="popularity">
+            <h2>Top 5 Popular Artists</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Artist</th>
+                        <th>Total Setlists</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="artist : ${topArtists}">
+                        <td th:text="${artist.name}">Shawn Mendes</td>
+                        <td th:text="${artist.totalSetlists}">10</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Top 5 Most Commented Setlists</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Setlist</th>
+                        <th>Total Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="setlist : ${topSetlists}">
+                        <td th:text="${setlist.name}">Shawn Mendes at National Stadium</td>
+                        <td th:text="${setlist.totalComments}">15</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Tren Aktivitas -->
+        <section class="trends">
+            <h2>Monthly Setlist Creation Trend</h2>
+            <canvas id="setlistTrendChart"></canvas>
+
+            <h2>Monthly Comments Trend</h2>
+            <canvas id="commentTrendChart"></canvas>
+        </section>
+    </main>
+
+    <script>
+        // User Role Distribution Chart
+        const roleCtx = document.getElementById('roleChart').getContext('2d');
+        const roleChart = new Chart(roleCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Admins', 'Users'],
+                datasets: [{
+                    label: 'User Role Distribution',
+                    data: [/* th:text="${totalAdmins}" */, /* th:text="${totalUsers}" */],
+                    backgroundColor: ['#8100B3', '#1E1E1E'],
+                }]
+            }
+        });
+
+        // Monthly Setlist Creation Trend
+        const setlistTrendCtx = document.getElementById('setlistTrendChart').getContext('2d');
+        const setlistTrendChart = new Chart(setlistTrendCtx, {
+            type: 'line',
+            data: {
+                labels: [/* Labels for months, e.g., 'Jan', 'Feb', ... */],
+                datasets: [{
+                    label: 'Setlists Created',
+                    data: [/* Data for setlist creation */],
+                    borderColor: '#8100B3',
+                    tension: 0.3,
+                }]
+            }
+        });
+
+        // Monthly Comments Trend
+        const commentTrendCtx = document.getElementById('commentTrendChart').getContext('2d');
+        const commentTrendChart = new Chart(commentTrendCtx, {
+            type: 'line',
+            data: {
+                labels: [/* Labels for months, e.g., 'Jan', 'Feb', ... */],
+                datasets: [{
+                    label: 'Comments Added',
+                    data: [/* Data for comments */],
+                    borderColor: '#1E1E1E',
+                    tension: 0.3,
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
