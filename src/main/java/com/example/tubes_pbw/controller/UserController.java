@@ -39,6 +39,7 @@ import com.example.tubes_pbw.model.setlist.SetlistService;
 import com.example.tubes_pbw.model.setlist.SetlistSong;
 import com.example.tubes_pbw.model.setlistHistory.SetlistHistoryPengguna;
 import com.example.tubes_pbw.model.setlistHistory.SetlistHistoryService;
+import com.example.tubes_pbw.model.show.Show;
 import com.example.tubes_pbw.model.show.ShowJumlahPengguna;
 import com.example.tubes_pbw.model.show.ShowService;
 
@@ -240,6 +241,40 @@ public class UserController {
         }
 
         return "concert";
+    }
+
+    @GetMapping("/concert/{namaConcert}-{idConcert}")
+    public String concertDetail(@PathVariable("namaConcert") String namaConcert, @PathVariable("idConcert") int idConcert,
+            Model model, HttpSession session) {
+        Optional<Show> ShowList = showService.findByIdShow(idConcert);
+        Show show = ShowList.get();
+        model.addAttribute("show", show);
+
+        long jumlahUser_IwasThere = showService.countByIwasThere(idConcert);
+        model.addAttribute("jumlahUser", jumlahUser_IwasThere);
+
+        String kota = showService.findConcertCity(idConcert);
+        model.addAttribute("kota", kota);
+
+        String alamat = showService.findConcertAddress(idConcert);
+        model.addAttribute("alamat", alamat);
+
+        String artis = showService.findAristOnConcert(idConcert);
+        model.addAttribute("artis", artis);
+
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+            if(session.getAttribute("role").equals("admin")){
+                model.addAttribute("isAdmin", true);
+            } else {
+                model.addAttribute("isAdmin", false);
+            }
+        }
+
+        return "concertDetail";
     }
 
     @GetMapping("/search")

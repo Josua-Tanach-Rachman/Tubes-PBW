@@ -40,4 +40,20 @@ public class ShowService {
     public long maxSetlistCountForEachShow(){
         return showRepository.maxSetlistCountForEachShow();
     }
+
+    public long countByIwasThere(int idShow){
+        return showRepository.countByIwasThere(idShow);
+    }
+
+    public String findConcertCity(int idShow) {
+        return showRepository.findConcertCity(idShow);
+    }
+
+    public String findConcertAddress(int idShow){
+        return showRepository.findConcertAddress(idShow);
+    }
+
+    public String findAristOnConcert (int idShow){
+        return showRepository.findAristOnConcert(idShow);
+    }
 }

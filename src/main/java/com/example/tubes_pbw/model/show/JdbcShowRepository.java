@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.fasterxml.classmate.AnnotationOverrides.StdImpl;
+
 @Repository
 public class JdbcShowRepository implements ShowRepository{
     @Autowired
@@ -74,13 +76,53 @@ public class JdbcShowRepository implements ShowRepository{
         return jdbcTemplate.queryForObject(sql, Long.class);
     }
 
+    @Override
+    public long countByIwasThere(int idShow) {
+        String sql = "SELECT COUNT(DISTINCT ps.email) AS total_users\n" + //
+                        "FROM Pengguna_setlist ps\n" + //
+                        "JOIN Setlist s ON ps.idSetlist = s.idSetlist\n" + //
+                        "WHERE s.idShow = ?";
+        return jdbcTemplate.queryForObject(sql, Long.class, idShow);
+    }
+
+    @Override 
+    public String findConcertCity(int idShow){
+        String sql = "SELECT k.namaKota\n" + //
+                        "FROM Show s\n" + //
+                        "JOIN Lokasi l ON s.idLokasi = l.idLokasi\n" + //
+                        "JOIN Kota k ON l.idKota = k.idKota\n" + //
+                        "WHERE s.idShow = ?";
+        return jdbcTemplate.queryForObject(sql, String.class, idShow);
+    }
+
+    @Override
+    public String findConcertAddress(int idShow){
+        String sql = "SELECT k.namaKota\n" + //
+                        "FROM Show s\n" + //
+                        "JOIN Lokasi l ON s.idLokasi = l.idLokasi\n" + //
+                        "JOIN Kota k ON l.idKota = k.idKota\n" + //
+                        "WHERE s.idShow = ?";
+        return jdbcTemplate.queryForObject(sql, String.class, idShow);
+    }
+
+    @Override 
+    public String findAristOnConcert (int idShow){
+        String sql = "SELECT a.namaArtis\n" + //
+                        "FROM Show s\n" + //
+                        "JOIN Setlist st ON s.idShow = st.idShow\n" + //
+                        "JOIN Artis a ON st.idArtis = a.idArtis\n" + //
+                        "WHERE s.idShow = ?";
+        return jdbcTemplate.queryForObject(sql, String.class, idShow);
+    }
+
     private Show mapRowToShow(ResultSet resultSet, int rowNum) throws SQLException {
         return new Show(
             resultSet.getInt("idShow"),
             resultSet.getString("namaShow"),
             resultSet.getInt("idLokasi"),
             resultSet.getDate("beginDate"),
-            resultSet.getDate("endDate")
+            resultSet.getDate("endDate"),
+            resultSet.getString("urlGambarShow")
         );
     }
 
