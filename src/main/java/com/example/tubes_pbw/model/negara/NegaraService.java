@@ -1,5 +1,6 @@
 package com.example.tubes_pbw.model.negara;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,9 @@ public class NegaraService {
 
     public Iterable<Negara> findByFilterNamaNegara(String namaNegara){
         return repo.findByFilterNamaNegara(namaNegara);
+    }
+
+    public List<Negara> findByIdNegara(int idNegara){
+        return repo.findByIdNegara(idNegara);
     }
 }

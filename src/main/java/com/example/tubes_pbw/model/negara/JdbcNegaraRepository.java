@@ -27,6 +27,12 @@ public class JdbcNegaraRepository implements NegaraRepository {
         return jdbcTemplate.query(sql, this::mapRowToNegara, "%" + namaNegara + "%");
     }
 
+    @Override
+    public List<Negara> findByIdNegara(int idNegara){
+        String sql = "SELECT * FROM negara WHERE idNegara = ?";
+        return jdbcTemplate.query(sql, this::mapRowToNegara, idNegara);
+    }
+
     private Negara mapRowToNegara(ResultSet resultSet, int rowNum) throws SQLException {
         return new Negara(
             resultSet.getInt("idNegara"),

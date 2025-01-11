@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Artist Name</title>
+    <title>Favelist | Setlist-Detail</title>
     <link rel="stylesheet" th:href="@{/css/setlistDetail.css}">
     <script th:src="@{/js/setlistDetail.js}" defer></script>
+    <link rel="icon" href="assets/icon.png" type="image/png">
 </head>
 
 <header>
@@ -69,7 +70,14 @@
 
                 <button type="submit" th:if="${terdaftar == true}" th:text="'I wasn\'t there'">I Wasn't There</button>
             </form>
-            <a href="#" class="edit-list">Edit List</a>
+            <select name="edit-option" id="edit-option" class="edit-list">
+                <option value="" selected="selected" disabled>Select an edit option</option>
+                <option value="1" th:data-url="@{/edit/setlistSongs/{idSetlist}(idSetlist=${idSetlist})}">Edit setlist
+                    song</option>
+                <option value="2" th:data-url="@{/edit/setlist/{idSetlist}(idSetlist=${idSetlist})}">Edit setlist info
+                </option>
+            </select>
+
         </div>
         <!--  comment-->
         <div class="setlist-content">
@@ -132,21 +140,39 @@
                 <button class="close">&times;</button>
                 <h2>Song Changes</h2>
                 <hr>
-                <p><strong>Song Added:</strong> <span id="song-title"></span></p>
-                <ul>
-                    <li>song1</li>
-                    <li>song2</li>
-                    <li>song3</li>
-                </ul>
-                <p><strong>Song Removed:</strong> <span id="previous-author"></span></p>
-                <ul>
-                    <li>song4</li>
-                    <li>song5</li>
-                    <li>song6</li>
-                </ul>
-                <p><strong>Total Change:</strong> <span id="current-author"></span></p>
+                <div class="container">
+                    <div class="setlist before">
+                        <p><strong>Song Before:</strong></p>
+                        <ul class="song-list">
+                            <li>song1</li>
+                            <li>song2</li>
+                            <li>song3</li>
+                        </ul>
+                    </div>
+                    <div class="setlist after">
+                        <p><strong>Song After:</strong></p>
+                        <ul class="song-list">
+                            <li>song1</li>
+                            <li>song2</li>
+                            <li>song3</li>
+                        </ul>
+                    </div>
+                </div>
+                <p><strong>Total Change:</strong></p>
             </div>
+                      
         </div>
     </div>
+    <script>
+        document.getElementById('edit-option').addEventListener('change', function () {
+            const selectedOption = this.options[this.selectedIndex];
+            const url = selectedOption.getAttribute('data-url');
+
+            if (url) {
+                window.location.href = url;  // Redirect to the URL
+            }
+        });
+    </script>
 </body>
+
 </html>

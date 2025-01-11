@@ -242,27 +242,6 @@ public class UserController {
         return "concert";
     }
 
-    @GetMapping("/addsetlist")
-    public String addsetlist(User user, Model model, HttpSession session) {
-        if(session.getAttribute("username") == null){
-            model.addAttribute("isUserLoggedIn", false);
-        }
-        else{
-            model.addAttribute("isUserLoggedIn", true);
-            if(session.getAttribute("role").equals("admin")){
-                model.addAttribute("isAdmin", true);
-            } else {
-                model.addAttribute("isAdmin", false);
-            }
-        }
-
-        if (session.getAttribute("username") == null) {
-            return "redirect:/login";
-        } else {
-            return "addSetlist";
-        }
-    }
-
     @GetMapping("/search")
     public String searchAll(@RequestParam(required = false, defaultValue = "") String filter, User user, Model model,
             HttpSession session) {
@@ -355,6 +334,17 @@ public class UserController {
             }
         }
         return "addsong";
+    }
+
+    @GetMapping("/addAlbum")
+    public String addAlbum(User user, Model model, HttpSession session){
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "addAlbum";
     }
 
     @GetMapping("/addConcert")
@@ -575,5 +565,16 @@ public class UserController {
         model.addAttribute("listUsers", listUsers);
         System.out.println("PANDA " + listUsers);
         return "report"; // Mengembalikan view manageUser.html
+    }
+
+    @GetMapping("/editSetlistInfo")
+    public String editSetlistInfo(Model model, HttpSession session) {
+        if(session.getAttribute("username") == null){
+            model.addAttribute("isUserLoggedIn", false);
+        }
+        else{
+            model.addAttribute("isUserLoggedIn", true);
+        }
+        return "editSetlistInfo";
     }
 }

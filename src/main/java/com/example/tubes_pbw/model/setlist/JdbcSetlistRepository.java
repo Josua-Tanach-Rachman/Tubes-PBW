@@ -37,11 +37,41 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
 
     @Override
-    public int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow) {
-        String sql = "INSERT INTO setlist (namasetlist, tanggal, idartis, idlokasi, urlbukti, idShow) " +
-                    "VALUES (?, ?, ?, ?, ?, ?) RETURNING idsetlist";
+    public int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow, String email) {
+        String sql = "INSERT INTO setlist (namasetlist, tanggal, idartis, idlokasi, urlbukti, idShow, email) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING idsetlist";
         
-        int idSetlist = jdbcTemplate.queryForObject(sql, Integer.class, namaSetlist, tanggal, idArtis, idLokasi, urlBukti,idShow);
+        int idSetlist = jdbcTemplate.queryForObject(sql, Integer.class, namaSetlist, tanggal, idArtis, idLokasi, urlBukti,idShow, email);
+
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(currentDateTime);
+        //insert to setlisthistory
+        sql = "INSERT INTO SetlistHistory (\n" + //
+                        "    idSetlist, \n" + //
+                        "    idArtis, \n" + //
+                        "    idLokasi, \n" + //
+                        "    namaSetlist, \n" + //
+                        "    tanggal, \n" + //
+                        "    urlBukti, \n" + //
+                        "    idShow, \n" + //
+                        "    email, \n" + //
+                        "    action, \n" + //
+                        "    tanggalDiubah\n" + //
+                        ")\n" + //
+                        "SELECT \n" + //
+                        "    idSetlist, \n" + //
+                        "    idArtis, \n" + //
+                        "    idLokasi, \n" + //
+                        "    namaSetlist, \n" + //
+                        "    tanggal, \n" + //
+                        "    urlBukti, \n" + //
+                        "    idShow, \n" + //
+                        "    email, \n" + //
+                        "    'UPDATE', \n" + //
+                        "    ? \n" + //
+                        "FROM Setlist\n" + //
+                        "WHERE idSetlist = ?;";
+        jdbcTemplate.update(sql,timestamp,idSetlist);
         
         return idSetlist;
     }
@@ -171,25 +201,168 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
 
     @Override
-    public int updateSetlist(String namaSetlist, int idSetlist, Timestamp tanggal, int idLokasi, String urlBukti, int idShow) {
-        String sql = "UPDATE Setlist SET namaSetlist = ?, tanggal = ?, idLokasi = ?, urlBukti = ?, idShow = ? WHERE idSetlist = ?";
-        return jdbcTemplate.update(sql, namaSetlist, tanggal, idLokasi, urlBukti, idShow, idSetlist);
+    public int updateSetlist(String namaSetlist, int idSetlist, Timestamp tanggal, int idLokasi, String urlBukti, int idShow, String email, Timestamp tanggalDiubah, int idLokasiBef, int idShowBef, Timestamp tanggalBef, String namaSetlistBef) {
+        String sql = "UPDATE Setlist SET namaSetlist = ?, tanggal = ?, idLokasi = ?, urlBukti = ?, idShow = ?, email = ? WHERE idSetlist = ?";
+        int i = jdbcTemplate.update(sql, namaSetlist, tanggal, idLokasi, urlBukti, idShow, email, idSetlist);
+
+        //insert to setlisthistory
+        sql = "INSERT INTO SetlistHistory (\n" + //
+                        "    idSetlist, \n" + //
+                        "    idArtis, \n" + //
+                        "    idLokasi, \n" + //
+                        "    namaSetlist, \n" + //
+                        "    tanggal, \n" + //
+                        "    urlBukti, \n" + //
+                        "    idShow, \n" + //
+                        "    email, \n" + //
+                        "    action, \n" + //
+                        "    tanggalDiubah, idLokasiBef, idShowBef, tanggalBef, namaSetlistBef \n" + //
+                        ")\n" + //
+                        "SELECT \n" + //
+                        "    idSetlist, \n" + //
+                        "    idArtis, \n" + //
+                        "    idLokasi, \n" + //
+                        "    namaSetlist, \n" + //
+                        "    tanggal, \n" + //
+                        "    urlBukti, \n" + //
+                        "    idShow, \n" + //
+                        "    email, \n" + //
+                        "    'UPDATE', \n" + //
+                        "    ?, ?, ?, ?, ?\n" + //
+                        "FROM Setlist\n" + //
+                        "WHERE idSetlist = ?;";
+        jdbcTemplate.update(sql,tanggalDiubah,idLokasiBef, idShowBef, tanggalBef, namaSetlistBef,idSetlist);
+        return i;
     }
 
-    public void addSongToSetlist(int idSetlist, int idLagu, int trackNumber, String email) {
+    @Override
+    public void addSongToSetlist(int idSetlist, int idLagu, String email, Timestamp tanggalDiubah, String bukti) {
         int nextTrackNumber = getNextTrackNumber(idSetlist);
         String sql = "INSERT INTO setlist_lagu (idSetlist, idLagu, trackNumber, email) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, idSetlist, idLagu, nextTrackNumber, email);
+
+        //to history
+        sql = "INSERT INTO setlist_laguHistory (idSetlist, idLagu, trackNumber, email, action, tanggalDiubah) "
+                   + "VALUES (?, ?, ?, ?, 'INSERT', ?)";
+        jdbcTemplate.update(sql, idSetlist, idLagu, nextTrackNumber, email, tanggalDiubah);
+
+        //update email on setlist and bukti
+        sql = "UPDATE setlist SET email = ?, urlBukti = ?";
+        jdbcTemplate.update(sql, email,bukti);
+
+        //insert to setlisthistory
+        sql = "INSERT INTO SetlistHistory (\n" + //
+                        "    idSetlist, \n" + //
+                        "    idArtis, \n" + //
+                        "    idLokasi, \n" + //
+                        "    namaSetlist, \n" + //
+                        "    tanggal, \n" + //
+                        "    urlBukti, \n" + //
+                        "    idShow, \n" + //
+                        "    email, \n" + //
+                        "    action, \n" + //
+                        "    tanggalDiubah\n" + //
+                        ")\n" + //
+                        "SELECT \n" + //
+                        "    idSetlist, \n" + //
+                        "    idArtis, \n" + //
+                        "    idLokasi, \n" + //
+                        "    namaSetlist, \n" + //
+                        "    tanggal, \n" + //
+                        "    urlBukti, \n" + //
+                        "    idShow, \n" + //
+                        "    email, \n" + //
+                        "    'INSERT', \n" + //
+                        "    ?\n" + //
+                        "FROM Setlist\n" + //
+                        "WHERE idSetlist = ?;";
+        jdbcTemplate.update(sql,tanggalDiubah,idSetlist);
     }
 
-    public void changeSong(int idSetlist, int idLagu, int trackNumber) {
-        String sql = "UPDATE setlist_lagu SET idLagu = ? WHERE idSetlist = ? AND trackNumber = ?";
-        jdbcTemplate.update(sql, idLagu, idSetlist, trackNumber);
+    @Override
+    public void changeSong(int idSetlist, int idLagu, int trackNumber, String email, Timestamp tanggalDiubah, String bukti, int idLaguOld) {
+        String sql = "UPDATE setlist_lagu SET idLagu = ?, email = ? WHERE idSetlist = ? AND trackNumber = ?";
+        jdbcTemplate.update(sql, idLagu, email, idSetlist, trackNumber);
+
+        //to history
+        sql = "INSERT INTO setlist_laguHistory (idSetlist, idLagu, trackNumber, email, action, tanggalDiubah, idLaguBef) "
+                   + "VALUES (?, ?, ?, ?, 'UPDATE', ?,?)";
+        jdbcTemplate.update(sql, idSetlist, idLagu, trackNumber, email, tanggalDiubah, idLaguOld);
+
+        //update email on setlist and bukti
+        sql = "UPDATE setlist SET email = ?, urlBukti = ?";
+        jdbcTemplate.update(sql, email,bukti);
+
+        //insert to setlisthistory
+        sql = "INSERT INTO SetlistHistory (\n" + //
+                        "    idSetlist, \n" + //
+                        "    idArtis, \n" + //
+                        "    idLokasi, \n" + //
+                        "    namaSetlist, \n" + //
+                        "    tanggal, \n" + //
+                        "    urlBukti, \n" + //
+                        "    idShow, \n" + //
+                        "    email, \n" + //
+                        "    action, \n" + //
+                        "    tanggalDiubah\n" + //
+                        ")\n" + //
+                        "SELECT \n" + //
+                        "    idSetlist, \n" + //
+                        "    idArtis, \n" + //
+                        "    idLokasi, \n" + //
+                        "    namaSetlist, \n" + //
+                        "    tanggal, \n" + //
+                        "    urlBukti, \n" + //
+                        "    idShow, \n" + //
+                        "    email, \n" + //
+                        "    'UPDATE', \n" + //
+                        "    ?\n" + //
+                        "FROM Setlist\n" + //
+                        "WHERE idSetlist = ?;";
+        jdbcTemplate.update(sql,tanggalDiubah,idSetlist);
     }
 
-    public void removeSongFromSetlist(int idSetlist, int idLagu) {
-        String sql = "DELETE FROM setlist_lagu WHERE idSetlist = ? AND idLagu = ?";
-        jdbcTemplate.update(sql, idSetlist, idLagu);
+    @Override
+    public void removeSongFromSetlist(int idSetlist, int idLagu, String email, int trackNumber, Timestamp tanggalDiubah, String bukti) {
+        String sql = "DELETE FROM setlist_lagu WHERE idSetlist = ? AND idLagu = ? AND tracknumber = ?";
+        jdbcTemplate.update(sql, idSetlist, idLagu, trackNumber);
+
+        //to history
+        sql = "INSERT INTO setlist_laguHistory (idSetlist, idLagu, trackNumber, email, action, tanggalDiubah) "
+                   + "VALUES (?, ?, ?, ?, 'DELETE', ?)";
+        jdbcTemplate.update(sql, idSetlist, idLagu, trackNumber, email, tanggalDiubah);
+
+        //update email on setlist and bukti
+        sql = "UPDATE setlist SET email = ?, urlBukti = ?";
+        jdbcTemplate.update(sql, email,bukti);
+
+        //insert to setlisthistory
+        sql = "INSERT INTO SetlistHistory (\n" + //
+                        "    idSetlist, \n" + //
+                        "    idArtis, \n" + //
+                        "    idLokasi, \n" + //
+                        "    namaSetlist, \n" + //
+                        "    tanggal, \n" + //
+                        "    urlBukti, \n" + //
+                        "    idShow, \n" + //
+                        "    email, \n" + //
+                        "    action, \n" + //
+                        "    tanggalDiubah\n" + //
+                        ")\n" + //
+                        "SELECT \n" + //
+                        "    idSetlist, \n" + //
+                        "    idArtis, \n" + //
+                        "    idLokasi, \n" + //
+                        "    namaSetlist, \n" + //
+                        "    tanggal, \n" + //
+                        "    urlBukti, \n" + //
+                        "    idShow, \n" + //
+                        "    email, \n" + //
+                        "    'DELETE', \n" + //
+                        "    ?\n" + //
+                        "FROM Setlist\n" + //
+                        "WHERE idSetlist = ?;";
+        jdbcTemplate.update(sql,tanggalDiubah,idSetlist);
     }
 
     private Setlist mapRowToSetlist(ResultSet resultSet, int rowNum) throws SQLException {
@@ -249,8 +422,9 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
     
     public void setCustomTimestamp(Timestamp customTimestamp) {
-        String query = "SELECT set_config('my.custom_timestamp', ?, true);";
-        jdbcTemplate.update(query, customTimestamp.toString());
+        String sql = "SELECT set_config('my.custom_timestamp', ?, false);";
+        // String sql = "SET my.custom_timestamp = ?";
+        jdbcTemplate.queryForObject(sql, String.class, customTimestamp.toString());
     }
 
     @Override

@@ -1,11 +1,10 @@
 package com.example.tubes_pbw.model.album;
 
-import com.example.tubes_pbw.model.artis.Artis;
-import com.example.tubes_pbw.model.kota.Kota;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -28,10 +27,9 @@ public class JdbcAlbumRepository implements AlbumRepository {
     }
 
     @Override
-    public int save(String namaAlbum, String releaseDate, String urlGambarAlbum) {
-        String sql = "INSERT INTO album (namaalbum, release_date, urlGambarAlbum) VALUES (?, ?, ?)";
-        int idAlbum = jdbcTemplate.queryForObject(sql,Integer.class, namaAlbum, releaseDate, urlGambarAlbum);
-        return idAlbum;
+    public int save(String namaAlbum, Date releaseDate, int idartis, String urlGambarAlbum) {
+        String sql = "INSERT INTO album (namaalbum, release_date, idartis, urlGambarAlbum) VALUES (?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, namaAlbum, releaseDate, idartis, urlGambarAlbum);
     }
 
     @Override

@@ -201,7 +201,7 @@ function validateForm(e) {
     document.getElementById('submissionStatus').value = 'submitted';
 
     // Show success notification
-    showSuccessNotification('Setlist submitted successfully!');
+    showSuccessNotification('Song submitted successfully!');
 
     // Delay form submission by 1 second
     setTimeout(() => {

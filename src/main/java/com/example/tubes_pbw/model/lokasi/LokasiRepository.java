@@ -7,4 +7,5 @@ public interface LokasiRepository {
     Optional<Lokasi> findByNamaLokasi(String namaLokasi);
     Iterable<Lokasi> findByFilterNamaLokasi(String namaLokasi);
     Iterable<Lokasi> findByIdKota(int idKota);
+    List<Lokasi> findByIdLokasi(int idLokasi);
 }

@@ -25,8 +25,8 @@ public class SetlistService {
         return setlistRepository.findByShow(idShow);
     }
 
-    public int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow) {
-        return setlistRepository.save(namaSetlist, tanggal, idArtis, idLokasi, urlBukti, idShow) ;
+    public int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow, String email) {
+        return setlistRepository.save(namaSetlist, tanggal, idArtis, idLokasi, urlBukti, idShow, email) ;
     }
 
     public List<ArtistSetlistLokasiDate> findLokasiDate (int idArtis){
@@ -57,12 +57,27 @@ public class SetlistService {
         return setlistRepository.findSetlistSongByIdSetlist(idSetlist);
     }
 
-    public int updateSetlist(String namaSetlist,int idSetlist, Timestamp tanggal, int idLokasi, String urlBukti, int idShow){
-        setlistRepository.setCurrentTimestamp();
-        return setlistRepository.updateSetlist(namaSetlist,idSetlist, tanggal, idLokasi, urlBukti, idShow);
+    public int updateSetlist(String namaSetlist,int idSetlist, Timestamp tanggal, int idLokasi, String urlBukti, int idShow, String email, Timestamp tanggalDiubah, int idLokasiBef, int idShowBef, Timestamp tanggalBef, String namaSetlistBef){
+        return setlistRepository.updateSetlist(namaSetlist,idSetlist, tanggal, idLokasi, urlBukti, idShow, email, tanggalDiubah, idLokasiBef, idShowBef, tanggalBef, namaSetlistBef);
     }
 
     public List<SetlistSong> findSetlistSongForDetailHistory(int idSetlist, Timestamp time){
         return setlistRepository.findSetlistSongForDetailHistory(idSetlist, time);
+    }
+
+    public void setCurrentTimestamp(){
+        setlistRepository.setCurrentTimestamp();
+    }
+
+    public void changeSong(int idSetlist, int idLagu, int trackNumber, String email, Timestamp tanggalDiubah, String bukti, int idLaguOld){
+        setlistRepository.changeSong(idSetlist, idLagu, trackNumber, email,tanggalDiubah, bukti, idLaguOld);
+    }
+
+    public void removeSongFromSetlist(int idSetlist, int idLagu, String email, int trackNumber, Timestamp tanggalDiubah, String bukti){
+        setlistRepository.removeSongFromSetlist(idSetlist, idLagu, email, trackNumber, tanggalDiubah, bukti);
+    }
+
+    public void addSongToSetlist(int idSetlist, int idLagu, String email, Timestamp tanggalDiubah, String bukti){
+        setlistRepository.addSongToSetlist(idSetlist, idLagu, email, tanggalDiubah, bukti);
     }
 }
