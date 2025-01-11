@@ -78,4 +78,15 @@ public class JdbcUserRepository implements UserRepository {
         );
     }
 
+    @Override
+    public void updateUserRole(String username, String newRole) {
+        String sql = "UPDATE user SET role = ? WHERE username = ?";
+        jdbcTemplate.update(sql, newRole, username);
+    }
+
+    @Override
+    public void updateUserStatus(String username, boolean newStatus) {
+        String sql = "UPDATE user SET status = ? WHERE username = ?";
+        jdbcTemplate.update(sql, newStatus, username);
+    }
 }

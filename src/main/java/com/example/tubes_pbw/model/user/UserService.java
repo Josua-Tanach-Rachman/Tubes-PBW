@@ -53,4 +53,13 @@ public class UserService {
     public void removeFromPenggunaSetlist(String email, int idSetlist){
         userRepository.removeFromPenggunaSetlist(email, idSetlist);
     }
+
+    public void updateUserRole(String username, String newRole) {
+        userRepository.updateUserRole(username, newRole);
+    }
+
+    public void updateUserStatus(String username, boolean newStatus) {
+        userRepository.updateUserStatus(username, newStatus);
+
+    }
 }

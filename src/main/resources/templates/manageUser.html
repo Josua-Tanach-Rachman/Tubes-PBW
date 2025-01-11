@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage User</title>
     <link rel="stylesheet" th:href="@{/css/manageUser.css}">
+    <script th:src="@{/js/manageUser.js}" defer></script>
 </head>
 <body>
     <header>
@@ -41,7 +42,7 @@
             <select id="filter-role">
                 <option value="all">All Roles</option>
                 <option value="user">User</option>
-                <option value="admin">Admin</option>
+                <option value="pengguna">Pengguna</option>
             </select>
             <select id="filter-status">
                 <option value="all">All Status</option>
@@ -71,7 +72,7 @@
                     <td>
                         <select class="role-dropdown" th:attr="data-user-id=${user.username}">
                             <option value="admin" th:selected="${user.role == 'admin'}">Admin</option>
-                            <option value="pengguna" th:selected="${user.role == 'pengguna'}">User</option>
+                            <option value="pengguna" th:selected="${user.role == 'pengguna'}">Pengguna</option>
                         </select>
                     </td>
                     <td>

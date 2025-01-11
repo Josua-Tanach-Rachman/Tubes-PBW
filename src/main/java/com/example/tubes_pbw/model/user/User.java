@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -33,7 +34,7 @@ public class User {
     @NotBlank
     private String email;
 
-    @NotBlank
+    @AssertTrue
     private Boolean status;
     
     public User(String username,String password, String nama, String role, String email, Boolean status) {

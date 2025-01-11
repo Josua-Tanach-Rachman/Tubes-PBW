@@ -1,15 +1,18 @@
 package com.example.tubes_pbw.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -468,22 +471,46 @@ public class UserController {
 
     @GetMapping("/manageUser")
     public String manageUser(Model model, HttpSession session) {
-        // Cek apakah user sudah login
+        // // Cek apakah user sudah login
         // if (session.getAttribute("username") == null) {
         //     return "redirect:/login"; // Redirect ke login jika belum login
         // }
 
-        // // Cek role user
-        // String role = (String) session.getAttribute("role");
-        // if (!"admin".equals(role)) {
+        // // // Cek role user
+        // // String role = (String) session.getAttribute("role");
+        // if (!"admin".equals("role")) {
         //     return "redirect:/"; // Redirect ke homepage jika bukan admin
         // }
 
-        // Ambil data pengguna untuk ditampilkan di halaman
         List<User> listUsers = userService.findAllUsers(); // Asumsi ada service userService
         model.addAttribute("listUsers", listUsers);
-        System.out.println("PANDA "+listUsers);
         return "manageUser"; // Mengembalikan view manageUser.html
+    }
+
+    @PostMapping("/update-role")
+    public ResponseEntity<String> updateUserRole(
+            @RequestBody Map<String, String> payload) {
+        try {
+            String username = payload.get("userId");
+            String newRole = payload.get("role");
+            userService.updateUserRole(username, newRole);
+            return ResponseEntity.ok("Role updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failed to update role: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/update-status")
+    public ResponseEntity<String> updateUserStatus(
+            @RequestBody Map<String, String> payload) {
+        try {
+            String username = payload.get("userId");
+            boolean newStatus = Boolean.parseBoolean(payload.get("status"));
+            userService.updateUserStatus(username, newStatus);
+            return ResponseEntity.ok("Status updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failed to update status: " + e.getMessage());
+        }
     }
 
 
