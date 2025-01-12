@@ -28,4 +28,6 @@ public interface SetlistRepository {
     void changeSong(int idSetlist, int idLagu, int trackNumber, String email, Timestamp tanggalDiubah, String bukti, int idLaguOld);
     void removeSongFromSetlist(int idSetlist, int idLagu, String email, int trackNumber, Timestamp tanggalDiubah, String bukti);
     void addSongToSetlist(int idSetlist, int idLagu, String email, Timestamp tanggalDiubah, String bukti);
+
+    Iterable<Setlist> findAllSetlist();
 }

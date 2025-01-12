@@ -41,6 +41,19 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
+    public List<User> findPenggunaAktif(){
+        String sql = "Select * FROM pengguna WHERE status = 'true' AND role = 'pengguna'";
+        return jdbcTemplate.query(sql, this::mapRowToUser);
+    }
+
+    @Override
+    public List<User> findAdmin(){
+        String sql = "Select * From pengguna where role = 'admin'";
+        return jdbcTemplate.query(sql, this::mapRowToUser);
+    }
+    
+
+    @Override
     public Optional<PenggunaSetlist> findInSetlist(String email, int idSetlist){
         String sql = "SELECT * FROM pengguna_setlist WHERE email = ? AND idsetlist = ?";
         List<PenggunaSetlist> results = jdbcTemplate.query(sql, this::mapRowToPenggunaSetlist, email, idSetlist);
