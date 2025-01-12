@@ -403,6 +403,12 @@ public class AddSetlistController {
         @RequestParam("file") MultipartFile file,
         Model model, HttpSession session) throws IOException
     {
+        if (listLagu == null || listLagu.isEmpty()) {
+            // Handle case where no songs are selected
+            System.out.println("No songs selected.");
+            return "redirect:/error";
+        }
+        
         //set timestamp
         LocalDateTime currentDateTime = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(currentDateTime);

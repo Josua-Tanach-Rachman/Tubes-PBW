@@ -257,13 +257,63 @@ editSong.forEach(song =>{
     })
 })
 
-deleteSong.forEach(song =>{
-    song.addEventListener("click",(event) =>{
-        let parentElement = event.target.parentElement;
-        let previousSibling = parentElement.previousElementSibling;
-        let listItem = previousSibling.parentElement;
-        let li = listItem.parentElement;
+deleteSong.forEach(song => {
+    song.addEventListener("click", (event) => {
+        const parentElement = event.target.parentElement;
+        const previousSibling = parentElement.previousElementSibling;
+        const listItem = previousSibling.parentElement;
+        const li = listItem.parentElement;
 
         li.remove();
-    })
-})
+
+        // Check if there are remaining songs
+        const songElements = document.querySelectorAll('.artist-list input[name="songNames"]');
+        if (songElements.length === 0) {
+            // Ensure the default input is visible
+            document.getElementById('defaultSongInput').value = 'No Songs';
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const addSongButton = document.getElementById('addSong');
+    const fileInput = document.getElementById('file');
+    const fileLabel = document.getElementById('file-label');
+    const editButtons = document.querySelectorAll('.edit-song');
+    const removeButtons = document.querySelectorAll('.remove-song');
+
+    // Reset file input visibility
+    function hideFileInput() {
+        fileInput.style.display = 'none';
+        fileLabel.style.display = 'none';
+        fileInput.required = false;
+    }
+
+    // Show file input when adding or editing
+    function showFileInput() {
+        fileInput.style.display = 'block';
+        fileLabel.style.display = 'block';
+        fileInput.required = true;
+    }
+
+    // Add new song
+    addSongButton.addEventListener('click', () => {
+        showFileInput();
+    });
+
+    // Edit existing song
+    editButtons.forEach(editButton => {
+        editButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            showFileInput();
+        });
+    });
+
+    // Remove song
+    removeButtons.forEach(removeButton => {
+        removeButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            hideFileInput();
+        });
+    });
+});
