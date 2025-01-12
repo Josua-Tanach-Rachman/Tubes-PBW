@@ -374,3 +374,7 @@ input[readonly]:hover {
 input::placeholder{
     opacity: 0.4;
 }
+
+input:hover {
+    cursor: pointer; 
+}

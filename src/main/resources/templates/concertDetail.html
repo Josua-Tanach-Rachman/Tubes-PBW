@@ -71,7 +71,13 @@
           </div>
           <div class="location">
             <img src="/assets/sing.png" alt="Users image" class="map-image">
-            <p><strong>Artist: </strong><span th:text="${artis}"></span></p>
+            <p><strong>Artist: </strong>
+              <!-- <span th:each="artisI : ${artis}" th:text="${artisI.namaArtis} + ', '"></span> -->
+              <a th:each="artis, iterStat : ${listArtis}" 
+                th:href="@{/artist/{namaArtis}-{idArtis}(namaArtis=${#strings.replace(artis.namaArtis, ' ', '-')}, idArtis=${artis.idArtis})}" 
+                th:text="${iterStat.index > 0 ? ', ' : ''} + ${artis.namaArtis}">
+              </a>
+            </p>
           </div>
       </div>
     </div>
