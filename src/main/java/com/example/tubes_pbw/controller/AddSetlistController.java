@@ -403,6 +403,7 @@ public class AddSetlistController {
         @RequestParam("file") MultipartFile file,
         Model model, HttpSession session) throws IOException
     {
+        listLagu.remove(0);
         //set timestamp
         LocalDateTime currentDateTime = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(currentDateTime);
@@ -581,7 +582,7 @@ public class AddSetlistController {
                 listTrackBeforeAfter.add(trackBeforeAfter);
             }   
             else if(laguNowBef.getAction().equals("DELETE")) {
-                Lagu laguBef = laguService.findByIdLagu(laguNowBef.getIdLaguBef()).get();
+                Lagu laguBef = laguService.findByIdLagu(laguNowBef.getIdLagu()).get();
 
                 TrackBeforeAfter trackBeforeAfter = new TrackBeforeAfter();
                 trackBeforeAfter.setTracknumber(laguNowBef.getTrackNumber());
