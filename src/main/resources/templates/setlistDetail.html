@@ -60,20 +60,24 @@
                         th:text="${generalInfo.namaArtis}"></a> Setlist</h1>
                 <div class="location">
                     <img src="/assets/map.png" class="map-pin">
-                    <h2 th:text="${generalInfo.namaLokasiConcert}" class="namaLokasi"></h2>
+                    <h3 th:text="${generalInfo.namaLokasiConcert}" class="namaLokasi"></h3>
                 </div>
                 <div class="location">
                     <img src="/assets/calender.jpg" class="map-pin">
-                    <h4 th:text="${#temporals.format(generalInfo.tanggal, 'd MMMM yyyy')}" class="namaLokasi"></h4>
+                    <h3 th:text="${#temporals.format(generalInfo.tanggal, 'd MMMM yyyy')}" class="namaLokasi"></h3>
                 </div>
                 <ol class="artist-list">
+                    <div class="location">
+                        <img src="/assets/sing.png" class="map-pin">
+                        <h3>Song By <span th:text="${generalInfo.namaArtis}"></span></h3>
+                    </div>
                     <li th:each="lagu : ${listLagu}">
                         <a th:href="@{/song/{namaLagu}-{idLagu}(namaLagu=${#strings.replace(lagu.namaLagu, ' ', '-')}, idLagu=${lagu.idLagu})}"
                             th:text="${lagu.namaLagu}"></a>
                     </li>
                 </ol>
             </div>
-            <form action="/addPenggunaSetlist" method="post">
+            <form action="/addPenggunaSetlist" method="post" class="wasThere">
                 <input type="hidden" name="idSetlist" th:value="${idSetlist}">
                 <input type="hidden" name="namaSetlist" th:value="${namaSetlist}">
                 <button type="submit" th:if="${terdaftar != true}" th:text="'I was there'">I Was There</button>
@@ -81,7 +85,7 @@
                 <button type="submit" th:if="${terdaftar == true}" th:text="'I wasn\'t there'">I Wasn't There</button>
             </form>
             <select name="edit-option" id="edit-option" class="edit-list">
-                <option value="" selected="selected" disabled>Select an edit option</option>
+                <option value="" selected="selected" disabled hidden>Select an edit option</option>
                 <option value="1" th:data-url="@{/edit/setlistSongs/{idSetlist}(idSetlist=${idSetlist})}">Edit setlist
                     song</option>
                 <option value="2" th:data-url="@{/edit/setlist/{idSetlist}(idSetlist=${idSetlist})}">Edit setlist info
