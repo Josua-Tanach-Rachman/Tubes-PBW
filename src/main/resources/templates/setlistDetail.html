@@ -18,7 +18,7 @@
         <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
         <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
         <P id="song"><a th:href="@{/song}">SONG</a></P>
-		<P id="manage_user" th:if="${isAdmin}"><a th:href="@{/manageUser}">MANAGE USER</a></P>
+        <P id="manage_user" th:if="${isAdmin}"><a th:href="@{/manageUser}">MANAGE USER</a></P>
         <P id="report" th:if="${isAdmin}"><a th:href="@{/report}">REPORT</a></P>
 
         <div class="button-container">
@@ -38,18 +38,18 @@
 <body>
     <div class="search-container">
         <img src="/assets/background_search_main.png" alt="" class="background-search">
-		<div class="blackBox"></div>
-		<div class="search_bar">
-			<form action="/setlist" method="get">
-				<h1 id="slogan">Discover Your Favorite Setlist</h1>
-				<input type="text" placeholder="Search for Setlist..." th:value="${filter}" name="filter">
-				<input type="hidden" name="page" th:value="1">
-			</form>
-			<div>
-				<img src="/assets/search.png" alt="" class="icon_search">
-			</div>
-		</div>
-	</div>
+        <div class="blackBox"></div>
+        <div class="search_bar">
+            <form action="/setlist" method="get">
+                <h1 id="slogan">Discover Your Favorite Setlist</h1>
+                <input type="text" placeholder="Search for Setlist..." th:value="${filter}" name="filter">
+                <input type="hidden" name="page" th:value="1">
+            </form>
+            <div>
+                <img src="/assets/search.png" alt="" class="icon_search">
+            </div>
+        </div>
+    </div>
 
     <div class="content-wrapper">
         <div class="artist-setlists">
@@ -131,20 +131,21 @@
                             <button class="detailButton">DETAIL
                                 <input type="hidden" name="" th:value="${history.idSetlist}">
                                 <input type="hidden" name="" th:value="${history.tanggalDiubah}">
-                                <a th:href="@{/setlistHistory/{idSetlist}/{date}(idSetlist = ${history.idSetlist}, date = ${history.tanggalDiubah})}"></a>
+                                <a
+                                    th:href="@{/setlistHistory/{idSetlist}/{date}(idSetlist = ${history.idSetlist}, date = ${history.tanggalDiubah})}"></a>
                             </button>
                         </td>
                     </tr>
-<!--                    <tr>-->
-<!--                        <td>30-12-2024 14:30</td>-->
-<!--                        <td>JohnDoe</td>-->
-<!--                        <td><button class="detailButton">DETAIL</button></td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>31-12-2024 10:15</td>-->
-<!--                        <td>JaneSmith</td>-->
-<!--                        <td><button class="detailButton">Detail</button></td>-->
-<!--                    </tr>-->
+                    <!--                    <tr>-->
+                    <!--                        <td>30-12-2024 14:30</td>-->
+                    <!--                        <td>JohnDoe</td>-->
+                    <!--                        <td><button class="detailButton">DETAIL</button></td>-->
+                    <!--                    </tr>-->
+                    <!--                    <tr>-->
+                    <!--                        <td>31-12-2024 10:15</td>-->
+                    <!--                        <td>JaneSmith</td>-->
+                    <!--                        <td><button class="detailButton">Detail</button></td>-->
+                    <!--                    </tr>-->
                 </tbody>
 
             </table>
@@ -177,7 +178,7 @@
 
 
 
-                        <!-- <p><strong>Song Before:</strong></p>
+            <!-- <p><strong>Song Before:</strong></p>
                         <ul class="song-list">
                             <li>song1</li>
                             <li>song2</li>
@@ -194,66 +195,66 @@
                     </div>
                 </div>
                 <p><strong>Total Change:</strong></p> -->
-            
+
 
             <!-- Popup Above -->
-            
+
         </div>
     </div>
-</div>
-
-<!-- Popup Below -->
-<div class="overlay" id="overlayBelow"></div>
-<div class="popup" id="popupBelow">
-    <button class="close">&times;</button>
-    <h2>Setlist Changes</h2>
-    <div class="container">
-        <div class="setlist before">
-            <!-- Content goes here -->
-             <table>
-                <thead>
-                    <tr>
-                        <th>Information</th>
-                        <th>Before</th>
-                        <th>After</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Venue</td>
-                        <td>venue1</td>
-                        <td>venue2</td>
-                    </tr>
-                </tbody>
-             </table>
+    </div>
+    <div class="overlay" id="overlayAbove"></div>
+    <div class="popup" id="popupAbove">
+        <button class="close">&times;</button>
+        <h2>Song Changes</h2>
+        <hr>
+        <div class="container">
+            <div class="setlist before">
+                <!-- Content goes here -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>TrackNumber</th>
+                            <th>Song Before:</th>
+                            <th>Song After:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>song1</td>
+                            <td>song2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        
+
         <!-- Popup Below -->
-        <div class="overlay" id="overlayBelow"></div>
-        <div class="popup" id="popupBelow">
-            <button class="close">&times;</button>
-            <h2>Setlist Changes</h2>
-            <hr>
-            <div class="container">
-                <div class="setlist before">
-                    <!-- Content goes here -->
-                     <table>
-                        <thead>
-                            <tr>
-                                <th>Information</th>
-                                <th>Before:</th>
-                                <th>After:</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Venue</td>
-                                <td>venue1</td>
-                                <td>venue2</td>
-                            </tr>
-                        </tbody>
-                     </table>
-                </div>
+    </div>
+    <div class="overlay" id="overlayBelow"></div>
+    <div class="popup" id="popupBelow">
+        <button class="close">&times;</button>
+        <h2>Setlist Changes</h2>
+        <hr>
+        <div class="container">
+            <div class="setlist before">
+                <!-- Content goes here -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Information</th>
+                            <th>Before:</th>
+                            <th>After:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Venue</td>
+                            <td>venue1</td>
+                            <td>venue2</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

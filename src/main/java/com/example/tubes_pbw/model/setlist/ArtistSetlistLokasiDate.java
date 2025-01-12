@@ -12,6 +12,8 @@ public class ArtistSetlistLokasiDate {
     @NotBlank
     int idSetlist;
 
+    String namaSetlist;
+
     @NotBlank
     int idArtis;
 

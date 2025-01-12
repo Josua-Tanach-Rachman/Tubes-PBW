@@ -81,6 +81,7 @@ public class JdbcSetlistRepository implements SetlistRepository {
         String sql = """
             SELECT 
                 s.idSetlist,
+                s.namaSetlist,
                 a.idArtis,
                 l.idLokasi,
                 a.namaArtis,
@@ -137,6 +138,7 @@ public class JdbcSetlistRepository implements SetlistRepository {
         String sql = """
             SELECT 
                 s.idSetlist,
+                s.namaSetlist,
                 a.idArtis,
                 l.idLokasi,
                 a.namaArtis,
@@ -380,6 +382,7 @@ public class JdbcSetlistRepository implements SetlistRepository {
     private ArtistSetlistLokasiDate mapRowToArtistSetlist(ResultSet resultSet, int rowNum) throws SQLException {
         return new ArtistSetlistLokasiDate(
             resultSet.getInt("idSetlist"),
+            resultSet.getString("namaSetlist"),
             resultSet.getInt("idArtis"),
             resultSet.getInt("idLokasi"),
             resultSet.getString("namaArtis"),
