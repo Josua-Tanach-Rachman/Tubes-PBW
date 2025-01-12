@@ -19,6 +19,7 @@
         <div class="white-box"></div>
         <div class="component">
             <h1>LOG IN</h1>
+            <p th:if="${error}" th:text="${error}" class="validate"></p>
             <div>
                 <form action="login" method="POST">
                     <div class="username">

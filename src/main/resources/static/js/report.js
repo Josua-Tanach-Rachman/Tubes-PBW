@@ -108,3 +108,10 @@ const initChart = () => {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', initChart);
+
+document.getElementById('printButton').addEventListener('click', () => {
+    // Tunggu sebentar agar chart selesai dirender
+    setTimeout(() => {
+        window.print();
+    }, 500); 
+});
