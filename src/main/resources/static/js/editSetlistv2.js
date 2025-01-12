@@ -267,3 +267,20 @@ deleteSong.forEach(song =>{
         li.remove();
     })
 })
+
+deleteSong.forEach(song => {
+    song.addEventListener("click", (event) => {
+        const parentElement = event.target.parentElement;
+        const previousSibling = parentElement.previousElementSibling;
+        const listItem = previousSibling.parentElement;
+        const li = listItem.parentElement;
+
+        li.remove();
+        // Check if there are remaining songs
+        const songElements = document.querySelectorAll('.artist-list input[name="songNames"]');
+        if (songElements.length === 0) {
+            // Ensure the default input is visible
+            document.getElementById('defaultSongInput').value = 'No Songs';
+        }
+    });
+});
