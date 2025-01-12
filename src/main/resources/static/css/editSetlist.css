@@ -26,10 +26,12 @@ nav p {
     padding-right: 30px;
 }
 
-#setlist:hover,
-#artist:hover,
+#home:hover,
 #concert:hover,
-#song:hover {
+#song:hover,
+#artist:hover,
+#manage_user:hover,
+#report:hover  {
     background-color: #510370;
     padding-top: 23.5px;
     padding-bottom: 23.5px;
@@ -41,13 +43,13 @@ a {
     color: white;
 }
 
-#home a{
+#setlist a {
     color: white;
-    /*font-weight: bold;*/
-
+    font-weight: bold;
+    text-shadow: 0 0 20px whitesmoke;
 }
-
-p#home {
+p#setlist {
+    background-color: #8100B3;
     padding-top: 23.5px;
     padding-bottom: 23.5px;
 }

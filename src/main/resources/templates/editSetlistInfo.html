@@ -17,6 +17,8 @@
     <P id="artist"><a th:href="@{/artist}">ARTIST</a></P>
     <P id="concert"><a th:href="@{/concert}">CONCERT</a></P>
     <P id="song">SONG</P>
+    <P id="manage_user" th:if="${isAdmin}"><a th:href="@{/manageUser}">MANAGE USER</a></P>
+    <P id="report" th:if="${isAdmin}"><a th:href="@{/report}">REPORT</a></P>
 
     <div class="button-container">
       <!-- <button type="submit" class="button setlist">+SET LIST</button> -->
