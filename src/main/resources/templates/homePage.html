@@ -39,7 +39,7 @@
         <div class="blackBox"></div>
         <div class="search_bar">
             <form action="/search" method="GET">
-                <h1 id="slogan">Discover Your Favourite...</h1>
+                <h1 id="slogan">Discover Your Favorite...</h1>
                 <input name="filter" type="text" placeholder="Search for artist, song, album, concert, ...">
             </form>
             <div>
@@ -79,8 +79,10 @@
             <!-- Kontainer untuk item carousel -->
             <div class="carousel-container2">
                 <div th:each="song : ${listSongTop}" class="carousel-item">
-                    <img th:src="@{'api/uploads/images' + ${song.urlGambarLagu}}" alt="Song Image" class="recommended-image">
-                    <p th:text="${song.namaLagu}"></p>
+                    <a th:href="@{/song/{namaSong}-{idSong}(namaSong=${#strings.replace(song.namaLagu, ' ', '-')}, idSong=${song.idLagu})}">
+                        <img th:src="@{'api/uploads/images' + ${song.urlGambarLagu}}" alt="Song Image" class="recommended-image">
+                        <p th:text="${song.namaLagu}"></p>
+                    </a>                    
                 </div>
             </div> 
     

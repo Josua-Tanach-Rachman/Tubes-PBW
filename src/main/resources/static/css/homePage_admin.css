@@ -1,3 +1,7 @@
+*{
+    font-family: "Segoe UI", "Trebuchet MS", "Verdana", sans-serif;
+}
+
 nav p {
     margin: 0px;
     padding-left: 15px;

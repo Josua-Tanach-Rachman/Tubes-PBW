@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -26,16 +27,27 @@ public class JdbcAlbumRepository implements AlbumRepository {
     }
 
     @Override
-    public int save(String namaAlbum, String releaseDate, String urlGambarAlbum) {
-        String sql = "INSERT INTO album (namaalbum, release_date, urlGambarAlbum) VALUES (?, ?, ?)";
-        int idAlbum = jdbcTemplate.queryForObject(sql,Integer.class, namaAlbum, releaseDate, urlGambarAlbum);
-        return idAlbum;
+    public int save(String namaAlbum, Date releaseDate, int idartis, String urlGambarAlbum) {
+        String sql = "INSERT INTO album (namaalbum, release_date, idartis, urlGambarAlbum) VALUES (?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, namaAlbum, releaseDate, idartis, urlGambarAlbum);
     }
 
     @Override
     public void deleteById(int idAlbum) {
         String sql = "DELETE FROM album WHERE idalbum = ?";
         jdbcTemplate.update(sql, idAlbum);
+    }
+
+    @Override
+    public Iterable<Album> findByFilterNamaAlbum(String namaAlbum) {
+        String sql = "SELECT * FROM album WHERE namaAlbum ILIKE ? ORDER BY namaAlbum";
+        return jdbcTemplate.query(sql, this::mapRowToAlbum, "%" + namaAlbum + "%");
+    }
+
+    @Override
+    public Iterable<Album> findByIdArtis(int idArtis) {
+        String sql = "SELECT * FROM album WHERE idartis = ?";
+        return jdbcTemplate.query(sql, this::mapRowToAlbum, idArtis);
     }
 
     private Album mapRowToAlbum(ResultSet rs, int rowNum) throws SQLException {

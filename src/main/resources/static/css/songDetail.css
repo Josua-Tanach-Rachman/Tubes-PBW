@@ -4,6 +4,7 @@ body {
     box-sizing: border-box;
     background-color: black;
     color: white; /* Adjust text color for readability */
+    font-family: "Segoe UI", "Trebuchet MS", "Verdana", sans-serif;
 }
 
 .kotak_ungu {
@@ -88,7 +89,7 @@ p#song {
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Softer shadow for dark theme */
     width: 1160px;
-    height: 260px;
+    height: auto;
     color: white; /* Ensure text is readable */
 }
 

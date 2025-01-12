@@ -15,6 +15,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.tubes_pbw.model.album.Album;
+import com.example.tubes_pbw.model.album.AlbumService;
+import com.example.tubes_pbw.model.lagu.LaguService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -85,12 +88,23 @@ public class AddSetlistController {
     @Autowired
     SetlistHistoryService setlistHistoryService;
 
+    @Autowired
+    private AlbumService albumService;
+
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     
     @GetMapping("/add/setlist/artist")
     @ResponseBody
     public Iterable<Artis> getAllArtis() {
         return artisService.findByFilterNamaArtis("");
+    }
+
+    @GetMapping("/add/song/album")
+    @ResponseBody
+    public Iterable<Album> getAllAlbumInArtist(@RequestParam("namaArtis") String namaArtis) {
+        Optional<Artis> listArtis =  artisService.findByNamaArtis(namaArtis);
+        int idArtis = listArtis.get().getIdArtis();
+        return albumService.findByIdArtis(idArtis);
     }
 
     @GetMapping("/add/setlist/negara")
@@ -148,6 +162,12 @@ public class AddSetlistController {
         }
     }
 
+    @GetMapping("/add/setlist/album")
+    @ResponseBody
+    public Iterable<Album> getAllAlbum() {
+        return albumService.findByFilterNamaAlbum("");
+    }
+
     @PostMapping("/addsetlist")
     public String addsetlist(
         @RequestParam("artist-name") String namaArtis,
@@ -193,6 +213,47 @@ public class AddSetlistController {
         return "redirect:/addsetlist";
     }
 
+    @PostMapping("/addSong")
+    public String addSongToDb(
+            @RequestParam("song-name") String namaSong,
+            @RequestParam("album") String namaAlbum,
+            @RequestParam("artist-name") String namaArtist,
+            @RequestParam("photos") MultipartFile file
+    ) throws IOException
+    {
+        String namaImage = namaSong.replaceAll("\\s+", "");
+        String path = saveImage("lagu", file, namaImage);
+
+        //mencari idAlbum
+        List<Album> listAlbum = albumService.findByNamaAlbum(namaAlbum);
+        int idAlbum = listAlbum.get(0).getIdAlbum();
+
+        //mencari idArtis
+        Optional<Artis> listArtis = artisService.findByNamaArtis(namaArtist);
+        int idArtis = listArtis.get().getIdArtis();
+
+        laguService.save(idAlbum, namaSong, 200, idArtis, path);
+
+        return "redirect:/addSong";
+    }
+
+    @PostMapping("/addAlbum")
+    public String addAlbumToDb(
+            @RequestParam("artist-name") String namaArtis,
+            @RequestParam("album-name") String namaAlbum,
+            @RequestParam("release-date") Date releaseDate,
+            @RequestParam("file") MultipartFile file) throws IOException
+    {
+        String namaImage = namaAlbum.replaceAll("\\s+", "");
+        String path = saveImage("album", file, namaImage);
+
+        Optional<Artis> artisList = artisService.findByNamaArtis(namaArtis);
+        int idArtis = artisList.get().getIdArtis();
+
+        albumService.save(namaAlbum, releaseDate, idArtis, path);
+        return "redirect:/addAlbum";
+    }
+
     @PostMapping("/addConcert")
     public String addConcertToDb(
         @RequestParam("concert-name") String namaConcert,
@@ -219,7 +280,7 @@ public class AddSetlistController {
 
     @GetMapping("/edit/setlist/{idSetlist}")
     public String editSetlist(
-        @PathVariable int idSetlist, 
+        @PathVariable int idSetlist,
         Model model, HttpSession session
     )
     {
@@ -228,7 +289,7 @@ public class AddSetlistController {
         Lokasi lokasi = lokasiService.findByIdLokasi(setlist.getIdLokasi()).get(0);
         Kota kota = kotaService.findByIdKota(lokasi.getIdKota()).get(0);
         Negara negara = negaraService.findByIdNegara(kota.getIdKota()).get(0);
-        
+
         LocalDate localDate = setlist.getTanggal().toLocalDate();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedDate = localDate.format(formatter);
@@ -248,13 +309,13 @@ public class AddSetlistController {
         if (session.getAttribute("username") == null) {
             return "redirect:/login";
         } else {
-            return "halamaneditSetlist";
+            return "editSetlistInfo";
         }
     }
 
     @PostMapping("/edit/setlist/{idSetlist}")
     public String editSetlistPost(
-        @PathVariable int idSetlist, 
+        @PathVariable int idSetlist,
         @RequestParam("country") String namaNegara,
         @RequestParam("city") String namaKota,
         @RequestParam("venue") String namaLokasi,
@@ -267,7 +328,7 @@ public class AddSetlistController {
         // Parse the date string (yyyy-MM-dd) into a LocalDate
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(date, formatter);
-        
+
         // Convert LocalDate to LocalDateTime at start of day (midnight)
         Timestamp tanggalSetlist = Timestamp.valueOf(localDate.atStartOfDay());
         //set timestamp
@@ -294,12 +355,15 @@ public class AddSetlistController {
         String email = (String) session.getAttribute("email");
         setlistService.updateSetlist(namaSetlist, idSetlist, tanggalSetlist, lokasi.getIdLokasi(), path, show.getIdShow(), email, timestamp, setlist.getIdLokasi(), setlist.getIdShow(), tanggalBef, setlist.getNamaSetlist());
 
-        return "";
+        return "redirect:/setlist/" +
+                setlist.getNamaSetlist().replace(" ", "-") +
+                "-" +
+                setlist.getIdSetlist();
     }
 
     @GetMapping("/edit/setlistSongs/{idSetlist}")
     public String editSetlistSongs(
-        @PathVariable int idSetlist, 
+        @PathVariable int idSetlist,
         Model model, HttpSession session)
     {
         Optional<Setlist> optionalSetlist = setlistService.findByIdSetlist(idSetlist);
@@ -329,7 +393,7 @@ public class AddSetlistController {
 
     @PostMapping("/edit/setlistSongs/{idSetlist}")
     public String editSetlistSongsPost(
-        @PathVariable int idSetlist, 
+        @PathVariable int idSetlist,
         @RequestParam("songNames") List<String> listLagu,
         @RequestParam("file") MultipartFile file,
         Model model, HttpSession session) throws IOException
@@ -391,16 +455,16 @@ public class AddSetlistController {
     @GetMapping("/setlistHistory/{idSetlist}/{date}")
     @ResponseBody
     public String getDetailHistory(
-        @PathVariable int idSetlist, 
-        @PathVariable String date, 
+        @PathVariable int idSetlist,
+        @PathVariable String date,
         Model model, HttpSession session
     )
     {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
-        
+
         // Parse the string into a LocalDateTime
         LocalDateTime localDateTime = LocalDateTime.parse(date, formatter);
-        
+
         // Convert LocalDateTime to Timestamp
         Timestamp timestamp = Timestamp.valueOf(localDateTime);
 
@@ -436,12 +500,12 @@ public class AddSetlistController {
             LaguNowBef laguNowBef = listLaguYangDiubah.get(i);
             if(laguNowBef.getAction().equals("INSERT")){
 
-            }   
+            }
             else if(laguNowBef.getAction().equals("DELETE")) {
 
             }
             else{
-                
+
             }
             teks += "From " + Integer.toString(laguNowBef.getIdLaguBef()) + " To " + Integer.toString(laguNowBef.getIdLagu()) + " Using " + laguNowBef.getAction() + " ON tracknumber " + Integer.toString(laguNowBef.getTrackNumber()) + "\n";
         }
