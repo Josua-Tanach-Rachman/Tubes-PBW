@@ -34,9 +34,9 @@ public class JdbcKomentarRepository implements KomentarRepository {
     }
 
     @Override
-    public int save(int idPengguna, int idSetlist, String komentar) {
-        String sql = "INSERT INTO komentar (idpengguna, idsetlist, komentar) VALUES (?, ?, ?) RETURNING idkomentar";
-        int idKomentar = jdbcTemplate.queryForObject(sql,Integer.class, idPengguna, idSetlist, komentar);
+    public int save(String email, int idSetlist, String komentar) {
+        String sql = "INSERT INTO komentar (email, idsetlist, komentar) VALUES (?, ?, ?) RETURNING idkomentar";
+        int idKomentar = jdbcTemplate.queryForObject(sql,Integer.class, email, idSetlist, komentar);
         return idKomentar;
     }
 
@@ -49,7 +49,7 @@ public class JdbcKomentarRepository implements KomentarRepository {
     private Komentar mapRowToKomentar(ResultSet resultSet, int rowNum) throws java.sql.SQLException {
         return new Komentar(
             resultSet.getInt("idkomentar"),
-            resultSet.getInt("idpengguna"),
+            resultSet.getString("email"),
             resultSet.getInt("idsetlist"),
             resultSet.getString("komentar"),
             resultSet.getTimestamp("tanggal")

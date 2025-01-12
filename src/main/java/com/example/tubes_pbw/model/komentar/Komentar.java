@@ -9,7 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class Komentar {
     int idKomentar;
-    int idPengguna;
+    String email;
     int idSetlist;
     String komentar;
     Timestamp tanggal;
