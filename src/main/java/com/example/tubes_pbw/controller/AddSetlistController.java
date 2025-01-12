@@ -305,11 +305,15 @@ public class AddSetlistController {
         model.addAttribute("kota", kota);
         model.addAttribute("negara", negara);
         model.addAttribute("date", formattedDate);
-        if(session.getAttribute("username") == null){
+        if (session.getAttribute("username") == null) {
             model.addAttribute("isUserLoggedIn", false);
-        }
-        else{
+        } else {
             model.addAttribute("isUserLoggedIn", true);
+            if (session.getAttribute("role").equals("admin")) {
+                model.addAttribute("isAdmin", true);
+            } else {
+                model.addAttribute("isAdmin", false);
+            }
         }
         if (session.getAttribute("username") == null) {
             return "redirect:/login";
@@ -383,11 +387,15 @@ public class AddSetlistController {
         model.addAttribute("listLaguSemua", listLagu);
 
 
-        if(session.getAttribute("username") == null){
+        if (session.getAttribute("username") == null) {
             model.addAttribute("isUserLoggedIn", false);
-        }
-        else{
+        } else {
             model.addAttribute("isUserLoggedIn", true);
+            if (session.getAttribute("role").equals("admin")) {
+                model.addAttribute("isAdmin", true);
+            } else {
+                model.addAttribute("isAdmin", false);
+            }
         }
         if (session.getAttribute("username") == null) {
             return "redirect:/login";
