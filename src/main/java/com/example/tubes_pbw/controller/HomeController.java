@@ -43,19 +43,23 @@ public class HomeController {
             return "homePage";
         }
         else{
-            model.addAttribute("isUserLoggedIn", true);
-            if(session.getAttribute("role").equals("admin")){
-                model.addAttribute("isAdmin", true);
-                return "homePage_admin";
-            } else {
-                if ((Boolean)session.getAttribute("status") == true){
+            if ((Boolean)session.getAttribute("status") == true){
+                model.addAttribute("isUserLoggedIn", true);
+                if(session.getAttribute("role").equals("admin")){
+                    model.addAttribute("isAdmin", true);
+                    return "homePage_admin";
+                } else {
                     model.addAttribute("isAdmin", false);
                     return "homePage";
                 }
-                else {
-                    model.addAttribute("isUserLoggedIn", false);
-                    return "homePage";
-                }
+            }
+            else {
+                model.addAttribute("isUserLoggedIn", false);
+                session.removeAttribute("username");
+                session.removeAttribute("email");
+                session.removeAttribute("role");
+                session.removeAttribute("status");
+                return "homePage";
             }
         }
     }
