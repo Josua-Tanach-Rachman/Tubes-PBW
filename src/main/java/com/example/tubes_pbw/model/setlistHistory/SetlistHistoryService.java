@@ -27,4 +27,8 @@ public class SetlistHistoryService {
     public List<SetlistNowBef> findSetlistNowBef(int idSetlist, Timestamp date){
         return jdbcSetlistHistoryRepository.findSetlistNowBef(idSetlist, date);
     }
+
+    public List<SetlistHistory> findSetlistHistory(int idSetlist, Timestamp date){
+        return jdbcSetlistHistoryRepository.findSetlistHistory(idSetlist, date);
+    }
 }

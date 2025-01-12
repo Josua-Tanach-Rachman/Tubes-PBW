@@ -24,6 +24,9 @@ document.querySelectorAll('.close').forEach(button => {
     });
 });
 // ---------------------------------------------------------------------------------------------
+let containerUrlGambarAtas = document.querySelector("#popupAbove a");
+let containerUrlGambarBawah = document.querySelector("#popupBelow a");
+
 let array = []
 function ambil(idSetlist, date){
     array = []
@@ -38,6 +41,9 @@ function ambil(idSetlist, date){
             return response.json();
         })
         .then(data => {
+            containerUrlGambarAtas.href = "/api/uploads/images"+data.urlBukti;
+            console.log(containerUrlGambarAtas);
+            containerUrlGambarBawah.href = "/api/uploads/images"+data.urlBukti;
             console.log(data);
             let kategori = data.kategori;
             // Clear the existing content in both popups

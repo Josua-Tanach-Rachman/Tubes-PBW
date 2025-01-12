@@ -52,6 +52,14 @@ public class JdbcSetlistHistoryRepository implements SetlistHistoryRepository {
         return jdbcTemplate.query(sql, this::mapRowToSetlistNowBef, idSetlist, date);
     }
 
+    @Override
+    public List<SetlistHistory> findSetlistHistory(int idSetlist, Timestamp date) {
+        String sql = "SELECT *\n" + //
+                        "FROM setlistHistory\n" + //
+                        "WHERE idsetlist = ? AND tanggalDiubah = ?";
+        return jdbcTemplate.query(sql, this::mapRowToSetlistHistory, idSetlist, date);
+    }
+
     private SetlistHistory mapRowToSetlistHistory(ResultSet resultSet, int rowNum) throws SQLException {
         return new SetlistHistory(
             resultSet.getInt("idHistory"),
