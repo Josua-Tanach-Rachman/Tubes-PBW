@@ -23,8 +23,8 @@ public class KomentarService {
         return komentarRepository.findByPenggunaId(idPengguna);
     }
 
-    public int save(int idPengguna, int idSetlist, String komentar) {
-        return komentarRepository.save(idPengguna, idSetlist, komentar);
+    public int save(String email, int idSetlist, String komentar) {
+        return komentarRepository.save(email, idSetlist, komentar);
     }
 
     public Iterable<KomentarPengguna> findKomentarPenggunaBySetlistId(int idSetlist){

@@ -102,6 +102,17 @@
             </table>
         </div>
 
+        <div class="setlist-content" th:if="${isUserLoggedIn}">
+            <h1>New Comments</h1>
+            <p>Comments</p>
+            <form action="/add/comment" method="post">
+                <input type="hidden" th:name="namaSetlist" th:value="${namaSetlist}">
+                <input type="hidden" th:name="idSetlist" th:value="${idSetlist}">
+                <input type="text" name="komentar" id="">
+                <button>Add New Comment</button>
+            </form>
+        </div>
+
         <div class="setlist-content">
             <h1>Edits</h1>
             <table>
@@ -186,30 +197,7 @@
             
 
             <!-- Popup Above -->
-<div class="overlay" id="overlayAbove"></div>
-<div class="popup" id="popupAbove">
-    <button class="close">&times;</button>
-    <h2>Song Changes</h2>
-    <hr>
-    <div class="container">
-        <div class="setlist before">
-            <!-- Content goes here -->
-            <table>
-                <thead>
-                    <tr>
-                        <th>TrackNumber</th>
-                        <th>Song Before:</th>
-                        <th>Song After:</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>song1</td>
-                        <td>song2</td>
-                    </tr>
-                </tbody>
-            </table>
+            
         </div>
     </div>
 </div>
@@ -239,9 +227,34 @@
                 </tbody>
              </table>
         </div>
-    </div>
-</div>
-
+        
+        <!-- Popup Below -->
+        <div class="overlay" id="overlayBelow"></div>
+        <div class="popup" id="popupBelow">
+            <button class="close">&times;</button>
+            <h2>Setlist Changes</h2>
+            <hr>
+            <div class="container">
+                <div class="setlist before">
+                    <!-- Content goes here -->
+                     <table>
+                        <thead>
+                            <tr>
+                                <th>Information</th>
+                                <th>Before:</th>
+                                <th>After:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Venue</td>
+                                <td>venue1</td>
+                                <td>venue2</td>
+                            </tr>
+                        </tbody>
+                     </table>
+                </div>
+            </div>
         </div>
     </div>
     <script>

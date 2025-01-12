@@ -6,7 +6,7 @@ public interface KomentarRepository {
     Optional<Komentar> findByIdKomentar(int idKomentar);
     Iterable<Komentar> findBySetlistId(int idSetlist);
     Iterable<Komentar> findByPenggunaId(int idPengguna);
-    int save(int idPengguna, int idSetlist, String komentar);
+    int save(String email, int idSetlist, String komentar);
 
     Iterable<KomentarPengguna> findKomentarPenggunaBySetlistId(int idSetlist);
 }
