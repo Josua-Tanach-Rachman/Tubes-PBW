@@ -79,7 +79,7 @@ public class UserController {
             return "login";
         }
         if (session.getAttribute("role").equals("admin")) {
-            return "redirect:/manageUser";
+            return "redirect:/";
         }
         if (session.getAttribute("role").equals("user")) {
             return "redirect:/public";
@@ -262,7 +262,7 @@ public class UserController {
         model.addAttribute("alamat", alamat);
 
         List<ArtisNamaOnly> artis = showService.findAristOnConcert(idConcert);
-        model.addAttribute("listArtis", artis);
+        model.addAttribute("artis", artis);
 
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);

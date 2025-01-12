@@ -40,16 +40,17 @@ public class HomeController {
 
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);
+            return "homePage";
         }
         else{
             model.addAttribute("isUserLoggedIn", true);
             if(session.getAttribute("role").equals("admin")){
                 model.addAttribute("isAdmin", true);
+                return "homePage_admin";
             } else {
                 model.addAttribute("isAdmin", false);
+                return "homePage";
             }
         }
-        return "homePage";
     }
-
 }
