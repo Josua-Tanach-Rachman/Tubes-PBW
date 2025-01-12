@@ -21,6 +21,10 @@ public class SetlistService {
         return setlistRepository.findByNamaSetlist(namaSetlist);
     }
 
+    public Iterable<Setlist> findAllSetlist() {
+        return setlistRepository.findAllSetlist();
+    }
+
     public Iterable<Setlist> findByShow(int idShow) {
         return setlistRepository.findByShow(idShow);
     }

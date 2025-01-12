@@ -37,6 +37,12 @@ public class JdbcSetlistRepository implements SetlistRepository {
     }
 
     @Override
+    public Iterable<Setlist> findAllSetlist() {
+        String sql = "SELECT * FROM setlist ORDER BY tanggal ASC";
+        return jdbcTemplate.query(sql, this::mapRowToSetlist);
+    }
+
+    @Override
     public int save(String namaSetlist, Timestamp tanggal, int idArtis, int idLokasi, String urlBukti, int idShow, String email) {
         String sql = "INSERT INTO setlist (namasetlist, tanggal, idartis, idlokasi, urlbukti, idShow, email) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING idsetlist";
@@ -81,6 +87,7 @@ public class JdbcSetlistRepository implements SetlistRepository {
         String sql = """
             SELECT 
                 s.idSetlist,
+                s.namaSetlist,
                 a.idArtis,
                 l.idLokasi,
                 a.namaArtis,
@@ -137,6 +144,7 @@ public class JdbcSetlistRepository implements SetlistRepository {
         String sql = """
             SELECT 
                 s.idSetlist,
+                s.namaSetlist,
                 a.idArtis,
                 l.idLokasi,
                 a.namaArtis,
@@ -380,6 +388,7 @@ public class JdbcSetlistRepository implements SetlistRepository {
     private ArtistSetlistLokasiDate mapRowToArtistSetlist(ResultSet resultSet, int rowNum) throws SQLException {
         return new ArtistSetlistLokasiDate(
             resultSet.getInt("idSetlist"),
+            resultSet.getString("namaSetlist"),
             resultSet.getInt("idArtis"),
             resultSet.getInt("idLokasi"),
             resultSet.getString("namaArtis"),

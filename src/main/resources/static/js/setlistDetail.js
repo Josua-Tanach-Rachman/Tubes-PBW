@@ -41,6 +41,7 @@ function ambil(idSetlist, date){
             console.log(data);
             let kategori = data.kategori;
             // Clear the existing content in both popups
+            console.log(document.querySelector("#popupAbove .setlist.before tbody"));
             document.querySelector("#popupAbove .setlist.before tbody").innerHTML = ""; 
             document.querySelector("#popupBelow .setlist.before tbody").innerHTML = ""; 
 
