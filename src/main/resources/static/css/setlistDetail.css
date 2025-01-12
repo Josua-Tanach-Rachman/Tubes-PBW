@@ -4,24 +4,18 @@ body {
     box-sizing: border-box;
     background-color: black;
     color: white;
-    /* Adjust text color for readability */
 }
 
 .kotak_ungu {
     height: 10px;
     width: 100%;
     background-color: #8100B3;
-    /* Retain purple bar */
 }
 
 nav {
     color: white;
     background-color: #1E1E1E;
-    /* Dark background for the navbar */
     display: flex;
-    gap: 50px;
-    padding-top: 8px;
-    padding-bottom: 8px;
     font-size: 20px;
     padding-left: 20px;
     position: relative;
@@ -30,18 +24,25 @@ nav {
 
 nav p {
     margin: 0px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 #home:hover,
-#setlist:hover,
+#artist:hover,
 #concert:hover,
-#news:hover {
-    background-color: #8100B3;
-    /* Purple hover effect for nav items */
+#song:hover,
+#manage_user:hover,
+#report:hover  {
+    background-color: #510370;
+    padding-top: 23.5px;
+    padding-bottom: 23.5px;
+    text-shadow: 3px 3px 5px black;
 }
 
 #logo {
-    height: 70px;
+    height: 60px;
+    margin-right: 20px;
 }
 
 button {
@@ -66,27 +67,28 @@ button {
 a {
     text-decoration: none;
     color: white;
-    /* Default link color to white */
 }
 
-#artist a {
-    color: #8100B3;
-    /* Highlight artist links in purple */
+#setlist a {
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 0 20px whitesmoke;
+}
+p#setlist {
+    background-color: #8100B3;
+    padding-top: 23.5px;
+    padding-bottom: 23.5px;
 }
 
 .artist-setlists {
-    position: relative;
-    /* For absolute positioning of edit link */
     margin: 50px auto;
-    background: #1E1E1E;
-    border: 1px solid #8100B3;
+    background: #1E1E1E; /* Match navbar's dark theme */
+    border: 1px solid #8100B3; /* Purple border for accent */
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Softer shadow for dark theme */
     width: 1160px;
-    color: white;
-    min-height: 200px;
-    /* Ensure minimum height for short lists */
+    color: white; /* Ensure text is readable */
 }
 
 .setlist-content {
@@ -110,38 +112,33 @@ a {
 }
 
 .artist-setlists h1 {
-    font-size: 32px;
-    color: #8100B3;
-    /* Highlight headings in purple */
-    margin-bottom: 10px;
-    margin-top: -30px;
+    font-size: 24px;
+    color: white; /* Highlight headings in purple */
+    margin-bottom: 30px;
 }
 
 .artist-setlists h3 {
     font-size: 18px;
     color: white;
-    /* Sub-heading remains white */
     margin-bottom: 20px;
     border-bottom: 1px solid #8100B3;
-    /* Purple divider */
     padding-bottom: 10px;
 }
 
 .artist-list {
-    /*list-style: none;*/
+    list-style: none;
     padding: 0 0 0 20px;
     margin: 0;
 }
 
 .artist-list li {
-    /*display: flex;*/
+    display: flex;
     align-items: flex-start;
     flex-direction: column;
     justify-content: space-between;
     margin-bottom: 15px;
     padding-bottom: 10px;
     border-bottom: 1px solid #333;
-    /* Subtle separator */
 }
 
 .artist-list li a {
@@ -273,7 +270,9 @@ a {
 }
 
 .search-container img.background-search {
+    height: 500px;
     width: 100%;
+    margin: -40px 0px 0px 0px;
     z-index: 0;
 }
 
@@ -290,7 +289,6 @@ a {
     position: absolute;
     z-index: 2;
     display: flex;
-    right: 20px;
 }
 
 input {
@@ -299,7 +297,7 @@ input {
     padding-left: 60px;
     border-radius: 30px;
     cursor: text;
-    width: 200px;
+    width: 400px;
 }
 
 .icon_search {
@@ -308,17 +306,12 @@ input {
     width: 20px;
     z-index: 2;
     left: 17px;
-    top: 14px;
+    top: 93px;
 }
 
 #slogan {
     color: white;
-    margin: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
-    /*text-align: center;*/
-    /*width: 100%;*/
+    text-align: center;
 }
 
 /*image*/
