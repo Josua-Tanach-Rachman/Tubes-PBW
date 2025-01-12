@@ -48,6 +48,9 @@ dependencies {
 
     // Commons IO for various input/output utilities
     implementation("commons-io:commons-io:2.11.0")
+
+	implementation ("com.lowagie:itext:2.1.7")
+	implementation("org.xhtmlrenderer:flying-saucer-pdf:9.1.22")
 }
 
 tasks.withType<Test> {

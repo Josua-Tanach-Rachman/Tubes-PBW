@@ -3,8 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Favelist | Setlist-Detail</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaveList | Detail-Setlist</title>
     <link rel="stylesheet" th:href="@{/css/setlistDetail.css}">
+    <link rel="icon" href="/assets/icon.png" type="image/png">
     <script th:src="@{/js/setlistDetail.js}" defer></script>
     <link rel="icon" href="/assets/icon.png" type="image/png">
 </head>
@@ -42,7 +44,7 @@
         <div class="search_bar">
             <form action="/setlist" method="get">
                 <h1 id="slogan">Discover Your Favorite Setlist</h1>
-                <input type="text" placeholder="Search for Setlist..." th:value="${filter}" name="filter">
+                <input type="text" placeholder="Search for Setlists..." th:value="${filter}" name="filter">
                 <input type="hidden" name="page" th:value="1">
             </form>
             <div>
@@ -56,16 +58,26 @@
             <div class="setlist-content">
                 <h1><a th:href="@{/artist/{namaArtis}-{idArtis}(namaArtis=${#strings.replace(generalInfo.namaArtis, ' ', '-')}, idArtis=${generalInfo.idArtis})}"
                         th:text="${generalInfo.namaArtis}"></a> Setlist</h1>
-                <h2 th:text="at + ' ' + ${generalInfo.namaLokasiConcert}"></h2>
-                <h3 th:text="on + ' ' + ${#temporals.format(generalInfo.tanggal, 'd MMMM yyyy')}"></h3>
+                <div class="location">
+                    <img src="/assets/map.png" class="map-pin">
+                    <h3 th:text="${generalInfo.namaLokasiConcert}" class="namaLokasi"></h3>
+                </div>
+                <div class="location">
+                    <img src="/assets/calender.jpg" class="map-pin">
+                    <h3 th:text="${#temporals.format(generalInfo.tanggal, 'd MMMM yyyy')}" class="namaLokasi"></h3>
+                </div>
                 <ol class="artist-list">
+                    <div class="location">
+                        <img src="/assets/sing.png" class="map-pin">
+                        <h3>Song By <span th:text="${generalInfo.namaArtis}"></span></h3>
+                    </div>
                     <li th:each="lagu : ${listLagu}">
                         <a th:href="@{/song/{namaLagu}-{idLagu}(namaLagu=${#strings.replace(lagu.namaLagu, ' ', '-')}, idLagu=${lagu.idLagu})}"
                             th:text="${lagu.namaLagu}"></a>
                     </li>
                 </ol>
             </div>
-            <form action="/addPenggunaSetlist" method="post">
+            <form action="/addPenggunaSetlist" method="post" class="wasThere">
                 <input type="hidden" name="idSetlist" th:value="${idSetlist}">
                 <input type="hidden" name="namaSetlist" th:value="${namaSetlist}">
                 <button type="submit" th:if="${terdaftar != true}" th:text="'I was there'">I Was There</button>
@@ -73,7 +85,7 @@
                 <button type="submit" th:if="${terdaftar == true}" th:text="'I wasn\'t there'">I Wasn't There</button>
             </form>
             <select name="edit-option" id="edit-option" class="edit-list">
-                <option value="" selected="selected" disabled>Select an edit option</option>
+                <option value="" selected="selected" disabled hidden>Select an edit option</option>
                 <option value="1" th:data-url="@{/edit/setlistSongs/{idSetlist}(idSetlist=${idSetlist})}">Edit setlist
                     song</option>
                 <option value="2" th:data-url="@{/edit/setlist/{idSetlist}(idSetlist=${idSetlist})}">Edit setlist info
