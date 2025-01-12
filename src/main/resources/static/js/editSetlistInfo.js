@@ -27,6 +27,8 @@ let arrayShow = [];
 // Set the date range for the date input
 const dateInput = document.getElementById('date');
 
+
+
 fetch('/add/setlist/artist')
     .then(response => {
         if (!response.ok) {
@@ -132,6 +134,33 @@ function fetchShow(namaLokasi) {
             console.log(arrayShow);
             currentSuggestions = arrayShow;
             console.log(currentSuggestions);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+function fetchShowDetails(namaShow) {
+    fetch(`/get/showDetails?namaShow=${namaShow}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Assuming the response contains beginDate and endDate in 'YYYY-MM-DD' format
+            const showDetails = data; // This should include beginDate and endDate
+            const beginDate = new Date(showDetails.beginDate); // Convert to Date object
+            const endDate = new Date(showDetails.endDate); // Convert to Date object
+
+            dateInput.setAttribute('min', beginDate.toISOString().split('T')[0]); // Set min date
+            dateInput.setAttribute('max', endDate.toISOString().split('T')[0]); // Set max date 
+            dateInput.value = beginDate.toISOString().split('T')[0];
+
+            console.log("Show details:", showDetails);
+            console.log("Begin Date:", beginDate);
+            console.log("End Date:", endDate);
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
@@ -303,9 +332,9 @@ function selectSuggestion(value) {
             showInput.value = ''; // Reset show
             console.log("Country selected");
             fetchKota(selectedCountry);
-            // dateInput.removeAttribute('min'); // Set min date
-            // dateInput.removeAttribute('max'); // Set min date
-            // dateInput.value = null;
+            dateInput.removeAttribute('min'); // Set min date
+            dateInput.removeAttribute('max'); // Set min date
+            dateInput.value = null;
             break;
         case 'city':
             cityInput.value = value;
@@ -316,9 +345,9 @@ function selectSuggestion(value) {
             showInput.value = ''; // Reset show
             console.log("City selected");
             fetchLokasi(selectedCity);
-            // dateInput.removeAttribute('min'); // Set min date
-            // dateInput.removeAttribute('max'); // Set min date
-            // dateInput.value = null;
+            dateInput.removeAttribute('min'); // Set min date
+            dateInput.removeAttribute('max'); // Set min date
+            dateInput.value = null;
             break;
         case 'venue':
             venueInput.value = value;
@@ -327,15 +356,15 @@ function selectSuggestion(value) {
             showInput.value = '';
             console.log("Venue selected");
             fetchShow(selectedLocation);
-            // dateInput.removeAttribute('min'); // Set min date
-            // dateInput.removeAttribute('max'); // Set min date
-            // dateInput.value = null;
+            dateInput.removeAttribute('min'); // Set min date
+            dateInput.removeAttribute('max'); // Set min date
+            dateInput.value = null;
             break;
         case 'show':
             showInput.value = value;
             console.log("Show selected: " + value);
-            // dateInput.value = null;
-            // fetchShowDetails(value);
+            dateInput.value = null;
+            fetchShowDetails(value);
             break;
     }
     closePopup();

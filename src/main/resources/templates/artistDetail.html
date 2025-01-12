@@ -60,7 +60,7 @@
                   <li th:each="lokasiDate : ${lokasiDates}">
                       <div class="location">
                         <img src="/assets/map.png" alt="Location at" class="map-image">
-                        <a href="#" th:text="${artis.namaArtis} + ' at ' + ${lokasiDate.namaLokasiConcert}"></a>
+                        <a th:href="@{/setlist/{namaSetlist}-{idSetlist}(namaSetlist=${#strings.replace(lokasiDate.namaSetlist, ' ', '-')}, idSetlist=${lokasiDate.idSetlist})}" th:text="${lokasiDate.namaSetlist}"></a>
                       </div>
                       <div class="location"> 
                         <img src="/assets/calender.jpg" alt="Location at" class="date-image">
