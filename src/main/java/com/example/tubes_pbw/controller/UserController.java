@@ -612,4 +612,17 @@ public class UserController {
         }
         return "editSetlistInfo";
     }
+
+    @PostMapping("/add/comment")
+    public String addComment(
+        @RequestParam String namaSetlist,
+        @RequestParam int idSetlist,
+        @RequestParam String komentar,
+        Model model, HttpSession session)
+    {
+        String email = (String)session.getAttribute("email");
+        komentarService.save(email, idSetlist, komentar);
+        String link = "/setlist/" + namaSetlist + "-" + idSetlist;
+        return "redirect:" + link;
+    }
 }
