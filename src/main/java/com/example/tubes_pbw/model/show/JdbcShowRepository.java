@@ -106,13 +106,20 @@ public class JdbcShowRepository implements ShowRepository{
     }
 
     @Override 
-    public String findAristOnConcert (int idShow){
-        String sql = "SELECT a.namaArtis\n" + //
+    public List<ArtisNamaOnly> findAristOnConcert (int idShow){
+        String sql = "SELECT a.namaArtis, a.idArtis\n" + //
                         "FROM Show s\n" + //
                         "JOIN Setlist st ON s.idShow = st.idShow\n" + //
                         "JOIN Artis a ON st.idArtis = a.idArtis\n" + //
                         "WHERE s.idShow = ?";
-        return jdbcTemplate.queryForObject(sql, String.class, idShow);
+        return jdbcTemplate.query(sql, this::mapRowToArtisNamaOnly, idShow);
+    }
+
+    private ArtisNamaOnly mapRowToArtisNamaOnly(ResultSet resultSet, int rowNum) throws SQLException {
+        return new ArtisNamaOnly(
+            resultSet.getString("namaArtis"),
+            resultSet.getInt("idArtis")
+        );
     }
 
     private Show mapRowToShow(ResultSet resultSet, int rowNum) throws SQLException {
