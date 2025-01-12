@@ -595,12 +595,19 @@ public class UserController {
             return "redirect:/"; // Redirect ke homepage jika bukan admin
         }
 
-        // Ambil data pengguna untuk ditampilkan di halaman
-        List<User> listUsers = userService.findAllUsers(); // Asumsi ada service userService
-        model.addAttribute("listUsers", listUsers);
-        System.out.println("PANDA " + listUsers);
-        return "report"; // Mengembalikan view manageUser.html
+        Iterable<Setlist> res = setlistService.findAllSetlist();
+        int totalUser = userService.findAllUsers().size();
+        int totalUserActive = userService.findActiveUser().size();
+        int totalAdmin = userService.findAdmin().size();
+
+        model.addAttribute("setlists", res);
+        model.addAttribute("totalUser", totalUser);
+        model.addAttribute("totalUserActive", totalUserActive);
+        model.addAttribute("totalAdmin", totalAdmin);
+
+        return "report";
     }
+
 
     @GetMapping("/editSetlistInfo")
     public String editSetlistInfo(Model model, HttpSession session) {

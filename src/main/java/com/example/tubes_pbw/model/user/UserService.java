@@ -37,6 +37,14 @@ public class UserService {
         return userRepository.findAll();
     }
     
+    public List<User> findActiveUser (){
+        return userRepository.findPenggunaAktif();
+    }
+    
+    public List<User> findAdmin (){
+        return userRepository.findAdmin();
+    }
+    
     public PenggunaSetlist findInSetlist(String email, int idSetlist){
         Optional<PenggunaSetlist> user = userRepository.findInSetlist(email,idSetlist);
 

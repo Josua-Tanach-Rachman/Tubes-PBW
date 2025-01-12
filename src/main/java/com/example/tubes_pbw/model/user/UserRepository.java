@@ -13,4 +13,6 @@ public interface UserRepository {
     void removeFromPenggunaSetlist(String email, int idSetlist);
     void updateUserRole(String username, String newRole);
     void updateUserStatus(String username, boolean newStatus);
+    List<User> findAdmin();
+    List<User> findPenggunaAktif();
 } 
