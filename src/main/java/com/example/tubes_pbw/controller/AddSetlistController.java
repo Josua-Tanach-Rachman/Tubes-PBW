@@ -471,6 +471,28 @@ public class AddSetlistController {
 
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+
+        if (date.contains(".")) {
+            String[] parts = date.split("\\.");
+            String fractional = parts[1];
+            if (fractional.length() == 5) {
+                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSS");
+            } else if (fractional.length() == 6) {
+                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+            }
+            else if(fractional.length() == 4){
+                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSS");
+            }
+            else if(fractional.length() == 3){
+                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+            }
+            else if(fractional.length() == 2){
+                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SS");
+            }
+            else if(fractional.length() == 1){
+                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+            }
+        }
         
         // Parse the string into a LocalDateTime
         LocalDateTime localDateTime = LocalDateTime.parse(date, formatter);
