@@ -290,3 +290,7 @@ button:hover {
 #add:hover {
     background-color: #9a00d4;
 }
+
+input:hover {
+    cursor: pointer; 
+}
