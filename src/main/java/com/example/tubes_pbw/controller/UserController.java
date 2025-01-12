@@ -263,7 +263,7 @@ public class UserController {
         model.addAttribute("alamat", alamat);
 
         List<ArtisNamaOnly> artis = showService.findAristOnConcert(idConcert);
-        model.addAttribute("artis", artis);
+        model.addAttribute("listArtis", artis);
 
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);
