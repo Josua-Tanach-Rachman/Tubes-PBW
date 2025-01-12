@@ -48,8 +48,14 @@ public class HomeController {
                 model.addAttribute("isAdmin", true);
                 return "homePage_admin";
             } else {
-                model.addAttribute("isAdmin", false);
-                return "homePage";
+                if ((Boolean)session.getAttribute("status") == true){
+                    model.addAttribute("isAdmin", false);
+                    return "homePage";
+                }
+                else {
+                    model.addAttribute("isUserLoggedIn", false);
+                    return "homePage";
+                }
             }
         }
     }

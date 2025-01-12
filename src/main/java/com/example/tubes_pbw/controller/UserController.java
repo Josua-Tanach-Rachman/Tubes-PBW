@@ -100,6 +100,7 @@ public class UserController {
         session.setAttribute("username", user.getUsername());
         session.setAttribute("email", user.getEmail());
         session.setAttribute("role", user.getRole());
+        session.setAttribute("status", user.getStatus());
         return "redirect:/login";
     }
 
