@@ -105,11 +105,11 @@
         <div class="setlist-content" th:if="${isUserLoggedIn}">
             <h1>New Comments</h1>
             <p>Comments</p>
-            <form action="/add/comment" method="post">
+            <form action="/add/comment" class="comment-area" method="post">
                 <input type="hidden" th:name="namaSetlist" th:value="${namaSetlist}">
                 <input type="hidden" th:name="idSetlist" th:value="${idSetlist}">
-                <input type="text" name="komentar" id="">
-                <button>Add New Comment</button>
+                <textarea name="komentar" id="comment" placeholder="Write your comment here..."></textarea>
+                <button class="add-new-comment">Add New Comment</button>
             </form>
         </div>
 
