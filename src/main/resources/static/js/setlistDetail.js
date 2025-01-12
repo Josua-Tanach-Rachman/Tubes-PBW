@@ -17,6 +17,7 @@
 
 document.querySelectorAll('.close').forEach(button => {
     button.addEventListener('click', function () {
+        console.log('Close button clicked'); // Debugging line
         document.getElementById('popupAbove').style.display = 'none';
         document.getElementById('overlayAbove').style.display = 'none';
         document.getElementById('popupBelow').style.display = 'none';
