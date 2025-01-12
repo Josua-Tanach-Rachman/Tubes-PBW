@@ -89,10 +89,10 @@ public class JdbcSetlistHistoryRepository implements SetlistHistoryRepository {
 
     private SetlistNowBef mapRowToSetlistNowBef(ResultSet resultSet, int rowNum) throws SQLException {
         return new SetlistNowBef(
-            resultSet.getInt("idShow"),             // Map idHistory
-            resultSet.getInt("idShowBef"),
-            resultSet.getInt("idLokasi"),             // Map idHistory
-            resultSet.getInt("idLokasiBef"),
+            (Integer)resultSet.getObject("idShow"),             // Map idHistory
+            (Integer)resultSet.getObject("idShowBef"),
+            (Integer)resultSet.getObject("idLokasi"),             // Map idHistory
+            (Integer)resultSet.getObject("idLokasiBef"),
             resultSet.getTimestamp("tanggal"),
             resultSet.getTimestamp("tanggalBef")
         );

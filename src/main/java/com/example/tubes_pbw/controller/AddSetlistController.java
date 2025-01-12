@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +34,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.tubes_pbw.model.artis.Artis;
 import com.example.tubes_pbw.model.artis.ArtisService;
+import com.example.tubes_pbw.model.detailHistory.DetailHistoryResponse;
+import com.example.tubes_pbw.model.detailHistory.PairBefAfter;
+import com.example.tubes_pbw.model.detailHistory.TrackBeforeAfter;
 import com.example.tubes_pbw.model.kota.Kota;
 import com.example.tubes_pbw.model.kota.KotaService;
 import com.example.tubes_pbw.model.lagu.Lagu;
@@ -452,19 +456,23 @@ public class AddSetlistController {
         return "redirect:/setlist/" + setlist.getNamaSetlist().replace(' ', '-') +"-"+ idSetlist;
     }
 
-    @GetMapping("/setlistHistory/{idSetlist}/{date}")
+   @GetMapping("/setlistHistory/{idSetlist}/{date}")
     @ResponseBody
-    public String getDetailHistory(
-        @PathVariable int idSetlist,
-        @PathVariable String date,
+    public DetailHistoryResponse getDetailHistory(     //tracknumber, old, new
+        @PathVariable int idSetlist, 
+        @PathVariable String date, 
         Model model, HttpSession session
     )
     {
+        DetailHistoryResponse detailHistoryResponse = new DetailHistoryResponse();
+        List<TrackBeforeAfter> listTrackBeforeAfter = new ArrayList<>();
+        List<PairBefAfter> lokasiShowTanggal = new ArrayList<>();
+        
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
-
+        
         // Parse the string into a LocalDateTime
         LocalDateTime localDateTime = LocalDateTime.parse(date, formatter);
-
+        
         // Convert LocalDateTime to Timestamp
         Timestamp timestamp = Timestamp.valueOf(localDateTime);
 
@@ -473,45 +481,103 @@ public class AddSetlistController {
         String teks = "";
         //update info berarti
         if(listLaguYangDiubah.size() == 0){
-            SetlistNowBef setlistNowBefs = setlistHistoryService.findSetlistNowBef(idSetlist, timestamp).get(0);
-            if(setlistNowBefs.getIdLokasi() != setlistNowBefs.getIdLokasiBef()){
-                model.addAttribute("bedaLokasi", true);
-                teks += "bedaLokasi";
+            SetlistNowBef setlistNowBefs = setlistHistoryService.findSetlistNowBef(idSetlist, timestamp).get(0);    //bug disini karena getIdLokasiBef == null
+            // if(setlistNowBefs.getIdLokasi() != setlistNowBefs.getIdLokasiBef()){
+            if(setlistNowBefs.getIdLokasi().equals(setlistNowBefs.getIdLokasiBef()) == false){
+                Lokasi bef;
+                PairBefAfter pba = new PairBefAfter();
+                if(setlistNowBefs.getIdLokasiBef() != null){
+                    bef = lokasiService.findByIdLokasi(setlistNowBefs.getIdLokasiBef()).get(0);
+                    // bef = null;
+                    pba.setBefore(bef.getNamaLokasi());
+                }
+                else{
+                    bef = null;
+                }
+                Lokasi after = lokasiService.findByIdLokasi(setlistNowBefs.getIdLokasi()).get(0);
+                // PairBefAfter pba = new PairBefAfter();
+                // pba.setBefore(bef.getNamaLokasi());
+                pba.setAfter(after.getNamaLokasi());
+                pba.setKategori("Location");
+                lokasiShowTanggal.add(pba);
             }
-            if(setlistNowBefs.getIdShow() != setlistNowBefs.getIdShowBef()){
-                model.addAttribute("bedaShow", true);
-                teks += "bedaShow";
+            // if(setlistNowBefs.getIdShow() != setlistNowBefs.getIdShowBef()){
+            if(setlistNowBefs.getIdShow().equals(setlistNowBefs.getIdShowBef()) == false){
+                Show bef;
+                PairBefAfter pba = new PairBefAfter();
+                if(setlistNowBefs.getIdShowBef() != null){
+                    bef = showService.findByIdShow(setlistNowBefs.getIdShowBef()).get();
+                    // pba.setBefore(null);
+                    pba.setBefore(bef.getNamaShow());
+                }
+                else{
+                    bef = null;
+                }
+                Show after = showService.findByIdShow(setlistNowBefs.getIdShow()).get();
+                // PairBefAfter pba = new PairBefAfter();
+                // pba.setBefore(bef.getNamaShow());
+                pba.setAfter(after.getNamaShow());
+                pba.setKategori("Concert");
+                lokasiShowTanggal.add(pba);
             }
             if(setlistNowBefs.getTanggalBef() == null){
-                model.addAttribute("bedaTanggal", true);
-                teks += "bedaTanggal";
+                PairBefAfter pba = new PairBefAfter();
+                pba.setBefore(null);
+                pba.setAfter(setlistNowBefs.getTanggal().toString());
+                pba.setKategori("Date");
+                lokasiShowTanggal.add(pba);
             }
             else{
                 int comparisonResult = setlistNowBefs.getTanggal().compareTo(setlistNowBefs.getTanggalBef());
                 if(comparisonResult != 0){
-                    model.addAttribute("bedaTanggal", true);
-                    teks += "bedaTanggal";
+                    PairBefAfter pba = new PairBefAfter();
+                    pba.setBefore(setlistNowBefs.getTanggalBef().toString());
+                    pba.setAfter(setlistNowBefs.getTanggal().toString());
+                    pba.setKategori("tanggal");
+                    lokasiShowTanggal.add(pba);
                 }
             }
-            return teks;
+            detailHistoryResponse.setKategori("info");
+            detailHistoryResponse.setLokasiShowTanggal(lokasiShowTanggal);
+            return detailHistoryResponse;
         }
 
         for(i = 0;i < listLaguYangDiubah.size();i++){
             LaguNowBef laguNowBef = listLaguYangDiubah.get(i);
             if(laguNowBef.getAction().equals("INSERT")){
+                Lagu laguAft = laguService.findByIdLagu(laguNowBef.getIdLagu()).get();
 
-            }
+                TrackBeforeAfter trackBeforeAfter = new TrackBeforeAfter();
+                trackBeforeAfter.setTracknumber(laguNowBef.getTrackNumber());
+                trackBeforeAfter.setNamaLaguSebelumnya(null);
+                trackBeforeAfter.setNamaLaguSetelahnya(laguAft.getNamaLagu());
+                listTrackBeforeAfter.add(trackBeforeAfter);
+            }   
             else if(laguNowBef.getAction().equals("DELETE")) {
+                Lagu laguBef = laguService.findByIdLagu(laguNowBef.getIdLaguBef()).get();
 
+                TrackBeforeAfter trackBeforeAfter = new TrackBeforeAfter();
+                trackBeforeAfter.setTracknumber(laguNowBef.getTrackNumber());
+                trackBeforeAfter.setNamaLaguSebelumnya(laguBef.getNamaLagu());
+                trackBeforeAfter.setNamaLaguSetelahnya(null);
+                listTrackBeforeAfter.add(trackBeforeAfter);
             }
             else{
-
+                Lagu laguAft = laguService.findByIdLagu(laguNowBef.getIdLagu()).get();
+                Lagu laguBef = laguService.findByIdLagu(laguNowBef.getIdLaguBef()).get();
+                TrackBeforeAfter trackBeforeAfter = new TrackBeforeAfter();
+                trackBeforeAfter.setTracknumber(laguNowBef.getTrackNumber());
+                trackBeforeAfter.setNamaLaguSebelumnya(laguBef.getNamaLagu());
+                trackBeforeAfter.setNamaLaguSetelahnya(laguAft.getNamaLagu());
+                listTrackBeforeAfter.add(trackBeforeAfter);
             }
-            teks += "From " + Integer.toString(laguNowBef.getIdLaguBef()) + " To " + Integer.toString(laguNowBef.getIdLagu()) + " Using " + laguNowBef.getAction() + " ON tracknumber " + Integer.toString(laguNowBef.getTrackNumber()) + "\n";
         }
-        // teks = "hai";
-        return String.format("%s", teks);
+        // teks = "hai";+
+        detailHistoryResponse.setKategori("lagu");
+        detailHistoryResponse.setTrackBeforeAfterList(listTrackBeforeAfter);
+        return detailHistoryResponse;
     }
+
 
     public String saveImage(String subDir, MultipartFile file, String namaImage) throws IOException {
         Path uploadPath = Paths.get(uploadDir, subDir);
