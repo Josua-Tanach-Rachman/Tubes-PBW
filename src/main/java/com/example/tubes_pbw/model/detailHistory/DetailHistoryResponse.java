@@ -9,6 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class DetailHistoryResponse {
     private String kategori;
+    private String urlBukti;
     private List<PairBefAfter> lokasiShowTanggal;
     private List<TrackBeforeAfter> trackBeforeAfterList;
 

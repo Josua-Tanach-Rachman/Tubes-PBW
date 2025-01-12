@@ -11,4 +11,6 @@ public interface SetlistHistoryRepository {
     List<LaguNowBef> findLaguBefAfter(int idSetlist, Timestamp date);
 
     List<SetlistNowBef> findSetlistNowBef(int idSetlist, Timestamp date);
+
+    List<SetlistHistory> findSetlistHistory(int idSetlist, Timestamp date);
 }

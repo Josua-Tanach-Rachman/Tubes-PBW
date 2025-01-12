@@ -49,6 +49,7 @@ import com.example.tubes_pbw.model.setlist.Setlist;
 import com.example.tubes_pbw.model.setlist.SetlistService;
 import com.example.tubes_pbw.model.setlist.SetlistSong;
 import com.example.tubes_pbw.model.setlistHistory.LaguNowBef;
+import com.example.tubes_pbw.model.setlistHistory.SetlistHistory;
 import com.example.tubes_pbw.model.setlistHistory.SetlistHistoryService;
 import com.example.tubes_pbw.model.setlistHistory.SetlistNowBef;
 import com.example.tubes_pbw.model.show.Show;
@@ -467,6 +468,7 @@ public class AddSetlistController {
         DetailHistoryResponse detailHistoryResponse = new DetailHistoryResponse();
         List<TrackBeforeAfter> listTrackBeforeAfter = new ArrayList<>();
         List<PairBefAfter> lokasiShowTanggal = new ArrayList<>();
+
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
         
@@ -475,6 +477,9 @@ public class AddSetlistController {
         
         // Convert LocalDateTime to Timestamp
         Timestamp timestamp = Timestamp.valueOf(localDateTime);
+        
+        SetlistHistory sh = setlistHistoryService.findSetlistHistory(idSetlist, timestamp).get(0);
+        detailHistoryResponse.setUrlBukti(sh.getUrlBukti());
 
         List<LaguNowBef> listLaguYangDiubah = setlistHistoryService.findLaguBefAfter(idSetlist, timestamp);
         int i;
