@@ -78,8 +78,10 @@
             <!-- Kontainer untuk item carousel -->
             <div class="carousel-container2">
                 <div th:each="song : ${listSongTop}" class="carousel-item">
-                    <img th:src="@{'api/uploads/images' + ${song.urlGambarLagu}}" alt="Song Image" class="recommended-image">
-                    <p th:text="${song.namaLagu}"></p>
+                    <a th:href="@{/song/{namaSong}-{idSong}(namaSong=${#strings.replace(song.namaLagu, ' ', '-')}, idSong=${song.idLagu})}">
+                        <img th:src="@{'api/uploads/images' + ${song.urlGambarLagu}}" alt="Song Image" class="recommended-image">
+                        <p th:text="${song.namaLagu}"></p>
+                    </a>                    
                 </div>
             </div> 
     
@@ -95,8 +97,6 @@
         <p>&copy; 2025 FaveList. All Rights Reserved.</p>
         <nav class="footer-nav">
             <a th:href="@{/aboutUs}">About Us</a>
-            <a th:href="@{/contact}">Contact</a>
-            <a th:href="@{/privacyPolicy}">Privacy Policy</a>
         </nav>
     </div>
 </footer>
