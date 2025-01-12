@@ -1,6 +1,7 @@
 package com.example.tubes_pbw.model.show;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
 public interface ShowRepository {
@@ -15,5 +16,5 @@ public interface ShowRepository {
     long countByIwasThere(int idShow);
     String findConcertCity(int idShow);
     String findConcertAddress(int idShow);
-    String findAristOnConcert (int idShow);
+    List<ArtisNamaOnly> findAristOnConcert (int idShow);
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,7 +54,7 @@ public class ShowService {
         return showRepository.findConcertAddress(idShow);
     }
 
-    public String findAristOnConcert (int idShow){
+    public List<ArtisNamaOnly> findAristOnConcert (int idShow){
         return showRepository.findAristOnConcert(idShow);
     }
 }

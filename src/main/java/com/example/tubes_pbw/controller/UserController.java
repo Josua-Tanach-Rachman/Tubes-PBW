@@ -39,6 +39,7 @@ import com.example.tubes_pbw.model.setlist.SetlistService;
 import com.example.tubes_pbw.model.setlist.SetlistSong;
 import com.example.tubes_pbw.model.setlistHistory.SetlistHistoryPengguna;
 import com.example.tubes_pbw.model.setlistHistory.SetlistHistoryService;
+import com.example.tubes_pbw.model.show.ArtisNamaOnly;
 import com.example.tubes_pbw.model.show.Show;
 import com.example.tubes_pbw.model.show.ShowJumlahPengguna;
 import com.example.tubes_pbw.model.show.ShowService;
@@ -260,8 +261,8 @@ public class UserController {
         String alamat = showService.findConcertAddress(idConcert);
         model.addAttribute("alamat", alamat);
 
-        String artis = showService.findAristOnConcert(idConcert);
-        model.addAttribute("artis", artis);
+        List<ArtisNamaOnly> artis = showService.findAristOnConcert(idConcert);
+        model.addAttribute("listArtis", artis);
 
         if(session.getAttribute("username") == null){
             model.addAttribute("isUserLoggedIn", false);
