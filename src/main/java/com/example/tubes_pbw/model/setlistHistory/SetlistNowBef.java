@@ -8,10 +8,10 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class SetlistNowBef {
-    int idShow;
-    int idShowBef;
-    int idLokasi;
-    int idLokasiBef;
+    Integer idShow;
+    Integer idShowBef;
+    Integer idLokasi;
+    Integer idLokasiBef;
     Timestamp tanggal;
     Timestamp tanggalBef;
 }
