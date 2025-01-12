@@ -36,6 +36,7 @@
             <div class="setlist-content">
                 <h2>Edit Setlist- Songs</h2>
                     <form th:action="@{/edit/setlistSongs/{idSetlist}(idSetlist = ${idSetlist})}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="songNames" value = "hai">
                         <ol class="artist-list">
                             <li th:each="lagu : ${listLagu}">
                                 <div class="list-item">
