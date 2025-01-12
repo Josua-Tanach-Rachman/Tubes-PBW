@@ -39,6 +39,18 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	implementation("org.springframework.boot:spring-boot-starter-aop")
 	implementation("org.apache.commons:commons-lang3:3.12.0")
+
+	implementation("com.itextpdf:kernel:7.2.1")
+    implementation("com.itextpdf:html2pdf:4.0.1")
+
+	// Flying Saucer PDF for rendering HTML to PDF
+    implementation("org.xhtmlrenderer:flying-saucer-pdf:9.1.22")
+
+    // Commons IO for various input/output utilities
+    implementation("commons-io:commons-io:2.11.0")
+
+	implementation ("com.lowagie:itext:2.1.7")
+	implementation("org.xhtmlrenderer:flying-saucer-pdf:9.1.22")
 }
 
 tasks.withType<Test> {
