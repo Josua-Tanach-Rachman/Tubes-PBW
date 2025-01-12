@@ -61,6 +61,13 @@ p#report {
     margin-right: 20px;
 }
 
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 button {
     background-color: #8100B3;
     color: white;
@@ -118,21 +125,21 @@ input {
     background-color: #1E1E1E;
     padding: 20px;
     border-radius: 8px;
-    height: 300px;
     width: 800px;
-    margin: 0 auto;
+    margin: 20px auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     color: #8100B3;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .report-summary {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
@@ -140,9 +147,8 @@ h1 {
     flex: 1;
     text-align: center;
     background-color: #F0F0F0;
-    padding: 10px;
+    padding: 15px;
     border-radius: 8px;
-    margin: 0 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -155,38 +161,44 @@ h1 {
 .summary-item p {
     font-size: 24px;
     font-weight: bold;
+    margin: 0;
 }
 
-.detailed-report {
-    margin-top: 30px;
-}
-
-.detailed-report h2 {
-    color: #510370;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #FFF;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-thead th {
+.button.print {
     background-color: #8100B3;
-    color: #FFF;
-    text-align: left;
-    padding: 10px;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-tbody td {
-    border-top: 1px solid #DDD;
-    padding: 10px;
+.button.print:hover {
+    background-color: #550935;
 }
 
-tbody tr:nth-child(even) {
-    background-color: #F8F8F8;
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+        zoom: 80%; /* Mengatur skala hasil cetak */
+    }
+
+    header {
+        display: none;
+    }
+
+    .chart-container1, .report-container {
+        width: 100%;
+        margin: 0 auto;
+        box-shadow: none;
+    }
+
+    .button.print {
+        display: none; /* Sembunyikan tombol print */
+    }
 }
+
 

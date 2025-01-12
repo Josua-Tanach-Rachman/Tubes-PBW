@@ -91,6 +91,7 @@ public class UserController {
             Model model) {
         User user = userService.login(username, password);
         if (user == null) {
+            model.addAttribute("error", "User Not Found!");
             model.addAttribute("status", "");
             return "login";
         }
